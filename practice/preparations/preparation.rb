@@ -1,4 +1,5 @@
-# preparation.rb
+# preparation.rb - debugging using pry
+
 require "pry"
 
 a = [1, 2, 3]
