@@ -1,0 +1,23 @@
+# exercise3.txt
+# What is exception handling and what problem does it solve?
+
+
+Exception handling is a way to tell the Ruby compiler what to do if it runs into an exception, or an error. To incorporate exception
+handling into a program, you create a block using the reserved words begin, rescue, and end. You put the code that you think might
+cause a problem under the begin block, and you put alternative code under the rescue block. In the case of an error, the code under the
+rescue block will be executed and the program will continue executing the rest of its code, instead of terminating immediately and
+giving an error message.
+
+Exception handling solves the problem of a single error causing the entire program to stop running.
+
+
+
+BOOK ANSWER:
+
+Exception handling is a structure used to handle the possibility of an error occurring in a program.
+It is a way of handling the error by changing the flow of control without exiting the program entirely.
+
+Exception handling is a way to handle errors that come up in your application gracefully, and allows you to take a final action related
+to the error, like logging the error or sending an email to notify someone that there was an exception in your application.
+Writing a lot of logical code in your exception handling code is very dangerous because you're already in an exceptional state, so it's
+best to keep it as concise as possible.
