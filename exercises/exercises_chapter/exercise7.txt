@@ -1,0 +1,15 @@
+# exercise7.txt
+
+
+The major difference between an Array and a Hash is that an Array is an ordered collection of elements, whereas a Hash is a collection
+of elements arranged in key-value pairs, but not necessarily in any particular order.
+
+
+
+BOOK ANSWER:
+The major difference is that a hash contaisn a key value pair for referencing by key.
+
+A hash is a store of key value pairs - you store values by a particular key.
+An array is a sequence of elements, which can be retrieved by using its index, starting at 0.
+In Ruby, Hashes maintain order as well, based on the insertion order of the key-value pair.
+Arrays and Hashes are the foundational building blocks of understanding higher level data structures and application building.

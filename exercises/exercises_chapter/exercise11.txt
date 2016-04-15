@@ -1,0 +1,16 @@
+# exercise11.txt
+# Look at several Rails/Ruby online API sources and say which one you like best and why.
+
+
+I like the original core Ruby API documentation located at ruby-doc.org because it comes directly from the source, and is the most
+up-to-date documentation for using with the Ruby version that I have installed, Ruby 2.3.0. I also like it because I am very familiar with
+the formatting and layout, as I have been using it a lot during this course so far. It is well organized and easy to understand, and it
+gives plenty of helpful examples. It has never let me down so far, and I have been able to look up everything I have needed to find out with
+relative ease.
+
+I am not a fan of the Rails documentation, because it contains more advanced content, some of which is relevant only to Rails,
+which I haven't begun learning yet, so at the present it is that useful for my needs.
+
+While I think some of the other websites with information on Ruby can be helpful, so far I have not felt the need to use them, as the
+official site has been providing everything I have needed. Also, I would think that the official documentation would be better for learning
+the most commonly used way of doing things.
