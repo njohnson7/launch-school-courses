@@ -101,3 +101,24 @@ def valid_dollars?(num)
   end
   false
 end
+
+
+
+# original find_match_result method from rock paper scissors practice:
+def find_match_result(comp_choice, user_choice)
+  if comp_choice == user_choice then 'tie'
+  elsif (comp_choice == 'rock' && user_choice == 'paper') ||
+        (comp_choice == 'paper' && user_choice == 'scissors') ||
+        (comp_choice == 'scissors' && user_choice == 'rock')
+    'win'
+  else 'lose'
+  end
+end
+# also this one:
+  # result = case comp_choice
+  #          when user_choice then 'tie'
+  #          when 'rock' then 'win' if user_choice == 'paper'
+  #          when 'paper' then 'win' if user_choice == 'scissors'
+  #          when 'scissors' then 'win' if user_choice == 'rock'
+  #          end
+  # result || 'lose'
