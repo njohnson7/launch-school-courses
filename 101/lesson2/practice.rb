@@ -46,3 +46,58 @@ def every_other(integers)
 end
 
 p every_other((0..10).to_a)
+
+
+require 'pry'
+
+class Car
+  attr_accessor :brand, :model
+
+  def initialize(new_car)
+    @brand = new_car.split(' ').first
+    @model = new_car.split(' ').last
+    binding.pry
+  end
+
+  def display_make_model
+    puts "#{brand}: #{model}"
+  end
+
+end
+
+betty = Car.new('Ford Mustang')
+binding.pry
+betty.display_make_model
+puts betty.model.start_with?('M')
+puts betty.model, betty.brand
+
+pam = Car.new('Honda Civic')
+puts pam.model, pam.brand
+
+
+
+
+def integer?(input)
+  Integer(input) rescue false
+end
+
+def float?(input)
+  /\d/.match(input) && /^\d*\.?\d*$/.match(input)
+end
+
+def number?(input)
+  integer?(input) || float?(input)
+end
+
+
+
+# original valid_dollars? method from mortgage calc, but i refactored it, so maybe save for later in case needed
+# checks if a number string is a valid dollar amount
+def valid_dollars?(num)
+  return true if valid_int?(num)
+  if valid_float?(num) # returns true only if there are either 0 or 2 digits after the decimal
+    return false if num.split('.').last.length != 2 unless num.split('.').length == 1
+    return true
+  end
+  false
+end

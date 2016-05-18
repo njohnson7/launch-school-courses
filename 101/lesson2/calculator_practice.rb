@@ -8,8 +8,8 @@
 # - Use puts to display output
 
 
-def prompt(message)       # adds '=>' to beginning of message
-  puts "=> #{message}"
+def prompt(msg)       # adds '=>' to beginning of message
+  puts "=> #{msg}"
 end
 
 def valid_commas?(num_ary)        # checks if number and positioning of commas is valid
@@ -100,6 +100,7 @@ def print_calculation(numbers, operation)       # performs an operation on 2 num
                num1 / num2
              end
   end
+
   result_ary = result.to_i.to_s.split('')       # adds commas to result, while preserving values after decimal
   if result_ary.length > 3
     split_decimal = result.to_s.split('.')
@@ -124,12 +125,28 @@ def add_commas(ary)
   ary_commas.join
 end
 
+prompt 'Welcome to Calculator! Please enter your name.'
+name = ''
+loop do
+  name = gets.chomp.capitalize
+  break if name =~ /\w/
+  prompt 'Please enter a valid name.'
+end
 
-prompt 'Welcome to Calculator!'
+prompt "Hello #{name}!"
+
 numbers = gets_numbers
+choice_prompt = <<-MSG
+  What would you like to do?
+  - 'add'
+  - 'subtract'
+  - 'multiply'
+  - 'divide'
+  - 'exit'
+MSG
 
 loop do
-  prompt "Would you like to 'add', 'subtract', 'multiply', 'divide', or 'exit'?"
+  prompt choice_prompt
   choice = gets.chomp.downcase
   case choice
   when 'exit' then break
@@ -141,4 +158,4 @@ loop do
   end
 end
 
-prompt 'Goodbye!'
+prompt 'Thank you for using Calculator! Goodbye.'

@@ -1,0 +1,24 @@
+# calc_msgs.yml
+
+en:
+  welcome: 'Welcome to Calculator! Please enter your name:'
+  valid_name: 'Make sure to use a valid name.'
+  hi: 'Hi '
+  enter_num: 'Please enter a number.'
+  enter_another_num: 'Please enter another number.'
+  invalid_num: "Hmm... that doesn't look like a valid number."
+  invalid_op: "You must choose 'add', 'subtract', 'multiply', or 'divide'."
+  result: 'The result is: '
+  another: 'Do you want to perform another calculation? (Y to calculate again)'
+  thanks: 'Thank you for using the calculator. Goodbye!'
+es:  
+  welcome: "Bienvenido a la calculadora! Entre su nombre:"
+  valid_name: "Asegúrese de entrar un nombre válido."
+  hi: 'Hola '
+  enter_num: 'Por favor introduzca un número.'
+  enter_another_num: 'Por favor introduzca otro número.'
+  invalid_num: "Hmm ... que no se ve como un número válido."
+  invalid_op: "Debe elegir 'add', 'subtract', 'multiply', o 'divide'."
+  result: 'El resultado es: '
+  another: '¿Quieres realizar otro cálculo ? ( Y para calcular de nuevo)'
+  thanks: 'Gracias por usar la calculadora usted. ¡Adiós!'

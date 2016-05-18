@@ -1,0 +1,12 @@
+# refactoring_calculator_question5.txt
+
+
+We can omit Kernel because Kernel is a module included by the Object class. Therefore its methods are available to use
+in every Ruby object. Since puts and gets are Kernel methods, they are available everywhere, and can be called without
+a receiver.
+
+
+BOOK ANSWER:
+
+When we are writing Ruby code that's not in a class, we're working with an object called main, which is an instance of
+Object. The Kernel module is automatically loaded by Object, which gives us access to all of Kernel's methods.

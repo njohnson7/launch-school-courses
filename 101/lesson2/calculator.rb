@@ -12,28 +12,94 @@
 # perform the operation on the 2 nums
 # output the result
 
+LANGUAGE = 'en'
 
-def prompt(message)
-  puts "=> #{message}"
+require 'yaml'
+MSGS = YAML.load_file('calc_msgs.yml')
+
+def msgs(msg, lang='en')
+  MSGS[lang][msg]
 end
 
-prompt 'Welcome to Calculator!'
+def prompt(msg)
+  puts "=> #{msg}"
+end
 
-prompt 'Please enter a number.'
-num1 = gets.to_f
-prompt 'Please enter another number.'
-num2 = gets.to_f
+def valid_num?(num)
+  num.to_i != 0
+end
 
+def op_to_msg(op)
+  msg = case op
+        when 'add' then 'Adding'
+        when 'subtract' then 'Subtracting'
+        when 'multiply' then 'Multiplying'
+        when 'divide' then 'Dividing'
+        end
+  x = 'a random line of code'
+  msg
+end
 
-prompt "Would you like to 'add', 'subtract', 'multiply', or 'divide' these 2 numbers?"
-operation = gets.chomp.downcase
+prompt msgs('welcome', LANGUAGE)
+name = ''
+loop do
+  name = gets.chomp
 
-result = case operation
-         when 'add' then num1 + num2
-         when 'subtract' then num1 - num2
-         when 'multiply' then num1 * num2
-         when 'divide' then num1 / num2
-         else 'Invalid choice'
-         end
+  break unless name.empty?
+  prompt 'valid_name'
+end
 
-prompt "The result is: #{result}"
+prompt msgs('hi', LANGUAGE) + name.capitalize + '!'
+
+loop do # main loop
+  num1 = ''
+  loop do
+    prompt msgs('enter_num', LANGUAGE)
+    num1 = gets.to_f
+    break if valid_num?(num1)
+    prompt msgs('invalid_num', LANGUAGE)
+  end
+
+  num2 = ''
+  loop do
+    prompt msgs('enter_another_num', LANGUAGE)
+    num2 = gets.to_f
+    break if valid_num?(num2)
+    prompt msgs('invalid_num', LANGUAGE)
+  end
+
+  operator_prompt = <<-MSG
+    What operation would you like to perform?
+    - 'add'
+    - 'subtract'
+    - 'multiply'
+    - 'divide'
+  MSG
+
+  prompt operator_prompt
+
+  operation = ''
+  loop do
+    operation = gets.chomp.downcase
+
+    break if %w(add subtract multiply divide).include?(operation)
+    prompt msgs('invalid_op', LANGUAGE)
+  end
+
+  prompt "#{op_to_msg(operation)} the two numbers..."
+
+  result = case operation
+           when 'add' then num1 + num2
+           when 'subtract' then num1 - num2
+           when 'multiply' then num1 * num2
+           when 'divide' then num1 / num2
+           end
+
+  prompt msgs('result', LANGUAGE) + result.to_s
+
+  prompt msgs('another', LANGUAGE)
+  answer = gets.chomp.downcase
+  break unless answer.start_with?('y')
+end
+
+prompt msgs('thanks', LANGUAGE)
