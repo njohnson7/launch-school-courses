@@ -122,3 +122,65 @@ end
   #          when 'scissors' then 'win' if user_choice == 'rock'
   #          end
   # result || 'lose'
+
+
+
+
+# original num_to_dollars method from mortgage_calculator.rb:
+def num_to_dollars(num)
+  num_str = num.to_f.to_s
+  num_ary = num_str.split('.')
+  if num_ary.last.length == 1 # adds a zero if there is only 1 number in after the decimal
+    num_ary.last << '0'
+  elsif num_ary.last.length > 2 # removes any numbers longer than 2 places after decimal
+    num_ary[1] = num_ary[1][0] + num_ary[1][1]
+  end
+
+  num_ary[0] = add_commas(num_ary.first) if num_ary.first.length > 3 # adds commas to numbers before decimal
+
+  num_str = num_ary.join('.')
+  num_str.prepend('$') # adds dollar sign before number
+end
+
+
+# original add_commas method from mortgage calc:
+def add_commas(num)
+  ary = num.split('')
+  ary_commas = []
+  ary_copy = ary.map { |n| n }
+  counter = 1
+  ary.each do
+    ary_commas << ary_copy.pop
+    ary_commas << ',' if counter % 3 == 0
+    counter += 1
+  end
+  ary_commas.reverse!
+  ary_commas.delete_at(0) if ary_commas.first == ','
+  ary_commas.delete_at(-1) if ary_commas.last == ','
+  ary_commas.join
+end
+
+
+# original valid_dollars? from mortgage calc:
+def valid_dollars?(num)
+  if valid_int?(num)
+    return true
+  elsif valid_float?(num)
+    # returns true only if there are either 0 or 2 digits after the decimal
+    return true if num.split('.').last.length == 2 || num.split('.').length == 1
+  end
+  false
+end
+
+# org valid_apr from mortgage:
+def valid_apr?(apr)
+  if valid_int?(apr) || valid_float?(apr)
+    apr_ary = apr.split('.')
+    if apr_ary.first.length > 2
+      return false
+    else
+      return true
+    end
+  end
+  false
+end

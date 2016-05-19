@@ -1,88 +1,62 @@
 # mortgage_calculator.rb
+# frozen_string_literal: true
 
-require 'pry'
-
-# prepends '=> ' to a string for use as a prompt
 def prompt(msg)
   puts "=> #{msg}"
 end
 
-# checks if name is a valid name
 def valid_name?(name)
-  return true if name =~ /[a-zA-Z]/
-  false
+  name =~ /[a-zA-Z]/
 end
 
-# checks if a number string is a valid integer
 def valid_int?(num)
-  return false if num.start_with?('-') # guard for negative numbers
-  Integer(num) rescue false
+  num =~ /^\d+$/
 end
 
-# checks if a number string is a valid float
 def valid_float?(num)
   num =~ /\d/ && num =~ /^\d*\.?\d*$/
 end
 
-# checks if a number string is a valid dollar amount
+def valid_num?(num)
+  valid_int?(num) || valid_float?(num)
+end
+
 def valid_dollars?(num)
-  if valid_int?(num)
-    return true
-  elsif valid_float?(num)
-    # returns true only if there are either 0 or 2 digits after the decimal
-    return true if num.split('.').last.length == 2 || num.split('.').length == 1
-  end
-  false
+  valid_num?(num) && (num.split('.').last.length == 2 || num.split('.').length == 1)
 end
 
-# checks if a number string is a valid APR
 def valid_apr?(apr)
-  if valid_int?(apr) || valid_float?(apr)
-    apr_ary = apr.split('.')
-    if apr_ary.first.length > 2
-      return false
-    else
-      return true
-    end
-  end
-  false
+  valid_num?(apr) && apr.to_f >= 0 && apr.to_f <= 100
 end
 
-# adds commas to a number
 def add_commas(num)
   ary = num.split('')
   ary_commas = []
-  ary_copy = ary.map { |n| n }
   counter = 1
-  ary.each do
-    ary_commas << ary_copy.pop
+
+  ary.length.times do
+    ary_commas << ary.pop
     ary_commas << ',' if counter % 3 == 0
     counter += 1
   end
-  ary_commas.reverse!
-  ary_commas.delete_at(0) if ary_commas.first == ','
-  ary_commas.delete_at(-1) if ary_commas.last == ','
-  ary_commas.join
+
+  ary_commas.pop if ary_commas.last == ','
+  ary_commas.reverse.join
 end
 
-# converts a number string to a dollar formatted string
 def num_to_dollars(num)
-  num_str = num.to_f.to_s
+  num.delete!('.') if num.end_with?('.') # guard for number strings ending in '.' so that format method will work
+  num_str = format('%02.2f', num)
+
+  # adds commas to numbers before decimal
   num_ary = num_str.split('.')
-  if num_ary.last.length == 1 # adds a zero if there is only 1 number in after the decimal
-    num_ary.last << '0'
-  elsif num_ary.last.length > 2 # removes any numbers longer than 2 places after decimal
-    num_ary[1] = num_ary[1][0] + num_ary[1][1]
-  end
-
-  num_ary[0] = add_commas(num_ary.first) if num_ary.first.length > 3 # adds commas to numbers before decimal
-
+  num_ary[0] = add_commas(num_ary.first)
   num_str = num_ary.join('.')
-  num_str.prepend('$') # adds dollar sign before number
+
+  num_str.prepend('$')
 end
 
-# capitalizes a name string
-def capitalize_name(name)
+def capitalize_each(name)
   name.split(' ').map(&:capitalize).join(' ')
 end
 
@@ -98,10 +72,10 @@ loop do
   break if valid_name?(name)
   prompt 'Invalid name. Please try again.'
 end
-name = capitalize_name(name)
+name = capitalize_each(name)
 prompt "Hello #{name}!"
 
-# mortgage/loan calculator main loop
+# main loop
 loop do
   # gets loan amount from user
   prompt 'Please enter your loan amount. (ex: 43032.79)'
@@ -120,7 +94,7 @@ loop do
   loop do
     apr = gets.chomp
     break if valid_apr?(apr)
-    prompt 'Invalid APR. Please try again. (ex: 33.42 for 33.42%)'
+    prompt 'Invalid APR. Please try again. (Must be a number between 0 and 100)'
   end
   apr_str = "#{apr}%"
   apr = apr.to_f
@@ -146,6 +120,7 @@ loop do
 
   prompt "Your fixed monthly payment to fully amortize your loan of #{loan_amount_str} at an APR of #{apr_str}" \
          " over a term of #{duration_years} years is: #{monthly_payment_str}."
+  puts
 
   prompt 'Would you like to calculate the remaining loan balance of your fixed payment loan? (Type "y" for "yes")'
   answer = gets.chomp.downcase
@@ -172,6 +147,7 @@ loop do
            " #{remaining_balance_str}.\n" \
            "   Your loan will be paid off in #{remaining_months} months if you continue making a payment" \
            " of #{monthly_payment_str} every month."
+    puts
   end
 
   prompt 'Would you like to calculate another loan? (Type "y" for "yes")'
@@ -179,6 +155,7 @@ loop do
   break unless answer == 'y'
 end
 
+puts
 prompt "Thank you for using Mortgage & Car Loan Calculator, #{name}! Goodbye."
 
 # Fix? -- if 0 APR, results in monthly_payment = NaN, which gives wrong results
