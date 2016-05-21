@@ -2,12 +2,36 @@
 # frozen_string_literal: true
 
 CHOICES = { 'r' => 'rock', 'p' => 'paper', 's' => 'scissors', 'l' => 'lizard',
-            'k' => 'Spock' }
-CHOICES_WORDS = CHOICES.values
-PROGRAM_NAME = CHOICES_WORDS.map(&:capitalize).join(' ')
+            'k' => 'Spock' }.freeze
+CHOICES_WORDS = CHOICES.values.freeze
+PROGRAM_NAME = CHOICES_WORDS.map(&:capitalize).join(' ').freeze
+WINNING_CONDITIONS = {
+  'rock' => %w(scissors lizard),
+  'paper' => %w(rock Spock),
+  'scissors' => %w(paper lizard),
+  'lizard' => %w(paper Spock),
+  'Spock' => %w(rock scissors)
+}.freeze
+
+OUTCOME_MSGS = {
+  %w(rock scissors) => 'Rock smashes scissors',
+  %w(lizard rock) => 'Rock smashes lizard',
+  %w(paper rock) => 'Paper covers rock',
+  %w(Spock rock) => 'Spock vaporizes rock',
+  %w(Spock paper) => 'Paper disproves Spock',
+  %w(paper scissors) => 'Scissors cuts paper',
+  %w(lizard paper) => 'Lizard eats paper',
+  %w(lizard scissors) => 'Scissors decapitates lizard',
+  %w(Spock scissors) => 'Spock smashes scissors',
+  %w(Spock lizard) => 'Lizard poisons Spock'
+}.freeze
 
 def prompt(msg)
   puts "=> #{msg}"
+end
+
+def clear_screen
+  system('clear') || system('cls')
 end
 
 def gets_user_choice
@@ -22,20 +46,8 @@ def gets_user_choice
   end
 end
 
-# Is there any way to shorten this method, or to split it up into multiple
-# methods efficiently? I couldn't figure out a good way to do it that would
-# make sense. Or is it okay in this situation?
 def win?(comp_choice, user_choice)
-  (user_choice == 'rock' && (comp_choice == 'scissors' || comp_choice ==
-   'lizard')) ||
-    (user_choice == 'paper' && (comp_choice == 'rock' || comp_choice ==
-     'Spock')) ||
-    (user_choice == 'scissors' && (comp_choice == 'paper' || comp_choice ==
-     'lizard')) ||
-    (user_choice == 'lizard' && (comp_choice == 'paper' || comp_choice ==
-     'Spock')) ||
-    (user_choice == 'Spock' && (comp_choice == 'rock' || comp_choice ==
-     'scissors'))
+  WINNING_CONDITIONS[user_choice].include?(comp_choice)
 end
 
 def match_result(comp_choice, user_choice)
@@ -45,35 +57,12 @@ def match_result(comp_choice, user_choice)
   end
 end
 
-# Is there any way to shorten this method, or to split it up into multiple
-# methods efficiently? I couldn't figure out a good way to do it that would
-# make sense. Or is it okay in this situation?
 def outcome_msg(comp_choice, user_choice)
-  choices = comp_choice, user_choice
+  return "You both picked #{comp_choice}" if comp_choice == user_choice
 
-  if choices.include?('rock') && choices.include?('scissors')
-    'Rock smashes scissors'
-  elsif choices.include?('rock') && choices.include?('lizard')
-    'Rock smashes lizard'
-  elsif choices.include?('rock') && choices.include?('paper')
-    'Paper covers rock'
-  elsif choices.include?('rock') && choices.include?('Spock')
-    'Spock vaporizes rock'
-  elsif choices.include?('paper') && choices.include?('Spock')
-    'Paper disproves Spock'
-  elsif choices.include?('paper') && choices.include?('scissors')
-    'Scissors cuts paper'
-  elsif choices.include?('paper') && choices.include?('lizard')
-    'Lizard eats paper'
-  elsif choices.include?('scissors') && choices.include?('lizard')
-    'Scissors decapitates lizard'
-  elsif choices.include?('scissors') && choices.include?('Spock')
-    'Spock smashes scissors'
-  elsif choices.include?('lizard') && choices.include?('Spock')
-    'Lizard poisons Spock'
-  else
-    "You both picked #{comp_choice}"
-  end
+  choices = [comp_choice, user_choice].sort
+
+  OUTCOME_MSGS[choices]
 end
 
 def count_points(points, result)
@@ -82,45 +71,61 @@ def count_points(points, result)
   end
 end
 
-prompt "Welcome to #{PROGRAM_NAME}!"
-prompt '--------------------------------------------'
+prompt "Welcome to #{PROGRAM_NAME}!".center(60)
+prompt '------------------------------------------------------'.center(60)
+puts
 puts
 
+match_number = 0
+
 loop do
+  match_number += 1
   points = { comp: 0, user: 0 }
 
+  prompt "Match #{match_number}".center(40)
+  prompt "-------------------------------------"
   prompt 'The first one to reach 5 points wins!'
+  puts
+
+  round_number = 0
+
   loop do
+    round_number += 1
+    prompt "Round #{round_number}!"
     user_choice = gets_user_choice
     comp_choice = CHOICES_WORDS.sample
     result = match_result(comp_choice, user_choice)
 
     count_points(points, result)
 
-    prompt 'Your choice:'.ljust(20) + user_choice
-    prompt "Computer's choice:  #{comp_choice}"
-    prompt "#{outcome_msg(comp_choice, user_choice)}, so you #{result} this" \
-           " round#{result == 'win' ? '!' : '.'}"
-    prompt "Your total points:       #{points[:user]}"
-    prompt "Computer's total points: #{points[:comp]}"
+    clear_screen
+
+    prompt "ROUND #{round_number} RESULTS".center(40)
+    prompt "Your choice:              #{user_choice}"
+    prompt "Computer's choice:        #{comp_choice}"
+    prompt "  #{outcome_msg(comp_choice, user_choice)}, so you #{result}" \
+           " this round#{result == 'win' ? '!' : '.'}"
+    prompt "Your total points:        #{points[:user]} of 5"
+    prompt "Computer's total points:  #{points[:comp]} of 5"
     puts
 
     if points[:user] == 5
-      prompt 'You have won the match!'
+      prompt "Congratulations, you have won Match #{match_number}!"
       break
     elsif points[:comp] == 5
-      prompt 'The computer has won the match.'
+      prompt "Sorry, the computer has won Match #{match_number}."
       break
     end
-
-    prompt 'Next round!'
   end
 
   puts
-  prompt 'Would you like to play again? (y/n)'
+  prompt "Would you like to play again? ('y' for yes)"
   again = gets.chomp.downcase
   puts
+
   break unless again.start_with?('y')
+
+  clear_screen
 end
 
 prompt "Thank you for playing #{PROGRAM_NAME}. Goodbye!"

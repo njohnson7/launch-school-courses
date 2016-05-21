@@ -131,10 +131,13 @@ loop do
   loan_amount = gets_loan_amount
   loan_amount_str = num_to_dollars(loan_amount)
   loan_amount = loan_amount.to_f
+
   apr = gets_apr
   apr_str = "#{apr}%"
   apr = apr.to_f
+
   duration_years = gets_loan_duration.to_i
+
   monthly_rate = apr / 100.0 / 12
   duration_months = duration_years * 12
   monthly_payment = loan_amount * (monthly_rate *
@@ -153,6 +156,7 @@ loop do
 
   if answer.start_with?('y')
     months_paid = gets_months_paid(monthly_payment_str).to_i
+
     remaining_balance = loan_amount * ((1 + monthly_rate)**duration_months -
                         (1 + monthly_rate)**months_paid) /
                         ((1 + monthly_rate)**duration_months - 1)

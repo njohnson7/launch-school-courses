@@ -184,3 +184,50 @@ def valid_apr?(apr)
   end
   false
 end
+
+
+
+
+
+# orig win? method from RPS lizard spock
+def win?(comp_choice, user_choice)
+  (user_choice == 'rock' && (comp_choice == 'scissors' || comp_choice ==
+   'lizard')) ||
+    (user_choice == 'paper' && (comp_choice == 'rock' || comp_choice ==
+     'Spock')) ||
+    (user_choice == 'scissors' && (comp_choice == 'paper' || comp_choice ==
+     'lizard')) ||
+    (user_choice == 'lizard' && (comp_choice == 'paper' || comp_choice ==
+     'Spock')) ||
+    (user_choice == 'Spock' && (comp_choice == 'rock' || comp_choice ==
+     'scissors'))
+end
+
+# orig outcome_msg method from RPS liz spock:
+def outcome_msg(comp_choice, user_choice)
+  choices = comp_choice, user_choice
+
+  if choices.include?('rock') && choices.include?('scissors')
+    'Rock smashes scissors'
+  elsif choices.include?('rock') && choices.include?('lizard')
+    'Rock smashes lizard'
+  elsif choices.include?('rock') && choices.include?('paper')
+    'Paper covers rock'
+  elsif choices.include?('rock') && choices.include?('Spock')
+    'Spock vaporizes rock'
+  elsif choices.include?('paper') && choices.include?('Spock')
+    'Paper disproves Spock'
+  elsif choices.include?('paper') && choices.include?('scissors')
+    'Scissors cuts paper'
+  elsif choices.include?('paper') && choices.include?('lizard')
+    'Lizard eats paper'
+  elsif choices.include?('scissors') && choices.include?('lizard')
+    'Scissors decapitates lizard'
+  elsif choices.include?('scissors') && choices.include?('Spock')
+    'Spock smashes scissors'
+  elsif choices.include?('lizard') && choices.include?('Spock')
+    'Lizard poisons Spock'
+  else
+    "You both picked #{comp_choice}"
+  end
+end
