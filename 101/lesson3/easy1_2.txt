@@ -1,0 +1,79 @@
+# easy1_2.txt
+
+There are a variety of differences between ! and ? in Ruby, depending on the
+situation.
+
+! is often used at the end of method names to signify that they will do
+something surprising, like mutate the caller. It is especially common when there
+are 2 methods with the same name, that do the same thing, except the one with
+! is a destructive method.
+Example:
+a = [1, 2, 2, 3]
+a.uniq  #=> [1, 2, 3]
+a #=> [1, 2, 2, 3]
+a.uniq! #=> [1, 2, 3]
+a #=> [1, 2, 3]
+
+? is also often used at the end of method names, but it signifies something
+different. Methods ending in ? are usually predicate methods, meaning that they
+return a boolean, or a truthiness or falseyness value that will be used in the
+same manner as a boolean.
+Example:
+3.odd? #=> true
+
+! is also used in Ruby as a boolean negation operator. If you put ! before
+something, it means 'not something' and will return the opposite of that thing's
+truthiness or falsiness value. It can be used twice, to get the negation of
+that negation, meaning 'not not something' or 'something' but in boolean form.
+! is a logical operator in these situations. It can also be used before an = to
+indicate 'not equivalent to', as a comparison operator.
+Example:
+!nil   #=> true
+!!nil  #=> false
+!5     #=> false
+!!5    #=> true
+  !5 returns false because everything in ruby evaluates to true except for nil
+  and false.
+5 != 4 #=> true
+5 != 5 #=> false
+
+? can be used in ternary conditional statements. it's put after the expression
+that you want to evaluate. ? : is the ternary operator for if...else
+Example:
+puts 5 == 5 ? '5 is equal to 5' : '5 is not equal to 5'
+  prints out: 5 is equal to 5
+
+
+Scenarios:
+
+1) !=  means 'not equivalent to' and can be used in conditional statements.
+Example:
+5 + 4 != 3 + 3  #=> true
+
+2) The opposite of the object's boolean value will be returned.
+Example:
+user_name = 'bob'
+!user_name #=> false
+
+3) The object the method ending with ! is called on will be permanently altered.
+Example:
+a = [2, 3, 1]
+a.sort #=> [1, 2, 3]
+a #=> [2, 3, 1]
+a.sort! #=> [1, 2, 3]
+a #=> [1, 2, 3]
+
+4) ? before a character will return a string of just that character. It can only
+be used to create single character strings.
+Example:
+?a #=> "a"
+
+5) ? after a method will usually return a boolean value, assuming it's part of
+that method's name. This is only a convention however, and not necessarily
+always true. It's not part of Ruby's actual syntax in these cases.
+Example:
+3.is_a?(Integer) #=> true
+
+6) !! before something will return it's boolean value.
+Example:
+!!3 #=> true
