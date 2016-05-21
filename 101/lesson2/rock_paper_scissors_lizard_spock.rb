@@ -26,6 +26,8 @@ OUTCOME_MSGS = {
   %w(Spock lizard) => 'Lizard poisons Spock'
 }.freeze
 
+POINTS_TO_WIN = 5
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -84,7 +86,7 @@ loop do
 
   prompt "Match #{match_number}".center(40)
   prompt "-------------------------------------"
-  prompt 'The first one to reach 5 points wins!'
+  prompt "The first one to reach #{POINTS_TO_WIN} points wins!"
   puts
 
   round_number = 0
@@ -105,14 +107,14 @@ loop do
     prompt "Computer's choice:        #{comp_choice}"
     prompt "  #{outcome_msg(comp_choice, user_choice)}, so you #{result}" \
            " this round#{result == 'win' ? '!' : '.'}"
-    prompt "Your total points:        #{points[:user]} of 5"
-    prompt "Computer's total points:  #{points[:comp]} of 5"
+    prompt "Your total points:        #{points[:user]} of #{POINTS_TO_WIN}"
+    prompt "Computer's total points:  #{points[:comp]} of #{POINTS_TO_WIN}"
     puts
 
-    if points[:user] == 5
+    if points[:user] == POINTS_TO_WIN
       prompt "Congratulations, you have won Match #{match_number}!"
       break
-    elsif points[:comp] == 5
+    elsif points[:comp] == POINTS_TO_WIN
       prompt "Sorry, the computer has won Match #{match_number}."
       break
     end
