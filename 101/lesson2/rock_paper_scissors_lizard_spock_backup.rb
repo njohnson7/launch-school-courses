@@ -1,9 +1,10 @@
-# rock_paper_scissors_lizard_spock.rb
+# rock_paper_scissors_lizard_spock_backup.rb
 # frozen_string_literal: true
 
 CHOICES = { 'r' => 'rock', 'p' => 'paper', 's' => 'scissors', 'l' => 'lizard',
             'k' => 'Spock' }.freeze
-PROGRAM_NAME = CHOICES.values.map(&:capitalize).join(' ').freeze
+CHOICES_WORDS = CHOICES.values.freeze
+PROGRAM_NAME = CHOICES_WORDS.map(&:capitalize).join(' ').freeze
 WINNING_CONDITIONS = {
   'rock' => %w(scissors lizard),
   'paper' => %w(rock Spock),
@@ -51,7 +52,7 @@ def win?(comp_choice, user_choice)
   WINNING_CONDITIONS[user_choice].include?(comp_choice)
 end
 
-def win_lose_tie(comp_choice, user_choice)
+def match_result(comp_choice, user_choice)
   if comp_choice == user_choice then 'tie'
   elsif win?(comp_choice, user_choice) then 'win'
   else 'lose'
@@ -72,71 +73,43 @@ def count_points(points, result)
   end
 end
 
-def display_welcome_msg
-  prompt "Welcome to #{PROGRAM_NAME}!".center(60)
-  prompt '------------------------------------------------------'.center(60)
-  puts
-  puts
-end
-
-def display_match_start(match_number)
-  prompt "Match #{match_number}".center(40)
-  prompt "-------------------------------------"
-  prompt "The first one to reach #{POINTS_TO_WIN} points wins!"
-  puts
-end
-
-def round_result(round_number)
-  prompt "Round #{round_number}!"
-  user_choice = gets_user_choice
-  comp_choice = CHOICES.values.sample
-  { user_choice: user_choice, comp_choice: comp_choice,
-    result: win_lose_tie(comp_choice, user_choice) }
-end
-
-def display_round_result(round_number, user_choice, comp_choice, result, points)
-  prompt "ROUND #{round_number} RESULTS".center(40)
-  prompt "Your choice:              #{user_choice}"
-  prompt "Computer's choice:        #{comp_choice}"
-  prompt "  #{outcome_msg(comp_choice, user_choice)}, so you #{result}" \
-         " this round#{result == 'win' ? '!' : '.'}"
-  prompt "Your total points:        #{points[:user]} of #{POINTS_TO_WIN}"
-  prompt "Computer's total points:  #{points[:comp]} of #{POINTS_TO_WIN}"
-  puts
-end
-
-def play_again
-  puts
-  prompt "Would you like to play again? ('y' for yes)"
-  again = gets.chomp.downcase
-  puts
-
-  again
-end
-
-display_welcome_msg
+prompt "Welcome to #{PROGRAM_NAME}!".center(60)
+prompt '------------------------------------------------------'.center(60)
+puts
+puts
 
 match_number = 0
+
 loop do
   match_number += 1
   points = { comp: 0, user: 0 }
 
-  display_match_start(match_number)
+  prompt "Match #{match_number}".center(40)
+  prompt "-------------------------------------"
+  prompt "The first one to reach #{POINTS_TO_WIN} points wins!"
+  puts
 
   round_number = 0
+
   loop do
     round_number += 1
-
-    round_result_hash = round_result(round_number)
-    user_choice = round_result_hash[:user_choice]
-    comp_choice = round_result_hash[:comp_choice]
-    result = round_result_hash[:result]
+    prompt "Round #{round_number}!"
+    user_choice = gets_user_choice
+    comp_choice = CHOICES_WORDS.sample
+    result = match_result(comp_choice, user_choice)
 
     count_points(points, result)
 
     clear_screen
 
-    display_round_result(round_number, user_choice, comp_choice, result, points)
+    prompt "ROUND #{round_number} RESULTS".center(40)
+    prompt "Your choice:              #{user_choice}"
+    prompt "Computer's choice:        #{comp_choice}"
+    prompt "  #{outcome_msg(comp_choice, user_choice)}, so you #{result}" \
+           " this round#{result == 'win' ? '!' : '.'}"
+    prompt "Your total points:        #{points[:user]} of #{POINTS_TO_WIN}"
+    prompt "Computer's total points:  #{points[:comp]} of #{POINTS_TO_WIN}"
+    puts
 
     if points[:user] == POINTS_TO_WIN
       prompt "Congratulations, you have won Match #{match_number}!"
@@ -147,7 +120,11 @@ loop do
     end
   end
 
-  again = play_again
+  puts
+  prompt "Would you like to play again? ('y' for yes)"
+  again = gets.chomp.downcase
+  puts
+
   break unless again.start_with?('y')
 
   clear_screen
