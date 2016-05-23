@@ -86,12 +86,18 @@ def display_match_start(match_number)
   puts
 end
 
-def round_result(round_number)
+def round(round_number, points)
   prompt "Round #{round_number}!"
+
   user_choice = gets_user_choice
   comp_choice = CHOICES.values.sample
-  { user_choice: user_choice, comp_choice: comp_choice,
-    result: win_lose_tie(comp_choice, user_choice) }
+  result = win_lose_tie(comp_choice, user_choice)
+
+  count_points(points, result)
+
+  clear_screen
+
+  display_round_result(round_number, user_choice, comp_choice, result, points)
 end
 
 def display_round_result(round_number, user_choice, comp_choice, result, points)
@@ -127,16 +133,7 @@ loop do
   loop do
     round_number += 1
 
-    round_result_hash = round_result(round_number)
-    user_choice = round_result_hash[:user_choice]
-    comp_choice = round_result_hash[:comp_choice]
-    result = round_result_hash[:result]
-
-    count_points(points, result)
-
-    clear_screen
-
-    display_round_result(round_number, user_choice, comp_choice, result, points)
+    round(round_number, points)
 
     if points[:user] == POINTS_TO_WIN
       prompt "Congratulations, you have won Match #{match_number}!"
