@@ -1,8 +1,6 @@
 # tic_tac_toe_practice.rb
 # frozen_string_literal: true
 
-require 'colorize'
-
 HASH_ROWS_BLOCK = {
   ['X', 'X', ' '] => 2,
   ['X', ' ', 'X'] => 1,
