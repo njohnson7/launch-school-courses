@@ -107,14 +107,8 @@ def board_lines(board)
   board_rows(board) + board_columns(board) + board_diagonals(board)
 end
 
-def valid_int?(num)
-  num =~ /^\d+$/
-end
-
 def location_nums(board)
-  board_possible_choices(board).chars.select do |char|
-    valid_int?(char)
-  end
+  board_possible_choices(board).chars.select { |c| c =~ /\d/ }
 end
 
 def valid_location?(board, location)
@@ -223,9 +217,7 @@ def comp_wins(rows, columns, diagonals, location)
 end
 
 def comp_random_choice(board)
-  board_possible_choices(board).chars.select do |c|
-    c =~ /\d/
-  end.map(&:to_i).sample - 1
+  location_nums(board).map(&:to_i).sample - 1
 end
 
 def comp_picks(board, rows, columns, diagonals)
