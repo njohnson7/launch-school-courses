@@ -88,8 +88,8 @@ end
 def board_possible_choices(board)
   nums_and_chars = empty_location_nums(board)
 
-  chars_only = nums_and_chars.map { |c| c.is_a?(Integer) ? OPEN : c }
-  nums_only = nums_and_chars.map { |c| c.is_a?(Integer) ? c : OPEN }
+  chars_only = nums_and_chars.map { |char| char.is_a?(Integer) ? OPEN : char }
+  nums_only = nums_and_chars.map { |char| char.is_a?(Integer) ? char : OPEN }
 
   board_choices(chars_only, nums_only)
 end
