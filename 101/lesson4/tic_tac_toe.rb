@@ -1,13 +1,15 @@
 # tic_tac_toe.rb
 # frozen_string_literal: true
 
-OPEN = ' ' # open square
-X = 'X' # user square marker
-O = '©' # computer square marker
-POINTS_TO_WIN = 2
 # Valid options: 'u' for user, 'c' for computer, 't' for coin toss,
 #  or 'choose' to let the user decide.
 FIRST_PICK = 'choose'
+
+POINTS_TO_WIN = 5
+
+OPEN = ' ' # open square
+X = 'X' # user square marker
+O = '©' # computer square marker
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -20,6 +22,7 @@ end
 def display_welcome_msg
   clear_screen
 
+  prompt ''.center(60, '-')
   prompt 'Welcome to Tic-Tac-Toe!'.center(60)
   prompt ''.center(60, '-') + "\n\n\n"
 end
@@ -27,11 +30,12 @@ end
 def display_goodbye_message
   clear_screen
 
-  prompt '-------------------------------------------'
+  prompt ''.center(43, '-')
   prompt 'Thank you for playing Tic-Tac-Toe! Goodbye!'
-  prompt '-------------------------------------------'
+  prompt ''.center(43, '-')
 end
 
+# rubocop:disable Metrics/MethodLength
 def board_current(board)
   "                 \n" \
   "     |     |     \n" \
@@ -47,12 +51,14 @@ def board_current(board)
   "     |     |     \n" \
   '                 '
 end
+# rubocop:enable Metrics/MethodLength
 
 def combine_boards(board1, board2)
   board1.split("\n").zip(board2.split("\n")).map { |l| l.join(' ' * 15) }
         .join("\n")
 end
 
+# rubocop:disable Metrics/AbcSize
 def board_choices(chars_only, nums_only)
   <<~MSG
 
@@ -69,6 +75,7 @@ def board_choices(chars_only, nums_only)
          |     |
   MSG
 end
+# rubocop:enable Metrics/AbcSize
 
 def empty_location_indices(board)
   board.map.with_index { |mark, idx| idx if mark == OPEN }.compact
@@ -128,9 +135,9 @@ def valid_location?(board, location)
 end
 
 def joinor(ary, separator = ', ', final_separator = 'or')
-  return ary[0] if ary.length == 1
+  return ary.first if ary.size == 1
 
-  separator_ary = [separator] * (ary.length - 1)
+  separator_ary = [separator] * (ary.size - 1)
   separator_ary[-1] = separator + final_separator + ' '
   ary.zip(separator_ary).join
 end
@@ -377,7 +384,7 @@ end
 def round_start(round_num, board)
   prompt "  ROUND #{round_num}"
   puts "(The first one to #{POINTS_TO_WIN} points wins!)"
-  prompt 'The board is currently empty:'
+  prompt 'The board is now empty:'
   puts board_current(board) + "\n"
 
   first_pick(board)
@@ -400,7 +407,9 @@ def take_turns(board, points)
     break display_game_result(board, points) if game_over?(board)
 
     current_player = alternate_player(current_player)
+
     comp_board = turn(board, current_player)
+
     current_player = alternate_player(current_player)
 
     display_boards(user_board, comp_board)

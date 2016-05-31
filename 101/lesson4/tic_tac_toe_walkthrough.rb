@@ -1,6 +1,8 @@
 # tic_tac_toe_walkthrough.rb
 # frozen_string_literal: true
 
+# UNFINISHED!
+
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
                 [[1, 5, 9], [3, 5, 7]]              # diagonals
@@ -56,8 +58,31 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
+def find_at_risk_square(line, brd, marker)
+  if brd.values_at(*line).count(marker) == 2
+    brd.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+  end
+end
+
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+
+  # offense first
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+
+  # defense second
+  unless square
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+
+  square = empty_squares(brd).sample unless square
+
   brd[square] = COMPUTER_MARKER
 end
 
@@ -78,16 +103,28 @@ def detect_winner(brd)
   nil
 end
 
+def place_piece!(brd, current_player)
+  if current_player == 'player' then player_places_piece!(brd)
+  else computer_places_piece!(brd)
+  end
+end
+
+def alternate_player(current_player)
+  if current_player == 'player' then 'comp'
+  else 'player'
+  end
+end
+
 loop do
   board = initialize_board
 
+  current_player = 'player'
   loop do
     display_board(board)
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    place_piece!(board, current_player)
+    current_player = alternate_player(current_player)
 
-    computer_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
   end
 
