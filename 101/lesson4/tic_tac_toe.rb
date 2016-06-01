@@ -1,6 +1,6 @@
 # tic_tac_toe.rb
 # frozen_string_literal: true
-require 'pry'
+
 # Valid options: 'u' for user, 'c' for computer, 't' for coin toss,
 #  or 'choose' to let the user decide.
 FIRST_PICK = 'choose'
