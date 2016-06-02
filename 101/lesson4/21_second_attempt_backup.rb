@@ -1,13 +1,10 @@
-# 21_second_attempt.rb
+# 21_second_attempt_backup.rb
 # frozen_string_literal: true
 require 'pry'
 
-# TODO: FIX TOTAL POINTS METHODS/REDUNDANCY
-
 LARGE_ACE_VALUE = 11
 SMALL_ACE_VALUE = 1
-BUST_VALUE = 21
-DEALER_MAX_VALUE = 17
+TWENTY_ONE = 21
 VALUES = {
   '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8,
   '9' => 9, '10' => 10, 'Jack' => 10, 'Queen' => 10, 'King' => 10,
@@ -18,7 +15,6 @@ GOODBYE_MSG = 'Thank you for playing Twenty-One! Goodbye!'
 GOODBYE_MSG_WIDTH = GOODBYE_MSG.size
 AGAIN_MSG = 'Would you like to play again? (y/n)'
 AGAIN_MSG_WIDTH = AGAIN_MSG.size + 3
-CLOSING_HASH_ROCKET = ' <='
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -28,22 +24,11 @@ def clear_screen
   system('clear') || system('cls')
 end
 
-def pause
-  sleep(1)
-end
-
-def joinor(ary, delimiter = ', ', word = 'or')
-  ary = ary.dup
-  ary[-1] = "#{word} #{ary.last}" if ary.size > 1
-  ary.size == 2 ? ary.join(' ') : ary.join(delimiter)
-end
-
 def display_welcome_msg
   clear_screen
-  prompt ''.center(WELCOME_MSG_WIDTH, '-') + CLOSING_HASH_ROCKET
-  prompt 'Welcome to Twenty-One!'.center(WELCOME_MSG_WIDTH) +
-         CLOSING_HASH_ROCKET
-  prompt ''.center(WELCOME_MSG_WIDTH, '-') + CLOSING_HASH_ROCKET + "\n\n\n"
+  prompt ''.center(WELCOME_MSG_WIDTH, '-')
+  prompt 'Welcome to Twenty-One!'.center(WELCOME_MSG_WIDTH)
+  prompt ''.center(WELCOME_MSG_WIDTH, '-') + "\n\n\n"
 end
 
 def display_goodbye_message
@@ -53,8 +38,21 @@ def display_goodbye_message
   prompt ''.center(GOODBYE_MSG_WIDTH, '-')
 end
 
+def joinor(ary, delimiter = ', ', word = 'or')
+  ary = ary.dup
+  ary[-1] = "#{word} #{ary.last}" if ary.size > 1
+  ary.size == 2 ? ary.join(' ') : ary.join(delimiter)
+end
+
 def initialize_deck
-  (VALUES.keys * 4).shuffle
+  %w(2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 10 10 10 10
+     Jack Jack Jack Jack Queen Queen Queen Queen King King King King Ace Ace Ace
+     Ace)
+end
+
+# TODO: add cut method?
+def shuffle(deck)
+  deck.shuffle!
 end
 
 def deal_card(deck)
@@ -78,8 +76,7 @@ def player_hand(hands)
 end
 
 def display_player_hand(hands)
-  puts "  - Your hand:      #{joinor(player_hand(hands), ', ', 'and')}" \
-       "        #{total_value_string(hands, :player)}"
+  puts "  - Your hand:      #{joinor(player_hand(hands), ', ', 'and')}"
 end
 
 def dealer_hand(hands)
@@ -87,14 +84,11 @@ def dealer_hand(hands)
 end
 
 def display_dealer_hand(hands)
-  puts "  - Dealer's hand:  #{joinor(dealer_hand(hands), ', ', 'and')}" \
-       "        #{total_value_string(hands, :dealer)}"
+  puts "  - Dealer's hand:  #{joinor(dealer_hand(hands), ', ', 'and')}"
 end
 
 def display_dealer_starting_hand(hands)
-  first_card = dealer_hand(hands).first
-  puts "  - Dealer's hand:  #{first_card} and <unknown card>" \
-       "        (total value: #{VALUES.fetch(first_card)} + ?)"
+  puts "  - Dealer's hand:  #{dealer_hand(hands).first} and an unknown card"
 end
 
 def display_starting_hands(hands)
@@ -105,6 +99,7 @@ end
 
 def start_round
   deck = initialize_deck
+  shuffle(deck)
   hands = initialize_hands(deck)
 
   [deck, hands]
@@ -150,7 +145,7 @@ def values_sum(values)
 end
 
 def bust?(values_sum)
-  values_sum > BUST_VALUE
+  values_sum > TWENTY_ONE
 end
 
 def large_ace?(values)
@@ -165,10 +160,6 @@ end
 
 def gets_total(hands, person)
   values_sum(cards_to_values(hands, person))
-end
-
-def total_value_string(hands, person)
-  "(total value: #{gets_total(hands, person)})"
 end
 
 def player_total(hands)
@@ -204,7 +195,7 @@ def display_bust_msg(person)
 end
 
 def bust(hands, person)
-  pause
+  sleep(2)
   puts "\n" + '_____________________________________________' + "\n"
   display_bust_msg(person)
   display_round_final_hands_and_totals(hands)
@@ -250,7 +241,7 @@ def display_round_winner(winner)
 end
 
 def round_end(hands)
-  pause
+  sleep(2)
   puts "\n" + '_____________________________________________' + "\n\n"
   winner = find_round_winner(hands)
   display_round_winner(winner)
@@ -273,7 +264,7 @@ def player_turn(deck, hands)
   loop do
     hit_stay = choose_hit_or_stay
     return 'stay' if hit_stay == 's'
-    pause
+    sleep(1)
     hit(deck, hands, :player)
     total = gets_total(hands, :player)
     return 'bust' if bust?(total)
@@ -281,7 +272,7 @@ def player_turn(deck, hands)
 end
 
 def dealer_hit_or_stay(total)
-  total < DEALER_MAX_VALUE ? 'hit' : 'stay'
+  total < 17 ? 'hit' : 'stay'
 end
 
 def dealer_turn(deck, hands)
@@ -295,7 +286,7 @@ def dealer_turn(deck, hands)
     return 'bust' if bust?(total)
     return 'stay' if dealer_hit_or_stay(total) == 'stay'
     prompt 'Dealer has decided to hit.'
-    pause
+    sleep(2)
     hit(deck, hands, :dealer)
   end
 end
