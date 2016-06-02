@@ -411,8 +411,8 @@ def display_round_start(round_num, board)
   puts board_current(board) + "\n"
 end
 
-def round_start(round_num, board)
-  display_round_start(round_num, board)
+def round_start(round_num, board
+)  display_round_start(round_num, board)
   first_pick(board)
 end
 
