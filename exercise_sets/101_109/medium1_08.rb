@@ -61,15 +61,15 @@ puts
 # values not much greater than 8000. The original solution took so long to
 # compute the 50th Fibonacci number that the author gave up.
 
-def fibonacci_tial(nth, acc1, acc2)
+def fibonacci_tail(nth, acc1, acc2)
   if nth == 1 then 1
   elsif nth == 2 then acc2
-  else fibonacci_tial(nth - 1, acc2, acc2 + acc1)
+  else fibonacci_tail(nth - 1, acc2, acc2 + acc1)
   end
 end
 
 def fibonacci(nth)
-  fibonacci_tial(nth, 1, 1)
+  fibonacci_tail(nth, 1, 1)
 end
 
 p fibonacci(1) == 1

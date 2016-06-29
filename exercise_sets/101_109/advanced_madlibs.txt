@@ -1,0 +1,4 @@
+The %{adjective} %{adjective} %{noun} %{adverb} %{verb}s the %{adjective} 
+%{adjective} %{noun}, who %{adverb} %{verb}s its own %{adjective} %{noun},
+ while the %{adjective} %{adjective} %{noun} %{adverb} %{verb}s the 
+%{adjective} %{noun}s who %{adverb} and %{adverb} %{verb} all the things!

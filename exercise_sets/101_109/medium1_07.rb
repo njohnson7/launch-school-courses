@@ -93,15 +93,34 @@ end
 p word_to_digit('num: 3 Five 4 4 fIVe SEVEN 55 one two thrEE fouR. 5 43 2 111')
 puts
 
+
+# Alternate solution:
+DIGIT_TO_CODE = {
+  '0' => '**ZE**', '1' => '**ON**', '2' => '**TW**', '3' => '**TH**',
+  '4' => '**FO**', '5' => '**FI**', '6' => '**SI**', '7' => '**SE**',
+  '8' => '**EI**', '9' => '**NI**'
+}
+def word_to_digit(str)
+  DIGIT_TO_CODE.each_key { |d| str.gsub!(/\d/, DIGIT_TO_CODE) }
+  WORD_TO_DIGIT.each_key { |w| str.gsub!(/\b#{w}\b/i, WORD_TO_DIGIT[w].to_s) }
+  digits_with_space = /(\d) (\d)/
+  str.gsub!(digits_with_space, '\1\2') while str =~ digits_with_space
+  DIGIT_TO_CODE.each { |d, code| str.gsub!(code, d) }
+  str
+end
+
+p word_to_digit('num: 3 Five 4 4 fIVe SEVEN 55 one two thrEE fouR. 5 43 2 111')
+puts
+
+
+
 # What about dealing with phone numbers? Is there any easy way to format our
 # string to account for phone numbers? For our purposes, assume that any 10
 # digit number is a phone number, and that the proper format should be "(123)
 # # 456-7890".
-def word_to_digit(str)
-  WORD_TO_DIGIT.each_key { |w| str.gsub!(/\b#{w}\b/i, "*#{WORD_TO_DIGIT[w]}*") }
-  str.gsub!('* *', '')
-  str.delete!('*')
+def format_phone_num(str)
+  word_to_digit(str)
   str.gsub!(/(\d{3})(\d{3})(\d{4})/, '(\1) \2-\3')
 end
 
-p word_to_digit('phone: eight zero zero one two three four five six seven')
+p format_phone_num('phone: eight zero zero one two three four five six seven')
