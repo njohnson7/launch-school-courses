@@ -58,7 +58,6 @@ def board_current(board)
   current = board_string.dup
   9.times { |idx| current.gsub!("num#{idx}", ' ') }
   board.each_with_index { |c, idx| current.gsub!("char#{idx}", c) }
-
   current
 end
 

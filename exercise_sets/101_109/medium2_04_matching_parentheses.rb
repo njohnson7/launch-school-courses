@@ -15,7 +15,7 @@ def balanced?(str)
     close_count += 1 if c == ')'
     return false if close_count > open_count
   end
-  open_count == close_count ? true : false
+  open_count == close_count
 end
 
 p balanced?('What (is) this?') == true
@@ -69,7 +69,7 @@ def balanced?(str)
     return false unless count.zero?
   end
   str.gsub!(/(\w+)(')(\w+)/, '\1\3')
-  (str.count("'").odd? || str.count('"').odd?) ? false : true
+  !(str.count("'").odd? || str.count('"').odd?)
 end
 
 p balanced?('What (is) this?') == true
