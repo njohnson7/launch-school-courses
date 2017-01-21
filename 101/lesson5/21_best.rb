@@ -1,5 +1,6 @@
-# 21_best.rb
 # frozen_string_literal: true
+
+# 21_best.rb
 
 POINTS_TO_WIN = 2
 BUST_OR_WIN_VALUE = 21
