@@ -1,10 +1,10 @@
-# 21_second_attempt.rb
+# 21_best.rb
 # frozen_string_literal: true
 
 POINTS_TO_WIN = 2
 BUST_OR_WIN_VALUE = 21
 DEALER_STAYS_VALUE = 17
-SECONDS_TO_PAUSE_BETWEEN_ROUNDS = 4
+SECONDS_TO_PAUSE_AFTER_WELCOME_MSG = 2
 LARGE_ACE_VALUE = 11
 SMALL_ACE_VALUE = 1
 CARD_VALUES = {
@@ -12,35 +12,35 @@ CARD_VALUES = {
   '9' => 9, '10' => 10, 'Jack' => 10, 'Queen' => 10, 'King' => 10,
   'Ace' => LARGE_ACE_VALUE
 }.freeze
-CLOSING_HASH_ROCKET = ' <='
+CLOSING_HASH_ROCKET = -' <='
 WELCOME_MSG_WIDTH = 70
-WELCOME_MSG_LINE = ''.center(WELCOME_MSG_WIDTH, '-') + CLOSING_HASH_ROCKET
+WELCOME_MSG_LINE = -(''.center(WELCOME_MSG_WIDTH, '-') + CLOSING_HASH_ROCKET)
 WELCOME_MSG =
-  'Welcome to Twenty-One!'.center(WELCOME_MSG_WIDTH) + CLOSING_HASH_ROCKET
+  -('Welcome to Twenty-One!'.center(WELCOME_MSG_WIDTH) + CLOSING_HASH_ROCKET)
 HAND_WIDTH = 76
-PLAYER_TURN_MSG = 'You get to go first!'
-DEALER_TURN_MSG = "Now it's the DEALER'S TURN!"
+PLAYER_TURN_MSG = -'You get to go first!'
+DEALER_TURN_MSG = -"Now it's the DEALER'S TURN!"
 HIT_STAY_MSG =
-  "Would you like to hit or stay? (Type 'h' to hit, or 's' to stay)"
-H_OR_S = %w[h s].freeze
-HIT_MSG = 'decided to HIT.      (Dealing card...)'
-CALCULATING_RESULTS_MSG = "......Calculating results......\n\n"
+  -"Would you like to hit or stay? (Type 'h' to hit, or 's' to stay)"
+VALID_HIT_OR_STAY_INPUT = %w[h s].freeze
+HIT_MSG = -'decided to HIT.      (Dealing card...)'
+CALCULATING_RESULTS_MSG = -"......Calculating results......\n\n"
 PLAYER_WINS_MSG =
-  "You are closer to #{BUST_OR_WIN_VALUE} so YOU WIN this round!"
+  -"You are closer to #{BUST_OR_WIN_VALUE} so YOU WIN this round!"
 DEALER_WINS_MSG =
-  "Dealer is closer to #{BUST_OR_WIN_VALUE} so DEALER WINS this round!"
-TIE_MSG = "It's a TIE!"
-AGAIN_MSG = 'Would you like to play again? (y/n)'
+  -"Dealer is closer to #{BUST_OR_WIN_VALUE} so DEALER WINS this round!"
+TIE_MSG = -"It's a TIE!"
+AGAIN_MSG = -'Would you like to play again? (y/n)'
 AGAIN_MSG_WIDTH = AGAIN_MSG.size + 3
-AGAIN_MSG_LINE = "\n\n#{'=' * AGAIN_MSG_WIDTH}\n\n"
-Y_OR_N = %w[y n].freeze
-GOODBYE_MSG = 'Thank you for playing Twenty-One! Goodbye!'
+AGAIN_MSG_LINE = -"\n\n#{'=' * AGAIN_MSG_WIDTH}\n\n"
+VALID_ROUND_END_INPUT = %w[y n].freeze
+GOODBYE_MSG = -'Thank you for playing Twenty-One! Goodbye!'
 GOODBYE_MSG_WIDTH = GOODBYE_MSG.size
-GOODBYE_MSG_LINE = ''.center(GOODBYE_MSG_WIDTH, '-')
+GOODBYE_MSG_LINE = -''.center(GOODBYE_MSG_WIDTH, '-')
 SEPARATOR_LINE_SIZE = 45
-SEPARATOR_LINE = "#{'_' * SEPARATOR_LINE_SIZE}\n\n"
+SEPARATOR_LINE = -"#{'_' * SEPARATOR_LINE_SIZE}\n\n"
 DASH_LINE_SIZE = 45
-DASH_LINE = "\n#{'-' * DASH_LINE_SIZE}\n\n"
+DASH_LINE = -"\n#{'-' * DASH_LINE_SIZE}\n\n"
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -64,7 +64,7 @@ def display_welcome_msg
   prompt WELCOME_MSG_LINE
   prompt WELCOME_MSG
   prompt WELCOME_MSG_LINE + "\n\n\n"
-  pause
+  SECONDS_TO_PAUSE_AFTER_WELCOME_MSG.times { pause }
   clear_screen
 end
 
@@ -191,7 +191,7 @@ end
 def display_next_round_msg
   puts "\n\n"
   puts '......Starting next round.....'
-  SECONDS_TO_PAUSE_BETWEEN_ROUNDS.times { pause }
+  pause
 end
 
 def display_game_winner(points)
@@ -222,9 +222,15 @@ def choose_hit_or_stay
   prompt HIT_STAY_MSG
   loop do
     choice = gets.chomp.downcase
-    return choice if H_OR_S.include?(choice)
-    prompt "Invalid choice. Please choose: #{joinor(H_OR_S)}"
+    return choice if VALID_HIT_OR_STAY_INPUT.include?(choice)
+    prompt "Invalid choice. Please choose: #{joinor(VALID_HIT_OR_STAY_INPUT)}"
   end
+end
+
+def press_enter_next_round
+  puts SEPARATOR_LINE
+  prompt 'Press enter to begin next round.'
+  gets
 end
 
 def choose_play_again
@@ -234,7 +240,7 @@ def choose_play_again
   loop do
     again = gets.chomp.downcase
     return again if valid_again_response?(again)
-    prompt "Invalid response. Please choose: #{joinor(Y_OR_N)}"
+    prompt "Invalid response. Please choose: #{joinor(VALID_ROUND_END_INPUT)}"
   end
 end
 
@@ -255,7 +261,7 @@ def game_over?(points)
 end
 
 def valid_again_response?(again)
-  Y_OR_N.include?(again)
+  VALID_ROUND_END_INPUT.include?(again)
 end
 
 def again?
@@ -412,13 +418,18 @@ def round_end(hands, points)
   display_results(hands, points)
 end
 
+def start_next_round
+  press_enter_next_round
+  display_next_round_msg
+end
+
 def play_game(points)
   round_num = 0
   loop do
     round_num += 1
     play_round(points, round_num)
     return if game_over?(points)
-    display_next_round_msg
+    start_next_round
   end
 end
 
