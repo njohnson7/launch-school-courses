@@ -1,5 +1,6 @@
-# 21_second_attempt.rb
 # frozen_string_literal: true
+
+# 21_second_attempt.rb
 
 POINTS_TO_WIN = 2
 BUST_OR_WIN_VALUE = 21
@@ -73,6 +74,7 @@ def display_round_num(round_num)
   round_num_str = "Round #{round_num}!".center(SEPARATOR_LINE_SIZE)
   puts round_num_str
   puts SEPARATOR_LINE
+  p GOODBYE_MSG_LINE.frozen?
 end
 
 def display_hand(hands, person, dealer_starting = false)
