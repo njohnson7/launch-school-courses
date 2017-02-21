@@ -23,4 +23,12 @@ def create_uuid
   uuid
 end
 
+def create_uuid
+  [8, 4, 4, 4, 12].map { |n| Array.new(n) { rand(16).to_s(16) }.join }.join('-')
+end
+
+def create_uuid
+  [8, 4, 4, 4, 12].map { |n| rand(16**n).to_s(16) }.join('-')
+end
+
 10.times { p create_uuid }

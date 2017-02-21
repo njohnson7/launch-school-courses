@@ -31,7 +31,7 @@ def madlib
   puts 'Enter an adverb:'
   adv = gets.chomp
 
-  puts format('Do you %s your %s %s %s? That\'s hilarious!', verb, adj, noun, adv)
+  puts format("Do you %s your %s %s %s? That's hilarious!", verb, adj, noun, adv)
 end
 
 

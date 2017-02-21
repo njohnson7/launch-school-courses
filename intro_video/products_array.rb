@@ -42,5 +42,12 @@ def search(query)
   p matching
 end
 
+def search(query)
+
+end
+
 search(query)         # [ { name: "Thinkpad x220", price: 250 } ]
 search(query2)        # [{:name=>"Dell Inspiron", :price=>300}, {:name=>"Dell Inspiron", :price=>450}]
+
+
+# hash access

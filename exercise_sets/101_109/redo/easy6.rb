@@ -39,8 +39,8 @@ puts
 puts '---------3---------'
 
 # 3.    Fibonacci Number Location By Length
-def find_fibonacci_index_by_length(num)
-  fib.find_index { |n| n.to_s.size >= num } + 1
+def find_fibonacci_index_by_length(length)
+  fib.find_index { |n| n.to_s.size >= length } + 1
 end
 
 def fib

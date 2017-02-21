@@ -25,10 +25,10 @@ def prompt(msg)
 end
 
 def valid_integer?(num)
-  num =~ /\d/ && !(num =~ /\D/)
+  num[/\d/] && !(num[/\A0|\D/])
 end
 
-def gets_num
+def choose_num
   prompt 'Please enter an integer greater than 0:'
   loop do
     num = gets.chomp
@@ -37,23 +37,32 @@ def gets_num
   end
 end
 
-def sum_or_product
+def choose_operation
   prompt "Enter 's' to compute the sum, or 'p' to compute the product:"
   loop do
-    choice = gets.chomp.downcase
-    return choice if %w(s p).include?(choice)
+    operation = gets.chomp.downcase
+    return operation if %w[s p].include?(operation)
     prompt "Invalid choice. Please choose: 's' or 'p'."
   end
 end
 
-num = gets_num
-numbers = (1..num)
-choice = sum_or_product
-
-if choice == 's'
-  sum = numbers.reduce(:+)
-  prompt "The sum of the integers between 1 and #{num} is #{sum}."
-else
-  product = numbers.reduce(:*)
-  prompt "The product of the integers between 1 and #{num} is #{product}."
+def calculate_sum(num)
+  [(1..num).reduce(:+), :sum]
 end
+
+def calculate_product(num)
+  [(1..num).reduce(:*), :product]
+end
+
+def display_result(num, result, type)
+  prompt "The #{type} of the integers between 1 and #{num} is #{result}."
+end
+
+def main
+  num = choose_num
+  operation = choose_operation
+  result, type = operation == 's' ? calculate_sum(num) : calculate_product(num)
+  display_result(num, result, type)
+end
+
+main

@@ -10,7 +10,7 @@ def searching
   end
   last = nums.pop
   appears_msg = nums.include?(last) ? 'appears' : 'does not appear'
-  puts "The number #{last} #{appears_msg} in #{nums.inspect}."
+  puts "The number #{last} #{appears_msg} in #{nums}."
 end
 
 # searching
@@ -19,13 +19,13 @@ end
 
 # 2.   Arithmetic Integer
 def arithmetic
-  n1, n2 = %w[first second].map do |pos|
-    puts "==> Enter the #{pos} number:"
+  num1, num2 = %w[first second].map do |position|
+    puts "==> Enter the #{position} number:"
     gets.to_i
   end
-  %w[+ - * / % **].each do |op|
-    eq = "#{n1} #{op} #{n2}"
-    puts "==> #{eq} = #{eval(eq)}"
+  %w[+ - * / % **].each do |operator|
+    equation = "#{num1} #{operator} #{num2}"
+    puts "==> #{equation} = #{eval(equation) rescue 'Infinity'}"
   end
 end
 

@@ -30,14 +30,14 @@ WORDS = {
                  ceaselessly unflinchingly joyfully angrily gleefully)
 }.freeze
 
-# def madlib
-#   text = File.read('madlibs.txt')
-#   WORDS.keys.each do |type|
-#     regex = /%\{#{type}\}/
-#     text.sub!(regex, WORDS[type].sample) while text =~ regex
-#   end
-#   text
-# end
+def madlib
+  text = File.read('madlibs.txt')
+  WORDS.keys.each do |type|
+    regex = /%\{#{type}\}/
+    text.sub!(regex, WORDS[type].sample) while text =~ regex
+  end
+  text
+end
 
 # puts madlib
 
@@ -415,3 +415,36 @@ p egyptian(33/50.to_r)
 
 
 
+
+
+
+
+
+# input: 2d array of maze, and arr of directions
+  # maze arr: square of any size NxN
+    # key:
+      # 0: safe place to walk
+      # 1: wall
+      # 2: start point
+      # 3: end point
+  # directions: always upper case N, E, W, S
+# output:
+  # 'Finish': if reach end point (3) before all moves are gone
+  # 'Dead': if hit any walls or go outside maze border
+  # 'Lost': if you run out of moves w/o reaching end point
+# data structure: 2d arr
+# algorithm:
+  # find start (current) coords (x, y)
+    # iterate thru each row of maze, keeping track of row idx
+    # iterate thru each elem in row, keeping track of column idx
+      # when hit 2, then coords = row idx, column idx
+  # find end point coords (x, y) -> same process as above
+  # loop thru each direction, shifting it
+    # adjust current coords according to:
+      # N: x - 1
+      # S: x + 1
+      # W: y - 1
+      # E: y + 1
+    # if x or y is negative or >= maze.size then return 'Dead'
+    # if moves.empty? return 'Lost'
+    # if current coords == end point coords, rreturn 'Finish'

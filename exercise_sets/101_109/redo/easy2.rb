@@ -65,9 +65,9 @@ end
 
 # 5.  Greeting a user
 def greet
-  puts 'What is your name?'
+  print 'What is your name? '
   name = gets.chomp
-  greeting = "Hello #{name.capitalize}."
+  greeting = "Hello #{name.capitalize.chomp('!')}."
   greeting = "#{greeting} why are we screaming?".upcase if name.end_with?('!')
   puts greeting
 end

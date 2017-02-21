@@ -176,9 +176,9 @@ puts '---------10-----------'
 def print_in_box(str)
   width = str.size + 2
   top_bot = "+#{'-' * width}+"
-  mid = "|#{' ' * width}|"
+  padding = "|#{' ' * width}|"
   text = "| #{str} |"
-  puts [top_bot, mid, text, mid, top_bot]
+  puts [top_bot, padding, text, padding, top_bot]
 end
 
 print_in_box('To boldly go where no one has gone before.')
@@ -194,3 +194,5 @@ print_in_box('')
 # |  |
 # |  |
 # +--+
+
+
