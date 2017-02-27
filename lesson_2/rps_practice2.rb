@@ -81,16 +81,6 @@ class RPSGame
     system('clear') || system('cls')
   end
 
-  def display_welcome_msg
-    prompt 'Welcome to Rock-Paper-Scissors!'
-    puts "-------------------------------------------\n\n"
-  end
-
-  def display_goodbye_msg
-    puts "\n\n------------------------------------------------"
-    prompt 'Thank you for playing Rock-Paper-Scissors! Goodbye!'
-  end
-
   def display_winner
     result = compare_hands
     puts case result
@@ -141,7 +131,6 @@ class RPSGame
 
     display_goodbye_msg
   end
-
 end
 
 RPSGame.new.play

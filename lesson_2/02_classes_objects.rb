@@ -169,6 +169,29 @@ bob = Person3.new("Robert Smith")
 puts "The person's name is: #{bob}"
 p bob
 puts bob
+puts
 
 # Due to method overriding, interpolating the bob variable will now print out
 #  the string referenced by the @name member field of the bob instance
+
+
+
+# PRACTICE:
+class Test
+  # attr_reader :something
+  attr_accessor :something
+  @@class_var = 'class_var'
+  p @@class_var
+  @something = 'something'
+  p @something
+  def initialize
+    @name = 'test'
+  end
+end
+
+test = Test.new
+p test
+p test.instance_eval { @name }
+p test.instance_eval { @something }
+p Test.class_eval { @something }
+# p Test.class_eval { @@class_var }

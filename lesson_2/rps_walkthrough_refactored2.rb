@@ -1,4 +1,4 @@
-# rps_walkthrough_refactored.rb
+# rps_walkthrough_refactored2.rb
 
 class Player
   attr_accessor :move, :name
@@ -6,6 +6,7 @@ class Player
   def initialize
     set_name
   end
+
 end
 
 class Human < Player
@@ -28,7 +29,7 @@ class Human < Player
       break if %w[rock paper scissors].include?(choice.downcase)
       puts 'Sorry, invalid choice.'
     end
-    self.move = choice
+    self.move = Move.new(choice)
   end
 end
 
@@ -38,7 +39,36 @@ class Computer < Player
   end
 
   def choose
-    self.move = %w[rock paper scissors].sample
+    self.move = Move.new(%w[rock paper scissors].sample)
+  end
+end
+
+# practice:
+class Move
+  attr_accessor :move
+
+  def initialize(m)
+    @move = m
+  end
+
+  def >(other)
+    (move == 'rock' && other.move == 'scissors') ||
+      (move == 'paper' && other.move == 'rock') ||
+      (move == 'scissors' && other.move == 'paper')
+  end
+
+  def <(other)
+    (move == 'scissors' && other.move == 'rock') ||
+      (move == 'rock' && other.move == 'paper') ||
+      (move == 'paper' && other.move == 'scissors')
+  end
+
+  def ==(other)
+    move == other.move
+  end
+
+  def to_s
+    move
   end
 end
 
@@ -59,28 +89,22 @@ class RPSGame
   end
 
   def display_winner
-    puts "#{human.name} chose #{human.move}"
+    puts "\n\n#{human.name} chose #{human.move}"
     puts "#{computer.name} chose #{computer.move}"
 
-    case human.move
-    when computer.move
+    if human.move > computer.move
+      puts "#{human.name} wins!"
+    elsif human.move < computer.move
+      puts "#{human.name} loses!"
+    elsif human.move == computer.move
       puts "It's a tie!"
-    when 'rock'
-      puts "#{human.name} won!" if computer.move == 'scissors'
-      puts "#{human.name} lost!" if computer.move == 'paper'
-    when 'paper'
-      puts "#{human.name} won!" if computer.move == 'rock'
-      puts "#{human.name} lost!" if computer.move == 'scissors'
-    when 'scissors'
-      puts "#{human.name} won!" if computer.move == 'paper'
-      puts "#{human.name} lost!" if computer.move == 'rock'
     end
   end
 
   def play_again?
     answer = nil
     loop do
-      puts 'Would you like to play again? (y/n)'
+      puts "\nWould you like to play again? (y/n)"
       answer = gets.chomp.downcase
       break if %w[y n].include?(answer)
       puts "Sorry, must be 'y' or 'n'"
