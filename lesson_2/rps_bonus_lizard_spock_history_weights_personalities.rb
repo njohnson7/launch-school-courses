@@ -35,6 +35,15 @@ class History
     @outcomes << out
   end
 
+  # Returns a new hash with moves as keys and round outcomes as values
+  # Example:
+  # moves.map(&:to_s)         #=> ['scissors', 'paper']
+  #      .zip(other.outcomes) #=> [['scissors', :win], ['paper', :lose]]
+  #      .group_by(&:first)   #=> { 'scissors' => [['scissors', :win]],
+  #                                 'paper' => [['paper', :lose]] }
+  #      .map { |mv, mv_out| [mv.downcase, mv_out.map(&:last)] }
+  #                           #=> [['scissors', [:win]], ['paper', [:lose]]]
+  #      .to_h                #=> {"scissors"=>[:win], "paper"=>[:lose]}
   def compare_moves_to_outcomes(other)
     mv_outs = moves.map(&:to_s).zip(other.outcomes)
     mv_outs.group_by(&:first)
@@ -93,7 +102,7 @@ class Move
 
   def battle_msg(other_move)
     moves = [value, other_move.value].sort
-    same_move_msg = "#{self} has no effect on #{self}".gsub(/\A\w/, &:upcase)
+    same_move_msg = "#{to_s.capitalize} has no effect on #{self}"
     moves.uniq.size == 1 ? same_move_msg : BATTLE_MSGS[moves]
   end
 
@@ -145,7 +154,8 @@ class Human < Player
       prompt 'Please choose (r)ock, (p)aper, (s)cissors, (l)izard, or (Z)pock:'
       choice = gets.chomp.downcase
       if CHOICES.to_a.flatten.include?(choice)
-        break self.move = Move.new(CHOICES[choice[0]])
+        self.move = Move.new(CHOICES[choice[0]])
+        break
       end
       prompt 'Invalid choice.'
     end
@@ -326,7 +336,7 @@ class RPSGame
 
   PROGRAM_NAME = Move::VALUES.map(&:capitalize).join('-').freeze
   POINTS_TO_WIN = 2
-  COMPUTER_NAMES = [R2D2, Hal, Sonny, Chappie, Number5]
+  COMPUTER_NAMES = [R2D2, Hal, Sonny, Chappie, Number5].freeze
 
   attr_reader :human, :computer
 
