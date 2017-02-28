@@ -179,3 +179,97 @@ end
 sedan = Sedan.new
 p sedan.change_tires
 p sedan.change_doors
+puts
+
+
+
+
+class Person
+  attr_accessor :name, :age
+
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+
+  def >(other)
+    age > other.age
+  end
+
+  def <(other)
+    age < other.age
+  end
+
+  def under_18?
+    age < 18
+  end
+
+  def to_s
+    name
+  end
+end
+
+bob = Person.new('Bob', 22)
+joe = Person.new('Joe', 33)
+p bob > joe
+p joe > bob
+p bob < joe
+p joe < bob
+puts
+
+
+class Team
+  attr_accessor :name, :members
+
+  def initialize(name, members = [])
+    @name = name
+    @members = members
+  end
+
+  def <<(person)
+    return if person.under_18?
+    members << person
+  end
+
+  def +(other)
+    Team.new("#{name} & #{other.name}", members + other.members)
+  end
+
+  def [](idx)
+    members[idx]
+  end
+
+  def []=(idx, person)
+    members[idx] = person
+  end
+
+  def to_s
+    "#{name}: [#{members.join(', ')}]"
+  end
+end
+
+teamsters = Team.new('Teamsters')
+p teamsters.members
+teamsters << bob << joe
+p teamsters.members
+sam = Person.new('Sam', 15)
+p teamsters << sam
+p teamsters.members
+puts
+
+fred = Person.new('Fred', 99)
+eric = Person.new('Eric', 120)
+sammy_boy = Person.new('Sammy Boy', 74)
+cool_guys = Team.new('Cool Guys')
+cool_guys << fred << eric << sammy_boy
+puts teamsters
+puts cool_guys
+puts teamsters + cool_guys
+puts
+
+best_team = teamsters + cool_guys
+puts best_team
+puts best_team[4]
+p best_team[0] = Person.new('Tony', 88)
+# p best_team
+puts best_team
