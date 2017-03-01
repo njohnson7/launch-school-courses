@@ -1,6 +1,5 @@
 # basics_classes_objects_01.rb
 
-
 # Find the Class
 
 # Modify the following code so that, instead of printing the values, each
@@ -20,3 +19,11 @@
 puts 'Hello'.class
 puts 5.class
 puts [1, 2, 3].class
+puts
+
+
+
+
+# Alternate solution:
+puts ['Hello', 5, [1, 2, 3]].map(&:class)
+puts
