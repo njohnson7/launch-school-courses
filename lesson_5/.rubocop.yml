@@ -45,6 +45,13 @@ Style/ParenthesesAroundCondition:
   Enabled: true
   AllowSafeAssignment: false
 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': '[]'
+    '%W': '[]'
+    '%i': '[]'
+    '%I': '[]'
+
 Style/RedundantReturn:
   Description: "Don't use return where it's not required."
   Enabled: true
@@ -78,17 +85,3 @@ Lint/LiteralInInterpolation:
   Description: 'Avoid interpolating literals in strings'
   AutoCorrect: false
   Enabled: true
-
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    '%':  ()
-    '%i': []
-    '%I': []
-    '%q': ()
-    '%Q': ()
-    '%r': '{}'
-    '%s': ()
-    '%w': []
-    '%W': []
-    '%x': ()
-
