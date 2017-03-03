@@ -1,0 +1,2 @@
+# ttt-minimax-practice.rb
+

@@ -13,11 +13,11 @@ module Interface
   end
 
   def display_underscore_line
-    puts ''.center(80, '_')
+    puts '_' * 80
   end
 
   def display_empty_line(num = 1)
-    num.times { puts }
+    puts "\n" * num
   end
 end
 

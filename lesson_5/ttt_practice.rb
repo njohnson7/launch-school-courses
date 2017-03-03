@@ -1,4 +1,5 @@
 # ttt_practice.rb
+# frozen_string_literal: true
 
 # Description:
 # TTT is a 2 player board game played on a 3x3 grid.
@@ -90,7 +91,7 @@ end
 #---------------------------------------------------------------------------
 
 class Computer < Player
-  MARKER = 'O'.freeze
+  MARKER = 'O'
 
   def set_name
     self.name = 'Compy'
@@ -105,7 +106,7 @@ end
 #---------------------------------------------------------------------------
 
 class Human < Player
-  MARKER = 'X'.freeze
+  MARKER = 'X'
 
   def set_name
     self.name = 'Bob'
@@ -114,7 +115,7 @@ class Human < Player
   def mark_square(board)
     empty_squares = board.empty_squares
     loop do
-      puts "Enter one of the following numbers to mark a square:" \
+      puts 'Enter one of the following numbers to mark a square:' \
            " #{empty_squares.join(', ')}"
       square = gets.chomp
       if empty_squares.include?(square)
