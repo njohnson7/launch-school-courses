@@ -144,14 +144,14 @@ end
 
 class Computer < Player
   NAMES = %w[R2D2 C3PO 4-LOM HK-47].freeze
-  FIRST_SQUARE_NUMS = %w[1 3 5 7 9].freeze
+  CORNERS = %w[1 3 7 9].freeze
 
   def human?
     false
   end
 
   def mark(board)
-    square_num = if board.empty? then choose_first_square_num
+    square_num = if board.empty? then choose_corner
                  else                 minimax(board, MARKER)[:square_num]
                  end
     board[square_num] = MARKER
@@ -159,8 +159,8 @@ class Computer < Player
 
   private
 
-  def choose_first_square_num
-    FIRST_SQUARE_NUMS.sample
+  def choose_corner
+    CORNERS.sample
   end
 
   def computer_turn?(marker)
