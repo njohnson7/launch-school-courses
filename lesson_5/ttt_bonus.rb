@@ -28,11 +28,12 @@ end
 class Board
   EMPTY_MARKER = ' '
 
-  attr_reader :string
-  attr_accessor :squares, :winning_marker
+  attr_reader :string, :squares
+  attr_accessor :winning_marker
 
   def initialize
-    clear
+    # reset
+    @squares = ('1'..'9').zip([EMPTY_MARKER] * 9).to_h
     @string = build_string
   end
 
@@ -54,10 +55,6 @@ class Board
     STRING
   end
 
-  def clear
-    self.squares = ('1'..'9').map { |n| [n, EMPTY_MARKER] }.to_h
-  end
-
   def display
     puts string.gsub(/\d/, squares)
   end
@@ -65,7 +62,6 @@ class Board
   def empty_square_nums
     squares.select { |_, marker| marker == EMPTY_MARKER }.keys
   end
-
 
   def full?
     empty_square_nums.empty?
@@ -87,6 +83,10 @@ class Board
 
   def someone_won?
     set_winning_marker
+  end
+
+  def to_a
+
   end
 end
 
@@ -121,8 +121,61 @@ class Computer < Player
   end
 
   def mark(board)
-    square_num = board.empty_square_nums.sample
+    # square_num = board.empty_square_nums.sample
+    # board[square_num] = MARKER
+
+    square_num = minimax(board.dup, MARKER)[:square_num]
     board[square_num] = MARKER
+  end
+
+  def minimax(new_board, marker)
+    if new_board.someone_won?
+        # ;require'pry';binding.pry;
+      return new_board.winning_marker == MARKER ? { score: 10 } : { score: -10 }
+    elsif new_board.full?
+      return { score: 0 }
+    end
+
+    moves = []
+    new_board.empty_square_nums.each do |square_num|
+      move = {}
+      move[:square_num] = square_num
+      new_board[square_num] = marker
+
+      if marker == MARKER
+        result = minimax(new_board, Human::MARKER)
+        move[:score] = result[:score]
+      else
+        result = minimax(new_board, MARKER)
+        move[:score] = result[:score]
+      end
+
+      new_board[square_num] = Board::EMPTY_MARKER
+
+      moves << move
+    end
+
+    best_move = nil
+    if marker == MARKER
+      best_score = -10_000
+      moves.each_with_index do |move, idx|
+        if move[:score] > best_score
+          best_score = move[:score]
+          best_move = idx
+        end
+      end
+    else
+      best_score = 10_000
+      moves.each_with_index do |move, idx|
+        if move[:score] < best_score
+          best_score = move[:score]
+          best_move = idx
+        end
+      end
+    end
+    # p [marker, moves]
+    # gets
+    moves[best_move]
   end
 end
 
