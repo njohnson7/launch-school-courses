@@ -25,9 +25,10 @@ WINNING_LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8]] + # rows
 #     |   |
  # origBoard = ["O",1 ,"X","X",4 ,"X", 6 ,"O","O"];
 # orig_board = ['O', 1, 'X', 'X', 'O', 5, 6, 'O', 8]
-orig_board = ['O', 'X', 'O', 4, 'X', 5, 'O', 7, 8]
-HUMAN = 'O'
-COMPUTER = 'X'
+# orig_board = ['O', 'X', 'O', 4, 'X', 5, 'O', 7, 8]
+orig_board = [0, 'X', 2, 3, 4, 'X', 'O', 'O', 'X']
+HUMAN = 'X'
+COMPUTER = 'O'
 
 
 def empty_indexes(board)
