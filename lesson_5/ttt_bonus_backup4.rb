@@ -123,12 +123,12 @@ end
 class Player
   include Interface
 
-  attr_reader :name, :score, :marker
+  attr_reader :name, :score
 
   def initialize
     set_name
-    set_marker
     reset_score
+    self.class.const_set(:MARKER, set_marker)
   end
 
   def increment_score
@@ -138,52 +138,46 @@ class Player
   def reset_score
     @score = 0
   end
-
-  def winner?(board)
-    board.winning_marker == marker
-  end
 end
 
 class Computer < Player
   NAMES = %w[R2D2 C3PO 4-LOM HK-47].freeze
   CORNER_SQUARE_NUMS = %w[1 3 7 9].freeze
 
-  def initialize(human_marker)
-    @human_marker = human_marker
-    super()
+  def human?
+    false
   end
 
   def mark(board)
     square_num = if board.empty? then choose_corner
-                 else                 minimax(board, marker)[:square_num]
+                 else                 minimax(board, MARKER)[:square_num]
                  end
-    board[square_num] = marker
+                 p $count
+    board[square_num] = MARKER
   end
 
   private
-
-  attr_reader :human_marker
 
   def choose_corner
     CORNER_SQUARE_NUMS.sample
   end
 
-  def computer_turn?(current_marker)
-    current_marker == marker
+  def computer_turn?(marker)
+    marker == MARKER
   end
 
-  def find_best_move(moves, current_marker)
+  def find_best_move(moves, marker)
     min, max = moves.minmax_by { |move| move[:score] }
-    computer_turn?(current_marker) ? max : min
+    computer_turn?(marker) ? max : min
   end
 
-  def minimax(board, current_marker, depth = 0)
+  def minimax(board, marker, depth = 0)
     return move_score(board, depth) if board.end_state?
 
     moves = board.empty_square_nums.map do |square_num|
       move = { square_num: square_num }
-      board[square_num] = current_marker
-      opponent_marker = switch_markers(current_marker)
+      board[square_num] = marker
+      opponent_marker = computer_turn?(marker) ? Human::MARKER : MARKER
 
       move[:score] = minimax(board.dup, opponent_marker, depth + 1)[:score]
       board[square_num] = Board::EMPTY_MARKER
@@ -191,23 +185,19 @@ class Computer < Player
       move
     end
 
-    find_best_move(moves, current_marker)
-  end
-
-  def switch_markers(current_marker)
-    computer_turn?(current_marker) ? human_marker : marker
+    find_best_move(moves, marker)
   end
 
   def move_score(board, depth)
     case board.winning_marker
-    when marker       then { score: 10 - depth }
-    when human_marker then { score: depth - 10 }
-    else                   { score: 0 }
+    when MARKER        then { score: 10 - depth }
+    when Human::MARKER then { score: depth - 10 }
+    else                    { score: 0 }
     end
   end
 
   def set_marker
-    @marker = human_marker.casecmp('X').zero? ? 'O' : 'X'
+    Human::MARKER.casecmp('X') == 0 ? 'O' : 'X'
   end
 
   def set_name
@@ -216,12 +206,16 @@ class Computer < Player
 end
 
 class Human < Player
+  def human?
+    true
+  end
+
   def mark(board)
     display_mark_msg(board)
     loop do
-      square_num = gets.strip
+      square_num = gets.chomp
       if board.empty_square_nums.include?(square_num)
-        board[square_num] = marker
+        board[square_num] = MARKER
         break
       end
       display_invalid_choice(board, square_num)
@@ -230,6 +224,10 @@ class Human < Player
 
   def name
     @name.gsub(/\b\w/, &:upcase)
+  end
+
+  def winner?(board)
+    board.winning_marker == MARKER
   end
 
   private
@@ -251,8 +249,8 @@ class Human < Player
     display_empty_line
     loop do
       prompt 'Please choose a marker (enter any single character):'
-      chosen_marker = gets.strip
-      break @marker = chosen_marker[0] unless chosen_marker.empty?
+      marker = gets.strip
+      return marker[0] unless marker.empty?
       prompt 'Sorry, marker cannot be empty.'
     end
   end
@@ -260,8 +258,8 @@ class Human < Player
   def set_name
     loop do
       prompt 'Please enter your name:'
-      chosen_name = gets.strip
-      break @name = chosen_name unless chosen_name.empty?
+      n = gets.strip
+      break @name = n unless n.empty?
       prompt 'Sorry, name cannot be empty.'
     end
   end
@@ -277,12 +275,24 @@ class Round
     gets
   end
 
-  def initialize(human, computer, round_num)
+  def self.increment_num
+    @round_num += 1
+  end
+
+  def self.reset_num
+    @round_num = 1
+  end
+
+  def self.num
+    @round_num
+  end
+
+  def initialize(human, computer)
     @board = Board.new
     @human = human
     @computer = computer
-    set_players
-    @round_num = round_num
+    @players =
+      first_player.human? ? [human, computer].cycle : [computer, human].cycle
   end
 
   def play
@@ -298,12 +308,12 @@ class Round
 
   private
 
-  attr_reader :board, :human, :computer, :players, :current_player, :round_num
+  attr_reader :board, :human, :computer, :players, :current_player
 
   def choose_first_player
     display_empty_line
     prompt "Enter any key to go first, or 'c' to let #{computer.name} go first:"
-    choice = gets.strip.downcase
+    choice = gets.chomp.downcase
     choice == 'c' ? computer : human
   end
 
@@ -317,8 +327,8 @@ class Round
   end
 
   def display_marker_info
-    marker_str = "#{human.name}'s marker:  #{human.marker}      " \
-                 "#{computer.name}'s marker:  #{computer.marker}"
+    marker_str = "#{human.name}'s marker:  #{Human::MARKER}      " \
+                 "#{computer.name}'s marker:  #{Computer::MARKER}"
     display_underscore_line(marker_str.size)
     puts marker_str
   end
@@ -329,18 +339,15 @@ class Round
   end
 
   def display_round_num
-    prompt "ROUND #{round_num}"
+    prompt "ROUND #{self.class.num}"
   end
 
-  def set_players
-    first_player = case FIRST_PICK
-                   when :choose then choose_first_player
-                   when :human  then human
-                   else              computer
-                   end
-    @players = if first_player == human then [human, computer].cycle
-               else                          [computer, human].cycle
-               end
+  def first_player
+    case FIRST_PICK
+    when :choose then choose_first_player
+    when :human  then human
+    else              computer
+    end
   end
 
   def human_turn?
@@ -370,7 +377,7 @@ class Game
   def initialize
     display_welcome_msg
     @human = Human.new
-    @computer = Computer.new(human.marker)
+    @computer = Computer.new
   end
 
   def play
@@ -385,7 +392,7 @@ class Game
 
   private
 
-  attr_reader :human, :computer
+  attr_reader :human, :computer, :current_player
 
   def display_continue_msg
     clear_screen
@@ -434,12 +441,12 @@ class Game
   end
 
   def play_match
-    round_num = 1
+    Round.reset_num
     loop do
-      Round.new(human, computer, round_num).play
+      Round.new(human, computer).play
       display_score
       break if winner
-      round_num += 1
+      Round.increment_num
       Round.display_break
     end
     display_result
