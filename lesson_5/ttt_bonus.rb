@@ -251,7 +251,7 @@ class Human < Player
     loop do
       prompt 'Please choose a marker (enter any single character):'
       marker = gets.chomp
-      return marker[0] unless marker.empty?
+      return marker[/\S/] unless marker.delete(' ').empty?
       prompt 'Sorry, marker cannot be empty.'
     end
   end
@@ -260,7 +260,7 @@ class Human < Player
     loop do
       prompt 'Please enter your name:'
       n = gets.chomp
-      break @name = n unless n.empty?
+      break @name = n unless n.delete(' ').empty?
       prompt 'Sorry, name cannot be empty.'
     end
   end
