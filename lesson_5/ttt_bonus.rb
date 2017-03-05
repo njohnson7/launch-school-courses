@@ -144,7 +144,7 @@ end
 
 class Computer < Player
   NAMES = %w[R2D2 C3PO 4-LOM HK-47].freeze
-  CORNERS = %w[1 3 7 9].freeze
+  CORNER_SQUARE_NUMS = %w[1 3 7 9].freeze
 
   def human?
     false
@@ -160,7 +160,7 @@ class Computer < Player
   private
 
   def choose_corner
-    CORNERS.sample
+    CORNER_SQUARE_NUMS.sample
   end
 
   def computer_turn?(marker)
