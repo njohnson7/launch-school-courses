@@ -250,8 +250,8 @@ class Human < Player
     display_empty_line
     loop do
       prompt 'Please choose a marker (enter any single character):'
-      marker = gets.chomp
-      return marker[/\S/] unless marker.delete(' ').empty?
+      marker = gets.strip
+      return marker[0] unless marker.empty?
       prompt 'Sorry, marker cannot be empty.'
     end
   end
@@ -259,8 +259,8 @@ class Human < Player
   def set_name
     loop do
       prompt 'Please enter your name:'
-      n = gets.chomp
-      break @name = n unless n.delete(' ').empty?
+      n = gets.strip
+      break @name = n unless n.empty?
       prompt 'Sorry, name cannot be empty.'
     end
   end
