@@ -34,6 +34,8 @@ Person = Struct.new(:name)
 person1 = Person.new
 person1.name = 'Jessica'
 puts person1.name
+puts
+
 p Person.ancestors
 p person1.class
 p Class.class

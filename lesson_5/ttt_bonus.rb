@@ -6,7 +6,7 @@ module Interface
   private
 
   def clear_screen
-    system('clear') || system('cls')
+    system('clear') || system('cls')/
   end
 
   def display_empty_line(num = 1)
@@ -194,10 +194,6 @@ class Computer < Player
     find_best_move(moves, current_marker)
   end
 
-  def switch_markers(current_marker)
-    computer_turn?(current_marker) ? human_marker : marker
-  end
-
   def move_score(board, depth)
     case board.winning_marker
     when marker       then { score: 10 - depth }
@@ -212,6 +208,10 @@ class Computer < Player
 
   def set_name
     @name = NAMES.sample
+  end
+
+  def switch_markers(current_marker)
+    computer_turn?(current_marker) ? human_marker : marker
   end
 end
 
