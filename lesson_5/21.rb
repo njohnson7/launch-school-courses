@@ -388,7 +388,7 @@ class TwentyOne
   end
 
   def someone_busted?
-    player.busted? || dealer.busted?
+    [player, dealer].any?(&:busted?)
   end
 
   def tie?
