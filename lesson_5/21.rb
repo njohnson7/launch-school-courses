@@ -236,7 +236,7 @@ class Player < Participant
     loop do
       prompt 'Would you like to (h)it or (s)tay?'
       choice = gets.strip
-      return choice if valid_choice?(choice)
+      return choice.downcase if valid_choice?(choice)
       prompt "'#{choice}' is not a valid choice. Please enter 'h' or 's':"
     end
   end
@@ -245,7 +245,10 @@ class Player < Participant
     loop do
       prompt 'Please enter your name:'
       chosen_name = gets.strip
-      break @name = chosen_name unless chosen_name.empty?
+      unless chosen_name.empty?
+        @name = chosen_name
+        return
+      end
       prompt 'Sorry, name cannot be empty.'
     end
   end
@@ -376,8 +379,7 @@ class TwentyOne
   end
 
   def reset
-    deck.reset
-    [player.hand, dealer.hand].each(&:reset)
+    [deck, player.hand, dealer.hand].each(&:reset)
   end
 
   def result_msg
