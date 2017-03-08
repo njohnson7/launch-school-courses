@@ -145,7 +145,7 @@ class Player
 end
 
 class Computer < Player
-  NAMES = %w[R2D2 C3PO 4-LOM HK-47].freeze
+  NAMES = %w[R2-D2 C-3PO 4-LOM HK-47].freeze
   CORNER_SQUARE_NUMS = %w[1 3 7 9].freeze
 
   def initialize(human_marker)

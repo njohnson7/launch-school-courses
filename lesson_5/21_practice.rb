@@ -51,6 +51,10 @@ module Interface
   end
 end
 
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
+
 
 class Card
   attr_reader :type, :value
@@ -78,6 +82,10 @@ class Card
   end
 end
 
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
+
 class Deck
   CARD_TYPES = [*2..10, 'Jack', 'Queen', 'King', 'Ace'].freeze
 
@@ -91,6 +99,10 @@ class Deck
     cards.pop
   end
 end
+
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
 
 class Hand
   include Comparable
@@ -114,7 +126,7 @@ class Hand
   def total
     loop do
       sum = calc_sum
-      return sum unless (bust?(sum) && high_ace_present?)
+      return sum unless bust?(sum) && high_ace_present?
       lower_ace_value
     end
   end
@@ -156,6 +168,10 @@ class Hand
   end
 end
 
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
+
 class Participant
   include Interface
 
@@ -163,6 +179,11 @@ class Participant
 
   def initialize(deck)
     @hand = Hand.new(deck)
+    @busted = false
+  end
+
+  def busted?
+    @busted
   end
 
   def hit
@@ -170,15 +191,20 @@ class Participant
     prompt "#{self.class} hits..."
     hand.add_card
     hand.display_dealt_card
-
-    return if hand.bust?
     hand.display
     hand.display_total
+
+    @busted = true if hand.bust?
   end
 end
 
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
+
 class Player < Participant
   def get_choice
+    display_empty_line
     loop do
       prompt 'Would you like to (h)it or (s)tay?'
       choice = gets.strip
@@ -200,42 +226,35 @@ class Player < Participant
       choice = get_choice
       if choice =~ /h/
         hit
-        if hand.bust?
-          prompt "#{self.class} busted at #{hand.total}!"
-          break
-        end
-        puts "\n\n"
+        break if busted?
       else
-        display_stay_msg
-        break
+        break display_stay_msg
       end
     end
   end
 end
 
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
+
 class Dealer < Participant
   def take_turn
-    display_underscore_line(25)
+    display_underscore_line(50)
     prompt 'Dealer turn!'
-    display_empty_line(2)
+    display_empty_line
 
     hand.display
     hand.display_total
 
-   loop do
-      break if hand.total >= 17
-      hit
-   end
-
-    if hand.bust?
-      display_underscore_line(30)
-      prompt "#{self.class} busted at #{hand.total}!"
-    end
-
-    hand.display
-    hand.display_total
+    hit until hand.total >= 17
+    puts "Dealer stays at #{hand.total}" unless busted?
   end
 end
+
+#____________________________________________________________________________
+#____________________________________________________________________________
+#____________________________________________________________________________
 
 class Game
   include Interface
@@ -248,20 +267,20 @@ class Game
     @dealer = Dealer.new(deck)
   end
 
-  def determine_winner
+  def display_winner
     display_empty_line
     display_underscore_line(50)
     display_empty_line(2)
-    if player.hand.bust?
-      puts 'Player loses!'
-    elsif dealer.hand.bust?
-      puts 'Dealer loses!'
+    if player.busted?
+      prompt 'Player busts, so Dealer wins!'
+    elsif dealer.busted?
+      prompt 'Dealer busts, so Player wins!'
     elsif player.hand > dealer.hand
-      puts 'Player wins!'
+      prompt 'Player total is worth more so Player wins!'
     elsif dealer.hand > player.hand
-      puts 'Dealer wins!'
+      prompt 'Dealer total is worth more so Dealer wins!'
     else
-      puts "It's a tie!"
+      prompt "Totals are the same so it's a tie!"
     end
   end
 
@@ -272,12 +291,11 @@ class Game
     player.take_turn
 
 
-    puts "\n\n"
-    unless player.hand.bust?
-      dealer.take_turn
-    end
+    display_empty_line(2)
 
-    determine_winner
+    dealer.take_turn unless player.hand.bust?
+
+    display_winner
   end
 end
 
