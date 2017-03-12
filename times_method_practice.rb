@@ -62,7 +62,7 @@ puts
 puts '-------'
 
 def times(num)
-  return (0...num).to_enum unless block_given?
+  return (0...num).to_enum(:times) unless block_given?
 
   idx = 0
   while idx < num

@@ -190,5 +190,71 @@ def testing
 end
 
 testing { |n1, n2| p n1, n2}
+puts
 
 
+name = 'Bob'
+chunk_of_code = Proc.new { puts "hi #{name}"}
+chunk_of_code.call
+name = 'Fred'
+chunk_of_code.call
+puts
+
+def call_me(some_code)
+  some_code.call
+end
+
+name = 'Bob'
+chunk_of_code = Proc.new { puts "hi #{name}"}
+p call_me(chunk_of_code)
+
+name = 'Fred'
+p call_me(chunk_of_code)
+puts
+
+
+def my_method
+  yield(5)
+end
+
+p my_method(&:to_s)
+p my_method(&:to_s.to_proc)
+p my_method(&(:to_s.to_proc))
+a_proc = :to_s.to_proc
+p my_method(&a_proc)
+puts
+
+def my_method(proc)
+  proc.call(5)
+end
+
+p my_method(:to_s.to_proc)
+puts
+
+
+def my_method(&block)
+  block.call(5)
+end
+
+p my_method { |n| n.to_s }
+puts
+
+def my_method
+  yield(5)
+end
+
+p my_method(&:to_s)
+a_proc = :to_s.to_proc
+p my_method(&a_proc)
+puts
+
+
+def hello
+  puts 'hello'
+end
+
+def say_hello(block)
+  block.call
+end
+
+say_hello method(:hello)
