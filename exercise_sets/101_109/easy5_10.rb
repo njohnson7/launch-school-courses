@@ -1,184 +1,184 @@
-# easy5_10.rb
-# Bannerizer
+# # easy5_10.rb
+# # Bannerizer
 
-# Write a method that will take a short line of text, and print it within a box.
+# # Write a method that will take a short line of text, and print it within a box.
 
-# You may assume that the input will always fit in your terminal window.
+# # You may assume that the input will always fit in your terminal window.
 
-TOP_BOTTOM_SIDE = '+'
-MIDDLE_SIDE = '|'
-TOP_BOTTOM_PAD = '-'
-MIDDLE_PAD = ' '
-EMPTY = ''
+# TOP_BOTTOM_SIDE = '+'
+# MIDDLE_SIDE = '|'
+# TOP_BOTTOM_PAD = '-'
+# MIDDLE_PAD = ' '
+# EMPTY = ''
 
-def print_line(side_char, center_str, pad_char, width)
-  puts side_char + center_str.center(width, pad_char) + side_char
-end
+# def print_line(side_char, center_str, pad_char, width)
+#   puts side_char + center_str.center(width, pad_char) + side_char
+# end
 
-def print_in_box(str)
-  width = str.size + 2
-  print_line(TOP_BOTTOM_SIDE, EMPTY, TOP_BOTTOM_PAD, width)
-  print_line(MIDDLE_SIDE, EMPTY, MIDDLE_PAD, width)
-  print_line(MIDDLE_SIDE, str, MIDDLE_PAD, width)
-  print_line(MIDDLE_SIDE, EMPTY, MIDDLE_PAD, width)
-  print_line(TOP_BOTTOM_SIDE, EMPTY, TOP_BOTTOM_PAD, width)
-end
+# def print_in_box(str)
+#   width = str.size + 2
+#   print_line(TOP_BOTTOM_SIDE, EMPTY, TOP_BOTTOM_PAD, width)
+#   print_line(MIDDLE_SIDE, EMPTY, MIDDLE_PAD, width)
+#   print_line(MIDDLE_SIDE, str, MIDDLE_PAD, width)
+#   print_line(MIDDLE_SIDE, EMPTY, MIDDLE_PAD, width)
+#   print_line(TOP_BOTTOM_SIDE, EMPTY, TOP_BOTTOM_PAD, width)
+# end
 
-print_in_box('To boldly go where no one has gone before.')
-# +--------------------------------------------+
-# |                                            |
-# | To boldly go where no one has gone before. |
-# |                                            |
-# +--------------------------------------------+
-puts
+# print_in_box('To boldly go where no one has gone before.')
+# # +--------------------------------------------+
+# # |                                            |
+# # | To boldly go where no one has gone before. |
+# # |                                            |
+# # +--------------------------------------------+
+# puts
 
-print_in_box('')
-# +--+
-# |  |
-# |  |
-# |  |
-# +--+
-puts
+# print_in_box('')
+# # +--+
+# # |  |
+# # |  |
+# # |  |
+# # +--+
+# puts
 
-print_in_box('This is a test yo')
-puts
-puts '=' * 80
-puts
-
-
-# Book solution:
-def print_in_box(str)
-  width = str.size
-  top_bottom_line = "+#{'-' * (width + 2)}+"
-  inside_line = "|#{' ' * (width + 2)}|"
-  center_line = "| #{str} |"
-
-  puts top_bottom_line, inside_line, center_line, inside_line, top_bottom_line
-end
-
-print_in_box('To boldly go where no one has gone before.')
-# +--------------------------------------------+
-# |                                            |
-# | To boldly go where no one has gone before. |
-# |                                            |
-# +--------------------------------------------+
-puts
-
-print_in_box('')
-# +--+
-# |  |
-# |  |
-# |  |
-# +--+
-puts
-
-print_in_box('This is a test yo')
-puts
-puts '=' * 80
-puts
+# print_in_box('This is a test yo')
+# puts
+# puts '=' * 80
+# puts
 
 
-# Modify this method so it will truncate the message if it will be too wide to
-#  fit inside a standard terminal window (80 columns, including the sides of the
-#  box). For a real challenge, try word wrapping very long messages so they
-#  appear on multiple lines, but still within a box.
+# # Book solution:
+# def print_in_box(str)
+#   width = str.size
+#   top_bottom_line = "+#{'-' * (width + 2)}+"
+#   inside_line = "|#{' ' * (width + 2)}|"
+#   center_line = "| #{str} |"
+
+#   puts top_bottom_line, inside_line, center_line, inside_line, top_bottom_line
+# end
+
+# print_in_box('To boldly go where no one has gone before.')
+# # +--------------------------------------------+
+# # |                                            |
+# # | To boldly go where no one has gone before. |
+# # |                                            |
+# # +--------------------------------------------+
+# puts
+
+# print_in_box('')
+# # +--+
+# # |  |
+# # |  |
+# # |  |
+# # +--+
+# puts
+
+# print_in_box('This is a test yo')
+# puts
+# puts '=' * 80
+# puts
 
 
-def print_in_box(str)
-  str = str.slice(0...76)
-  width = str.size
-  top_bottom_line = "+#{'-' * (width + 2)}+"
-  inside_line = "|#{' ' * (width + 2)}|"
-  center_line = "| #{str} |"
-
-  puts top_bottom_line, inside_line, center_line, inside_line, top_bottom_line
-end
-
-print_in_box('To boldly go where no one has gone before.')
-# +--------------------------------------------+
-# |                                            |
-# | To boldly go where no one has gone before. |
-# |                                            |
-# +--------------------------------------------+
-puts
-
-print_in_box('')
-# +--+
-# |  |
-# |  |
-# |  |
-# +--+
-puts
-
-print_in_box('Modify this method so it will truncate the message if it will' \
-             ' be too wide to fit inside a standard terminal window (80' \
-             ' columns, including the sides of the box).')
-puts
-puts '=' * 80
-puts
-
-# Wrap lines solution:
-MAX_WIDTH = 76
-
-def print_in_box(str)
-  lines = []
-
-  (0...str.size).step(MAX_WIDTH) { |n| lines << str[n...n + MAX_WIDTH] }
-
-  width = str.size > MAX_WIDTH ? MAX_WIDTH : str.size
+# # Modify this method so it will truncate the message if it will be too wide to
+# #  fit inside a standard terminal window (80 columns, including the sides of the
+# #  box). For a real challenge, try word wrapping very long messages so they
+# #  appear on multiple lines, but still within a box.
 
 
+# def print_in_box(str)
+#   str = str.slice(0...76)
+#   width = str.size
+#   top_bottom_line = "+#{'-' * (width + 2)}+"
+#   inside_line = "|#{' ' * (width + 2)}|"
+#   center_line = "| #{str} |"
 
-  top_bottom_line = "+#{'-' * (width + 2)}+"
-  inside_line = "|#{' ' * (width + 2)}|"
+#   puts top_bottom_line, inside_line, center_line, inside_line, top_bottom_line
+# end
 
-  lines[-1] << ' ' * (MAX_WIDTH - lines.last.size) if lines.size > 1
+# print_in_box('To boldly go where no one has gone before.')
+# # +--------------------------------------------+
+# # |                                            |
+# # | To boldly go where no one has gone before. |
+# # |                                            |
+# # +--------------------------------------------+
+# puts
 
-  puts top_bottom_line, inside_line
-  lines.each { |line| puts "| #{line} |"}
-  puts inside_line, top_bottom_line
+# print_in_box('')
+# # +--+
+# # |  |
+# # |  |
+# # |  |
+# # +--+
+# puts
 
-end
+# print_in_box('Modify this method so it will truncate the message if it will' \
+#              ' be too wide to fit inside a standard terminal window (80' \
+#              ' columns, including the sides of the box).')
+# puts
+# puts '=' * 80
+# puts
 
-print_in_box('To boldly go where no one has gone before.')
-# +--------------------------------------------+
-# |                                            |
-# | To boldly go where no one has gone before. |
-# |                                            |
-# +--------------------------------------------+
-puts
+# # Wrap lines solution:
+# MAX_WIDTH = 76
 
-print_in_box('')
-# +--+
-# |  |
-# |  |
-# |  |
-# +--+
-puts
+# def print_in_box(str)
+#   lines = []
 
-print_in_box('Modify this method so it will truncate the message if it will' \
-             ' be too wide to fit inside a standard terminal window (80' \
-             ' columns, including the sides of the box).')
-puts
+#   (0...str.size).step(MAX_WIDTH) { |n| lines << str[n...n + MAX_WIDTH] }
 
-print_in_box('This is a fairly straight forward solution To simplify matters, '\
-             ' we start out by setting horizontal_rule and empty_line to ' \
-             'appropriate values for the top and bottom 2 lines of the box. ' \
-             'The expression * (message.size + 2) simply creates a ' \
-             'string of message.size + 2 hyphens; combined with the + at ' \
-             'the beginning and end of the the string, this is just wide ' \
-             'enough to draw the horizontal lines while leaving room for ' \
-             'one blank on either side of the message.')
-puts
+#   width = str.size > MAX_WIDTH ? MAX_WIDTH : str.size
 
-print_in_box('It is possible to solve this using regular expressions (see ' \
-             'the Regexp module documentation). For a nice challenge, give ' \
-             'this a try.')
-puts
-puts
-puts '=' * 80
-puts
-puts
+
+
+#   top_bottom_line = "+#{'-' * (width + 2)}+"
+#   inside_line = "|#{' ' * (width + 2)}|"
+
+#   lines[-1] << ' ' * (MAX_WIDTH - lines.last.size) if lines.size > 1
+
+#   puts top_bottom_line, inside_line
+#   lines.each { |line| puts "| #{line} |"}
+#   puts inside_line, top_bottom_line
+
+# end
+
+# print_in_box('To boldly go where no one has gone before.')
+# # +--------------------------------------------+
+# # |                                            |
+# # | To boldly go where no one has gone before. |
+# # |                                            |
+# # +--------------------------------------------+
+# puts
+
+# print_in_box('')
+# # +--+
+# # |  |
+# # |  |
+# # |  |
+# # +--+
+# puts
+
+# print_in_box('Modify this method so it will truncate the message if it will' \
+#              ' be too wide to fit inside a standard terminal window (80' \
+#              ' columns, including the sides of the box).')
+# puts
+
+# print_in_box('This is a fairly straight forward solution To simplify matters, '\
+#              ' we start out by setting horizontal_rule and empty_line to ' \
+#              'appropriate values for the top and bottom 2 lines of the box. ' \
+#              'The expression * (message.size + 2) simply creates a ' \
+#              'string of message.size + 2 hyphens; combined with the + at ' \
+#              'the beginning and end of the the string, this is just wide ' \
+#              'enough to draw the horizontal lines while leaving room for ' \
+#              'one blank on either side of the message.')
+# puts
+
+# print_in_box('It is possible to solve this using regular expressions (see ' \
+#              'the Regexp module documentation). For a nice challenge, give ' \
+#              'this a try.')
+# puts
+# puts
+# puts '=' * 80
+# puts
+# puts
 
 
 # Alternate solution - wraps lines without cutting words in half:
@@ -191,8 +191,10 @@ def print_in_box_one_line(str)
   puts top_bottom_line, inside_line, center_line, inside_line, top_bottom_line
 end
 
+# MAX_WIDTH = 76
+
 def print_in_box(str)
-  return print_in_box_one_line(str) if str.size <= 76
+  # return print_in_box_one_line(str) if str.size <= 76
 
   top_bottom_line = "+#{'-' * (MAX_WIDTH + 2)}+"
   inside_line = "|#{' ' * (MAX_WIDTH + 2)}|"
@@ -204,6 +206,17 @@ def print_in_box(str)
   puts top_bottom_line, inside_line
   lines.each { |line| puts "| #{line} |" }
   puts inside_line, top_bottom_line
+end
+
+
+# REFACTORED:
+def print_in_box(str)
+  lines = str.scan(/\S.{,75}(?=\s|\z)/)
+  width = lines.max_by(&:size).to_s.size + 2
+  top_bot = "+#{'-' * width}+"
+  padding = "|#{' ' * width}|"
+  text = lines.map { |line| "| #{line.ljust(width - 2)} |"}
+  puts [top_bot, padding, *text, padding, top_bot]
 end
 
 print_in_box('To boldly go where no one has gone before.')
@@ -246,3 +259,4 @@ print_in_box('Lara spotted other landmarks—an outcropping of limestone beside 
 puts
 
 print_in_box('TESTING SECOND CAPTURE GROUP:........................................................                                                                                               of limestone beside the XXXXXXX                                                                         XXXXX path that had a silhouette             like a mans face,            a marshy spot beside the river where the waterfowl were easily startled, a tall')
+print_in_box('Modify this method so it will truncate the message if it will be too wide to fit inside a standard terminal window (80 columns, including the sides of the box). For a real challenge, try word wrapping very long messages so they appear on multiple lines, but still within a box.')
