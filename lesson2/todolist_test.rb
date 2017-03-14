@@ -333,7 +333,7 @@ class TodoListTest < MiniTest::Test
     assert_equal(0, @list.send(:index, @todo1))
     assert_equal(1, @list.send(:index, @todo2))
     assert_equal(2, @list.send(:index, @todo3))
-    assert_equal(nil, @list.send(:index, @todo4))
+    assert_nil(@list.send(:index, @todo4))
   end
 
   def test_mark_title

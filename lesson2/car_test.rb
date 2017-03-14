@@ -17,6 +17,11 @@ class CarTest < Minitest::Test
     assert_equal(4, @car.wheels)
   end
 
+  def test_bad_wheels
+    skip
+    assert_equal(3, @car.wheels)
+  end
+
   def test_name_is_nil
     assert_nil(@car.name)
   end
