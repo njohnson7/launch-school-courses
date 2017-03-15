@@ -1,4 +1,4 @@
-# easy1.rb
+# easy1_01.rb
 
 # Assume we have a Tree class that implements a binary tree.
 
@@ -19,8 +19,7 @@ class Tree
   include Enumerable
 
   def each
-    # [1,2,3].each
-    [1,2,3].each { |obj| yield(obj) }
+    #...
   end
 end
 
