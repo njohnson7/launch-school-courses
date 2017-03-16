@@ -130,6 +130,18 @@ def divisors(int)
   divisors.sort
 end
 
+def divisors(int)
+  return [int] if int < 2
+  primes, powers = int.prime_division.transpose
+  exponents = powers.map { |power| (0..power).to_a }
+  exponents = exponents.first.product(*exponents.drop(1))
+  divisors = exponents.map do |powers|
+    primes.zip(powers).map{|prime, power| prime**power}.reduce(:*)
+  end
+  divisors.sort
+end
+
+
 p time_seconds { divisors(1) }#== [1] }
 p time_seconds { divisors(7) }#== [1, 7] }
 p time_seconds { divisors(12) }#== [1, 2, 3, 4, 6, 12] }
