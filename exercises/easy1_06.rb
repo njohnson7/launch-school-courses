@@ -9,11 +9,15 @@ def any?(arr)
   false
 end
 
-
 def any?(arr)
   arr.each { |elem| return true if yield(elem) } && false
 end
 
+# recursive:
+def any?(arr, &block)
+  return false if arr.empty?
+  block.call(arr.first) ? true : any?(arr.drop(1), &block)
+end
 
 p any?([1, 3, 5, 6]) { |value| value.even? } == true
 p any?([1, 3, 5, 7]) { |value| value.even? } == false

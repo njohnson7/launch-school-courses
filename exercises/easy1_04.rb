@@ -141,6 +141,13 @@ def divisors(int)
   divisors.sort
 end
 
+# recursive:
+def divisors(num, start = 1, step = num.even? ? 1 : 2)
+  return [] if start > num**0.5
+  divisor_pair = [start, num / start] if (num % start).zero?
+  divisor_pair.to_a + divisors(num, start + step)
+end
+
 
 p time_seconds { divisors(1) }#== [1] }
 p time_seconds { divisors(7) }#== [1, 7] }
@@ -149,10 +156,10 @@ p time_seconds { divisors(98) }#== [1, 2, 7, 14, 49, 98] }
 p time_seconds { divisors(99400891) }#== [1, 9967, 9973, 99400891] }
 p time_seconds { divisors(0) }#== [] }
 p time_seconds { divisors(120) }#== [] }
-p time_seconds { divisors(999962000357) }#== [1, 999979, 999983, 999962000357] }
-# p time_seconds { divisors(99996200035785723845) }
-p time_seconds { divisors(999962000356) }#==  [1, 2, 4, 11, 22, 44, 71, 142, 284, 781, 1562, 3124, 320090269, 640180538, 1280361076, 3520992959, 7041985918, 14083971836, 22726409099, 45452818198, 90905636396, 249990500089, 499981000178, 999962000356] }
-# p time_seconds { divisors(999962000356878787) }
+# p time_seconds { divisors(999962000357) }#== [1, 999979, 999983, 999962000357] }
+# # p time_seconds { divisors(99996200035785723845) }
+# p time_seconds { divisors(999962000356) }#==  [1, 2, 4, 11, 22, 44, 71, 142, 284, 781, 1562, 3124, 320090269, 640180538, 1280361076, 3520992959, 7041985918, 14083971836, 22726409099, 45452818198, 90905636396, 249990500089, 499981000178, 999962000356] }
+# # p time_seconds { divisors(999962000356878787) }
 
 
 

@@ -30,6 +30,11 @@ def compute(arg)
 end
 
 
+def compute(arg, &block)
+  block_given? ? block.call(arg) : 'Does not compute.'
+end
+
+
 p compute(10) { |n| n.abs2 } == 100
 p compute(10, &:abs2) == 100
 p compute('string', &:upcase) == 'STRING'

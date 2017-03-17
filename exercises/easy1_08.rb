@@ -38,8 +38,10 @@ def none?(arr, &block)
   arr.count { |elem| block.call(elem) } == 0
 end
 
+# recursive:
 def none?(arr, &block)
-  return
+  return true if arr.empty?
+  block.call(arr.first) ? false : none?(arr.drop(1), &block)
 end
 
 p none?([1, 3, 5, 6]) { |value| value.even? } == false

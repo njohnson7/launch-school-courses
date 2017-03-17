@@ -97,6 +97,23 @@ puts
 
 
 
+# recursive:
+def missing(arr)
+  return [] if arr.to_a.size <= 1
+  (arr.first + 1..arr[1] - 1).to_a + missing(arr.drop(1))
+end
+
+p missing([-3, -2, 1, 5]) # == [-1, 0, 2, 3, 4]
+p missing([1, 2, 3, 4]) # == []
+p missing([1, 5]) # == [2, 3, 4]
+p missing([6]) # == []
+p missing([]) # == []
+p missing(nil) # == []
+puts
+
+
+
+
 
 # class Foo
 #   include Enumerable

@@ -15,15 +15,21 @@
 # You do not have to actually implement any methods -- just show the methods
 # that you must provide.
 
-class Tree
-  include Enumerable
+# class Tree
+#   # include Enumerable
 
-  def each
-    #...
-  end
-end
+#   def each
+#     #...
+#   end
+# end
+
+# Tree = Class.new { define_method(:each) {  } }
+# Tree.extend(Enumerable)
+Tree = Class.new { include(Enumerable) && define_method(:each) { 'each' } }
+
 
 tree = Tree.new
 p tree.each { |n| p n + 1}
+p tree.each
 p tree.map(&:to_s)
 p tree.map
