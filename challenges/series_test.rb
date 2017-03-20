@@ -18,7 +18,7 @@ class SeriesTest < Minitest::Test
     series = Series.new('01234')
     assert_equal [[0, 1], [1, 2], [2, 3], [3, 4]], series.slices(2)
   end
-v
+
   def test_other_slices_of_two
     series = Series.new('98273463')
     expected = [[9, 8], [8, 2], [2, 7], [7, 3], [3, 4], [4, 6], [6, 3]]
@@ -50,7 +50,6 @@ v
     series = Series.new('01234')
     assert_equal [[0, 1, 2, 3], [1, 2, 3, 4]], series.slices(4)
   end
-)
 
   def test_simple_slices_of_four_again
     series = Series.new('91274')

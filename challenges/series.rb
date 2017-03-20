@@ -10,20 +10,19 @@
   # get each consectuive slice_size of digits
 
 class Series
-  def initialize(num_str)
+  def initialize(num_str = '')
     @digits = num_str.chars.map(&:to_i)
   end
 
+  # using Enumerable#each_cons:
   def slices(size)
-    ater}
-{ttttttttttttttttttttttttttttttttttttttttttttttttttt
-    validate_slice(size)
+    raise ArgumentError, 'invalid size' unless (0..@digits.size).include?(size)
     @digits.each_cons(size).to_a
   end
 
-  private
-
-  def validate_slice(size)
+  # without using Enumerable#each_cons:
+  def slices(size)
     raise ArgumentError, 'invalid size' unless (0..@digits.size).include?(size)
+    (0..@digits.size - size).map { |idx| @digits[idx, size] }
   end
 end
