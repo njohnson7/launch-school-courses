@@ -44,7 +44,6 @@ class SumOfMultiples
   end
 end
 
-
 p SumOfMultiples.new
 p SumOfMultiples.new.to(50)          # 543
 p SumOfMultiples.new(10).to(50)
