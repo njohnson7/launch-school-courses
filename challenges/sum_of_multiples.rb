@@ -29,7 +29,7 @@
 #   end
 # end
 
-
+# included support for this syntax: SumOfMultiples.new.to(50)
 class SumOfMultiples
   def self.to(limit)
     new.to(limit)
@@ -45,8 +45,8 @@ class SumOfMultiples
 end
 
 p SumOfMultiples.new
+p SumOfMultiples.to(50)              # 543
 p SumOfMultiples.new.to(50)          # 543
 p SumOfMultiples.new(10).to(50)
 p SumOfMultiples.new(10, 15).to(50)
-p SumOfMultiples.to(50)              # 543
 p SumOfMultiples.to(1)
