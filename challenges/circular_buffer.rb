@@ -106,6 +106,35 @@
 
 
 
+# class CircularBuffer
+#   %w[Empty Full].each { |e| const_set("Buffer#{e}Exception", Class.new(IOError)) }
+
+#   def initialize(size)
+#     clear && @full = -> { @buffer.size == size }
+#   end
+
+#   def clear; @buffer = [] end
+
+#   def read
+#     @buffer.shift.tap { |elem| elem.nil? && raise(BufferEmptyException) }
+#   end
+
+#   def write(elem)
+#     !elem.nil? && (@full[] ? raise(BufferFullException) : @buffer.push(*elem))
+#   end
+
+#   def write!(elem)
+#     @full[] ? @buffer.tap { |b| !elem.nil? && read }.push(*elem) : write(elem)
+#   end
+# end
+
+# def add_ten(num)
+#   num + 10
+# end
+
+
+
+
 class CircularBuffer
   %w[Empty Full].each { |e| const_set("Buffer#{e}Exception", Class.new(IOError)) }
 
@@ -120,18 +149,17 @@ class CircularBuffer
   end
 
   def write(elem)
-    !elem.nil? && (@full[] ? raise(BufferFullException) : @buffer.push(*elem))
+    update(elem) { raise(BufferFullException) }
   end
 
   def write!(elem)
-    @full[] ? @buffer.tap { |b| !elem.nil? && read }.push(*elem) : write(elem)
+    update(elem) { read }
+  end
+
+  def update(elem)
+    return if elem.nil?
+    yield if @full[]
+    @buffer << elem
   end
 end
 
-def add_ten(num)
-  num + 10
-end
-
-p add_ten(5) # here we are passing an Integer object with a value of 5 as an
-             # argument to the add_ten method. then the method local variable
-             # num is assigned 5
