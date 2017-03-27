@@ -30,6 +30,25 @@
   #
 
 
+# class WordProblem
+#   OPS = { 'plus' => :+, 'minus' => :-, 'multiplied by' => :*, 'divided by' => :/ }
+#   OP_REGEX = /#{OPS.keys.join('|')}/
+#   NUM = /-?\d+/
+#   VALID = /\AWhat is ((#{NUM})( (#{OP_REGEX}) (#{NUM}))+)\?\z/
+
+#   def initialize(question)
+#     raise ArgumentError unless question.match(VALID)
+#     @problem = $1.scan(/#{NUM}|#{OP_REGEX}/).map { |x| x[NUM] ? x.to_i : OPS[x] }
+#   end
+
+#   def answer
+#     @problem.unshift(@problem.shift.send(*@problem.shift(2))) until @problem.size == 1
+#     @problem.first
+#   end
+# end
+
+
+
 class WordProblem
   OPS = { 'plus' => :+, 'minus' => :-, 'multiplied by' => :*, 'divided by' => :/ }
   OP_REGEX = /#{OPS.keys.join('|')}/
@@ -42,7 +61,7 @@ class WordProblem
   end
 
   def answer
-    @problem.unshift(@problem.shift.send(*@problem.shift(2))) until @problem.size == 1
-    @problem.first
+    return @problem.first if @problem.size == 1
+    @problem.unshift(@problem.shift.send(*@problem.shift(2))) && answer
   end
 end

@@ -75,6 +75,7 @@
 #  the top 3 solutions take ~82, ~72, and ~11 seconds, respectively, and the
 #  fastest submitted solution takes ~10 seconds.
 
+
 class Prime
   class << self
     def nth(num)
@@ -97,27 +98,34 @@ class Prime
   end
 end
 
-class Prime
-  def self.nth(n)
-    raise ArgumentError if n < 1
 
-    current_number = 2
-    prime_count = 0
 
-    loop do
-      prime_count += 1 if is_prime?(current_number)
-      break if prime_count == n
-      current_number += 1
-    end
-    current_number
-  end
 
-  private
 
-  def self.is_prime?(num)
-    (2..Math.sqrt(num)).none? { |divisor| num % divisor == 0 }
-  end
-end
+
+
+
+# class Prime
+#   def self.nth(n)
+#     raise ArgumentError if n < 1
+
+#     current_number = 2
+#     prime_count = 0
+
+#     loop do
+#       prime_count += 1 if is_prime?(current_number)
+#       break if prime_count == n
+#       current_number += 1
+#     end
+#     current_number
+#   end
+
+#   private
+
+#   def self.is_prime?(num)
+#     (2..Math.sqrt(num)).none? { |divisor| num % divisor == 0 }
+#   end
+# end
 
 # class Prime
 #   def self.nth(num)
