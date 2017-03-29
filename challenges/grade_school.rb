@@ -97,5 +97,7 @@ School = Class.new do
                     -> (name, num) { (@roster[num] += [name]).sort! },
                     -> (num) { @roster[num] },
                     -> { @roster.sort.to_h } ]
-  method_names.zip(method_bodies).each { |name, body| define_method(name, &body) }
+  method_names.zip(method_bodies)
+              .each { |name, body| define_method(name, body) }
 end
+
