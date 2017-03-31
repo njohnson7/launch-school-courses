@@ -4,29 +4,40 @@
 # For example, 3**2 + 4**2 = 9 + 16 = 25 = 5**2.
 
 
+# option 1 - using Array#combination - shorter but slower:
 class Triplet
   def self.where(max_factor:, min_factor: 1, sum: nil)
-    # triplets = (min_factor..max_factor).to_a.combination(3).map { |nums| new(*nums) }
-    # triplets.select { |triplet| triplet.pythagorean? && (sum.nil? || triplet.sum == sum) }
-
-    triplets = combination(max_factor, min_factor)
-    triplets.reject { |triplet| sum&.!= triplet.sum }
+    triplets = (min_factor..max_factor).to_a.combination(3).map { |nums| new(*nums) }
+    triplets.select { |triplet| triplet.pythagorean? && !(sum&.!= triplet.sum) }
   end
 
-  def self.combination(max, min)
-    (min..max - 2).each.with_object([]) do |a, combos|
-      (a + 1..max - 1).each do |b|
-        (b + 1..max).each do |c|
+  define_method(:initialize)   { |*nums| @nums = nums }
+  define_method(:sum)          { @nums.sum }
+  define_method(:product)      { @nums.reduce(:*) }
+  define_method(:pythagorean?) { @nums.first(2).sum(&:abs2) == @nums.last.abs2 }
+end
+
+
+
+# Option 2 - using Set and custom combination method - longer but ~4x faster:
+require 'set'
+
+class Triplet
+  def self.where(max_factor:, min_factor: 1, sum: nil)
+    triplets(max_factor, min_factor).reject { |triplet| sum&.!= triplet.sum }
+  end
+
+  def self.triplets(max, min)
+    min.upto(max - 2).with_object(Set.new) do |a, triplets|
+      (a + 1).upto(max - 1) do |b|
+        (b + 1).upto(max) do |c|
           break unless a + b > c
           triplet = new(a, b, c)
-          # combos[triplet] ||= true if triplet.pythagorean?
-          combos << triplet if triplet.pythagorean?
+          triplets << triplet if triplet.pythagorean?
         end
       end
-    end#.keys
+    end
   end
-
-  attr_reader :nums
 
   def initialize(*nums)
     @nums = nums
@@ -41,11 +52,17 @@ class Triplet
   end
 
   def pythagorean?
-    @nums.first.abs2 + @nums[1].abs2 == @nums.last.abs2
+    @nums.map(&:abs2).tap { |a, b, c| return a + b == c }
   end
 end
 
 
-def factors(num)
-  (1...num).select { |n| num % n == 0 }
-end
+
+
+
+
+
+
+  # def pythagorean?
+  #   @nums.map(&:abs2).tap { |a, b, c| return a + b == c }
+  # end
