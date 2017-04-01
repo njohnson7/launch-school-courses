@@ -22,36 +22,31 @@
 #    | 111 |
 #    +-----+
 
-ValueError = Class.new(StandardError)
 
 module Board
   def self.transform(rows)
     raise ValueError unless valid?(rows)
-    rows.map.with_index do |row, row_idx|
-      next row if row.start_with?('+')
-      row.chars.map.with_index do |char, column_idx|
-        next char if char.match?(/[|*+-]/)
-        count = 0
-        count += 1 if row[column_idx - 1] == '*'
-        count += 1 if row[column_idx + 1] == '*'
-        count += 1 if rows[row_idx - 1][column_idx] == '*'
-        count += 1 if rows[row_idx - 1][column_idx - 1] == '*'
-        count += 1 if rows[row_idx - 1][column_idx + 1] == '*'
-        count += 1 if rows[row_idx + 1][column_idx] == '*'
-        count += 1 if rows[row_idx + 1][column_idx - 1] == '*'
-        count += 1 if rows[row_idx + 1][column_idx + 1] == '*'
-        count.nonzero? ? count : char
+    rows.map.with_index do |row, x|
+      row.chars.map.with_index do |char, y|
+        next char if char.match?(/[+-|*]/)
+        mine_count = rows[x - 1..x + 1].reduce(0) do |count, sub_row|
+          count + sub_row[y - 1..y + 1].count('*')
+        end
+        mine_count.nonzero? ? mine_count : char
       end.join
     end
   end
 
   def self.valid?((top, *mid, bot))
     [top, *mid, bot].map(&:size).uniq.size == 1 &&
-      [top, bot].all? { |row| row.match?(/\A\+-+\+\z/) } &&
-      mid.all? { |row| row.match(/\|[ *]+\|/)}
+      top == bot && bot.match?(/\A\+-+\+\z/) &&
+      mid.all? { |row| row.match?(/\A\|[ *]+\|\z/)}
   end
 end
 
-    inp = ['+-----+', '|     |', '|   * |', '|     |', '|     |',
-           '| *   |', '+-----+']
-p Board.transform(inp)
+ValueError = Class.new(StandardError)
+
+
+#     inp = ['+-----+', '|     |', '|   * |', '|     |', '|     |',
+#            '| *   |', '+-----+']
+# p Board.transform(inp)
