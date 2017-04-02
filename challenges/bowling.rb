@@ -30,14 +30,51 @@
     # elsif previous is [5, 5], increment sum by last.first
     # if no previous, then done
 
+class Game
+  def initialize
+    @frames = Array.new(10) { [] }
+    @frame_num = 0
+  end
 
-def roll_n_times(rolls, pins)
-  rolls.times do
-    Array(pins).each { |value| @game.roll(value) }
+  def score(idx = -1)
+    raise RuntimeError unless @frame_num == 10
+    current_frame = @frames[idx]
+    return 0 unless current_frame
+    prev1_frame = @frames[idx - 1]
+    prev2_frame = @frames[idx - 2]
+
+    sum = current_frame.sum
+    if prev1_frame == [10, 0]
+      sum += current_frame.first(2).sum
+      sum += current_frame.first if prev2_frame == [10, 0]
+    elsif prev1_frame&.sum == 10
+      sum += current_frame.first
+    end
+
+    sum + score(idx - 1)
+  end
+
+  def roll(pins)
+    current_frame = @frames[@frame_num]
+    raise RuntimeError if invalid?(pins, current_frame)
+    current_frame << pins
+
+    if @frame_num < 9
+      current_frame << 0 if pins == 10
+      @frame_num += 1 if current_frame.size == 2
+    else
+      roll_num = current_frame.size
+      @frame_num += 1 if (roll_num == 2 && current_frame.sum < 10) || roll_num == 3
+    end
+  end
+
+  def invalid?(pins, current_frame)
+    last_pins = current_frame&.last.to_i
+    !pins.between?(0, 10) || @frame_num > 9 ||
+      (last_pins != 10 && last_pins + pins > 10)
   end
 end
-# roll_n_times(18, 0)
-# roll_n_times(10, [3, 6])
+
 
 
 
@@ -47,109 +84,56 @@ class Game
     @frame_num = 0
   end
 
-  def score(sum = 0, idx = -1)
+  def score(idx = -1)
     raise RuntimeError unless @frame_num == 10
-
     current_frame = @frames[idx]
-    return sum unless current_frame
-    prev1 = @frames[idx - 1]
-    prev2 = @frames[idx - 2]
-    sum += current_frame.sum
-    if prev1 == [10, 0]
+    return 0 unless current_frame
+    sum = current_frame.sum
+    if @frames[idx - 1] == [10, 0]
       sum += current_frame.first(2).sum
-      sum += current_frame.first if prev2 == [10, 0]
-    elsif prev1&.sum == 10
+      sum += current_frame.first if @frames[idx - 2] == [10, 0]
+    elsif @frames[idx - 1]&.sum == 10
       sum += current_frame.first
     end
-    score(sum, idx - 1)
+    sum + score(idx - 1)
   end
 
   def roll(pins)
-    raise RuntimeError if invalid?(pins)
-
-    @frames[@frame_num] << pins
-
-    if pins == 10
-      if @frame_num == 9
-        return if @frames[@frame_num].size < 3
-        @frame_num += 1
-      else
-        @frames[@frame_num] << 0
-        @frame_num += 1
-      end
+    current_frame = @frames[@frame_num]
+    raise RuntimeError if invalid?(pins, current_frame)
+    current_frame << pins
+    if @frame_num < 9
+      current_frame << 0 if pins == 10
+      @frame_num += 1 if current_frame.size == 2
     else
-      if @frame_num == 9
-        if @frames[@frame_num].size < 3
-          return if @frames[@frame_num].size == 1
-
-          # GREATER THAN OR EQUAL TO 10!!!!:
-          return if @frames[@frame_num].sum >= 10 && @frames[@frame_num].size == 2
-          @frame_num += 1
-        else
-          @frame_num += 1
-        end
-      else
-        raise RuntimeError if @frames[@frame_num].sum > 10
-        @frame_num += 1 if @frames[@frame_num].size == 2
-      end
+      roll_num = current_frame.size
+      @frame_num += 1 if (roll_num == 2 && current_frame.sum < 10) || roll_num == 3
     end
   end
 
-
-  # def roll(pins)
-
-  # end
-
-  def invalid?(pins)
+  def invalid?(pins, current_frame)
     !pins.between?(0, 10) || @frame_num > 9 ||
-      (@frames[@frame_num].last != 10 && @frames[@frame_num].last.to_i + pins > 10)
+      (current_frame.last != 10 && current_frame&.last.to_i + pins > 10)
   end
+end
 
-  # def score
-  #   sum = 0
-  #   @frames.reverse_each do |frame|
-  #     sum +=
-  #   end
-  #   sum
+
+
+  # def score(idx = -1)
+  #   raise RuntimeError unless @frame_num == 10
+  #   current_frame = @frames[idx]
+  #   return 0 unless current_frame
+  #   frame_score = calc_score(current_frame, @frames[idx - 1], @frames[idx - 2])
+  #   frame_score + score(idx - 1)
   # end
 
-
-
-
- #  def score
- #    p @frames
- #    sum = 0
- #    @frames.flatten.each_with_index do |pins, idx|
- #      if pins == 10
- #        if @frames[idx + 1] == 0
- #          sum += 10 + @frames[idx + 1, 2].sum
- #        else
- #          sum += 10 + @frames[idx + 1]
- #        end
- #      end
- #    end
- #    sum
- #  end
-
- # # [ [10, 0], [10, 0], [10, 0], [5,  3], [0, 0], ..., [0, 0] ]   # 81
- #  #         30       25       18        8
- #  #     10, 10, 10, 5, 3, 0...0
-
- #  def score
- #    frames = @frames.flatten
- #    sum = 0
- #    idx = 0
- #    loop do
- #      # first, second, third = frames[idx, 3]
- #      current = frames.shift
- #      if current == 10 && frames.first == 0
- #        frames.shift
- #        if frames.first == 10 && frames[1] == 0
- #          frames.delete_at(1)
- #          sum += 10 + frames.first(2).sum
- #        end
- #      end
- #    end
- #    sum
- #  end
-end
+  # def calc_score(current_frame, prev1_frame, prev2_frame)
+  #   frame_score = current_frame.sum
+  #   if prev1_frame == [10, 0]
+  #     frame_score += current_frame.first(2).sum
+  #     frame_score += current_frame.first if prev2_frame == [10, 0]
+  #   elsif prev1_frame&.sum == 10
+  #     frame_score += current_frame.first
+  #   end
+  #   frame_score
+  # end
