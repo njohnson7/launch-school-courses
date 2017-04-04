@@ -96,22 +96,31 @@ def odd(str)
 end
 
 
-p odd('whats the matter with kansas.') == 'whats eht matter htiw kansas.'
-p odd('whats the matter with kansas.   ') == 'whats eht matter htiw kansas.'
-p odd('whats the matter   with kansas.   ') == 'whats eht matter htiw kansas.'
-p odd('whats   the  matter   with kansas  .   ') == 'whats eht matter htiw kansas.'
-p odd('whats   the  matter   with  .') == 'whats eht matter htiw.'
-p odd('whats the matter with kansas yo.') == "whats eht matter htiw kansas oy."
-p odd('whats    the   matter with      kansas  yo.  ') == "whats eht matter htiw kansas oy."
-p odd('hello.')               == 'hello.'
-p odd('hello .')              == 'hello.'
-p odd('hello world.')         == 'hello dlrow.'
-p odd('hello world .')        == 'hello dlrow.'
-p odd('hello  world .')       == 'hello dlrow.'
-p odd('hello  hello world.')  == 'hello olleh world.'
-p odd('') == ''
-p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrs') # 19
-p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrst') # 20
-p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrstu') # 21
-p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrstuv') # 22
-p odd('one two abcdefghijklmnopqrstuv asdasd ') # 22
+OddWords = Struct.new(:str) do
+  def reverse_odds
+    # raise ArgumentError unless str[/([a-z]{1,20}( )+?)+\.\z/i]
+    return '' if str.empty?
+    str.delete('.').squeeze(' ').strip.gsub(/(\w+) (\w+)/) { "#{$1} #{$2.reverse}" } + '.'
+  end
+end
+
+
+# p odd('whats the matter with kansas.') == 'whats eht matter htiw kansas.'
+# p odd('whats the matter with kansas.   ') == 'whats eht matter htiw kansas.'
+# p odd('whats the matter   with kansas.   ') == 'whats eht matter htiw kansas.'
+# p odd('whats   the  matter   with kansas  .   ') == 'whats eht matter htiw kansas.'
+# p odd('whats   the  matter   with  .') == 'whats eht matter htiw.'
+# p odd('whats the matter with kansas yo.') == "whats eht matter htiw kansas oy."
+# p odd('whats    the   matter with      kansas  yo.  ') == "whats eht matter htiw kansas oy."
+# p odd('hello.')               == 'hello.'
+# p odd('hello .')              == 'hello.'
+# p odd('hello world.')         == 'hello dlrow.'
+# p odd('hello world .')        == 'hello dlrow.'
+# p odd('hello  world .')       == 'hello dlrow.'
+# p odd('hello  hello world.')  == 'hello olleh world.'
+# p odd('') == ''
+# p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrs') # 19
+# p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrst') # 20
+# p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrstu') # 21
+# p odd('one two abcdefghijklmnopqrst abcdefghijklmnopqrstuv') # 22
+# p odd('one two abcdefghijklmnopqrstuv asdasd ') # 22

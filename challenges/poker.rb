@@ -41,6 +41,16 @@
     # save score and ranks to an array
     # if scores are the same, then examine specific cards and rank them
     # return highest ranking hand(s) as a nested array
+# 9)  straight flush:  5 groups:  straight && flush
+# 8)  4 of a kind:     2 groups:  4 same rank
+# 7)  full house:      2 groups:  3 same rank, 2 same rank
+# 6)  flush:           5 groups:  any ranks, ALL SAME SUIT
+# 5)  straight:        5 groups:  sequential ranks.  ex: [A,2,3,4,5]
+# 4)  3 of a kind:     3 groups:  3 same rank, 1,1 other ranks
+# 3)  2 pair:          3 groups:  2 same rank, 2 same rank, 1 other rank
+# 2)  1 pair:          4 groups:  2 same rank, 1,1,1 other ranks
+# 1)  high card:       5 groups:  all different ranks
+# for same hands:  sort first by group size, then by rank, in descending order
 
 
 
@@ -48,81 +58,30 @@
 
 
 
-class Poker
-  def initialize(hands)
-    @hands = hands.map { |cards| Hand.new(cards) }
-  end
-
+Poker = Struct.new(:hand_cards) do
   def best_hand
-    max_hand = @hands.max
-    @hands.select { |hand| hand == max_hand }.map(&:cards)
+    hands = hand_cards.map { |cards| Hand.new(cards) }
+    hands.select { |hand| hand == hands.max }.map(&:cards)
   end
 end
 
-class Hand
+Hand = Struct.new(:cards, :suits, :values, :groups, :score) do
   include Comparable
 
-  RANK_VALUES = %w[0 1 2 3 4 5 6 7 8 9 T J Q K A]
-
-  attr_reader :cards, :values
+  RANK_VALUES = %w[0 1 2 3 4 5 6 7 8 9 T J Q K A].freeze
+  SCORE_METHODS = %i[one_pair? two_pair? three_of_a_kind? straight? flush?
+                     full_house? four_of_a_kind? straight_flush?].freeze
 
   def initialize(cards)
-    @cards = cards
-    @ranks, @suits = cards.map(&:chars).transpose
-    @values = @ranks.map { |rank| RANK_VALUES.index(rank) }.sort
+    self.cards = cards
+    ranks, self.suits = cards.map(&:chars).transpose
+    self.values = ranks.map { |rank| RANK_VALUES.index(rank) }.sort
+    self.groups = values.chunk_while { |a, b| a == b }.sort_by(&:size).reverse
+    self.score = SCORE_METHODS.rindex { |m| method(m).call } || -1
   end
 
   def <=>(other)
-    result = score <=> other.score
-    return result unless result.zero?
-    case score
-    when 9, 5
-      values.max <=> other.values.max
-    when 8
-      [quadruplet, kickers] <=> [other.quadruplet, other.kickers]
-    when 7
-      [triplet, pairs] <=> [other.triplet, other.pairs]
-    when 6, 1
-      values.reverse <=> other.values.reverse
-    when 4
-      [triplet, kickers] <=> [other.triplet, other.kickers]
-    when 3, 2
-      [pairs, kickers] <=> [other.pairs, other.kickers]
-    end
-  end
-
-  def quadruplet
-    ns_of_a_kind(4)
-  end
-
-  def triplet
-    ns_of_a_kind(3)
-  end
-
-  def pairs
-    ns_of_a_kind(2)
-  end
-
-  def kickers
-    ns_of_a_kind(1)
-  end
-
-  def ns_of_a_kind(n)
-    values.uniq.select { |value| values.count(value) == n }.sort.reverse
-  end
-
-  def score
-    case
-    when straight_flush?  then 9
-    when four_of_a_kind?  then 8
-    when full_house?      then 7
-    when flush?           then 6
-    when straight?        then 5
-    when three_of_a_kind? then 4
-    when two_pair?        then 3
-    when one_pair?        then 2
-    else                       1
-    end
+    [score, groups] <=> [other.score, other.groups]
   end
 
   def straight_flush?
@@ -130,7 +89,7 @@ class Hand
   end
 
   def four_of_a_kind?
-    n_of_a_kind?(4)
+    groups.first.size == 4
   end
 
   def full_house?
@@ -138,28 +97,24 @@ class Hand
   end
 
   def flush?
-    @suits.uniq.size == 1
+    self.suits.uniq.size == 1
   end
 
   def straight?
-    low_ace_values = values.map { |value| value == 14 ? 1 : value }.sort
-    [values, low_ace_values].any? { |vals| vals == (vals.min..vals.max).to_a }
+    self.values = *1..5 if values == [2, 3, 4, 5, 14]
+    values == [*Range.new(*values.minmax)]
   end
 
   def three_of_a_kind?
-    n_of_a_kind?(3)
+    groups.first.size == 3
   end
 
   def two_pair?
-    @values.uniq.count { |value| @values.count(value) == 2 } == 2
+    groups.map(&:size) == [2, 2, 1]
   end
 
   def one_pair?
-    n_of_a_kind?(2)
-  end
-
-  def n_of_a_kind?(n)
-    @values.uniq.any? { |value| @values.count(value) == n }
+    groups.one? { |group| group.size == 2 }
   end
 end
 

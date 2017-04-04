@@ -32,6 +32,16 @@ require_relative 'poker'
     # save score and ranks to an array
     # if scores are the same, then examine specific cards and rank them
     # return highest ranking hand(s) as a nested array
+# 9)  straight flush:  5 groups:  straight && flush
+# 8)  4 of a kind:     2 groups:  4 same rank
+# 7)  full house:      2 groups:  3 same rank, 2 same rank
+# 6)  flush:           5 groups:  any ranks, ALL SAME SUIT
+# 5)  straight:        5 groups:  sequential ranks.  ex: [A,2,3,4,5]
+# 4)  3 of a kind:     3 groups:  3 same rank, 1,1 other ranks
+# 3)  2 pair:          3 groups:  2 same rank, 2 same rank, 1 other rank
+# 2)  1 pair:          4 groups:  2 same rank, 1,1,1 other ranks
+# 1)  high card:       5 groups:  all different ranks
+# for same hands:  sort first by group size, then by rank, in descending order
 
 class PokerTest < Minitest::Test
   def test_one_hand
