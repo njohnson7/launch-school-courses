@@ -533,3 +533,38 @@ String.send :define_method, :another_method, unbound
 p 'abc'.another_method  # => ???
 bound = unbound.bind(Array)
 p bound.call            # => ???
+puts
+
+
+
+
+
+
+# FRIDAY CHAPTER---------------------------------------------------------
+
+
+class Class8
+  def my_method
+    @x = 1
+    binding
+  end
+end
+
+b = Class8.new.my_method
+p b                 # => #<Binding:0x00000002514e90>
+p eval '@x', b      # => 1
+p TOPLEVEL_BINDING  # => Binding obj of the top level scope
+puts
+
+
+
+class Class9
+  def my_method
+    eval 'self', TOPLEVEL_BINDING
+  end
+end
+
+p Class9.new.my_method  # => main
+
+;require'pry';binding.pry;
+
