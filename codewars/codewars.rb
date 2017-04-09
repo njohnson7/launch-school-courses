@@ -100,3 +100,65 @@ end
 # p palindrome("ACCDDCCA")   #"Not valid"
 # p palindrome("1551")   #"Not valid"
 # p palindrome(-4505)   #"Not valid"
+
+
+
+
+
+def sort_it_out(array)
+  array.partition { |num| num.to_i.odd? }
+       .tap { |odds, evens| return odds.sort + evens.sort.reverse }
+end
+
+# p sort_it_out([26,243,52,2,432414,1,11,46,32]) == [1,11,243,432414,52,46,32,26,2]
+# p sort_it_out([19,65,88,112,60,14,33,49,88]) == [19,33,49,65,112,88,88,60,14]
+# p sort_it_out([]) == []
+# p sort_it_out([68,25,99,50,10,67,2,5,8,34,67]) == [5,25,67,67,99,68,50,34,10,8,2]
+# p sort_it_out([11,22,33,44,55,55,90.4,4,78]) == [11,33,55,55,90.4,78,44,22,4]
+
+
+
+
+def bubble_sort_official!(array)
+  loop do
+    swapped = false
+    1.upto(array.size - 1) do |index|
+      next if array[index - 1] <= array[index]
+      array[index - 1], array[index] = array[index], array[index - 1]
+      swapped = true
+    end
+
+    break unless swapped
+  end
+  nil
+end
+
+def bubble_sort!(arr, n = arr.size)
+  n.zero? ? (return arr) : new_n = 0
+  (1...n).each do |idx|
+    next if arr[idx - 1] <= arr[idx]
+    arr[idx - 1], arr[idx], new_n = arr[idx], arr[idx - 1], idx
+  end
+  bubble_sort!(arr, new_n)
+end
+
+
+
+def benchmark
+  start = Time.now
+  yield
+  puts "Duration: #{Time.now - start} seconds"
+end
+
+arr = Array.new(10_000) { rand(1..1000) }
+arr_copy = arr.dup
+
+# benchmark { bubble_sort_official!(arr) }  # 7.11 seconds
+# benchmark { bubble_sort!(arr_copy) }      # 5.19 seconds
+puts
+
+arr = Array.new(30_000) { rand(1..2) }
+arr_copy = arr.dup
+
+# benchmark { bubble_sort_official!(arr) }
+# benchmark { bubble_sort!(arr_copy) }

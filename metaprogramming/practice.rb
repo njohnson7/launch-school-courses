@@ -565,6 +565,37 @@ class Class9
 end
 
 p Class9.new.my_method  # => main
+puts
 
-;require'pry';binding.pry;
 
+
+arr = %w[a b c]
+x = 'd'
+arr.instance_eval "self[1] = x"
+p arr
+puts
+
+
+
+def explore_array(method)
+  code = "%w[a b c].#{method}"
+  puts "Evaluating: #{code}"
+  eval code
+end
+
+# loop { p explore_array(gets) }
+
+# will print only the odd numbers of the array
+[1, 2, 3, 4, 5].each do |num|
+  next if num.even?  # if num is even, it will skip the line below, and move on
+  puts num           #  to the next iteration of #each
+end
+# outputs: [1, 3, 5]
+
+arr = [1, 2, 3]
+
+p arr.map(&:next)    # => [2, 3, 4]
+p arr.map(&:succ)    # => [2, 3, 4]
+
+add_one = proc { |num| num + 1 }
+p arr.map(&add_one)  # => [2, 3, 4]
