@@ -584,18 +584,156 @@ def explore_array(method)
 end
 
 # loop { p explore_array(gets) }
+puts
 
-# will print only the odd numbers of the array
-[1, 2, 3, 4, 5].each do |num|
-  next if num.even?  # if num is even, it will skip the line below, and move on
-  puts num           #  to the next iteration of #each
+
+
+def testing
+  p 123
 end
-# outputs: [1, 3, 5]
 
-arr = [1, 2, 3]
+# 1.testing # private method `testing' called for 1:Integer (NoMethodError)
+1.send(:testing) # outputs: 123
+puts
 
-p arr.map(&:next)    # => [2, 3, 4]
-p arr.map(&:succ)    # => [2, 3, 4]
 
-add_one = proc { |num| num + 1 }
-p arr.map(&add_one)  # => [2, 3, 4]
+
+
+# user_input = "User input: #{gets}"
+# p user_input.tainted?  # => true
+# puts
+
+
+
+class String
+  def self.inherited(subclass)
+    puts "#{self} was inherited by #{subclass}"
+  end
+end
+
+class MyString < String; end
+class AnotherString < MyString; end
+# <= String was inherited by MyString
+# <= MyString was inherited by AnotherString
+puts
+
+
+
+module Mod10
+  def self.included(other_mod)
+    puts "Mod10 was included into #{other_mod}"
+  end
+end
+
+module Mod11
+  def self.prepended(other_mod)
+    puts "Mod11 was prepended to #{other_mod}"
+  end
+end
+
+class Class10
+  include Mod10
+  prepend Mod11
+end
+
+# <= Mod10 was included into Class10
+# <= Mod11 was prepended to Class10
+puts
+
+
+
+module Mod12
+  def self.method_added(method)
+    puts "New method: Mod12##{method}"
+  end
+
+  def my_method; end
+end
+# <= New method: Mod12#my_method
+puts
+
+
+
+module Mod13; end
+
+class Class13
+  def self.include(*modules)
+    puts "Called: Class13.include(#{modules})"
+    super
+  end
+
+  include Mod13
+end
+# <= Called: Class13.include([Mod13])
+puts
+
+
+
+# TYPO!!____________________________________
+class Class14
+  attr_accessor :my_attribute
+
+  def set_attribute(n)
+    self.my_attribute = n
+  end
+
+  private :my_attribute    #!!!!!!!!!!
+end
+
+obj = Class14.new
+obj.set_attribute 10
+p obj.send :my_attribute
+obj.my_attribute = 20
+p obj.send :my_attribute
+p obj.private_methods(false)
+p obj.public_methods(false)
+puts
+
+
+
+class Object
+  def tap
+    yield self
+    self
+  end
+end
+
+p [1, 2, 3].map(&:next).tap { |arr| p arr }.shift.to_s
+puts
+
+
+
+# Symbol#to_proc
+class Symbol
+  def to_proc
+    proc { |x| x.send(self) }
+  end
+end
+
+p %w[a b c].map(&:capitalize.to_proc)
+puts
+
+
+
+def BaseClass(name)
+  name == "string" ? String : Object
+end
+class Clz < BaseClass "string"  # a method that looks like a class
+  attr_accessor :an_attribute  # a method that looks like a keyword
+end
+obj = Clz.new
+obj.an_attribute = 1   # a method that looks like an attribute
+puts
+
+
+
+# TYPO!!____________________________________
+module MyNamespace
+  class Array
+    def to_s
+      "my class"
+    end
+  end
+end
+p Array.new # => []
+p MyNamespace::Array.new # => my class   #!!!!!!!!!!
