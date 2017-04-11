@@ -150,15 +150,367 @@ def benchmark
   puts "Duration: #{Time.now - start} seconds"
 end
 
-arr = Array.new(10_000) { rand(1..1000) }
-arr_copy = arr.dup
+# arr = Array.new(10_000) { rand(1..1000) }
+# arr_copy = arr.dup
 
 # benchmark { bubble_sort_official!(arr) }  # 7.11 seconds
 # benchmark { bubble_sort!(arr_copy) }      # 5.19 seconds
-puts
+# puts
 
-arr = Array.new(30_000) { rand(1..2) }
-arr_copy = arr.dup
+# arr = Array.new(30_000) { rand(1..2) }
+# arr_copy = arr.dup
 
 # benchmark { bubble_sort_official!(arr) }
 # benchmark { bubble_sort!(arr_copy) }
+
+
+# name = method to be created
+# block will be called 1st time method is accessed
+# return value of block will be used as value of method
+# remove any question makrs in name
+# only call the block and assign its return value to the var if var has not
+#  already been set directly
+
+# ex:
+  # attr_lazy(:even) { ... } # value will be stored as @even variable
+  # attr_lazy(:even?) { ... } # value will be stored as @even variable
+
+module AttrLazy
+  def attr_lazy(name, &block)
+    ivar_name = "@#{name.to_s.chomp('?')}"
+    define_method name do
+      return instance_variable_get(ivar_name) if instance_variable_defined?(ivar_name)
+      instance_variable_set(ivar_name, instance_eval(&block))
+    end
+  end
+end
+
+class Numbers
+  extend AttrLazy
+
+  def initialize(*numbers)
+    @numbers = numbers
+  end
+
+  attr_lazy :evens do
+    @numbers.select(&:even?)
+  end
+
+  attr_lazy :even? do
+    @numbers.all?(&:even?)
+  end
+
+  def mark_even
+    @even = true
+  end
+end
+
+# # describe 'AttrLazy' do
+# #   it 'should return the value provided by the block' do
+# example = Numbers.new(1,2)
+# p example.evens  # [2]
+# p example.even?  # false
+
+#   # it 'should not call the block if the variable is set manually' do
+# example = Numbers.new(1)
+# example.mark_even
+# p example.instance_variable_get(:@even)
+# p example.even?  # true
+
+# class Integer
+
+# end
+
+def add(n)
+  add_proc = proc do |num|
+    return n if num.nil?
+    n += num
+    # self
+    # num.nil? ? (return n) : n += num
+  end
+  # sum = add_proc.call
+  add_proc
+end
+
+# def add_proc(num)
+#   return n if num.nil?
+# end
+
+def add(n)
+  addable(n)
+end
+
+# def addable(num = nil)
+#   proc { |n| n ? addable(num + n) : num }
+# end
+
+# def add(n)
+#   addable(n)
+# end
+
+# class Addable
+#   def initialize(num)
+#     @num = num
+#   end
+
+#   def call(num = nil)
+#     if num
+#       Addable.new(num + @num)
+#     else
+#       @num
+#     end
+#   end
+# end
+
+# class Integer
+#   # def call(n)
+#   #   self + n
+#   # end
+
+#   alias call +
+# end
+
+# def add(n)
+#   n
+# end
+
+
+
+
+
+def add(n)
+  n.tap { Integer.class_eval { alias call + } }
+end
+
+
+# p add(1) #== 1
+# p add(1).(2) #== 3
+# p add(1).(2).(3) #== 6
+
+
+
+
+
+
+module Constantable
+  CONSTANT4 = 'Constantable module'
+end
+
+class Object
+  include Constantable
+  CONSTANT5 = 'Object constant'
+end
+
+CONSTANT1 = 'outer'
+module Animal
+  CONSTANT2 = 'middle'
+  class Dog
+    # include Constantable
+    CONSTANT3 = 'inner'
+    p CONSTANT1         # => 'outer'
+    p CONSTANT2         # => 'middle'
+    p CONSTANT3         # => 'inner'
+    p CONSTANT4         # => "Constantable module"
+    p CONSTANT5         # => "Object constant"
+    puts
+    p Module.nesting    # => [Animal::Dog, Animal]
+    p constants         # => [:CONSTANT3]
+    p constants(false)  # => [:CONSTANT3]
+    p Module.constants.grep(/CONST/)
+      # => [:CONSTANT3, :CONSTANT2, :CONSTANT5, :CONSTANT1] -- (no CONSTANT4 ??)
+  end
+  module Cat
+    module Meercat; end
+    p Meercat.ancestors  # => [Animal::Cat::Meercat]
+  end
+  p Cat.ancestors        # => [Animal::Cat]
+end
+
+# Constantable included in Animal::Dog:
+p Animal::Dog.ancestors   # => [Animal::Dog, Constantable, Object, Kernel, BasicObject]
+# order of lookup: 'inner', 'middle', 'Constantable module', 'outer'
+
+# Constantable included in Object:
+p Animal::Dog.ancestors   # => [Animal::Dog, Object, Constantable, Kernel, BasicObject]
+# order of lookup: 'inner', 'middle', 'outer', 'Constantable module'
+p Constantable.ancestors  # => [Constantable]
+puts
+
+class Vehicle
+  WHEELS = 4
+end
+
+module Maintenance
+  def change_tires
+    p Maintenance.constants           # => []
+    p Module.constants.grep(/WHEEL/)  # => []
+    p self                            # => #<Car:0x00000001e66288>
+    p Module.nesting                  # => [Maintenance]
+    puts
+    # "Changing #{WHEELS} tires."
+  end
+end
+
+class Car < Vehicle
+  WHEELS = 2
+  include Maintenance
+  p constants  # => [:WHEELS]
+end
+
+a_car = Car.new
+p a_car.change_tires
+p Maintenance.ancestors  # => [Maintenance]
+p Car.ancestors # [Car, Maintenance, Vehicle, Object, Constantable, Kernel, BasicObject]
+
+module Maintenance
+  def change_tires
+    # "Changing #{WHEELS} tires."  # => NameError
+  end
+end
+
+a_car = Car.new
+p a_car.change_tires
+
+
+
+module A
+  A_CONSTANT = 'I am defined in module A'
+  module B
+    module C
+      def self.inspect_nesting
+        puts Module.nesting.inspect
+        # puts Module.ancestors.inspect
+        puts A_CONSTANT
+      end
+    end
+  end
+end
+
+A::B::C.inspect_nesting
+# [A::B::C, A::B, A]
+# I am defined in module A
+
+
+module Screen
+  DEFAULT_RESOLUTION = [1024, 768]
+  module Widgets
+    module MacOS; end
+  end
+end
+
+module Screen::Widgets::MacOS::Button
+  def self.inspect_nesting
+    puts Module.nesting.inspect
+    puts DEFAULT_RESOLUTION
+  end
+end
+
+# Screen::Widgets::MacOS::Button.inspect_nesting
+# [Screen::Widgets::MacOS::Button]
+# (NameError) - uninitialized constant
+#   Screen::Widgets::MacOS::Button::DEFAULT_RESOLUTION
+puts
+
+
+
+module WTF
+  def print_const
+    puts XYZ
+  end
+end
+
+XYZ = 1
+include WTF
+print_const
+
+
+module WTF2
+end
+
+class OMG
+  XYZ2 = 3
+  # include WTF2
+  p Module.nesting
+end
+
+module WTF2
+  def print_const
+    # puts XYZ2
+  end
+end
+
+p OMG.ancestors
+# OMG.new.print_const
+omg = OMG.new
+omg.extend(WTF2)
+omg.print_const
+puts
+
+
+module MyModule
+  def print_constant
+    puts KONSTANT
+  end
+end
+
+class MyClass
+  KONSTANT = 1
+  include MyModule
+end
+
+obj = MyClass.new
+p MyClass.ancestors
+obj.print_constant
+
+
+
+# # Multiple inheritance:
+# class Animal; end
+# class Mammal < Animal; end
+# class Bird < Animal; end
+# class SwimmingAnimal < Animal; end
+# class TalkingAnimal < Animal; end
+# class FlyingAnimal < Animal; end
+# class Pet < Animal; end
+
+# class Dog < Mammal, SwimmingAnimal, Pet; end
+# class Cat < Mammal, Pet; end
+# class Gorilla < Mammal, TalkingAnimal; end
+# class Penguin < Bird, SwimmingAnimal; end
+# class Parrot < Bird, TalkingAnimal, FlyingAnimal, Pet; end
+# class Dove < Bird, FlyingAnimal; end
+
+
+# # Mixing in modules:
+# module Swimmable; end
+# module Talkable; end
+# module Flyable; end
+# module Pet; end
+# class Animal; end
+# class Mammal < Animal; end
+# class Bird < Animal; end
+
+# class Dog < Mammal
+#   include Swimmable, Pet
+# end
+
+# class Cat < Mammal
+#   include Pet
+# end
+
+# class Gorilla < Mammal
+#   include Talkable
+# end
+
+# class Penguin < Bird
+#   include Swimmable
+# end
+
+# class Parrot < Bird
+#   include Talkable, Flyable, Pet
+# end
+
+# class Dove < Bird
+#   include Flyable
+# end
+

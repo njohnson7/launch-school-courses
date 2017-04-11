@@ -356,6 +356,129 @@ require_relative 'framework'
 
 
 
+# class Thing
+#   attr_reader :name
+
+#   def initialize(name)
+#     @name = name.to_s
+#     define_singleton_method("#{name}?") { true }
+#   end
+
+#   def is_a
+#     @last_called = 'is_a'
+#     self
+#   end
+
+#   def is_not_a
+#     @last_called = 'is_not_a'
+#     self
+#   end
+
+#   # def is_the
+#   #   @last_called = 'is_the'
+#   #   self
+#   # end
+
+#   def has(num)
+#     @last_called = 'has'
+#     @amount = num
+#     self
+#   end
+
+#   alias having has
+#   alias with has
+
+#   def being_the
+#     @last_called = 'being_the'
+#     self
+#   end
+
+#   alias and_the being_the
+#   alias is_the being_the
+
+#   def can
+#     @last_called = 'can'
+#     self
+#   end
+
+#   def method_missing(method_name, *args, &block)
+#     case
+#     when @last_called == 'is_a'
+#       define_singleton_method("#{method_name}?") { true }
+#     when @last_called == 'is_not_a'
+#       define_singleton_method("#{method_name}?") { false }
+#     # when @last_called == 'is_the'
+#     #   @before_last_called = @last_called
+#     #   @last_called = method_name.to_s
+#     #   self
+#     # when @last_called =~ /(.*_of)\z/
+#     #   if @before_last_called == 'is_the'
+#     #     define_singleton_method($1) { method_name.to_s }
+#     #   end
+#     when @last_called == 'has'
+#       if @amount == 1
+#         instance_variable_set("@#{method_name}", Thing.new(method_name.to_s))
+#       else
+#         instance_variable_set("@#{method_name}", Things.new(method_name.to_s[/\A(.*)s\z/, 1], @amount))
+#       end
+#       singleton_class.send(:attr_reader, "#{method_name}")
+#       send(method_name)
+#     when @last_called == 'being_the'
+#       @before_last_called = @last_called
+#       @last_called = method_name.to_s
+#       self
+#     when @before_last_called == 'being_the'
+#       instance_variable_set("@#{@last_called}", method_name.to_s)
+#       singleton_class.send(:attr_reader, "#{@last_called}")
+#       self
+#     when @last_called == 'can'
+#       define_singleton_method("can_#{method_name}", block)
+#       unless args.empty?
+#         instance_variable_set("@#{method_name}", [])
+#         define_singleton_method("#{args.first}") do
+#           instance_variable_get("@#{method_name}")
+#         end
+#       end
+#       @last_called = nil
+#     when (matching = methods(false).map(&:to_s).find { |m| m[/can_#{method_name}/] })
+#       result = send(matching, *args)
+#       instance_variable_get("@#{method_name}")&.<< result
+#       result
+#     end
+#   end
+# end
+
+# class Things
+#   include Enumerable
+
+#   def initialize(name, amount)
+#     @things = Array.new(amount) { Thing.new(name) }
+#   end
+
+#   def is_a?(klass)
+#     klass == Array
+#   end
+
+#   def size
+#     @things.size
+#   end
+
+#   def last
+#     @things.last
+#   end
+
+#   def each
+#     @things.each { |thing| thing.instance_eval(&proc) }
+#   end
+# end
+
+
+
+
+
+
+
+
 class Thing
   attr_reader :name
 
@@ -374,11 +497,6 @@ class Thing
     self
   end
 
-  def is_the
-    @last_called = 'is_the'
-    self
-  end
-
   def has(num)
     @last_called = 'has'
     @amount = num
@@ -394,6 +512,7 @@ class Thing
   end
 
   alias and_the being_the
+  alias is_the being_the
 
   def can
     @last_called = 'can'
@@ -406,14 +525,6 @@ class Thing
       define_singleton_method("#{method_name}?") { true }
     when @last_called == 'is_not_a'
       define_singleton_method("#{method_name}?") { false }
-    when @last_called == 'is_the'
-      @before_last_called = @last_called
-      @last_called = method_name.to_s
-      self
-    when @last_called =~ /(.*_of)\z/
-      if @before_last_called == 'is_the'
-        define_singleton_method($1) { method_name.to_s }
-      end
     when @last_called == 'has'
       if @amount == 1
         instance_variable_set("@#{method_name}", Thing.new(method_name.to_s))
@@ -440,7 +551,6 @@ class Thing
       end
       @last_called = nil
     when (matching = methods(false).map(&:to_s).find { |m| m[/can_#{method_name}/] })
-        # ;require'pry';binding.pry;
       result = send(matching, *args)
       instance_variable_get("@#{method_name}")&.<< result
       result
@@ -449,6 +559,8 @@ class Thing
 end
 
 class Things
+  include Enumerable
+
   def initialize(name, amount)
     @things = Array.new(amount) { Thing.new(name) }
   end
@@ -461,10 +573,6 @@ class Things
     @things.size
   end
 
-  def first
-    @things.first
-  end
-
   def last
     @things.last
   end
@@ -472,17 +580,7 @@ class Things
   def each
     @things.each { |thing| thing.instance_eval(&proc) }
   end
-
-  def all?
-    @things.all?(&proc)
-  end
 end
-
-
-
-
-
-
 
 
 
