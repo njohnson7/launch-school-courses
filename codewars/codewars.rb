@@ -292,175 +292,175 @@ end
 
 
 
-module Constantable
-  CONSTANT4 = 'Constantable module'
-end
+# module Constantable
+#   CONSTANT4 = 'Constantable module'
+# end
 
-class Object
-  include Constantable
-  CONSTANT5 = 'Object constant'
-end
+# class Object
+#   include Constantable
+#   CONSTANT5 = 'Object constant'
+# end
 
-CONSTANT1 = 'outer'
-module Animal
-  CONSTANT2 = 'middle'
-  class Dog
-    # include Constantable
-    CONSTANT3 = 'inner'
-    p CONSTANT1         # => 'outer'
-    p CONSTANT2         # => 'middle'
-    p CONSTANT3         # => 'inner'
-    p CONSTANT4         # => "Constantable module"
-    p CONSTANT5         # => "Object constant"
-    puts
-    p Module.nesting    # => [Animal::Dog, Animal]
-    p constants         # => [:CONSTANT3]
-    p constants(false)  # => [:CONSTANT3]
-    p Module.constants.grep(/CONST/)
-      # => [:CONSTANT3, :CONSTANT2, :CONSTANT5, :CONSTANT1] -- (no CONSTANT4 ??)
-  end
-  module Cat
-    module Meercat; end
-    p Meercat.ancestors  # => [Animal::Cat::Meercat]
-  end
-  p Cat.ancestors        # => [Animal::Cat]
-end
+# CONSTANT1 = 'outer'
+# module Animal
+#   CONSTANT2 = 'middle'
+#   class Dog
+#     # include Constantable
+#     CONSTANT3 = 'inner'
+#     p CONSTANT1         # => 'outer'
+#     p CONSTANT2         # => 'middle'
+#     p CONSTANT3         # => 'inner'
+#     p CONSTANT4         # => "Constantable module"
+#     p CONSTANT5         # => "Object constant"
+#     puts
+#     p Module.nesting    # => [Animal::Dog, Animal]
+#     p constants         # => [:CONSTANT3]
+#     p constants(false)  # => [:CONSTANT3]
+#     p Module.constants.grep(/CONST/)
+#       # => [:CONSTANT3, :CONSTANT2, :CONSTANT5, :CONSTANT1] -- (no CONSTANT4 ??)
+#   end
+#   module Cat
+#     module Meercat; end
+#     p Meercat.ancestors  # => [Animal::Cat::Meercat]
+#   end
+#   p Cat.ancestors        # => [Animal::Cat]
+# end
 
-# Constantable included in Animal::Dog:
-p Animal::Dog.ancestors   # => [Animal::Dog, Constantable, Object, Kernel, BasicObject]
-# order of lookup: 'inner', 'middle', 'Constantable module', 'outer'
+# # Constantable included in Animal::Dog:
+# p Animal::Dog.ancestors   # => [Animal::Dog, Constantable, Object, Kernel, BasicObject]
+# # order of lookup: 'inner', 'middle', 'Constantable module', 'outer'
 
-# Constantable included in Object:
-p Animal::Dog.ancestors   # => [Animal::Dog, Object, Constantable, Kernel, BasicObject]
-# order of lookup: 'inner', 'middle', 'outer', 'Constantable module'
-p Constantable.ancestors  # => [Constantable]
-puts
+# # Constantable included in Object:
+# p Animal::Dog.ancestors   # => [Animal::Dog, Object, Constantable, Kernel, BasicObject]
+# # order of lookup: 'inner', 'middle', 'outer', 'Constantable module'
+# p Constantable.ancestors  # => [Constantable]
+# puts
 
-class Vehicle
-  WHEELS = 4
-end
+# class Vehicle
+#   WHEELS = 4
+# end
 
-module Maintenance
-  def change_tires
-    p Maintenance.constants           # => []
-    p Module.constants.grep(/WHEEL/)  # => []
-    p self                            # => #<Car:0x00000001e66288>
-    p Module.nesting                  # => [Maintenance]
-    puts
-    # "Changing #{WHEELS} tires."
-  end
-end
+# module Maintenance
+#   def change_tires
+#     p Maintenance.constants           # => []
+#     p Module.constants.grep(/WHEEL/)  # => []
+#     p self                            # => #<Car:0x00000001e66288>
+#     p Module.nesting                  # => [Maintenance]
+#     puts
+#     # "Changing #{WHEELS} tires."
+#   end
+# end
 
-class Car < Vehicle
-  WHEELS = 2
-  include Maintenance
-  p constants  # => [:WHEELS]
-end
+# class Car < Vehicle
+#   WHEELS = 2
+#   include Maintenance
+#   p constants  # => [:WHEELS]
+# end
 
-a_car = Car.new
-p a_car.change_tires
-p Maintenance.ancestors  # => [Maintenance]
-p Car.ancestors # [Car, Maintenance, Vehicle, Object, Constantable, Kernel, BasicObject]
+# a_car = Car.new
+# p a_car.change_tires
+# p Maintenance.ancestors  # => [Maintenance]
+# p Car.ancestors # [Car, Maintenance, Vehicle, Object, Constantable, Kernel, BasicObject]
 
-module Maintenance
-  def change_tires
-    # "Changing #{WHEELS} tires."  # => NameError
-  end
-end
+# module Maintenance
+#   def change_tires
+#     # "Changing #{WHEELS} tires."  # => NameError
+#   end
+# end
 
-a_car = Car.new
-p a_car.change_tires
-
-
-
-module A
-  A_CONSTANT = 'I am defined in module A'
-  module B
-    module C
-      def self.inspect_nesting
-        puts Module.nesting.inspect
-        # puts Module.ancestors.inspect
-        puts A_CONSTANT
-      end
-    end
-  end
-end
-
-A::B::C.inspect_nesting
-# [A::B::C, A::B, A]
-# I am defined in module A
-
-
-module Screen
-  DEFAULT_RESOLUTION = [1024, 768]
-  module Widgets
-    module MacOS; end
-  end
-end
-
-module Screen::Widgets::MacOS::Button
-  def self.inspect_nesting
-    puts Module.nesting.inspect
-    puts DEFAULT_RESOLUTION
-  end
-end
-
-# Screen::Widgets::MacOS::Button.inspect_nesting
-# [Screen::Widgets::MacOS::Button]
-# (NameError) - uninitialized constant
-#   Screen::Widgets::MacOS::Button::DEFAULT_RESOLUTION
-puts
+# a_car = Car.new
+# p a_car.change_tires
 
 
 
-module WTF
-  def print_const
-    puts XYZ
-  end
-end
+# module A
+#   A_CONSTANT = 'I am defined in module A'
+#   module B
+#     module C
+#       def self.inspect_nesting
+#         puts Module.nesting.inspect
+#         # puts Module.ancestors.inspect
+#         puts A_CONSTANT
+#       end
+#     end
+#   end
+# end
 
-XYZ = 1
-include WTF
-print_const
-
-
-module WTF2
-end
-
-class OMG
-  XYZ2 = 3
-  # include WTF2
-  p Module.nesting
-end
-
-module WTF2
-  def print_const
-    # puts XYZ2
-  end
-end
-
-p OMG.ancestors
-# OMG.new.print_const
-omg = OMG.new
-omg.extend(WTF2)
-omg.print_const
-puts
+# A::B::C.inspect_nesting
+# # [A::B::C, A::B, A]
+# # I am defined in module A
 
 
-module MyModule
-  def print_constant
-    puts KONSTANT
-  end
-end
+# module Screen
+#   DEFAULT_RESOLUTION = [1024, 768]
+#   module Widgets
+#     module MacOS; end
+#   end
+# end
 
-class MyClass
-  KONSTANT = 1
-  include MyModule
-end
+# module Screen::Widgets::MacOS::Button
+#   def self.inspect_nesting
+#     puts Module.nesting.inspect
+#     puts DEFAULT_RESOLUTION
+#   end
+# end
 
-obj = MyClass.new
-p MyClass.ancestors
-obj.print_constant
+# # Screen::Widgets::MacOS::Button.inspect_nesting
+# # [Screen::Widgets::MacOS::Button]
+# # (NameError) - uninitialized constant
+# #   Screen::Widgets::MacOS::Button::DEFAULT_RESOLUTION
+# puts
+
+
+
+# module WTF
+#   def print_const
+#     puts XYZ
+#   end
+# end
+
+# XYZ = 1
+# include WTF
+# print_const
+
+
+# module WTF2
+# end
+
+# class OMG
+#   XYZ2 = 3
+#   # include WTF2
+#   p Module.nesting
+# end
+
+# module WTF2
+#   def print_const
+#     # puts XYZ2
+#   end
+# end
+
+# p OMG.ancestors
+# # OMG.new.print_const
+# omg = OMG.new
+# omg.extend(WTF2)
+# omg.print_const
+# puts
+
+
+# module MyModule
+#   def print_constant
+#     puts KONSTANT
+#   end
+# end
+
+# class MyClass
+#   KONSTANT = 1
+#   include MyModule
+# end
+
+# obj = MyClass.new
+# p MyClass.ancestors
+# obj.print_constant
 
 
 
@@ -514,3 +514,99 @@ obj.print_constant
 #   include Flyable
 # end
 
+
+
+
+
+# 4 ops:     plus, minus, times, divided_by
+# 10 digits: zero, one, two, three, four, five, six, seven, eight, nine
+
+class Calc
+  KEY = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7,
+          eight: 8, nine: 9, plus: :+, minus: :-, times: :*, divided_by: :/ }
+
+  def method_missing(method_name)
+    @methods ||= []
+    @methods << method_name
+    if @methods.size == 3
+      num1, op, num2 = @methods.map { |cmd| KEY[cmd] }
+      return num1.send(op, num2)
+    end
+    self
+  end
+end
+
+
+# p Calc.new.one.plus.two             # 3
+# p Calc.new.five.minus.six           # -1
+# p Calc.new.seven.times.two          # 14
+# p Calc.new.nine.divided_by.three    # 3
+# p Calc.new.four.plus.five           # 9
+# p Calc.new.five.plus.four           # 9
+
+ORDS = Regexp.new(('a'..'z').map(&:ord).join('|'))
+
+def decipher(cipher)
+  cipher.scan(ORDS).map { |ord| ord.to_i.chr }.join
+end
+
+# ORDS = Regexp.new(('a'..'z').map(&:ord).join('|'))
+
+def decipher(cipher)
+  cipher.gsub(ORDS) { |ord| ord.to_i.chr }
+end
+
+# p decipher("10197115121")  # "easy"
+# p decipher("98")  # "b"
+# p decipher("122")  # "z"
+
+
+
+
+def html_end_tag_by_start_tag(start_tag)
+  "</#{start_tag[/<([^ >]+)/, 1]}>"
+end
+
+# p html_end_tag_by_start_tag("<button type='button' disabled>") # "</button>")
+# p html_end_tag_by_start_tag("<i>") # "</i>")
+# p html_end_tag_by_start_tag("<div id='my_area' class='data' title='This is a test for title on Div tag'>")
+# # "</div>")
+
+
+
+def range_bit_count(a, b)
+  (a..b).map { |n| n.to_s(2) }.join.count('1')
+end
+
+# p range_bit_count(2,7)  #11
+# p range_bit_count(0,1)  # 1
+# p range_bit_count(4,4)  # 1
+
+
+
+
+def late_ride(n)
+  n.divmod(60).join.chars.map(&:to_i).reduce(:+)
+end
+
+p late_ride(240)    # 4
+p late_ride(808)    # 14
+p late_ride(1439)    # 19
+p late_ride(0)    # 0
+p late_ride(23)    # 5
+p late_ride(8)    # 8
+
+
+# class Circle
+#   def add
+#     +
+#   end
+
+#   private
+
+#   def +@
+#     42
+#   end
+# end
+
+# p Circle.new.add
