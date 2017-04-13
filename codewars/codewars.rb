@@ -589,12 +589,12 @@ def late_ride(n)
   n.divmod(60).join.chars.map(&:to_i).reduce(:+)
 end
 
-p late_ride(240)    # 4
-p late_ride(808)    # 14
-p late_ride(1439)    # 19
-p late_ride(0)    # 0
-p late_ride(23)    # 5
-p late_ride(8)    # 8
+# p late_ride(240)    # 4
+# p late_ride(808)    # 14
+# p late_ride(1439)    # 19
+# p late_ride(0)    # 0
+# p late_ride(23)    # 5
+# p late_ride(8)    # 8
 
 
 # class Circle
@@ -610,3 +610,94 @@ p late_ride(8)    # 8
 # end
 
 # p Circle.new.add
+
+
+
+
+
+
+def sort_by_height(arr)
+  people = arr.reject { |num| num == -1 }.sort
+  arr.map { |elem| elem == -1 ? -1 : people.shift }
+end
+
+
+# p sort_by_height([-1, 150, 190, 170, -1, -1, 160, 180])
+# # [-1, 150, 160, 170, -1, -1, 180, 190])
+# p sort_by_height([-1, -1, -1, -1, -1]) # [-1, -1, -1, -1, -1])
+# p sort_by_height([4, 2, 9, 11, 2, 16]) # [2, 2, 4, 9, 11, 16])
+
+
+# def palindrome_rearranging(s)
+#   chars = s.chars
+#   single = chars.find { |char| chars.count(char) == 1 }
+#   chars.delete(single)
+#   chars.uniq.all? { |char| chars.count(char).even? }
+# end
+
+# p palindrome_rearranging("aabb")   # true
+# p palindrome_rearranging("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabc")   # false
+# p palindrome_rearranging("abbcabb")   # true
+# p palindrome_rearranging("zyyzzzzz")   # true
+# "zzzzfzfzz"
+
+
+
+# def middle_permutation(string)
+#   perms = string.chars.sort.permutation.to_a
+#   perms[perms.size / 2 - 1].map { |c| string.index(c) }
+# end
+
+# p middle_permutation("a")           # "a"           [0]
+# p middle_permutation("ab")          # "ab"          [0, 1]
+# p middle_permutation("abc")         # "bac"         [1, 0, 2]
+# p middle_permutation("abcd")        # "bdca"        [1, 3, 2, 0]
+# p middle_permutation("abcdx")       # "cbxda"       [2, 1, 4, 3, 0]
+# p middle_permutation("abcdxg")      # "cxgdba"      [2, 4, 5, 3, 1, 0]
+# p middle_permutation("abcdxgz")     # "dczxgba"     [3, 2, 6, 4, 5, 1, 0]
+# p middle_permutation("abcdefgh")    # "dhgfecba"    [3, 7, 6, 5, 4, 2, 1, 0]
+# p middle_permutation("abcdefghi")   # "edihgfcba"   [4, 3, 8, 7, 6, 5, 2, 1, 0]
+# # p middle_permutation("abcdefghij")  # "ejihgfdcba"[4, 9, 8, 7, 6, 5, 3, 2, 1, 0]
+# # p middle_permutation("abcdefghijk")#"fekjihgdcba" [5, 4,10, 9, 8, 7, 6, 3, 2, 1, 0]
+
+
+
+# p middle_permutation("a")           # "a"           [0]
+# p middle_permutation("ab")          # "ab"          [0, 1]
+# p middle_permutation("abc")         # "bac"         [1, 0, 2]
+# p middle_permutation("abcd")        # "bdca"        [1, 3, 2,                      0]
+# p middle_permutation("abcdx")       # "cbxda"       [2, 1, 4, 3,                   0]
+# p middle_permutation("abcdxg")      # "cxgdba"      [2, 4, 5, 3,                1, 0]
+# p middle_permutation("abcdxgz")     # "dczxgba"     [3, 2, 6, 4, 5,             1, 0]
+# p middle_permutation("abcdefgh")    # "dhgfecba"    [3, 7, 6, 5, 4,          2, 1, 0]
+# p middle_permutation("abcdefghi")   # "edihgfcba"   [4, 3, 8, 7, 6, 5,       2, 1, 0]
+# # p middle_permutation("abcdefghij")  # "ejihgfdcba"[4, 9, 8, 7, 6, 5,    3, 2, 1, 0]
+# # p middle_permutation("abcdefghijk")#"fekjihgdcba" [5, 4,10, 9, 8, 7, 6, 3, 2, 1, 0]
+# puts
+
+# a = [0, 1]
+# b = [1, 0, 2]
+# # b.reverse.shift
+# # b = [1, 0, 2]
+# p b.reverse.rotate(-2)
+
+# a = [1, 0, 2]
+# b = [1, 3, 2, 0]
+# p b.reverse.rotate(-1)
+
+# a = [1, 3, 2, 0]
+# b = [2, 1, 4, 3, 0]
+# p b.reverse
+
+
+# # [0]
+# # [0, 1]
+# # [1, 0, 2]                          [n, n - 1, n * 2]
+# # [1, 3, 2, 0]
+# # [2, 1, 4, 3, 0]                    [n, n - 1, n * 2, (n * 2) - 1, 0]
+# # [2, 4, 5, 3, 1, 0]
+# # [3, 2, 6, 4, 5, 1, 0]              [n, n - 1, n * 2, (n * 2) - 1, ]
+# # [3, 7, 6, 5, 4, 2, 1, 0]
+# # [4, 3, 8, 7, 6, 5, 2, 1, 0]        [n, n - 1, n * 2, (n * 2) - 1, ]
+# # [4, 9, 8, 7, 6, 5, 3, 2, 1, 0]
+# # [5, 4,10, 9, 8, 7, 6, 3, 2, 1, 0]  [n, n - 1, n * 2, (n * 2) - 1, ]
