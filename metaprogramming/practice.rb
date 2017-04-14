@@ -737,3 +737,530 @@ module MyNamespace
 end
 p Array.new # => []
 p MyNamespace::Array.new # => my class   #!!!!!!!!!!
+puts
+
+
+
+
+# =====  Arguments are evaluated first  =====
+# Each of the expressions below will evaluate its argument first,
+# then it will evaluate itself. What will we see on eac line?
+
+def call1(n)
+  p n # => 0
+  1 + n
+end
+
+def call2(n)
+  p n # => 1
+  n + 2
+end
+
+def call3(n)
+  p n # => 3
+  n + 3
+end
+
+p call3(
+  call2(
+    call1(0)  # =>
+  )           # =>
+)             # => 6
+puts
+
+
+
+
+# =====  Attr Whatevers  =====
+# The attr_accessor (et all) define define methods that get/set the instance variables of the same name
+class Fruit
+  attr_accessor :apple
+
+  def initialize(banana)
+    @apple = banana
+    self.apple = "#{banana} boat"
+  end
+
+  def pear
+    @apple
+  end
+end
+
+#*****
+# What will we see on these two lines?
+fruit = Fruit.new('orange')
+p fruit.pear   # => 'orange boat'
+p fruit.apple  # => 'orange boat'
+
+# *****
+# We can punch the object in the face and rearrange its guts with metaprogramming
+# Here, I go into it and set @apple = 'pineapple'
+# What will we see in the following expressions?
+fruit.instance_variable_set '@apple', 'pineapple'
+p fruit.pear  # => 'pineapple'
+p fruit.apple # => 'pineapple'
+
+fruit.apple = 'mango'
+p fruit.pear  # => 'mango'
+p fruit.apple # => 'mango'
+puts
+puts '---------'
+
+
+
+# =====  Calling methods pushes bindings onto the callstack  =====
+# We can see the callstack with the `caller` method.
+def you_rang?
+  # How many bindings are on the callstack?
+  p caller.size # => 1
+
+  # Where did we call it from?
+  p caller # => ["practice.rb:823:in `<main>'"]
+end
+you_rang?
+
+# What will we see, before and after the calls of each of these lines below?
+def call1
+  p ['call 1 first', caller.size]   # => 1
+  call2
+  p ['call 1 last', caller.size]   # => 1
+end
+
+def call2
+  p ['call 2 first', caller.size]  # => 2
+  call3
+  p ['call 2 last', caller.size]   # => 2
+end
+
+def call3
+  p ['call 3 first', caller.size]   # => 3
+  "zomg".call4
+  p ['call 3 last', caller.size]   # => 3
+end
+
+class String
+  def call4
+    p ['call 4', caller.size] # => 4
+    p caller # => ["practice.rb:841:in `call3'", "practice.rb:835:in `call2'",
+             #     "practice.rb:829:in `call1'", "practice.rb:853:in `<main>'"]
+  end
+end
+
+p ['first', caller.size]     # => 0
+call1
+p ['last', caller.size]     # => 0
+puts '---------'
+puts
+
+
+
+
+
+# =====  Chaining method calls  =====
+# When we call a method, we call it on whatever the expression evaluates to
+# This means that chaining methods leads to methods called on the return value
+# of the previous expression
+
+#*****
+# What will this expression evaluate to?
+p 'abc'.upcase.reverse.downcase.chars.first # => 'c'
+
+#*****
+# It doesn't matter if you split the expression across lines, what will we see?
+p 'abc'       # =>
+  .upcase   # =>
+  .reverse  # =>
+  .downcase # =>
+  .chars    # =>
+  .first    # => 'c'
+
+#*****
+# The dot can go on the preceeding line, or the current line
+p 'abc'.      # =>
+  upcase.   # =>
+  reverse.  # =>
+  downcase. # =>
+  chars.    # =>
+  first     # => 'c'
+
+#*****
+# We can get all funky with the dot (best practices, ya know?)
+p 'abc'.              # =>
+  upcase  .reverse  # =>
+  .downcase.        # =>
+  chars             # =>
+.  first            # => 'c'
+puts
+
+
+
+
+# =====  Mixing and matching args and chaining  =====
+#*****
+# Uncomment each of the following lines, what will we see?
+def z(a)
+  p a + a # => 'abcabc'
+end
+
+def w(a)
+  p a         # => 'ABCABC'
+     .reverse # => 'CBACBA'
+end
+
+p (w (z 'abc').upcase).chars # => [ "C", "B", "A", "C", "B", "A" ]
+puts
+
+
+
+
+# =====  Silence!! DEstroy him!!  =====
+# Dew! Bew! Dew-dew-dew! Bew!
+
+module InSpace
+  attr_reader :current_status
+  def initialize(current_status, *whatevz)
+    @current_status = current_status # => "Though one thing we have in common with the present is we still call it the present, even though its the future",
+    super(*whatevz) # => "What you call 'the present', we call 'the past', so... you guys are way behind"
+  end
+end
+
+class Human
+  attr_reader :name
+  def initialize(name)
+    @name = name # => "What you call 'the present', we call 'the past', so... you guys are way behind"
+  end
+end
+
+class Student < Human
+  include InSpace
+  attr_reader :lesson
+  def initialize(lesson, *o_O)
+    @lesson = lesson # =>  "The future is quite different to the present"
+    super *o_O       # =>  "Though one thing we have in common with the present is we still call it the present, even though its the future",
+                     #     "What you call 'the present', we call 'the past', so... you guys are way behind"
+  end
+end
+
+students_in_space = Student.new(
+  "The future is quite different to the present",
+  "Though one thing we have in common with the present is we still call it the present, even though its the future",
+  "What you call 'the present', we call 'the past', so... you guys are way behind"
+)
+
+#*****
+# We used poisonous gasses, (with traces of lead)
+# and we poisoned their asses (actually, their lungs)
+p students_in_space.current_status # => "Though one thing we have in common with the present is we still call it the present, even though its the future",
+p students_in_space.name           # => "What you call 'the present', we call 'the past', so... you guys are way behind"
+puts
+
+
+
+
+
+
+# =====  Instance Variables  =====
+# An instance is a collection of instance variables with a pointer to its class,
+# it is like the base of a linked list, pointing at the first node in the list
+# (typically named "head")
+
+# What will we see returned from 159?
+class Fruit
+  def initialize(banana)
+    @apple = banana            # => 'orange'
+    @pear  = "#{banana} boat"  # => 'orange boat'
+  end
+
+  def pear
+    @apple  # => 'orange'
+  end
+end
+
+fruit = Fruit.new('orange')
+p fruit.pear  # => 'orange'
+puts
+
+
+
+
+# =====  The last line of a method is returned to the caller  =====
+
+# *****
+# What will we see returned from call1?
+def call1
+  call2  # => 222
+  call3  # => 333
+end
+
+def call2
+  222
+end
+
+def call3
+  call4 # => 444
+  333
+end
+
+def call4
+  444
+end
+
+p call1 # => 333
+puts
+
+
+
+
+# ===== Classes are a linked list called inheritance  =====
+# Get classy, stay super
+
+class A
+  def zomg
+    'a'
+  end
+end
+
+class B < A
+  def zomg
+    'b'
+  end
+end
+
+class C1 < B
+end
+
+class D1 < A
+end
+
+# *****
+# What will we see on each of these lines?
+p A.new.zomg  # => 'a'
+p B.new.zomg  # => 'b'
+p C1.new.zomg # => 'b'
+p D1.new.zomg # => 'a'
+puts
+
+
+
+
+# =====  Modules  =====
+# When you include a module, it makes a class and inserts it into the hierarchy
+class A
+  def wat
+    'a'
+  end
+end
+
+module WatInTheWorld
+  def wat
+    '!?' + super
+  end
+end
+
+class B < A
+  include WatInTheWorld
+  def wat
+    'b' + super  # => 'b!?a'
+  end
+end
+
+#*****
+# What will we see here?
+p B.new.wat # => 'b!?a'
+puts
+
+
+
+
+# =====  We can use super to access the definition in the superclass chain  =====
+class C1
+  def m
+    '1'
+  end
+end
+
+class C2 < C1
+  def m
+    super + '2'
+  end
+end
+
+class C3 < C2
+  def m
+    super + '3'
+  end
+end
+
+# *****
+# What will we see on each of these lines?
+p C1.new.m  # => '1'
+p C2.new.m  # => '12'
+p C3.new.m  # => '123'
+puts
+
+
+
+
+# =====  Once again, but with malice  =====
+class W
+  def zomg() '1' + wtf  end
+  def wtf()  '2'        end
+  def bbq()  '3'        end
+end
+
+class X1 < W
+  def zomg() super      end
+  def wtf()  '4' + bbq  end
+  def bbq()  super      end
+end
+
+class Y < X1
+  def zomg() '6' + super  end
+  def wtf()  '7' + super  end
+  def bbq()  '8' + super  end
+end
+
+#*****
+p W.new.zomg  # => '12'
+p X1.new.zomg  # => '143'
+p Y.new.zomg  # => '617483'
+puts
+
+
+
+
+# =====  Toplevel methods are defined where?  =====
+def rawr!
+  "#{self} says: rawr!"
+end
+public :rawr!
+
+# *****
+# What class is rawr! defined in
+p method(:rawr!).owner # => Object
+
+# *****
+# Think of some objects that inherit from this class
+# and show you can call it on them
+# <your example here>
+p 1.rawr!
+p 'abc'.rawr!
+p [].rawr!
+puts
+
+
+
+
+# =====  What do bindings tell us?  =====
+
+# Here we have a method that returns an object wrapping the binding it executed in
+# We can evaluate code within the context of that binding to find out about it
+def get_binding
+  a = 123
+  binding
+end
+b = get_binding
+
+# *****
+# What is self in that binding?
+p b.eval 'self' # => main
+
+# *****
+# What are its local variables?
+p b.eval 'local_variables' # => [:a]
+
+# *****
+# What is the value of a?
+a = 99
+p b.eval 'a' # => 123
+
+# *****
+# The binding tracks what `self` is, why does this matter?
+# What will we see the second time we run this?
+p b.eval 'instance_variables' # => []
+@abc = 123
+p b.eval 'instance_variables' # => [:@abc]
+puts
+
+
+
+module M12
+  X1 = 42
+  module M13
+    p ::M12::X1  # => 42
+  end
+end
+puts
+
+
+
+class A4
+  def get_c; C4 end
+end
+
+class B4 < A4
+  module C4; end
+end
+
+# p B4.new.get_c
+# NameError: uninitialized constant A4::C4
+puts
+
+
+
+
+require 'forwardable'
+
+class RecordCollection
+  attr_accessor :records
+  extend Forwardable
+  def_delegator :@records, :[], :record_number
+  def_delegators :@records, :size, :<<, :map
+end
+
+r = RecordCollection.new
+r.records = [1, 2, 3]
+p r.record_number(0)  # => 1
+p r.size              # => 3
+p r << 4              # => [1, 2, 3, 4]
+p r.map(&:abs2)       # => [1, 4, 9, 16]
+# p r[3]              # => NoMethodError: undefined method `[]'
+puts
+
+
+
+def missing((first, *nums, last))
+  "first number: #{first.inspect}, middle numbers: #{nums}, last number: #{last.inspect}"
+end
+
+p missing([-3, -2, 1, 5])
+# => "first number: -3, middle numbers: [-2, 1], last number: 5"
+p missing([1, 2, 3, 4])
+# => "first number: 1, middle numbers: [2, 3], last number: 4"
+p missing([1, 5])
+# => "first number: 1, middle numbers: [], last number: 5"
+p missing([6])
+# => "first number: 6, middle numbers: [], last number: nil"
+p missing([])
+# => "first number: nil, middle numbers: [], last number: nil"
+p missing(nil)
+# => "first number: nil, middle numbers: [], last number: nil"
+
+p nil.to_a           # => []
+empty_array = *nil
+p empty_array        # => []
+{ a: [1, 2], b: [3, 4] }.each { |key, (x, y)| p "key: #{key}, x: #{x}, y: #{y}" }
+# =>  "key: a, x: 1, y: 2"
+#     "key: b, x: 3, y: 4"
+arr = *1..10
+p arr      # => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# *1..10   # => SyntaxError  (doesn't work by itself)
+# *nil     # => SyntaxError  (doesn't work by itself)
+
+# without splat:
+def missing((first, nums, last))
+  "first number: #{first.inspect}, middle numbers: #{nums}, last number: #{last.inspect}"
+end
+p missing([-3, -2, 1, 5])
+# => "first number: -3, middle numbers: -2, last number: 1"
+# the last element is not assigned to any variable so it gets ignored

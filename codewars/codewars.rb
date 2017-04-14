@@ -701,3 +701,225 @@ end
 # # [4, 3, 8, 7, 6, 5, 2, 1, 0]        [n, n - 1, n * 2, (n * 2) - 1, ]
 # # [4, 9, 8, 7, 6, 5, 3, 2, 1, 0]
 # # [5, 4,10, 9, 8, 7, 6, 3, 2, 1, 0]  [n, n - 1, n * 2, (n * 2) - 1, ]
+
+
+
+
+def invert(list)
+  # list.map { |n| -n }
+  list.map(&:-@)
+end
+
+# p invert([1,2,3,4,5])  # [-1,-2,-3,-4,-5]
+# p invert([1,-2,3,-4,5])  # [-1,2,-3,4,-5]
+# p invert([0])  # [0]
+# p invert([-1,0,1])  # [1,0,-1]
+# p invert([])  # []
+
+
+
+
+def find_children(dancing_brigade)
+  dancing_brigade.chars.sort_by { |char| [char.downcase, char] }.join
+end
+
+# p find_children("abBA")         # "AaBb"
+# p find_children("AaaaaZazzz")   # "AaaaaaZzzz"
+# p find_children("CbcBcbaA")     # "AaBbbCcc"
+# p find_children("xXfuUuuF")     # "FfUuuuXx"
+# p find_children("")             # ""
+
+
+
+
+
+def odd(s)
+  counter = 0
+  while s =~ /o.*d.*d/
+    o_idx = s.index('o')
+    s = s[0...o_idx] + s[o_idx..-1].sub('o', '').sub('d', '').sub('d', '')
+    counter += 1
+  end
+  counter
+end
+
+# p odd("oudddbo")  # 1
+# p odd("ouddddbo")  # 1
+# p odd("ooudddbd")  # 2
+# p odd("qoddoldfoodgodnooofostorodrnvdmddddeidfoi")  # 6
+# p odd("dndoddodwvdidddoodhlorodddoddd" )  # 5
+# p odd("dndoddodwvdidddoodhlorodddoddd" )  # 5
+
+
+
+
+# def array_operations(arr, k)
+#   until k == 0 || arr.none?(&:negative?)
+#     arr = arr_op(arr)
+#     k -= 1
+#   end
+#   arr = arr_op(arr) if k > 0 && k.odd?
+#   arr
+# end
+
+# def arr_op(arr)
+#   max = arr.max
+#   arr.map { |num| max - num }
+# end
+
+def array_operations(arr, k)
+  return arr if k.zero?
+  k %= 2 if arr.none?(&:negative?)
+  array_operations(arr.map { |num| arr.max - num }, k - 1)
+end
+
+# p array_operations([-4, 0, -1, 0], 2)  # [0, 4, 3, 4])
+#                   #[ 4, 0,  1,  0]
+#                   #[ 0, 4,  3,  4]
+#                   #[ 4, 0,  1,  0]
+# p array_operations([0, -1, 0, 0, -1, -1, -1, -1, 1, -1], 1)
+#   # [1, 2, 1, 1, 2, 2, 2, 2, 0, 2])
+#   # [1, 0, 1, 1, 0, 0, 0, 0, 2, 0])
+#   # [1, 2, 1, 1, 2, 2, 2, 2, 0, 2])
+# p array_operations([-1], 10000)  # [0])
+# p array_operations([56, 16], 41224)  # [0])
+
+
+
+
+
+def video_part(*times)
+  times.map { |time| time.scan(/\d\d/).zip([3600, 60, 1]).map { |a, b| (a.to_i * b).to_r }.reduce(:+) }
+       .reduce(:/).to_s.split('/').map(&:to_i)
+end
+
+# p video_part("02:20:00","07:00:00")  # [1, 3]
+# p video_part("25:26:20","25:26:20")  # [1, 1]
+# p video_part("00:02:20","00:10:00")  # [7, 30]
+
+
+
+
+
+
+def palindrome(num)
+  return 'Not valid' unless num.is_a?(Integer) && num.positive?
+  digits = num.to_s.chars
+  digits.permutation.any? { |digs| digs.size > 1 && digs == digs.reverse }
+end
+
+# p palindrome(5)   # false
+# p palindrome(1212)   # true
+# p palindrome(1331)   # true
+# p palindrome(194)   # false
+# p palindrome(3357665)   # true
+# p palindrome(-31)   # 'Not valid'
+# p palindrome("357665")   # 'Not valid'
+
+
+
+# def select(memory)
+#   to_delete = []
+#   names = memory.split(', ')
+#   names.reject.with_index do |name, idx|
+#     next unless name.start_with?('!') || to_delete.include?(name)
+#     to_delete << name[/\b.*\z/]
+#     to_delete << names[idx + 1][/\b.*\z/] if name.start_with?('!') && idx < names.size - 1
+#     true
+#   end.join(', ')
+# end
+
+# p select("Albert Einstein, !Sarah Connor, Marilyn Monroe, Abraham Lincoln, Sarah Connor, Sean Connery, Marilyn Monroe, Bjarne Stroustrup, Manson Marilyn, Monroe Mary")
+# p select("Jesse Cox, !Selena Gomez")
+
+
+
+
+def delete_digit(num)
+  digits = num.to_s.chars
+  (0...digits.size).map { |idx| (digits[0...idx] + digits[idx + 1..-1]).join.to_i }.max
+end
+
+# p delete_digit(152)   # 52
+# p delete_digit(1001)   # 101
+# p delete_digit(10)   # 1
+
+
+
+
+# def build_palindrome(str)
+#   chars = str.chars.uniq
+#   combos = chars.map { str }
+#   loop do
+#     pal = combos.find { |s| s == s.reverse }
+#     return pal if pal
+#     last_size = combos.first.size
+#     combos = combos.map { |s| chars.map { |char| s + char } }.flatten
+#                    .reject { |s| s.size <= last_size }
+#                    p combos
+#   end
+# end
+
+# # def build_palindrome(str, chars = str.chars.uniq)
+#   pals = chars.map { |char| str + char }
+#   pals.each do |pal|
+#     return pal if pal == pal.reverse
+#     build_palindrome(pal, chars)
+#   end
+#   nil
+# end
+
+# p build_palindrome("abcdc")   # "abcdcba"
+# p build_palindrome("ababab")  # "abababa"
+# p build_palindrome("accccc")  # "accccca"
+
+
+
+
+# def number_of_carries(a, b)
+#   size = [a, b].map(&:to_s).max_by(&:size).size
+#   min, max = [a, b].map { |n| n.to_s.rjust(size, '0').chars.reverse }#.minmax_by(&:size)
+#   # max.zip min
+#   # a[0...b.size].zip(b).map { |x, y| x + y }
+# end
+
+# p number_of_carries(543,3456)  # 0
+# p number_of_carries(1927,6426)  # 2
+# p number_of_carries(9999,1)  # 4
+# p number_of_carries(1234,5678)  # 2
+
+
+
+
+
+def six_column_encryption(msg)
+  dots = 6 - msg.size % 6
+  msg = msg.tr(' ', '.') + '.' * dots
+  msg.scan(/.{6}/).map(&:chars).transpose.map(&:join).join(' ')
+end
+
+def six_column_encryption(msg)
+  msg.tr(' ', '.').scan(/.{1,6}/).map { |str| str.ljust(6, '.').chars }
+     .transpose.map(&:join).join(' ')
+end
+
+
+# p six_column_encryption("Attack at noon or we are done for")
+#   # "A.ow.f tanedo tt..or a.oan. cnrre. ko.e..")
+# p six_column_encryption("Let's kill them all")  # "Lkhl eie. tlm. 'l.. s.a. .tl.")
+# p six_column_encryption("Meet me behind the kitchen tomorrow at seven in the evening")
+#   # "Men.eoaete e.dknrtnhn eb.i.r..ei tetttosi.n .hhcoweneg miehm.v.v.")
+
+
+
+
+def learn_charitable_game(arr)
+  !arr.all?(&:zero?) && (arr.reduce(:+) % arr.size).zero?
+end
+
+# p learn_charitable_game([100, 100, 100, 90, 1, 0, 0])  # false
+# p learn_charitable_game([0, 0, 0, 0])  # false
+# p learn_charitable_game([0, 56, 100])  # true
+# p learn_charitable_game([33, 19, 38, 87, 93, 4])  # false
+# p learn_charitable_game([11])  # true
+
