@@ -8,7 +8,7 @@ def luckySevens(arr)
     end
   end
   count
-end                                                                  # => :luckySevens
+end
 
 # testBoard0 = [[ 740, 183, 194, 902, 297 ],
 #               [ 772, 355, 668, 54,  993 ],
@@ -61,12 +61,12 @@ end                                                                  # => :lucky
 
 
 
-FOODS = { "chickenwings" => 5, "hamburgers" => 3, "hotdogs" => 2 }  # => {"chickenwings"=>5, "hamburgers"=>3, "hotdogs"=>2}
+FOODS = { "chickenwings" => 5, "hamburgers" => 3, "hotdogs" => 2 }
 
 def scoreboard(arr)
   arr.map { |hsh| [['name', hsh['name']], ['score', hsh.map { |k, v| FOODS[k].to_i * v.to_i }.reduce(0, :+)]].to_h }
      .sort_by { |hsh| [-hsh['score'], hsh['name']] }
-end                                                                                                                   # => :scoreboard
+end
 
 
 
@@ -74,7 +74,7 @@ end                                                                             
 def histogram(results)
   results.map.with_index(1) { |num, idx| "#{idx}|#{'#' * num}#{" #{num}" if num > 0}\n" }
          .reverse.join
-end                                                                                        # => :histogram
+end
 
 
 
@@ -88,7 +88,7 @@ def palindrome(num)
                                 .uniq
                                 .sort
   palindromes.empty? ? 'No palindromes found' : palindromes
-end                                                                               # => :palindrome
+end
 
 
 
@@ -108,7 +108,7 @@ end                                                                             
 def sort_it_out(array)
   array.partition { |num| num.to_i.odd? }
        .tap { |odds, evens| return odds.sort + evens.sort.reverse }
-end                                                                  # => :sort_it_out
+end
 
 # p sort_it_out([26,243,52,2,432414,1,11,46,32]) == [1,11,243,432414,52,46,32,26,2]
 # p sort_it_out([19,65,88,112,60,14,33,49,88]) == [19,33,49,65,112,88,88,60,14]
@@ -131,7 +131,7 @@ def bubble_sort_official!(array)
     break unless swapped
   end
   nil
-end                       # => :bubble_sort_official!
+end
 
 def bubble_sort!(arr, n = arr.size)
   n.zero? ? (return arr) : new_n = 0
@@ -140,7 +140,7 @@ def bubble_sort!(arr, n = arr.size)
     arr[idx - 1], arr[idx], new_n = arr[idx], arr[idx - 1], idx
   end
   bubble_sort!(arr, new_n)
-end                                                              # => :bubble_sort!
+end
 
 
 
@@ -148,7 +148,7 @@ def benchmark
   start = Time.now
   yield
   puts "Duration: #{Time.now - start} seconds"
-end                                             # => :benchmark
+end
 
 # arr = Array.new(10_000) { rand(1..1000) }
 # arr_copy = arr.dup
@@ -177,33 +177,33 @@ end                                             # => :benchmark
 
 module AttrLazy
   def attr_lazy(name, &block)
-    ivar_name = "@#{name.to_s.chomp('?')}"                                              # => "@evens", "@even"
+    ivar_name = "@#{name.to_s.chomp('?')}"
     define_method name do
       return instance_variable_get(ivar_name) if instance_variable_defined?(ivar_name)
       instance_variable_set(ivar_name, instance_eval(&block))
-    end                                                                                 # => :evens, :even?
-  end                                                                                   # => :attr_lazy
-end                                                                                     # => :attr_lazy
+    end
+  end
+end
 
 class Numbers
-  extend AttrLazy  # => Numbers
+  extend AttrLazy
 
   def initialize(*numbers)
     @numbers = numbers
-  end                       # => :initialize
+  end
 
   attr_lazy :evens do
     @numbers.select(&:even?)
-  end                         # => :evens
+  end
 
   attr_lazy :even? do
     @numbers.all?(&:even?)
-  end                       # => :even?
+  end
 
   def mark_even
     @even = true
-  end             # => :mark_even
-end               # => :mark_even
+  end
+end
 
 # # describe 'AttrLazy' do
 # #   it 'should return the value provided by the block' do
@@ -230,7 +230,7 @@ def add(n)
   end
   # sum = add_proc.call
   add_proc
-end                         # => :add
+end
 
 # def add_proc(num)
 #   return n if num.nil?
@@ -238,7 +238,7 @@ end                         # => :add
 
 def add(n)
   addable(n)
-end           # => :add
+end
 
 # def addable(num = nil)
 #   proc { |n| n ? addable(num + n) : num }
@@ -280,7 +280,7 @@ end           # => :add
 
 def add(n)
   n.tap { Integer.class_eval { alias call + } }
-end                                              # => :add
+end
 
 
 # p add(1) #== 1
@@ -522,8 +522,8 @@ end                                              # => :add
 # 10 digits: zero, one, two, three, four, five, six, seven, eight, nine
 
 class Calc
-  KEY = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7,  # => 7
-          eight: 8, nine: 9, plus: :+, minus: :-, times: :*, divided_by: :/ }     # => {:zero=>0, :one=>1, :two=>2, :three=>3, :four=>4, :five=>5, :six=>6, :seven=>7, :eight=>8, :nine=>9, :plus=>:+, :minus=>:-, :times=>:*, :divided_by=>:/}
+  KEY = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7,
+          eight: 8, nine: 9, plus: :+, minus: :-, times: :*, divided_by: :/ }
 
   def method_missing(method_name)
     @methods ||= []
@@ -533,8 +533,8 @@ class Calc
       return num1.send(op, num2)
     end
     self
-  end                                                   # => :method_missing
-end                                                     # => :method_missing
+  end
+end
 
 
 # p Calc.new.one.plus.two             # 3
@@ -544,17 +544,17 @@ end                                                     # => :method_missing
 # p Calc.new.four.plus.five           # 9
 # p Calc.new.five.plus.four           # 9
 
-ORDS = Regexp.new(('a'..'z').map(&:ord).join('|'))  # => /97|98|99|100|101|102|103|104|105|106|107|108|109|110|111|112|113|114|115|116|117|118|119|120|121|122/
+ORDS = Regexp.new(('a'..'z').map(&:ord).join('|'))
 
 def decipher(cipher)
   cipher.scan(ORDS).map { |ord| ord.to_i.chr }.join
-end                                                  # => :decipher
+end
 
 # ORDS = Regexp.new(('a'..'z').map(&:ord).join('|'))
 
 def decipher(cipher)
   cipher.gsub(ORDS) { |ord| ord.to_i.chr }
-end                                         # => :decipher
+end
 
 # p decipher("10197115121")  # "easy"
 # p decipher("98")  # "b"
@@ -565,7 +565,7 @@ end                                         # => :decipher
 
 def html_end_tag_by_start_tag(start_tag)
   "</#{start_tag[/<([^ >]+)/, 1]}>"
-end                                       # => :html_end_tag_by_start_tag
+end
 
 # p html_end_tag_by_start_tag("<button type='button' disabled>") # "</button>")
 # p html_end_tag_by_start_tag("<i>") # "</i>")
@@ -576,7 +576,7 @@ end                                       # => :html_end_tag_by_start_tag
 
 def range_bit_count(a, b)
   (a..b).map { |n| n.to_s(2) }.join.count('1')
-end                                             # => :range_bit_count
+end
 
 # p range_bit_count(2,7)  #11
 # p range_bit_count(0,1)  # 1
@@ -587,7 +587,7 @@ end                                             # => :range_bit_count
 
 def late_ride(n)
   n.divmod(60).join.chars.map(&:to_i).reduce(:+)
-end                                               # => :late_ride
+end
 
 # p late_ride(240)    # 4
 # p late_ride(808)    # 14
@@ -619,7 +619,7 @@ end                                               # => :late_ride
 def sort_by_height(arr)
   people = arr.reject { |num| num == -1 }.sort
   arr.map { |elem| elem == -1 ? -1 : people.shift }
-end                                                  # => :sort_by_height
+end
 
 
 # p sort_by_height([-1, 150, 190, 170, -1, -1, 160, 180])
@@ -708,7 +708,7 @@ end                                                  # => :sort_by_height
 def invert(list)
   # list.map { |n| -n }
   list.map(&:-@)
-end               # => :invert
+end
 
 # p invert([1,2,3,4,5])  # [-1,-2,-3,-4,-5]
 # p invert([1,-2,3,-4,5])  # [-1,2,-3,4,-5]
@@ -721,7 +721,7 @@ end               # => :invert
 
 def find_children(dancing_brigade)
   dancing_brigade.chars.sort_by { |char| [char.downcase, char] }.join
-end                                                                    # => :find_children
+end
 
 # p find_children("abBA")         # "AaBb"
 # p find_children("AaaaaZazzz")   # "AaaaaaZzzz"
@@ -741,7 +741,7 @@ def odd(s)
     counter += 1
   end
   counter
-end                                                                         # => :odd
+end
 
 # p odd("oudddbo")  # 1
 # p odd("ouddddbo")  # 1
@@ -771,7 +771,7 @@ def array_operations(arr, k)
   return arr if k.zero?
   k %= 2 if arr.none?(&:negative?)
   array_operations(arr.map { |num| arr.max - num }, k - 1)
-end                                                         # => :array_operations
+end
 
 # p array_operations([-4, 0, -1, 0], 2)  # [0, 4, 3, 4])
 #                   #[ 4, 0,  1,  0]
@@ -791,7 +791,7 @@ end                                                         # => :array_operatio
 def video_part(*times)
   times.map { |time| time.scan(/\d\d/).zip([3600, 60, 1]).map { |a, b| (a.to_i * b).to_r }.reduce(:+) }
        .reduce(:/).to_s.split('/').map(&:to_i)
-end                                                                                                      # => :video_part
+end
 
 # p video_part("02:20:00","07:00:00")  # [1, 3]
 # p video_part("25:26:20","25:26:20")  # [1, 1]
@@ -806,7 +806,7 @@ def palindrome(num)
   return 'Not valid' unless num.is_a?(Integer) && num.positive?
   digits = num.to_s.chars
   digits.permutation.any? { |digs| digs.size > 1 && digs == digs.reverse }
-end                                                                         # => :palindrome
+end
 
 # p palindrome(5)   # false
 # p palindrome(1212)   # true
@@ -838,7 +838,7 @@ end                                                                         # =>
 def delete_digit(num)
   digits = num.to_s.chars
   (0...digits.size).map { |idx| (digits[0...idx] + digits[idx + 1..-1]).join.to_i }.max
-end                                                                                      # => :delete_digit
+end
 
 # p delete_digit(152)   # 52
 # p delete_digit(1001)   # 101
@@ -896,12 +896,12 @@ def six_column_encryption(msg)
   dots = 6 - msg.size % 6
   msg = msg.tr(' ', '.') + '.' * dots
   msg.scan(/.{6}/).map(&:chars).transpose.map(&:join).join(' ')
-end                                                              # => :six_column_encryption
+end
 
 def six_column_encryption(msg)
   msg.tr(' ', '.').scan(/.{1,6}/).map { |str| str.ljust(6, '.').chars }
      .transpose.map(&:join).join(' ')
-end                                                                      # => :six_column_encryption
+end
 
 
 # p six_column_encryption("Attack at noon or we are done for")
@@ -915,7 +915,7 @@ end                                                                      # => :s
 
 def learn_charitable_game(arr)
   !arr.all?(&:zero?) && (arr.reduce(:+) % arr.size).zero?
-end                                                        # => :learn_charitable_game
+end
 
 # p learn_charitable_game([100, 100, 100, 90, 1, 0, 0])  # false
 # p learn_charitable_game([0, 0, 0, 0])  # false
@@ -928,12 +928,12 @@ end                                                        # => :learn_charitabl
 
 
 def bin_str(str, count = 0)
-  str.include?('1') ? bin_str(str[/1.*\z/].tr('10', '01'), count + 1) : count  # => 3, 3, 3, 3, 2, 2, 2, 0
-end                                                                            # => :bin_str
+  str.include?('1') ? bin_str(str[/1.*\z/].tr('10', '01'), count + 1) : count
+end
 
-p bin_str("0101")     # 3
-p bin_str("10000")     # 2
-p bin_str("0000000000")     # 0
+# p bin_str("0101")     # 3
+# p bin_str("10000")     # 2
+# p bin_str("0000000000")     # 0
 # p bin_str("1111111111")     # 1
 # p bin_str("10101010101010")     # 14
 # p bin_str("11111000011111")     # 3
@@ -947,7 +947,7 @@ p bin_str("0000000000")     # 0
 
 def happy_g(str)
   str !~ /(\A|[^g])g([^g]|\z)/
-end                             # => :happy_g
+end
 
 # p happy_g("gg0gg3gg0gg")  # true
 # p happy_g("gog")  # false
@@ -965,11 +965,11 @@ end                             # => :happy_g
 def rounding(n, m)
   result = n.fdiv(m)
   result == 0.5 ? n : result.round * m
-end                                     # => :rounding
+end
 
 def rounding(n, m)
   n.fdiv(m).tap { |x| return x % 1 == 0.5 ? n : x.round * m }
-end                                                            # => :rounding
+end
 
 # p rounding(20,3)  # 21
 # p rounding(19,3)  # 18
@@ -991,6 +991,29 @@ end                                                            # => :rounding
 # p missing_alphabets("abbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxy") # "ayzz"
 # p missing_alphabets("codewars") # "bfghijklmnpqtuvxyz"
 
-# >> 3
-# >> 2
-# >> 0
+
+
+
+def array_manip(arr)
+  arr.map.with_index(1) { |num, idx| arr.drop(idx).select { |n| n > num }.min || -1 }
+end
+
+# p array_manip([8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28])
+# # [18, 63, 80, 25, 32, 43, 80, 93, 80, 25, 93, -1, 28, -1, -1])
+# p array_manip([ 2, 4, 18, 16, 7, 3, 9, 13, 18, 10 ])
+# # [3, 7, -1, 18, 9, 9, 10, 18, -1, -1])
+
+
+list2 = [
+  { first_name: 'Oliver', last_name: 'Q.', country: 'Australia', continent: 'Oceania', age: 19, language: 'HTML' },
+  { first_name: 'Lukas', last_name: 'R.', country: 'Austria', continent: 'Europe', age: 89, language: 'HTML' }
+]
+
+list1 = [
+  { first_name: 'Noah', last_name: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'JavaScript' },
+  { first_name: 'Maia', last_name: 'S.', country: 'Tahiti', continent: 'Oceania', age: 28, language: 'JavaScript' },
+  { first_name: 'Shufen', last_name: 'L.', country: 'Taiwan', continent: 'Asia', age: 35, language: 'HTML' },
+  { first_name: 'Sumayah', last_name: 'M.', country: 'Tajikistan', continent: 'Asia', age: 30, language: 'CSS' }
+]
+
+# list1.count { |hsh| hsh[:continent] == 'Europe' && hsh[:language] == 'JavaScript' }
