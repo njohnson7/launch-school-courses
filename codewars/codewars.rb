@@ -1017,3 +1017,27 @@ list1 = [
 ]
 
 # list1.count { |hsh| hsh[:continent] == 'Europe' && hsh[:language] == 'JavaScript' }
+
+
+
+
+
+def furthest_distance(arr, k)
+  result = []
+  arr.each_with_index do |n1, idx1|
+    (idx1 + 1...arr.size).each do |idx2|
+      n2 = arr[idx2]
+      result << (idx1 - idx2).abs if (n1 - n2).abs >= k
+    end
+  end
+  result.max || -1
+end
+
+# p furthest_distance([8,7,1,9],5)  # === 2
+# # The difference of 8 and 1, 1 and 9 is more than 5;
+# # The index distance of (8,1) is 2;
+# # The index distance of (1,9) is 1;
+# # So 2 is the furthest distance of index.
+# p furthest_distance([8,7,1,9],100)  # === -1
+# p furthest_distance([1,2,3,4],1)  # === 3 (1 and 4)
+# p furthest_distance([3,4,1,2],2)  # === 2 (3 and 1 or 4 and 2)
