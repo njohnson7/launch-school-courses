@@ -1041,3 +1041,33 @@ end
 # p furthest_distance([8,7,1,9],100)  # === -1
 # p furthest_distance([1,2,3,4],1)  # === 3 (1 and 4)
 # p furthest_distance([3,4,1,2],2)  # === 2 (3 and 1 or 4 and 2)
+
+
+
+
+def josephus(items, k)
+  result = []
+  until items.empty?
+    items.rotate!(k)
+    result << items.pop
+  end
+  result
+end
+
+def josephus(items, k)
+  result = []
+  result << items.rotate!(k).pop until items.empty?
+  result
+end
+
+
+# def josephus(items, k)
+#   Array.new(items.size) { items.rotate!(k).pop }
+# end
+
+# p josephus([1,2,3,4,5,6,7,8,9,10],1)  #[1,2,3,4,5,6,7,8,9,10]
+# p josephus([1,2,3,4,5,6,7,8,9,10],2)  #[2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
+# p josephus(["C","o","d","e","W","a","r","s"],4)
+#   #['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
+# p josephus([1,2,3,4,5,6,7],3)  #[3, 6, 2, 7, 5, 1, 4]
+# p josephus([],3)  #[]
