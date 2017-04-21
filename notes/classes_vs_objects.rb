@@ -1,3 +1,5 @@
+# CLASSES VS. OBJECTS
+
 =begin
 
 - Classes are like a basic outline, or blueprint, that defines:
@@ -16,6 +18,11 @@
   - end keyword finishes the definition
 - Ruby file names should be in snake_case and reflect the class name
 
+- #initialize:
+  - called a constructor
+    - b/c it gets called/triggered every time a new object is instantiated
+  - you pass arguments into initialize through Class#new
+
 
 
 
@@ -31,3 +38,4 @@ end
 sparky = GoodDog.new
 # We instantiate an object called sparky from the class GoodDog
 # Calling the class method new returns a new object
+# (We create an object by defining a class and instantiating it using .new to create an instance)

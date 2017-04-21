@@ -1,3 +1,5 @@
+# ENCAPSULATION
+
 =begin
 
 - Encapsulation:

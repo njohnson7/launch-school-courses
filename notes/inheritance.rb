@@ -1,3 +1,5 @@
+# INHERITANCE
+
 =begin
 
 Inheritance:
@@ -14,21 +16,14 @@ Inheritance:
     - a subclass can only have one superclass
     - a superclass can have multiple subclasses
   - A way to apply polymorphic structure to a program
+- use inheritance to extract common behaviors from classes that share that behavior, and move it to a superclass
+  - this lets us extract logic to one place for re-use
+    - removes duplication in your code base
+    - DRY: every piece of knowledge should have a single, authoritative, unambiguous representation in a system
+- use the < char to indicate inheritance
+- hierarchical ('is-a') relationships
 
 
-Instead of doing it this way, do this isntead
-  - ex: classes w/ repeated methods, then include modules
-  - ex: manual getter/setter, vs class macro
-
-- more examples instead of definitions!
-  - just add keyterms, like is-a vs has-a
-
-
-TOPICS:
- - state vs behavior
-   - ivars are for specific instance, methods shared
-
- -SEE NOTES!
 
 
 =end
