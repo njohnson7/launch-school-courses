@@ -8,6 +8,7 @@
 - included modules are inserted above the including class in the chain.
   - reverse order of inclusion.
 - modules mixed into superclasses are also included in the lookup path
+- every path ends in Object, Kernel, BasicObject b/c every class inherently inherits from Object
 
 =end
 

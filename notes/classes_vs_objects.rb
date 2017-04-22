@@ -4,7 +4,9 @@
 
 - Classes are like a basic outline, or blueprint, that defines:
   - what an object should be made of (its state/ivars/attributes)
+    - objects encapsulate state
   - what an object should be able to do (behaviors/methods)
+    - classes group behaviors
 - Objects are instantiated (or created) from classes
 - Different objects of the same class:
   - unique states/ivars

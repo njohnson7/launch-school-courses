@@ -11,6 +11,7 @@
 
 ------------------------
 - Allows your code to achieve new levels of complexity
+- objects encapsulate state
 __________________
 - define logic only in 1 place, so u can make changes w/o affecting rest of code
 

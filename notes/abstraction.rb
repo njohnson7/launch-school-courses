@@ -11,3 +11,22 @@ Abstraction:
   - Objects are represented as real-world nouns, w/ methods that correspond to their behavior
 
 =end
+
+# SmartPhone is an abstract class - a generic class that doesn't reperesent a whole object by itself. SmartPhones don't exist as a generic entity, they have to be of a certain type.
+class SmartPhone
+  def open_app
+    'opening app...'
+  end
+end
+
+class AndroidPhone < SmartPhone
+  def google_now
+    'google now...'
+  end
+end
+
+class iPhone < SmartPhone
+  def siri
+    'siri...'
+  end
+end

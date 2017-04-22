@@ -33,6 +33,13 @@
   - another way to DRY up your code (remove duplication)
     - using modules to group common behaviors allows us to build a more powerful, flexible, and DRY design
   - naming convention: often end w/ '-able'
+  - mixing in modules affects the method lookup path!
+
+- PROBLEM OF CLASSICAL INHERITANCE:
+  - a class can only sub-class from one superclass
+    - this limitation makes it difficult to accurately model the problem domain
+      - ex: fish are pets that can swim, but can't run or jump
+  - Ruby implements multiple inheritance by mixing in modules
 
 =end
 
@@ -43,13 +50,17 @@ module Swimmable
   end
 end
 
-class Animal; end
+class Animal
+  def eat; end
+end
 
 class Fish < Animal
   include Swimmable         # mixing in Swimmable module
 end
 
 class Mammal < Animal
+  def run; end
+  def jump; end
 end
 
 class Cat < Mammal
@@ -57,6 +68,10 @@ end
 
 class Dog < Mammal
   include Swimmable         # mixing in Swimmable module
+  def fetch; end
+end
+
+class Bulldog < Mammal  # can't swim!
 end
 
  # We don't want to move the swim method into Animal because not all animals swim, and we don't want to create another swim method in Dog because that violates the DRY principle.

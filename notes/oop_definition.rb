@@ -11,7 +11,13 @@
 - Programmers needed a way to create containers for data that could be changed and manipulated without affecting the entire program.
 - They needed a way to section off areas of code that performed certain procedures, so that their programs could become the interaction of many small parts, instead of one massive blob of dependency.
 -------------------------------
+=end
 
+
+
+
+
+=begin
 - Pros:
     - Creating and interacting with objects that are modeled after the real world allows us to raise our level of abstraction when we are programming, so that we can think more in human terms than in computer terms. This helps us to focus more on solving the overall problem on a higher level, without getting bogged down by low-level implementation details.
 

@@ -21,7 +21,7 @@ Inheritance:
     - removes duplication in your code base
     - DRY: every piece of knowledge should have a single, authoritative, unambiguous representation in a system
 - use the < char to indicate inheritance
-- hierarchical ('is-a') relationships
+- use to model hierarchical domains ('is-a')
 
 
 
@@ -45,3 +45,10 @@ class PayPhone < Phone
     'inserting money...'
   end
 end
+
+# ex: Vehicle, MyCar, MyTruck
+  # subclasses w/ specialized behavior and constants
+    # number of doors constant
+  # superclass w/ behavior that isn't specific to a subclass
+    # gas mileage class method
+

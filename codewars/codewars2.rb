@@ -147,3 +147,29 @@ end
 # [1,2,3,4,5,6]
 # sel_reverse([1,2,3,4,5,6], 10) ==
 # [6,5,4,3,2,1]
+
+
+
+
+
+
+def missing_alphabets(str)
+  max = 0
+  str.chars.uniq.each do |char|
+    count = str.count(char)
+    max = count if count > max
+  end
+  ('a'..'z').reduce('') { |result, char| result + (char * (max - str.count(char))) }
+end
+
+
+p missing_alphabets("abcdefghijklmnopqrstuvwxy") ==
+ "z"
+p missing_alphabets("abcdefghijklmnopqrstuvwxyz") ==
+ ""
+p missing_alphabets("aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyy") ==
+ "zz"
+p missing_alphabets("abbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxy") ==
+ "ayzz"
+p missing_alphabets("codewars") ==
+ "bfghijklmnpqtuvxyz"
