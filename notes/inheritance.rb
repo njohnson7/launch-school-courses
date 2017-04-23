@@ -23,32 +23,68 @@ Inheritance:
 - use the < char to indicate inheritance
 - use to model hierarchical domains ('is-a')
 
-
-
-
 =end
 
 class Phone
+  # general behavior:
   def call
     'calling...'
   end
 end
 
-class SmartPhone < Phone
-  def open_app
-    'opening app...'
-  end
-end
-
 class PayPhone < Phone
+  # specialized behavior:
   def insert_money
     'inserting money...'
   end
 end
 
-# ex: Vehicle, MyCar, MyTruck
-  # subclasses w/ specialized behavior and constants
-    # number of doors constant
-  # superclass w/ behavior that isn't specific to a subclass
-    # gas mileage class method
+class SmartPhone < Phone
+  # specialized constant:
+  NUMBER_OF_BATTERIES = 1
 
+  def self.validate_imei(number)
+    "Validating IMEI number..."
+  end
+
+  def open_app
+    'opening app...'
+  end
+end
+
+class IPhone < SmartPhone
+  # specialized constant:
+  MANUFACTURER = 'Apple'
+
+  def ask_siri(question)
+    "Asking Siri: '#{question}'..."
+  end
+end
+
+class Pixel < SmartPhone
+  MANUFACTURER = 'Google'
+
+  def ask_google_assistant(question)
+    "Asking Google Assistant: '#{question}'..."
+  end
+end
+
+
+
+pay_phone = PayPhone.new
+pixel = Pixel.new
+iphone = IPhone.new
+
+# all of Phone's subclasses inherit #call:
+pay_phone.call
+iphone.call
+pixel.call
+
+# objects of different subclasses have specialized behavior:
+pay_phone.insert_money
+iphone.ask_siri('What is my schedule today?')
+pixel.ask_google_assistant('What is my schedule today?')
+
+# SmartPhone's class methods are inherited:
+IPhone.validate_imei(12345)
+Pixel.validate_imei(12345)

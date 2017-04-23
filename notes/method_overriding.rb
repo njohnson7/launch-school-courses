@@ -15,43 +15,106 @@
 
 =end
 
-# how it normally works:
-son.send :say_hi       # => "Hi from Child."
+# METHOD OVERRIDING:
 
-# override:
-class Child
-  def say_hi
-    p "Hi from Child."
-  end
 
-  def send
-    p "send from Child..."
-  end
-end
-
-# how it works after:
-lad = Child.new
-lad.send :say_hi
-
-# ArgumentError: wrong number of arguments (1 for 0)
-# from (pry):12:in `send'
+# to_s..........
 
 
 
-c = Child.new
-c.instance_of? Child      # => true
-c.instance_of? Parent     # => false
-
-class Child
-  # other methods omitted
-
-  def instance_of?
-    p "I am a fake instance"
+class SmartPhone
+  def charge
+    'charging...'
   end
 end
 
-heir = Child.new
-heir.instance_of? Child
+class Nexus6
+  def charge
+    'charging faster with QuickCharge technology...'
+  end
+end
 
-# ArgumentError: wrong number of arguments (1 for 0)
-# from (pry):22:in `instance_of?'
+smart_phone = SmartPhone.new
+nexus6 = Nexus6.new
+
+smart_phone.charge  # ==> "charging..."
+nexus6.charge       # ==> "charging faster with QuickCharge technology..."
+
+
+
+
+
+class SmartPhone
+  def initialize(model)
+    @model = model
+  end
+end
+
+my_nexus6 = SmartPhone.new('Nexus 6')
+your_nexus6 = SmartPhone.new('Nexus 6')
+# Object#== returns true if two objects are the same object:
+my_nexus6 == your_nexus6                 # ==> false
+
+class SmartPhone
+  attr_reader :model
+
+  # override #== so now it will return true if 2 phones are the same model:
+  def ==(other)
+    model == other.model
+  end
+end
+
+my_nexus6 = SmartPhone.new('Nexus 6')
+your_nexus6 = SmartPhone.new('Nexus 6')
+my_nexus6 == your_nexus6                 # ==> true
+
+
+
+# ACCIDENTAL METHOD OVERRIDING:
+
+# using Object#object_id for checking if 2 objects are the same object.
+class SmartPhone
+  def initialize(imei_number)
+    @imei_number = imei_number
+  end
+end
+
+# normal behavior:
+smart_phone = SmartPhone.new(12345)
+another_smart_phone = SmartPhone.new(12345)
+smart_phone.object_id                                   # ==> 20502220
+# not the same object:
+smart_phone.object_id == another_smart_phone.object_id  # ==> false
+
+class SmartPhone
+  def object_id
+    @imei_number
+  end
+end
+
+# accidental overridden behavior:
+smart_phone.object_id                                   # ==> 12345
+# still not the same object, but now it appears like they are:
+smart_phone.object_id == another_smart_phone.object_id  # ==> true
+
+
+
+
+
+
+module CyanogenMod; end
+
+class AndroidPhone; end
+
+android_phone = AndroidPhone.new
+android_phone.extend(CyanogenMod)  # ==> #<AndroidPhone:0x0000000095e660>
+
+class AndroidPhone
+  def extend
+    'Extending battery life...'
+  end
+end
+
+android_phone = AndroidPhone.new
+android_phone.extend(CyanogenMod)
+# ~~> ArgumentError: wrong number of arguments (given 1, expected 0)

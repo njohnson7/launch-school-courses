@@ -19,46 +19,77 @@ class Person
 end
 
 bob = Person.new("Robert")
-bud = Bulldog.new             # assume Bulldog class from previous assignment
+# bud = Bulldog.new           # ~> NameError: uninitialized constant Bulldog
+# assume Bulldog class from previous assignment
 
-bob.pet = bud
+# bob.pet = bud  # ~> NameError: undefined local variable or method `bud' for main:Object
 
 # Because bob.pet returns a Bulldog object, we can then chain any Bulldog methods at the end as well:
 
-bob.pet.speak                 # => "bark!"
-bob.pet.fetch                 # => "fetching!"
+# bob.pet.speak
+# bob.pet.fetch
 
+class SmartPhone
+  attr_reader :camera
 
-
-
-
-# Let's now change the implementation a bit to allow a person to have many pets. How should we implement this? How about an array of pets -- that is, an array of Pet objects.
-
-class Person
-  attr_accessor :name, :pets
-
-  def initialize(name)
-    @name = name
-    @pets = []
+  def initialize(camera)
+    @camera = camera
   end
 end
 
-bob = Person.new("Robert")
+class Camera
+  def take_photo
+    'Taking photo...'
+  end
 
-kitty = Cat.new
-bud = Bulldog.new
-
-bob.pets << kitty
-bob.pets << bud
-
-bob.pets                      # => [#<Cat:0x007fd839999620>, #<Bulldog:0x007fd839994ff8>]
-
-# Notice the opening and closing square brackets -- that means this is an array. You can see that the first element in the array is a Cat object while the second element is a Bulldog object. Because it's an array, you cannot just call Pet methods on pets:
-
-bob.pets.jump                  # NoMethodError: undefined method `jump' for [#<Cat:0x007fd839999620>, #<Bulldog:0x007fd839994ff8>]:Array
-
-# There is no jump method in the Array class, so we get an error. If we want to make each individual pet jump, we'll have to parse out the elements in the array and operate on the individual Pet object. Here, we'll just iterate through the array.
-
-bob.pets.each do |pet|
-  pet.jump
+  def record_video
+    'Recording video...'
+  end
 end
+
+camera = Camera.new
+nexus6 = SmartPhone.new(camera)
+
+# b/c #camera returns a Camera object, we can chain any Camera instance methods onto camera
+nexus6.camera.take_photo         # ==> "Taking photo..."
+nexus6.camera.record_video       # ==> "Recording video..."
+
+
+
+class SmartPhone
+  attr_reader :apps
+
+  def initialize(model)
+    @model = model  # Strings are also a collaborator object
+    @apps = []
+  end
+
+  def install_app(app)
+    apps << app
+  end
+end
+
+class App
+  def initialize(name)
+    @name = name
+  end
+
+  def open
+    "Opening #{@name}..."
+  end
+end
+
+nexus6 = SmartPhone.new('Nexus 6')
+sound_cloud = App.new('SoundCloud')
+chrome = App.new('Chrome')
+nexus6.install_app(sound_cloud)
+nexus6.install_app(chrome)
+nexus6.apps     # ==> [#<App:0x000000017bd7b0 @name="SoundCloud">,
+                       #<App:0x000000017bcea0 @name="Chrome">]
+nexus6.apps.each { |app| puts app.open }
+# <= Opening SoundCloud...
+# <= Opening Chrome...
+
+
+
+nexus6.apps.first.open  # ==> "Opening SoundCloud..."

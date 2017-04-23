@@ -21,12 +21,48 @@
 
 =end
 
-# what is self instance method (returns self)
-# self.name=  is equivalent to   sparky.name=
+class SmartPhone
+  # inside of a class definition, and outside of an instance method, self refers to the class:
+  p self          # ==> SmartPhone
 
-class GoodDog
-  puts self
+  def self.what_is_self_class_method_1
+    self
+  end
+
+  # this is equivalent to the above, b/c self references SmartPhone:
+  def SmartPhone.what_is_self_class_method_2
+    self
+  end
+
+  attr_accessor :color
+
+  def what_is_self_instance_method
+    self
+  end
+
+  def change_color(color)
+    # from within an instance method definition, setter methods must always be called with an explicit receiver by prepending self.
+    self.color = color
+
+    # public and protected methods can optionally be called with self.
+    # b/c self is the implicit receiver of any method called without an explicit receiver.
+    what_is_self_instance_method
+    self.what_is_self_instance_method
+
+    # private methods that aren't setter methods can never be called w/ self.
+  end
+
 end
 
-# define a class method w/ self and w/ class name
-  # ex: self.class_method   ==    GoodDog.class_method
+# inside of a class method, self refers to the class:
+SmartPhone.what_is_self_class_method_1       # ==> SmartPhone
+SmartPhone.what_is_self_class_method_2       # ==> SmartPhone
+
+# inside of an instance method, self refers to the instance of the class:
+nexus6 = SmartPhone.new              # ==> #<SmartPhone:0x00000001136e00>
+nexus6.what_is_self_instance_method  # ==> #<SmartPhone:0x00000001136e00>
+
+nexus6.change_color('blue')
+
+# equivalent to calling self.color from within an instance method definition:
+nexus6.color                 # ==> "blue"

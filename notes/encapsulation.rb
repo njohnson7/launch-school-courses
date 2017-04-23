@@ -17,6 +17,34 @@ __________________
 
 =end
 
+
+
+# ivars encapsulate the state of an object:
+class SmartPhone
+  def initialize(model)
+    @model = model
+  end
+end
+
+nexus6 = SmartPhone.new('Nexus 6')
+
+
+
+class SmartPhone
+  def text(msg, number)
+    "Sending '#{msg}' to #{number}..."
+    send_text(msg, number)
+  end
+
+  private
+
+  def send_text(msg, number)
+    # implementation details...
+  end
+end
+
+
+
 class SmartPhone
   # We encapsulate and contain the logic of adding a new contact into this method
   # public interface:
@@ -24,17 +52,18 @@ class SmartPhone
     # Now we have the freedom to modify the data structure that we use to store the list of contacts, while leaving the public interface unchanged.
     # The user only needs to know that they must pass a name and number as an argument, and the logic contained inside of the method will take care of the rest.
   def add_new_contact(name, number)
+    # option 1 - hash:
     @contacts ||= {}
     @contacts[name] = number
 
-    # ex - we could change the data structure to an array:
+    # option 2 - array:
     @contacts ||= []
     @contacts << [name, number]
   end
 end
 
 nexus6 = SmartPhone.new
+# The public interface will not be affected by what data structure we decide to use:
 nexus6.add_new_contact('Fred', '123-456-7890')
-
 
 

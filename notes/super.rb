@@ -14,6 +14,24 @@
 
 =end
 
+# Phone class with a #voice_call instance method:
+class Phone
+  def voice_call(number)
+    "Calling #{number}..."
+  end
+end
+
+# SmartPhone class that subclasses Phone, and inherits #voice_call instance method:
+class SmartPhone < Phone
+  # extend the functionality of Phone#voice_call by overriding it, and then using the super keyword to invoke it:
+  def voice_call
+    # additional functionality:
+    "Enter a number or choose contact:..."
+    number = '<number OR get number from chosen contact>'
+    super(number)
+  end
+end
+
 class Animal
   def speak
     "Hello!"

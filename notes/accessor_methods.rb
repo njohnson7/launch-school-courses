@@ -125,10 +125,12 @@ phone.color=('black')
 class Phone
   attr_accessor :color
 
-  #  #color can be called with or without an explict receiver:
+  #  #color can be called with or without an explicit receiver:
   def display_color
     puts "This phone's color is #{color}"
     puts "This phone's color is #{self.color}"
+    # or we can directly reference @color:
+    puts "This phone's color is #{@color}"
   end
 end
 
@@ -137,6 +139,7 @@ phone.display_color
 
 
 
+# SETTER METHODS MUST BE CALLED W/ SELF:
 class Phone
   attr_accessor :color
 
@@ -166,6 +169,7 @@ phone.color
 
 
 
+
 # use custom getter/setter instead of attr_accessor for pre-processing:
 class Phone
   # argument validity check:
@@ -186,6 +190,7 @@ phone.number
 
 
 
+
 # use getter method instead of referencing @number directly
   # so we don't have to format @number manually every time.
 # if we modify how a number should be formatted
@@ -201,6 +206,7 @@ class Phone
     "Please dial #{@number.to_s.gsub('...', '...')} to call this phone."
   end
 end
+
 
 
 

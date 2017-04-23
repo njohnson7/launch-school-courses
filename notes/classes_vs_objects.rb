@@ -26,18 +26,46 @@
   - you pass arguments into initialize through Class#new
 
 
-
-
-
 - Classes are objects too, instances of the class Class
 
 =end
 
-#good_dog.rb
-class GoodDog
+
+
+
+# We use the class keyword to define a new class named SmartPhone.
+# SmartPhone is a constant that references the class we are defining.
+# We can use this constant to access this class throughout the rest of our program.
+class SmartPhone
+  def initialize(brand, model)
+    @brand = brand
+    @model = model
+  end
+
+  def open_app(app_name)
+    puts "#{app_name} has been opened on your #{@model}."
+  end
 end
 
-sparky = GoodDog.new
-# We instantiate an object called sparky from the class GoodDog
-# Calling the class method new returns a new object
-# (We create an object by defining a class and instantiating it using .new to create an instance)
+
+nexus6 = SmartPhone.new('Motorola', 'Nexus 6')
+nexus6.open_app('SoundCloud')
+
+
+
+
+class SmartPhone
+  def add_contact(name)
+    @contacts ||= []
+    @contacts << name
+  end
+end
+
+# instance variables are unique to each object:
+nexus6 = SmartPhone.new('Motorola', 'Nexus 6')
+nexus6      # ==> #<SmartPhone:0x0000000234b208 @brand="Motorola", @model="Nexus 6">
+
+galaxy_s8 = SmartPhone.new('Samsung', 'Galaxy S8')
+galaxy_s8.add_contact('Fred')
+galaxy_s8   # ==> #<SmartPhone:0x0000000234a9c0 @brand="Samsung",
+            #     @model="Galaxy S8",  @contacts=["Fred"]>

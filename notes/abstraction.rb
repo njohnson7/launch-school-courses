@@ -14,6 +14,7 @@ Abstraction:
 
 # SmartPhone is an abstract class - a generic class that doesn't reperesent a whole object by itself. SmartPhones don't exist as a generic entity, they have to be of a certain type.
 class SmartPhone
+  # extract the logic of opening an app into a method:
   def open_app
     'opening app...'
   end

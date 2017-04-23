@@ -43,81 +43,125 @@
 
 =end
 
-# mixin instead of inheritance:
-module Swimmable
-  def swim
-    "I'm swimming!"
-  end
-end
-
-class Animal
-  def eat; end
-end
-
-class Fish < Animal
-  include Swimmable         # mixing in Swimmable module
-end
-
-class Mammal < Animal
-  def run; end
-  def jump; end
-end
-
-class Cat < Mammal
-end
-
-class Dog < Mammal
-  include Swimmable         # mixing in Swimmable module
-  def fetch; end
-end
-
-class Bulldog < Mammal  # can't swim!
-end
-
- # We don't want to move the swim method into Animal because not all animals swim, and we don't want to create another swim method in Dog because that violates the DRY principle.
-
-
-
-
- # namespace:
-module Mammal
-  class Dog
-    def speak(sound)
-      p "#{sound}"
+# NAMESPACE:
+module SmartPhone
+  class Kernel
+    def self.regulate_cpu_speed
+      'Regulating CPU speed...'
     end
   end
 
-  class Cat
-    def say_name(name)
-      p "#{name}"
+  class File
+    def self.open(file_name)
+      'Opening file...'
+    end
+
+    def path
+      "this is my path..."
     end
   end
 end
 
-# We call classes in a module by appending the class name to the module name with two colons(::)
+Kernel.regulate_cpu_speed rescue $!
+# ==> #<NoMethodError: undefined method `regulate_cpu_speed' for Kernel:Module>
+SmartPhone::Kernel.regulate_cpu_speed
+# ==> "Regulating CPU speed..."
 
-buddy = Mammal::Dog.new
-kitty = Mammal::Cat.new
-buddy.speak('Arf!')           # => "Arf!"
-kitty.say_name('kitty')       # => "kitty"
+File.file?('abc')
+# ==> false
+SmartPhone::File.file?('abc') rescue $!
+# ==> #<NoMethodError: undefined method `file?' for SmartPhone::File:Class>
+
+# we reference classes nested in a Module using the scope resolution operator:
+a_file = SmartPhone::File.new
+a_file.path                    # ==> "this is my path..."
 
 
 
- # container:
-module Mammal
-  ...
 
-  def self.some_out_of_place_method(num)
-    num ** 2
+# CONTAINER for out of place methods:
+module Fibonacci
+  def self.first_five
+    [1, 1, 2, 3, 5]
   end
 end
 
-# Defining methods this way within a module means we can call them directly from the module:
+Fibonacci.first_five  # ==> [1, 1, 2, 3, 5]
 
-value = Mammal.some_out_of_place_method(4)
 
-# We can also call such methods by doing:
 
-value = Mammal::some_out_of_place_method(4)
 
-# although the former is the preferred way.
+
+# MULTIPLE INHERITANCE PROBLEMS:
+
+class Phone
+  def call
+    'calling...'
+  end
+end
+
+# defining #charge in 2 places violates the DRY principle.
+class SmartPhone < Phone
+  def charge
+    'charging...'
+  end
+end
+
+class ElectricToothbrush
+  def charge
+    'charging...'
+  end
+end
+
+
+# fix by extracting charging behavior to a module:
+module Chargeable
+  def charge
+    'charging...'
+  end
+end
+
+module Bluetooth
+  def pair
+    'bluetooth pairing...'
+  end
+end
+
+class Phone
+  def call
+    'calling...'
+  end
+end
+
+# SmartPhone inherits from Phone, but a regular Phone cannot be charged and does
+# not have Bluetooth, so by mixing in these two modules SmartPhone can share the
+# behaviors of #charge and #pair without having to define them directly in the
+# class definition. So SmartPhone effectively 'inherits' behavior from at least
+# 3 different places.
+class SmartPhone < Phone
+  include Chargeable
+  include Bluetooth
+end
+
+# An ElectricToothbrush can be charged, but does not have Bluetooth, so here we
+# only need to mix in the Chargeable module. Without this mixin, we would have
+# to define #charge twice, once in each class definition.
+class ElectricToothbrush
+  include Chargeable
+end
+
+nexus6 = SmartPhone.new
+toothbrush = ElectricToothbrush.new
+
+# Both devices can charge, even though they have different superclasses:
+nexus6.charge
+toothbrush.charge
+
+# nexus6
+# method shared via class inheritance:
+nexus6.call
+# method shared via mixing in a module:
+nexus6.pair
+
+# Bluetooth comes before Chargeable, since Bluetooth was included last:
+SmartPhone.ancestors

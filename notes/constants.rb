@@ -9,4 +9,27 @@
 
 =end
 
-# ex: DOG_YEARS
+
+
+class IPhone
+  MANUFACTURER = 'Apple'.freeze
+
+  def self.display_manufacturer
+    puts "#{self} manufacturer: #{MANUFACTURER}"
+  end
+end
+
+IPhone.display_manufacturer
+# <= IPhone manufacturer: Apple
+
+
+
+# Constants can be accessed through inheritance:
+class IPhone7 < IPhone
+  def signature_msg
+    "Sent from my #{MANUFACTURER} #{self.class}."
+  end
+end
+
+my_iphone7 = IPhone7.new
+my_iphone7.signature_msg  # ==> "Sent from my Apple IPhone7."
