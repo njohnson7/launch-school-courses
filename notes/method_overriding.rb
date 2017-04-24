@@ -13,6 +13,8 @@
   - Object#to_s is an instance method that can be overriden w/o any major side-effect
     - do this when you want a custom string representation of an object
 
+# fake operators?
+
 =end
 
 # METHOD OVERRIDING:

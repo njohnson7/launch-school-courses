@@ -2,6 +2,8 @@
 
 =begin
 
+
+
 - OOP definition:
   - an approach to programming that solves problems by modeling programs based on objects that exist in the real world.
 
@@ -13,8 +15,8 @@
 -------------------------------
 =end
 
-
-
+# - use term: 'MODULAR'!
+# -maybe explain procedural first?
 
 
 =begin
@@ -44,6 +46,11 @@
     It can take longer to plan out and write OOP code, although once written, it will usually take less time to modify.
 
 =end
+
+
+
+
+
 
 
 

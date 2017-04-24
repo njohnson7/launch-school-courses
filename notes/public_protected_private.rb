@@ -67,7 +67,7 @@ nexus6.change_pin_number('1234', '1111')
 
 
 
-# PROTECTED:
+# PROTECTED:   ----------MAYBE CHANGE???----------------
 
 class SmartPhone
   # mix in the Comparable module to get access to instance methods for comparing objects:

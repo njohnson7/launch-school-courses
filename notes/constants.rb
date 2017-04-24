@@ -33,3 +33,29 @@ end
 
 my_iphone7 = IPhone7.new
 my_iphone7.signature_msg  # ==> "Sent from my Apple IPhone7."
+
+
+
+
+module Chargeable
+  def charger_type
+    "You need a charger made by #{IPhone::MANUFACTURER}"
+  end
+end
+
+class IPhone
+  include Chargeable
+
+  MANUFACTURER = 'Apple'.freeze
+
+  def manufacturer
+    MANUFACTURER
+  end
+end
+
+class IPhone7 < IPhone
+  def to_s
+    "Phone type: #{self.class}. Manufacturer: #{MANUFACTURER}"
+  end
+end
+

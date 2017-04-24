@@ -30,7 +30,10 @@
 
 =end
 
-
+# --------
+# constructor method
+# initialize ivar
+# ---------
 
 
 # We use the class keyword to define a new class named SmartPhone.
