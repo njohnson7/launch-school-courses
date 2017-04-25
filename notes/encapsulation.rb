@@ -2,22 +2,21 @@
 
 =begin
 
-- Encapsulation:
-  - defines boundaries a program by hiding pieces of functionality and making it unavailable to the rest of the codebase.
-  - can be used to hide implementation details from users of a class
-    - expose interfaces to interact with objects of that class
-      - interfaces = public instance methods
-  - it helps to protect data so that data can't be accessed or modified without explicit intent
-
-------------------------
-- Allows your code to achieve new levels of complexity
-- objects encapsulate state
-__________________
-- define logic only in 1 place, so u can make changes w/o affecting rest of code
+- defines boundaries
+  - hide pieces of functionality and make unavailable to rest of codebase
+- data protection (can't be modified w/o obvious intention)
+- creating objects and exposing interfaces (public methods) to interact w/ them
+  - new level of abstraction and complexity
+- hide implementation details
+  - prevent ripple effects of change
+- divide responsibilities
+- define logic in 1 place
+  - interface can remain same while implemntation changes
+- ex:
+  - objects encapsulate state
+  - methods (black box)
 
 =end
-
-
 
 # ivars encapsulate the state of an object:
 class SmartPhone

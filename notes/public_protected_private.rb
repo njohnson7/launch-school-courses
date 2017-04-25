@@ -2,26 +2,31 @@
 
 =begin
 
-- public methods:
-  - a method that is available to anyone who knows either the class name or the object's name
-  - these methods are readily available for the rest of the program to use
+- public methods (public interface):
+  - available to anyone who knows class name or object's name
+    - readily available for the rest of the program to use
   - comprise the class's interface:
     - how other classes and objects will interact w/ this obj and class
+    - interace should only change when necessary
 - private methods:
-  - methods that are doing work in the class, but don't need to be available to the rest of the program
+  - do work in the class, but don't need to be available to rest of program
+    - use when implementation is likely to change (unstable)
   - any methods defined following Module#private will be private
-  - only accessible from inside the class def when called w/o self (explicit receiver)
-    - except for private setter methods! (must be called w/ self)
+  - accessible from inside class def when called w/o self
+    - except for private setter methods!
 - protected methods:
   - from outside a class def, act just like private methods
   - from inside a class def, accessible just like public methods
-  - useful for comparing attributes that we don't want to expose a public interface to
+  - for comparing attributes that we don't want to expose a public interface to
 - inherited methods maintain their public/protected/private status (visibility)
-- exposing a public interface by defining a public instance method that calls a private instance method can allow us to do some conditional check or verification to see if the method caller should be able to call the private method.
-
+- exposing a public interface by defining a public method that calls a private method:
+  - do some conditional check or verification:
+    - to see if the method caller should be able to call the private method.
+- intention!
+  - easy to bypass
+  - guideline for clients of a class
 
 =end
-
 
 # PRIVATE:
 class SmartPhone

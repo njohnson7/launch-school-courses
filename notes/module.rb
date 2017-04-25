@@ -1,45 +1,41 @@
 # MODULES
 
 =begin
-
-- classes (inheritance) vs. modules (mixins):
+- CLASSES VS. MODULES
   - both contain shared behavior and constants
   - modules:
     - 'has-a' relationships
     - cannot be used to instantiate objects
     - cannot be inherited
-      - instead they are mixed in to a class/module by invoking Module#include
-        - their instance methods are then available to objects of that class
-    - no limit on how many can be mixed in
+    - 'multiple inheritance'
+      - no limit on how many can be mixed in
   - classes:
     - hierarchical ('is-a') relationships
-      - for modeling concepts that are naturally hierarchical
-    - classes can only have 1 superclass
-- Module:
+    - single inhertiance:
+      - hard to accurately model some problem domains
+- MODULES:
+  - CONTAINERS for grouping related methods/constants
   - 3 uses:
-    - 1) a collection of behaviors useable in other classes via mixins
-      - group reusable code (common methods) togther into 1 place
-        - ex: Swimmable
-    - 2) namespacing:
-      - organizing similar classes under a module
+    - 1) mixins: collection of behaviors useable in other classes
+      - group reusable code (common methods) into 1 place
+    - 2) namespacing: container of constants:
+      - organizing similar classes/constants under a module
       - 2 advantages:
-        - makes it eaiser to recognize related classes in our code
-        - reduces the chance of our classes colliding w/ other similarly named classes in our codebase
-      - we can reference classes in a module by appending the class name to the module name w/ 2 colons (::)
-    - 3) a container for methods (module methods)
-      - using modules to house other methods
-      - useful for methods that seem out of place w/ your code
-  - another way to apply polymorphic structure to a program
-  - another way to DRY up your code (remove duplication)
-    - using modules to group common behaviors allows us to build a more powerful, flexible, and DRY design
-  - naming convention: often end w/ '-able'
-  - mixing in modules affects the method lookup path!
-
-- PROBLEM OF CLASSICAL INHERITANCE:
-  - a class can only sub-class from one superclass
-    - this limitation makes it difficult to accurately model the problem domain
-      - ex: fish are pets that can swim, but can't run or jump
-  - Ruby implements multiple inheritance by mixing in modules
+        - makes it easier to recognize related classes in our code
+        - less chance of classes colliding w/ similarly named classes
+      - reference by: Module::Class
+      - multiple constants can have same name in different namespaces
+    - 3) a container for out of place methods (module methods)
+  - polymorphic structure
+  **- EXAMPLE???
+  - using modules to group common behaviors allows us to build a more powerful, flexible, and DRY design
+**- '-able' suffix
+- method lookup path
+---------------
+- Class subclasses from Module
+  - Class is Module w/ 3 extra public instance methods:
+    - #new, #allocate, #superclass
+- Module#append_features
 
 =end
 
@@ -165,3 +161,6 @@ nexus6.pair
 
 # Bluetooth comes before Chargeable, since Bluetooth was included last:
 SmartPhone.ancestors
+
+
+

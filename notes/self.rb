@@ -2,22 +2,21 @@
 
 =begin
 
-- self keyword is used to specify a certain scope for our program
+- self keyword == a reference to the current object
+- used to specify a certain scope for our program
   - it is a way to be explicit about:
     - what our program is referencing
     - what our intentions are in regards to behavior
 - what it refers to depends on where it is used (the scope it is defined in)
   - w/i an instance method definition:
-    - references the receiver (the instance/obj that the method was called on)
+    - references the receiver
   - w/i a class def, but outside of an instance method:
     - references the class
 - 2 main use cases:
-  - when calling setter methods from w/i a class
-    - necessary so that Ruby can disambiguate syntax from initializing a local var
-  - class method definitions
-    - prepend self. to name of method in a method definition
+  - 1) when calling setter methods from w/i a class:
+    - to disambiguate syntax from initializing a local var
+  - 2) class method definitions:
     - defines the method on the class
-      - ex: self.class_method   ==    GoodDog.class_method
 
 =end
 

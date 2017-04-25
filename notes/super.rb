@@ -2,7 +2,7 @@
 
 =begin
 
-- a keyword that searches the inheritance hierarchy for a method w/ the same name as the method it is called from, and invokes it
+- keyword that searches the inheritance hierarchy for a method w/ the same name as the method it is called from, and invokes it
 - can be used w/i an overriden method to extend the functionality of an inherited method
 - most commonly used with #initialize
   - ex: for setting additional ivars
@@ -11,6 +11,8 @@
     - automatically forwards the arguments that were passed to the method from which it is called
   - when called w/ specific arguments:
     - the specified args will be sent up the method lookup chain
+  - when called w/ empty ()'s
+    - calls superclass method w/o any args
 
 =end
 

@@ -3,12 +3,21 @@
 =begin
 
 - method lookup path:
-  - an ordered list of classes/modules that Ruby traverses to find and invoke a method when that method is called.
-- call Module#ancestors on any class to see the method lookup chain
-- included modules are inserted above the including class in the chain.
+  - ordered list of classes/modules:
+    - Ruby traverses to find and invoke a method when method is called.
+- Module#ancestors
+- included modules inserted above the including class in the chain.
   - reverse order of inclusion.
-- modules mixed into superclasses are also included in the lookup path
-- every path ends in Object, Kernel, BasicObject b/c every class inherently inherits from Object
+- superclass's modules too
+- every path ends in Object, Kernel, BasicObject
+ - b/c every class inherently inherits from Object
+---------------
+- a module can appear only once in the same chain of ancestors
+  - if you include module is already in the chain, 2nd+ inclusion is ignored
+- every class except BasicObject has exactly one immediate ancestor:
+  - a superclass or a module
+    - so there's a single chain of ancestors from any class up to BasicObject
+- when you call a method, Ruby goes 'right' in the receiver's 'real class', and then 'up' the ancestors chain
 
 =end
 

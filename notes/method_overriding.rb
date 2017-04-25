@@ -3,27 +3,15 @@
 =begin
 
 - defining a method in a class that has the same name as a method further up in method lookup path
-  - Ruby will invoke the method in the class, without even checking if it exists in the ancestors
+  - gets priority in being invoked
+- polymorphism
 - ACCIDENTAL METHOD OVERRIDING:
-  - overriding a method inherited from Object can have far-reaching effects on your code
-    - ex - Object#send :
-      - a way to call a method by passing it a symbol/string w/ the method name
-    - ex - Object#instance_of? :
-      - returns true if an object is an instance of passed in class argument
-  - Object#to_s is an instance method that can be overriden w/o any major side-effect
-    - do this when you want a custom string representation of an object
-
-# fake operators?
+  - overriding Object instance method can have far-reaching effects
+  - some won't have any major side-effects, like #to_s
 
 =end
 
-# METHOD OVERRIDING:
-
-
-# to_s..........
-
-
-
+# user-defined-method overriding:
 class SmartPhone
   def charge
     'charging...'
@@ -45,7 +33,7 @@ nexus6.charge       # ==> "charging faster with QuickCharge technology..."
 
 
 
-
+# operator overriding:
 class SmartPhone
   def initialize(model)
     @model = model
@@ -102,8 +90,7 @@ smart_phone.object_id == another_smart_phone.object_id  # ==> true
 
 
 
-
-
+# ACCIDENTAL:
 module CyanogenMod; end
 
 class AndroidPhone; end

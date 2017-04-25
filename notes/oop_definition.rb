@@ -2,24 +2,65 @@
 
 =begin
 
-
-
 - OOP definition:
-  - an approach to programming that solves problems by modeling programs based on objects that exist in the real world.
-
+  - a modular approach to programming that solves problems by modeling programs based on objects that exist in the real world.
 ----------------------
 - It was created to solve the problem of large and complex programs being extremely difficult to modify and maintain.
   - Small changes in one place would trigger a ripple effect of errors due to dependencies throughout the entire program
 - Programmers needed a way to create containers for data that could be changed and manipulated without affecting the entire program.
 - They needed a way to section off areas of code that performed certain procedures, so that their programs could become the interaction of many small parts, instead of one massive blob of dependency.
 -------------------------------
+-------KEY POINTS-------
+- procedural:
+  - large and complex programs difficult to maintain
+  - one massive blob of dependency
+- OOP:
+  - interaction of many small parts
+    - section off areas of code for certain procedures
+  - modular approach to programming
+  - easier to manage complex programs
+  - create containers for data that can be changed w/o ripple effects
+  - encapsulation:
+   - creating classes/objects and exposing interfaces to interact w/ them
+   - hide implementation details
+   - contain ripple effects of change
+  - polymorphism
+  - inheritance
+- PROS:
+  - higher level of abstraction
+    - simplify complex reality by modeling classes apprpriate to the probelm
+  - easier to conceptualize objects as nouns and methods as verbs
+  - expose functionality to parts of code that need it
+    - namespace issues less common
+    - prevents accidental modifications
+  - easier/faster to modify
+    - b/c changes are encapsulated to a class/obj
+      - public interface can stay the same even if implementation changes
+  - give functionality to different parts of app w/o duplication
+    - polymorphism, inheritance
+  - build apps faster by using pre-written code
+    - polymorphism, inheritance
+  - flexible and loosely coupled dependencies
+  - easier to debug
+  - collaborator objects:
+    - model a complex problem domain by splitting up into cohesive pieces
+- CONS:
+  - more indirection
+    - harder to understand
+  - longer and more complex
+  - imbalance from focusing too much on nouns/objects
+    - time/sequence and methods
+  - can still have lots of dependencies if done wrong
+  - slower, more resources
+  - longer to plan/design and write
+------------------
+
 =end
 
-# - use term: 'MODULAR'!
-# -maybe explain procedural first?
-
-
 =begin
+  - more indrection allows us to encapsulate changes to a class/object so that they don't affect the entire codebase
+    - the interface methods to collaborate w/ a class or object can remain the same while the implementation changes
+
 - Pros:
     - Creating and interacting with objects that are modeled after the real world allows us to raise our level of abstraction when we are programming, so that we can think more in human terms than in computer terms. This helps us to focus more on solving the overall problem on a higher level, without getting bogged down by low-level implementation details.
 
@@ -43,7 +84,8 @@
     - Poorly designed OOP code can have many tightly coupled dependencies and long and convoluted inheritance hierarchies, making the dependency graph look like a spider web. This makes the code harder to re-use and not very modular, which negates many of the advantages of using OOP.
 
     - OOP code can often be slower and more resource heavy than non-OOP code.
-    It can take longer to plan out and write OOP code, although once written, it will usually take less time to modify.
+
+    -It can take longer to plan out and write OOP code, although once written, it will usually take less time to modify.
 
 =end
 

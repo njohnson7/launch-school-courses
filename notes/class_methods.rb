@@ -2,19 +2,17 @@
 
 =begin
 
- - class methods are methods we can call directly on the class itself, w/o having to instantiate any objects
- - define by prepending the method name w/ self keyword
- - where we put functionaility that does not pertain to individual objects
-   - when we have a method that doesn't need to deal w/ states
-   - to perform operations at the class level
- - called a class method b/c they are defined on the class itself:
-   - ex: self.method_name   or   GoodDog.method_name
+- 'class method' b/c:
+  - called directly on the class, w/o having to instantiate any objects
+- define on class itself
+
+--WHY?:
+  - functionaility that does not pertain to individual objects
+    - perform operations at the class level
+    - when we don't need to deal w/ states
+    - ex: expose a class method to return value of a class var
 
 =end
-
-# define and call
-  # ex: gas_mileage, total_number_of_dogs
-    # all cars need to calc gas mileage, and how to do it doesn't differ among different cars
 
 class SmartPhone
   # we can validate an IMEI number without needing to instantiate a SmartPhone object, we just need to know the number we want to validate.
@@ -33,5 +31,5 @@ SmartPhone.validate_imei(12345)
 
 
 
-
-# @@number_of_phones...
+# expose a class method to return value of a class var:
+  # @@number_of_phones...

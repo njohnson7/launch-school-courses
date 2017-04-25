@@ -10,6 +10,24 @@
       - flexibility vs indirection:
         - the more flexible your code, the more indirection you'll introduce by way of more classes
         - the proper balance will change as your application matures
+  - classes should collaborate w/ as few other classes as possible
+
+- ex:
+  - RPS: making a class for every Move
+
+- Spike: exploratory code to play around w/ the problem
+  - throw-away code, so don't worry about quality
+  - help to validate initial hunches and hypotheses
+  - explore the problem before design
+- repetitive nouns in method names means you may be missing a class
+  - ex: RPS - Move class
+- don't include the class name in method names
+  - ex: Player#player_info   -->   Player#info
+  - think about the method's usage, or INTERFACE, when you define methods
+- avoid long method invocation chains
+  - b/c unexpected return values, like nil, can cause bugs
+- Class Responsibility Collaborator (CRC) cards:
+  - plan and design classes and map interactions b/w them
 
 =end
 

@@ -4,30 +4,11 @@
 
 - any object can be used to represent an object's state
   - ivars can be set to any object, even an object of a custom class
-- working w/ collaborator objects is no different than working with core class objects
-  - ex: strings, integers, arrays, hashes
-- when modeling complex problem domains, using collaborator objects is at the core of OOP, allowing you to split up and modularize the problem domain into cohesive pieces.
+- same as working with core class objects like strings
+- core of OOP when modeling complex problem domain:
+  - split up problem domain into cohesive pieces
 
 =end
-
-class Person
-  attr_accessor :name, :pet
-
-  def initialize(name)
-    @name = name
-  end
-end
-
-bob = Person.new("Robert")
-# bud = Bulldog.new           # ~> NameError: uninitialized constant Bulldog
-# assume Bulldog class from previous assignment
-
-# bob.pet = bud  # ~> NameError: undefined local variable or method `bud' for main:Object
-
-# Because bob.pet returns a Bulldog object, we can then chain any Bulldog methods at the end as well:
-
-# bob.pet.speak
-# bob.pet.fetch
 
 class SmartPhone
   attr_reader :camera
@@ -49,6 +30,9 @@ end
 
 camera = Camera.new
 nexus6 = SmartPhone.new(camera)
+
+nexus6.camera        # ==> #<Camera:0x000000019a3f48>
+nexus6.camera.class  # ==> Camera
 
 # b/c #camera returns a Camera object, we can chain any Camera instance methods onto camera
 nexus6.camera.take_photo         # ==> "Taking photo..."
@@ -86,6 +70,8 @@ nexus6.install_app(sound_cloud)
 nexus6.install_app(chrome)
 nexus6.apps     # ==> [#<App:0x000000017bd7b0 @name="SoundCloud">,
                        #<App:0x000000017bcea0 @name="Chrome">]
+
+# we have to iterate through the @apps array to call App instance methods:
 nexus6.apps.each { |app| puts app.open }
 # <= Opening SoundCloud...
 # <= Opening Chrome...

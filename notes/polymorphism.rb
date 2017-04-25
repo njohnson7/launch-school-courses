@@ -2,41 +2,46 @@
 
 =begin
 
-Polymorphism:
-  - 'many forms'
-  - the ability for messages or methods with the same name to have different behavior
-    - depends on what that object is called on
-      - ex:
-        - including modules to mix in methods
-        - inheritance
-        - method overriding
-        - duck typing
-
-----------------------
-- Allows us to use prewritten code for new purposes
+- ability for data to be represented as many different types
+- use prewritten code for new purposes
+- methods w/ same name => different behavior
+  - different objects can respond to same message
+    - single message has many forms
+- ex:
+  - modules
+  - inheritance
+  - method overriding
+    - operator overloading
+  - duck typing:
+    - the type of an obj is the set of methods to which it can respond
 
 =end
+
+# different behavior for same message, depending on receiver:
+5 + 5      # ==> 10
+5.0 + 5    # ==> 10.0
+'5' + '5'  # ==> "55"
+[5] + [5]  # ==> [5, 5]
 
 # DUCK TYPING:
 class SmartPhone
   def voice_call
     'Choose a contact or enter number...'
-    'Calling number with SmartPhone...'
+    'Calling with SmartPhone...'
   end
 end
 
 class Skype
   def voice_call
     'Enter recipients username:...'
-    'Calling username with Skype...'
+    'Calling with Skype...'
   end
 end
 
 class PayPhone
   def voice_call
-    'Insert money:...'
-    'Enter number:...'
-    'Calling number with PayPhone...'
+    'Insert money and enter number:...'
+    'Calling with PayPhone...'
   end
 end
 
@@ -92,4 +97,3 @@ class PayPhone < Phone
     'Calling...'
   end
 end
-

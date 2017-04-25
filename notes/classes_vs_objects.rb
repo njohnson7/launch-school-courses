@@ -2,49 +2,56 @@
 
 =begin
 
-- Classes are like a basic outline, or blueprint, that defines:
-  - what an object should be made of (its state/ivars/attributes)
-    - objects encapsulate state
-  - what an object should be able to do (behaviors/methods)
-    - classes group behaviors
-- Objects are instantiated (or created) from classes
-- Different objects of the same class:
-  - unique states/ivars
-    - can differ both in which / how many ivars are defined, and their values
-  - share the same behaviors
-    - methods of the object are the instance methods of its class
-- Calling Object#class on an object returns the name of its class
-- Define a class by:
+- CLASS: basic outline defining what an object should be:
+  - made of (state/ivars/attributes)
+    - scoped at obj level (access from instance methods)
+  - able to do (behaviors/methods)
+    - groups behaviors
+- OBJECTS: instantiated from classes
+  - encapsulate state
+- objects of same class:
+  - unique states/ivars:
+    - which / how many ivars are defined, and ivar values
+  - share behaviors:
+    - methods of object == instance methods of its class
+- define class:
   - class keyword
-  - name of class (constant in CamelCase naming convention)
-  - end keyword finishes the definition
-- Ruby file names should be in snake_case and reflect the class name
-
-- #initialize:
-  - called a constructor
-    - b/c it gets called/triggered every time a new object is instantiated
-  - you pass arguments into initialize through Class#new
-
-
-- Classes are objects too, instances of the class Class
+  - name of class:
+    - constant that references class in CamelCase naming convention
+  - end keyword
+- #initialize == constructor:
+  - called/triggered every time a new object is instantiated
+  - pass arguments into #initialize through Class#new
+- Object#class returns obj's class
+- file names: class's name in snake case
+-----------------
+- a class is:
+  - an object (instance of class Class) (subclass of Module)
+  - list of instance methods
+  - link to a superclass
+- code in a class definition is executed immediately, unlike methods
+- class def
+  - scope gate
+  - current class becomes the class
+  - class def instantiates a new object of type Class and assigns to a constant
+- anonymous class => Class.new
+- object/instance = collection of ivars and a reference to a class:
+  - an object's ivars live in the object itself
+  - an object's methods live in the object's class (instance methods of class)
+- all ivars belong to the current object self
 
 =end
 
-# --------
-# constructor method
-# initialize ivar
-# ---------
-
-
-# We use the class keyword to define a new class named SmartPhone.
-# SmartPhone is a constant that references the class we are defining.
-# We can use this constant to access this class throughout the rest of our program.
+# class keyword to define a new class named SmartPhone.
+  # constant that references the class we are defining.
+# use this constant to access class throughout rest of program.
 class SmartPhone
   def initialize(brand, model)
     @brand = brand
     @model = model
   end
 
+  # ivars are scoped at the object level, so they can be accessed from instance methods
   def open_app(app_name)
     puts "#{app_name} has been opened on your #{@model}."
   end
@@ -72,3 +79,20 @@ galaxy_s8 = SmartPhone.new('Samsung', 'Galaxy S8')
 galaxy_s8.add_contact('Fred')
 galaxy_s8   # ==> #<SmartPhone:0x0000000234a9c0 @brand="Samsung",
             #     @model="Galaxy S8",  @contacts=["Fred"]>
+
+
+
+
+# invoke Object#class to return a constant that references the class of an obj:
+'abc'.class      # ==> String
+123.class        # ==> Integer
+[1, 2, 3].class  # ==> Array
+nexus6.class     # ==> SmartPhone
+
+
+
+
+# 2 ways to define an empty class:
+class Nexus6 < SmartPhone; end
+
+IPhone = Class.new(SmartPhone)
