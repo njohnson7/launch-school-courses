@@ -8,8 +8,12 @@
 - ACCIDENTAL METHOD OVERRIDING:
   - overriding Object instance method can have far-reaching effects
   - some won't have any major side-effects, like #to_s
+- fake operators, '==', '!='
+-------------------
+- Comparable, '<=>'
 
 =end
+
 
 # user-defined-method overriding:
 class SmartPhone

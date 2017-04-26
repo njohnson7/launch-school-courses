@@ -5,12 +5,11 @@
 - 'class method' b/c:
   - called directly on the class, w/o having to instantiate any objects
 - define on class itself
-
---WHY?:
-  - functionaility that does not pertain to individual objects
-    - perform operations at the class level
-    - when we don't need to deal w/ states
-    - ex: expose a class method to return value of a class var
+- inherited!
+- functionaility that does not pertain to individual objects
+  - perform operations at the class level
+  - when we don't need to deal w/ states
+  - ex: expose a class method to return value of a class var
 
 =end
 

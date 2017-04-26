@@ -18,10 +18,48 @@
 =end
 
 # different behavior for same message, depending on receiver:
-5 + 5      # ==> 10
-5.0 + 5    # ==> 10.0
-'5' + '5'  # ==> "55"
-[5] + [5]  # ==> [5, 5]
+class Phone
+  def initialize
+    @handsets = 1
+  end
+
+  def *(number)
+    @handsets *= number
+    self
+  end
+end
+
+phone = Phone.new
+
+5     * 5  # ==> 25
+5.0   * 5  # ==> 25.0
+'5'   * 5  # ==> "55555"
+[5]   * 5  # ==> [5, 5, 5, 5, 5]
+phone * 5  # ==> #<Phone:0x00000001271b08 @handsets=5>
+
+
+# all 3 of these classes have a #voice_call instance method that has slightly different behavior:
+class Phone
+  def voice_call
+    'Enter a number...'
+    'Calling...'
+  end
+end
+
+class SmartPhone < Phone
+  def voice_call
+    'Enter a number or choose a contact...'
+    'Calling...'
+  end
+end
+
+class PayPhone < Phone
+  def voice_call
+    'Insert money and enter a number...'
+    'Calling...'
+  end
+end
+
 
 # DUCK TYPING:
 class SmartPhone
@@ -76,24 +114,3 @@ fred.calling_device.voice_call  # ==> "Calling number with PayPhone..."
 
 
 
-# all 3 of these classes have a #voice_call instance method that has slightly different behavior:
-class Phone
-  def voice_call
-    'Enter a number...'
-    'Calling...'
-  end
-end
-
-class SmartPhone < Phone
-  def voice_call
-    'Enter a number or choose a contact...'
-    'Calling...'
-  end
-end
-
-class PayPhone < Phone
-  def voice_call
-    'Insert money and enter a number...'
-    'Calling...'
-  end
-end

@@ -9,10 +9,12 @@
 - Object#to_s => returns string containing object's class and an encoding of object id
   - override by defining a custom #to_s method in a class
     - so it returns a more human-readable (user-friendly) string
+  - safe to override w/o side effects
 - Kernel::p calls #inspect on its argument(s) instead of #to_s
   - useful for debugging, so don't override
   - returns arguments instead of nil
-
+----------------
+- must return a String object!
 =end
 
 class SmartPhone

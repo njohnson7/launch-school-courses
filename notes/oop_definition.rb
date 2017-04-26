@@ -2,24 +2,19 @@
 
 =begin
 
-- OOP definition:
+- OOP DEFINITION:
   - a modular approach to programming that solves problems by modeling programs based on objects that exist in the real world.
-----------------------
-- It was created to solve the problem of large and complex programs being extremely difficult to modify and maintain.
-  - Small changes in one place would trigger a ripple effect of errors due to dependencies throughout the entire program
-- Programmers needed a way to create containers for data that could be changed and manipulated without affecting the entire program.
-- They needed a way to section off areas of code that performed certain procedures, so that their programs could become the interaction of many small parts, instead of one massive blob of dependency.
--------------------------------
--------KEY POINTS-------
-- procedural:
+- PROCEDURAL:
+  - top-down approach
   - large and complex programs difficult to maintain
-  - one massive blob of dependency
+  - one massive blob of dependency => ripple effects of change
 - OOP:
   - interaction of many small parts
     - section off areas of code for certain procedures
   - modular approach to programming
-  - easier to manage complex programs
-  - create containers for data that can be changed w/o ripple effects
+    - create containers for data that can be changed w/o ripple effects
+  - abstraction:
+    - simplify complex reality by modeling classes apprpriate to the probelm
   - encapsulation:
    - creating classes/objects and exposing interfaces to interact w/ them
    - hide implementation details
@@ -28,7 +23,7 @@
   - inheritance
 - PROS:
   - higher level of abstraction
-    - simplify complex reality by modeling classes apprpriate to the probelm
+    - easier to manage complex programs
   - easier to conceptualize objects as nouns and methods as verbs
   - expose functionality to parts of code that need it
     - namespace issues less common

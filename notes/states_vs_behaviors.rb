@@ -14,7 +14,7 @@
 - behaviors => what objects are capable of doing: methods
   - shared b/w all objects/instances of the same class
   - methods of an object are the instance methods defined in its class
-  - instance methods expose behavior for objects
+**- instance methods expose behavior for objects
 ----------------
 - object/instance = collection of ivars and a reference to a class:
   - an object's ivars live in the object itself

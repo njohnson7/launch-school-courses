@@ -17,7 +17,8 @@
     - to disambiguate syntax from initializing a local var
   - 2) class method definitions:
     - defines the method on the class
-
+-----------------
+- 'main'
 =end
 
 class SmartPhone

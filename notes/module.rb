@@ -27,7 +27,6 @@
       - multiple constants can have same name in different namespaces
     - 3) a container for out of place methods (module methods)
   - polymorphic structure
-  **- EXAMPLE???
   - using modules to group common behaviors allows us to build a more powerful, flexible, and DRY design
 **- '-able' suffix
 - method lookup path
@@ -36,6 +35,7 @@
   - Class is Module w/ 3 extra public instance methods:
     - #new, #allocate, #superclass
 - Module#append_features
+- Module methods are not mixed in, like Class methods
 
 =end
 

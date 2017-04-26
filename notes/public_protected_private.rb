@@ -11,6 +11,7 @@
 - private methods:
   - do work in the class, but don't need to be available to rest of program
     - use when implementation is likely to change (unstable)
+  - encapsulation: data protection
   - any methods defined following Module#private will be private
   - accessible from inside class def when called w/o self
     - except for private setter methods!
@@ -25,8 +26,11 @@
 - intention!
   - easy to bypass
   - guideline for clients of a class
-
+-------------------
+- access modifiers
+- levels of visibility
 =end
+
 
 # PRIVATE:
 class SmartPhone

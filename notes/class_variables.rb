@@ -7,9 +7,10 @@
   - does not pertain to individual objects
 - scoped at class level:
   - access from w/i class def or instance/class methods
+- all objects share 1 copy of a class var
 - only var that can share state b/w objects
 - subclasses can override a class variable
-- all objects share 1 copy of a class var
+  - so don't use class vars!
 -----------------------
 - referencing an undefined class var raises a NameError
 

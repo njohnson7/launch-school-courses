@@ -20,6 +20,7 @@
 - multiple constants can have same name if in different modules/classes
 - ::CONSTANT => absolute path - root level constant
 - Module.constants, Module#constants
+- cannot be defined in a method
 
 =end
 
