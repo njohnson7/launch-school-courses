@@ -136,15 +136,3 @@
 # nexus6.change_brand_and_model('HTC', 'One')
 # nexus6.to_s
 # # ==> "SmartPhone info -- brand: HTC, model: One"
-"GET /?number=-1 HTTP/1.1"  # => "GET /?number=-1 HTTP/1.1"
-
-/[a-z0-9]+=[\W\w\d]+\s/  # => /[a-z0-9]+=[\W\w\d]+\s/
-
-
-"name=123a"       # => "name=123a"
-"123=asd"         # => "123=asd"
-"name123=123aaa"  # => "name123=123aaa"
-"name123=-10+15"  # => "name123=-10+15"
-
-
-"GET /?number=-1 HTTP/1.1".match(/(?<=\?).+(?= )/)  # => #<MatchData "number=-1">
