@@ -62,7 +62,11 @@ table {
 }
 
 /*========== Typography ==========*/
-h1, h3, h4, h5, p {
+h1,
+h3,
+h4,
+h5,
+p {
   margin-bottom: 22px;
 }
 
@@ -93,6 +97,15 @@ h1, h3, h4, h5, p {
   padding: 10px 30px;
 }
 
+.btn-default {
+  border: 0;
+  background: #33b5e5;
+  color: #000;
+  padding: 11px 30px;
+  font-size: 14px;
+}
+
+.btn-default:hover,
 .btn-alt:hover {
   background: #fff;
   color: #33b5e5;
@@ -141,8 +154,8 @@ h1, h3, h4, h5, p {
 }
 
 .row-alt {
-  background: #cbe2c1;
-  background: linear-gradient(to right, #000 55%, #222);
+  background: #222;
+  background: linear-gradient(to right, #000, #111);
   padding: 44px 0 22px 0;
 }
 
@@ -150,9 +163,10 @@ h1, h3, h4, h5, p {
 /*========== Primary Header ==========*/
 .logo {
   border-top: 4px solid #33b5e5;
+  color: #fff;
   float: left;
   font-size: 48px;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: 0.5px;
   line-height: 44px;
   padding: 40px 0 22px 0;
@@ -208,12 +222,15 @@ h1, h3, h4, h5, p {
 
 /*========== Custom Styles ==========*/
 body {
-  background: #293f50;
-  color: #888;
+  background: #111;
+  color: #ddd;
   font: 300 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: #33b5e5;
 }
 
@@ -236,7 +253,7 @@ h4 {
 }
 
 h5 {
-  color: #999;
+  color: #fff;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
@@ -246,7 +263,8 @@ strong {
   font-weight: 400;
 }
 
-cite, em {
+cite,
+em {
   font-style: italic;
 }
 
@@ -257,7 +275,7 @@ a {
 }
 
 a:hover {
-  color: #666;
+  color: #aaa;
 }
 
 a p {
@@ -265,7 +283,7 @@ a p {
 }
 
 .teaser a:hover h3 {
-  color: #666;
+  color: #fff;
 }
 
 .primary-header a,
@@ -293,15 +311,168 @@ a p {
   margin-right: 0;
 }
 
+/*========= Images =========*/
+.teaser img {
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 22px;
+  max-width: 100%;
+}
+
+.speaker-info img {
+  border-radius: 50%;
+  height: 130px;
+  margin: -66px 0 22px 0;
+  vertical-align: top;
+}
+
 /*========== Speakers ==========*/
 .speaker-info {
   border: 1px solid #666;
   border-radius: 5px;
   margin-top: 88px;
-  padding: 22px 0;
+  padding-bottom: 22px;
   text-align: center;
 }
 
 .speaker {
   margin-bottom: 44px;
+}
+
+/*========== Schedule ==========*/
+table {
+  margin-bottom: 44px;
+  width: 100%;
+}
+
+table:last-child {
+  margin-bottom: 0;
+}
+
+th,
+td {
+  padding-bottom: 22px;
+  vertical-align: top;
+}
+
+th {
+  padding-right: 45px;
+  text-align: right;
+  width: 20%;
+}
+
+td {
+  width: 40%;
+}
+
+thead {
+  line-height: 44px;
+}
+
+thead th {
+  color: #33b5e5;
+  font-size: 24px;
+}
+
+tbody th {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding-top: 22px;
+  text-transform: uppercase;
+}
+
+tbody td {
+  border-top: 1px solid #444;
+  padding-top: 21px;
+}
+
+tbody td:first-of-type {
+  padding-right: 15px;
+}
+
+tbody td:last-of-type {
+  padding-left: 15px;
+}
+
+tbody td:only-of-type {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+table a {
+  color: #ddd;
+}
+
+table a:hover {
+  color: #33b5e5;
+}
+
+table h4 {
+  margin-bottom: 0;
+}
+
+.schedule-offset {
+  color: #aaa;
+}
+
+/*========= Venue =========*/
+.venue-theatre {
+  margin-bottom: 66px;
+}
+
+.venue-hotel {
+  margin-bottom: 22px;
+}
+
+.venue-map {
+  height: 264px;
+}
+
+/*========= Register =========*/
+.why-attend {
+  list-style: square;
+  margin: 0 0 22px 30px;
+}
+
+.form {
+  margin-bottom: 22px;
+}
+
+input,
+select,
+textarea {
+  font: 300 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.register-group label {
+  color: #33b5e5;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.register-group input,
+.register-group select,
+.register-group textarea {
+  background-color: #111;
+  border: 1px solid #33b5e5;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  margin: 5px 0 27px 0;
+  padding: 5px 8px;
+}
+
+.register-group input,
+.register-group textarea {
+  width: 100%;
+}
+
+.register-group select {
+  height: 34px;
+  width: 60px;
+}
+
+.register-group textarea {
+  height: 78px;
 }
