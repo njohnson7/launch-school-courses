@@ -4,8 +4,8 @@
   - most common type of *client*
   - sends files to/from *server* thru HTTP
 - *HTTP* => *Hypertext Transfer Protocol*
-  - # a system of rules (a protocol) that serve as a link b/w applications and the transfer of hypertext documents
-    - (an agreement or msg format, of how machines communicate w/ each other)
+  - a system of rules (a <protocol>) that serve as a link b/w applications and the transfer of hypertext documents
+  - # an agreement in the form of formatted text that dictates how a client and server communicate
   - HTTP is a *request response protocol* => a <client> makes a *request* to a <server>, and waits for a *response*
 
 How the Internet Works:
@@ -46,7 +46,7 @@ Statelessness:
     - most commonly used part of a URI
     - like an address / phone number
 
-URL components:
+URL Components:
   ex: "http://www.example.com:88/home?item=book"
     1. "http" => *scheme*
       - tells the web client how to access the resource
@@ -68,7 +68,7 @@ Query Strings/Parameters:
       - used to combine multiple parameters
   - # query strings are only used in HTTP GET requests
     - b/c they're passed in thru the URL
-  - query string limitations:
+  - <query string limitations>:
     - max length --> so not good for passing large amounts of data
     - name/value pairs are visible in URL --> so not good for sensitive info
     - spaces and special chars must be URL encoded
@@ -84,3 +84,58 @@ URL Encoding:
       - # reserved char must be encoded if used for non-reserved purpose
       ex: "/ ? : @ &"
         ex: ":" => used to delimit host/port components and user/password
+
+
+------------ Making Requests ---------------
+
+Request Methods:
+  - *HTTP Request Method* => tells server what action to perform on a resource
+    - *GET*  => retrieves resources
+    - *POST* => initiates action on or sends data to a server
+  - every <request> gets a *response* (incl. errors) (except if it times out)
+
+GET Requests:
+  ex: - entering address into address bar
+      - clicking on a link (usually)
+  - response can be anything
+    - if it's HTML that references other resources:
+      --> browser will automatically request those resources
+      --> pure HTTP tool will not
+
+POST Requests:
+  ex: submitting a form
+  - # allows us to send larger or sensitive data to server
+    ex: images, videos, username/password
+  - *HTTP body* => contains the data transmitted in an HTTP msg (optional)
+    ex: use to send a POST request w/ text, images, HTMKL< etc
+
+HTTP Headers:
+  - *HTTP Headers* => allow client and server to send extra info during request/response HTTP cycle
+    - colon separated name-value pairs sent in plain text
+    - *Request Headers* => give more info about the client and resource to be fetched
+      ex: Host, Accept-Language, User-Agent, Connection
+
+
+------------ Processing Responses --------------
+
+*response* => raw HTTP data sent back by server
+
+Status Code:
+  - *HTTP Status Code* => 3 digit num that server sends back after receiving a request to signify status of request
+    - *status text* => description of code
+    - < 200: OK >: the request was handled successfully
+    - < 302: Found >: the requested resource has changed temporarily (moved)
+      - usually results in a *redirect* (re-route) to another URL
+    - < 404: Not Found >: the requested resource cannot be found
+    - < 500: Internal Server Error >: the server has encountered a generic error
+
+! 302-500 TAKE NOTES!!!
+
+Response Headers:
+  - *Response headers* => give additional meta-info about resource being sent back
+    - have subtle effects on the data being returned
+    - can also have subtle workflow consequences
+      ex: browser automatically following a Location response header
+    ex: Content-Encoding, Server, Location, Content-Type
+
+- *message body* => contains the raw response data (ex: HTML)
