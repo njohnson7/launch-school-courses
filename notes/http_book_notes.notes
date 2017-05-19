@@ -3,30 +3,30 @@
 - *web browser* => interface or window thru which you interact w/ WWW
   - most common type of *client*
   - sends files to/from *server* thru HTTP
-- *HTTP* => *Hypertext Transfer Protocol*
-  - a system of rules (a <protocol>) that serve as a link b/w applications and the transfer of hypertext documents
-  - # an agreement in the form of formatted text that dictates how a client and server communicate
-  - HTTP is a *request response protocol* => a <client> makes a *request* to a <server>, and waits for a *response*
+  - <debugging tools (dev tools)> => use to inspect HTTP activity of a page
+- *HTTP* (*Hypertext Transfer Protocol*) => # an agreement in the form of formatted text that dictates how a client and server communicate
+  - *protocol* => a system of rules
+  - HTTP is a <text-based> *request response protocol* => a <client> makes a *request* to a <server>, and waits for a *response*
 
 How the Internet Works:
-- *IP Address* => unique labels assigned by an ISP to every device on Internet
-  - *port numbers* => add more detail about how to communicate
-- *DNS* (*Domain Naming System*) => a <distributed database> that translates URLs to IP addresses, and maps the request to a remote server
-  - *DNS servers* => computers that store <DNS databases>
-    - # there is a world-wide network of hierarchically organized DNS servers
-      - # no single server contains the complete database
-        - DNS server routes unknown <domain names> to another server up the hierarchy
-- <Typical interaction w/ the Internet>:
-  1. enter "google.com" into browser
-  2. your <request> is sent to your device's network interface
-  3. request goes over Internet --> search for "google.com" begins
-  4. remote server accepts and processes request --> sends <response> over Internet to your network interface --> then response handed to browser
-  5. browser processes and displays response in form of a web page
-  - # when your browser issues a request, it's just sending some text to an IP address
+  - *IP Address* => unique labels assigned by an ISP to every device on Internet
+    - *port numbers* => add more detail about how to communicate
+  - *DNS* (*Domain Naming System*) => a <distributed database> that translates URLs to IP addresses, and maps the request to a remote server
+    - *DNS servers* => computers that store <DNS databases>
+      - # there is a world-wide network of hierarchically organized DNS servers
+        - # no single server contains the complete database
+          - DNS server routes unknown <domain names> to another server up the hierarchy
+  - <Typical interaction w/ the Internet>:
+    1. enter "google.com" (<host>) into browser
+    2. your <request> is sent to your device's network interface
+    3. request goes over Internet --> search for "google.com" begins
+    4. remote server accepts and processes request --> sends <response> over Internet to your network interface --> then response handed to browser
+    5. browser processes and displays response in form of a web page
+    - # when your browser issues a request, it's just sending some text to an IP address
 
 Resources:
-- *resources* => things you interact w/ on the Internet via a URL
-  ex: images, videos, web pages, other files, software, etc...
+  - *resources* => things you interact w/ on the Internet via a URL
+    ex: images, videos, web pages, other files, software, etc...
 
 Statelessness:
   - *stateless protocol* => each <request/response> pair is independent of previous one
@@ -35,7 +35,6 @@ Statelessness:
   - makes the web both:
     - # resilient, distributed, and hard to control
     - # difficult to secure and build on top of
-
 
 
 ---------- URL ----------
@@ -90,9 +89,13 @@ URL Encoding:
 
 Request Methods:
   - *HTTP Request Method* => tells server what action to perform on a resource
-    - *GET*  => retrieves resources
-    - *POST* => initiates action on or sends data to a server
+    - sent to a *host*
+    - *GET*  => # retrieves resources
+    - *POST* => # initiates action on or sends data to a server
   - every <request> gets a *response* (incl. errors) (except if it times out)
+  - <components of http request>:
+    - # required #: *method*, *path* (ex: "/" --> root path)
+    - optional: parameters, headers, body
 
 GET Requests:
   ex: - entering address into address bar
@@ -107,10 +110,10 @@ POST Requests:
   - # allows us to send larger or sensitive data to server
     ex: images, videos, username/password
   - *HTTP body* => contains the data transmitted in an HTTP msg (optional)
-    ex: use to send a POST request w/ text, images, HTMKL< etc
+    ex: use to send a POST request w/ text, images, HTML, etc
 
 HTTP Headers:
-  - *HTTP Headers* => allow client and server to send extra info during request/response HTTP cycle
+  - *HTTP Headers* => allow client and server to send extra info (<meta-data>) during request/response HTTP cycle (optional)
     - colon separated name-value pairs sent in plain text
     - *Request Headers* => give more info about the client and resource to be fetched
       ex: Host, Accept-Language, User-Agent, Connection
@@ -118,12 +121,12 @@ HTTP Headers:
 
 ------------ Processing Responses --------------
 
-*response* => raw HTTP data sent back by server
+- *response* => raw HTTP data sent back by server
 
 Status Code:
-  - *HTTP Status Code* => 3 digit num that server sends back after receiving a request to signify status of request
+  - *HTTP Status Code* => 3 digit num that server sends back after receiving a request to signify status of request (# required #)
     - *status text* => description of code
-    - < 200: OK >: the request was handled successfully
+    - < 200: OK >: the request was handled # successfully
     - < 302: Found >: the requested resource has changed temporarily (moved)
       - usually results in a *redirect* (re-route) to another URL
     - < 404: Not Found >: the requested resource cannot be found
@@ -132,10 +135,93 @@ Status Code:
 ! 302-500 TAKE NOTES!!!
 
 Response Headers:
-  - *Response headers* => give additional meta-info about resource being sent back
+  - *Response headers* => meta-data about resource being sent back (optional)
     - have subtle effects on the data being returned
     - can also have subtle workflow consequences
       ex: browser automatically following a Location response header
     ex: Content-Encoding, Server, Location, Content-Type
 
-- *message body* => contains the raw response data (ex: HTML)
+- *body* => contains the raw response data (optional) (ex: HTML)
+
+
+------------ Stateful Web Applications ----------------
+
+Sessions:
+  - *session identifier* => unique token that gets passed back and forth b/w server and client to <id> a client to mimic statefulness
+  - <consequences of faux statefulness>:
+    1. every request must be inspected to see if it contains a <session id>
+    2. if so, id must be checked for validity
+      - (server needs rules for how to handle session expiration and how to store its session data)
+    3. server must retrieve <session data> based on session id
+    4. server must recreate <application state> (ex: HTML) from session data and send it back to client as response
+    - # server has to work very hard to simulate a stateful experience
+    - # every request still gets its own response, even if most of that response is identical to the previous response
+
+Cookies:
+  - *HTTP cookies* => small files sent from server and stored in client containing session info
+  - # the session id (cookie) is stored client-side, and used as a 'key' to the session data stored server-side
+
+AJAX:
+  - *AJAX* (*Asynchronous JavaScript and XML*) => allows browsers to issue requests and process responses # without a full page refresh
+  ex: Google search -- an AJAX request is triggered w/ every key-press
+    - the responses from these requests are processed by some callback
+      - *callback* => a piece of logic you pass on to some function to be executed after a certain event has happened
+        - usually some client-side JS code
+        ex: update the HTML w/ new search results
+  - AJAX requests are just like normal requests, except the response is processed by a <callback function> instead of the browser refreshing
+
+
+--------------- Security ----------------
+
+Secure HTTP (HTTPS):
+  - all info in request/response are sent as strings in regular HTTP
+    - so in hacker on the same network could use <packet sniffing> to read them
+      - they could copy your session id to login to your account
+  - *HTTPS* => every request/response is <encrypted> before being transported
+    - sends messages thru a cryptographic protocol called *TLS* (Transport Layer Security) or *SSL* (Secure Sockets Layer) (deprecated)
+      - uses <certificates> to communicate w/ remote servers and exchange security keys before data encryption happens
+
+Same-origin policy:
+  - *same origin policy* => prevents scripts from one site from manipulating documents from another site
+    - documents in the same *origin* must have same protocol, hostname, and port number
+      ex: "http://www.test.com/index.html" can embed JS file at "http//www.test.com/fancy.js" but not any JS files at "http://www.example.com"
+    - guards against <session hijacking> attacks
+  - *CORS* => *Cross Origin Resource Sharing* => bypasses same-origin policy
+    - works by adding new HTTP headers
+
+Session Hijacking:
+  - *session hijacking* => attacker uses <session id> to access a user's session
+  - <countermeasures>:
+    - <resetting sessions>: w/ authentication systems, a successful login must render an old session id invalid and create a new one
+    - setting an <expiration time> on sessions: less time for hacker to access
+    - <HTTPS>: lowers chances of attacker being able to get session id
+
+Cross-Site Scripting (XSS):
+  - *XSS* (*Cross Site Scripting*) => attack that happens when users are allowed to directly input HTML or JS that gets displayed by the site directly
+    ex: comments page can have comments w/ HTML/JS that browser will execute
+      - bypasses same-origin policy
+      ex: can be used to grab session ids, etc
+  - <countermeasures>:
+    - always <sanitize user input>
+    - escape all user input data when displaying it, so browser won't interpret it as code
+
+
+--------------- Server-side Development ----------------
+
+- 3 main parts of <server-side infrastructure (a 'server')>:
+  1. *web server* => a simple server that responds to static assets (ex: files, images, css, JS, etc) that don't require any data processing
+  2. *application server* => where application or business logic (<server-side code>) resides
+    - where more complicated requests are handled
+  3. persistent *data store* => often consulted by application server to retrieve, process or create data
+    ex: relational database, file, key/value store, etc.
+- there are many <layers> at work for client to send request to server
+  - to send a request from computer to one of Google's servers, it takes coordination b/w many (100+) software applications and machines
+  - 7 types of layers in OSI:
+    ex: application, presentation, session, transport, network, data link, physical
+  - HTTP is an <application layer protocol> => a convention or agreement (on # how to format a string request #) b/w 2 parties
+    ex: <application protocol>: sending a date/location request in specific format "MM/DD/YYYY; ZIPCODE" instead of writing out full date in words
+  - <TCP/IP (Transmssion Control Protocol)> => large set of protocols that govern how systems should communicate w/ each other over the internet
+    - collectively known as the <OSI (Open Systems Interconnection) model>
+    - represents the lower layers in the communication stack
+    - HTTP uses <TCP/IP> under the hood as the <transport/network layers>
+      - TCP/IP is responsible for ensuring request/response cycle gets completed
