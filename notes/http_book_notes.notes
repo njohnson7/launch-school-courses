@@ -94,7 +94,8 @@ Request Methods:
     - *POST* => # initiates action on or sends data to a server
   - every <request> gets a *response* (incl. errors) (except if it times out)
   - <components of http request>:
-    - # required #: *method*, *path* (ex: "/" --> root path)
+    - # required #: *method*, *path*
+      - "/" => <root path>
     - optional: parameters, headers, body
 
 GET Requests:
@@ -205,7 +206,7 @@ Cross-Site Scripting (XSS):
     - always <sanitize user input>
     - escape all user input data when displaying it, so browser won't interpret it as code
 
-
+//sdasdasasd
 --------------- Server-side Development ----------------
 
 - 3 main parts of <server-side infrastructure (a 'server')>:
@@ -217,7 +218,7 @@ Cross-Site Scripting (XSS):
 - there are many <layers> at work for client to send request to server
   - to send a request from computer to one of Google's servers, it takes coordination b/w many (100+) software applications and machines
   - 7 types of layers in OSI:
-    ex: application, presentation, session, transport, network, data link, physical
+    ex: (application, presentation, session, transport, network, data link, physical)
   - HTTP is an <application layer protocol> => a convention or agreement (on # how to format a string request #) b/w 2 parties
     ex: <application protocol>: sending a date/location request in specific format "MM/DD/YYYY; ZIPCODE" instead of writing out full date in words
   - <TCP/IP (Transmssion Control Protocol)> => large set of protocols that govern how systems should communicate w/ each other over the internet
@@ -225,3 +226,6 @@ Cross-Site Scripting (XSS):
     - represents the lower layers in the communication stack
     - HTTP uses <TCP/IP> under the hood as the <transport/network layers>
       - TCP/IP is responsible for ensuring request/response cycle gets completed
+
+! Video notes?
+
