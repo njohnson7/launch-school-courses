@@ -28,14 +28,15 @@ loop do
   client.puts "Path: #{path}"
   client.puts "Parameters: #{params}"
   client.puts '</pre>'
-  client.puts
 
-  client.puts '<h1>Rolls!</h1>'
-  rolls = params['rolls'].to_i
-  sides = params['sides'].to_i
-  rolls_values = (1..rolls).map { rand(1..sides) }
-  client.puts "<p>Dice: #{rolls_values}</p>"
-  client.puts "<p>Total: #{rolls_values.sum}</p>"
+  number = params['number'].to_i
+
+  client.puts '<h1>Counter</h1>'
+  client.puts "<p>The current number is #{number}.</p>"
+  client.puts "<a href='?number=#{number - 1}'>Subtract One</a>" \
+              " / <a href='?number=#{number + 1}'>Add One</a>"
+
+  client.puts '<br><br>', client.class
 
   client.puts '</body>'
   client.puts '</html>'

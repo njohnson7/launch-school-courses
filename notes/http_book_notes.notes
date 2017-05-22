@@ -47,26 +47,27 @@ Statelessness:
 
 URL Components:
   ex: "http://www.example.com:88/home?item=book"
-    1. "http" => *scheme*
+    1. "http" => *scheme* / <protocol>
       - tells the web client how to access the resource
     2. "www.example.com" => *host*
       - tells the client where the resource is hosted or located
     3. ":88" => *port* or port number
       - only required when using a non-default port (80)
     4. "/home/" => *path*
-      - shows what local resource is being requested (optional)
+      - shows what local resource is being requested
     5. "?item=book" => *query string*
       - made up of *query parameters*
       - used for sending data to the server (optional)
 
 Query Strings/Parameters:
   ex: "http://www.example.com?search=ruby&results=10"
-    - "?" => marks <start of query string> (reserved char)
+    - "?" => delimits <path> and <start of query string> (reserved char)
     - "search=ruby" => <parameter name/value pair>
     - "&" => query string <separator/delimiter> (reserved char)
       - used to combine multiple parameters
   - # query strings are only used in HTTP GET requests
     - b/c they're passed in thru the URL
+  - use %20 or "+" to encode a space " " in a query param
   - <query string limitations>:
     - max length --> so not good for passing large amounts of data
     - name/value pairs are visible in URL --> so not good for sensitive info
@@ -176,11 +177,12 @@ AJAX:
 
 Secure HTTP (HTTPS):
   - all info in request/response are sent as strings in regular HTTP
-    - so in hacker on the same network could use <packet sniffing> to read them
+    - so a hacker on the same network could use <packet sniffing> to read them
       - they could copy your session id to login to your account
   - *HTTPS* => every request/response is <encrypted> before being transported
     - sends messages thru a cryptographic protocol called *TLS* (Transport Layer Security) or *SSL* (Secure Sockets Layer) (deprecated)
       - uses <certificates> to communicate w/ remote servers and exchange security keys before data encryption happens
+  - port 443 (default)
 
 Same-origin policy:
   - *same origin policy* => prevents scripts from one site from manipulating documents from another site
@@ -206,7 +208,7 @@ Cross-Site Scripting (XSS):
     - always <sanitize user input>
     - escape all user input data when displaying it, so browser won't interpret it as code
 
-//sdasdasasd
+
 --------------- Server-side Development ----------------
 
 - 3 main parts of <server-side infrastructure (a 'server')>:
@@ -227,5 +229,7 @@ Cross-Site Scripting (XSS):
     - HTTP uses <TCP/IP> under the hood as the <transport/network layers>
       - TCP/IP is responsible for ensuring request/response cycle gets completed
 
-! Video notes?
+! Lesson 3 - Videos notes?
 
+
+getting to yes
