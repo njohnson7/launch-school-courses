@@ -1,3 +1,5 @@
+###Critique someone else's code, then compare your thoughts to the TA's
+
 ---------- HTTP Background ----------
 
 - *web browser* => interface or window thru which you interact w/ WWW
@@ -229,8 +231,80 @@ Cross-Site Scripting (XSS):
     - HTTP uses <TCP/IP> under the hood as the <transport/network layers>
       - TCP/IP is responsible for ensuring request/response cycle gets completed
 
-##### LESSON 3 VIDEO NOTES..... #########
-##### RACK BLOG, ETC.... ################
+!!! LESSON 3 VIDEO NOTES.....
+!!! RACK BLOG, ETC....
+
+- *Rack* => a web server interface
+- "https://launchschool.com/posts/af8dd016"
+  - *web application server* => the software program that's running your <server-side> code
+    ex: Webrick
+  - *web application* => the 'infrastructure that's running the server-side code'
+    - # very vague and generic term!
+  - *web framework* => collectio nof libraries/code that work together for a specific purporse (ex: building webb apps, writing tests, etc)
+
+
+------------------ Sinatra ------------------
+
+- Sinatra is a <small web framework> (<DSL> for defining <routes>)
+  - HTTP <requests> handled by # creating routes for a path or set of paths
+    - *routes* => how a developer maps a URL pattern to some Ruby code
+      - create by using methods w/ same name as HTTP method to be handled
+- *template* (*view template*) => files that contain text that is converted into HTML before being sent to a user's browser in a response
+  - provide a place to # define the HTML display of a response # outside of the route handling it
+  - *templating language* => provides a way to define what HTML to generate and how to embed dynamic values
+  - *layouts* => view templates that wrap around other view templates
+    - # provide shared HTML that is used by all views
+    - often include links to stylesheets or JS files
+- *ERB* (*embedded Ruby*) => templating language that embeds Ruby into another file
+  - expressions in "<%= %>" tags will be replaced when template is <rendered>
+    ex: <printing a dynamic value> => "<h1><%= @title %></h1>"
+- *helper* / *view helper* => Ruby methods used to minimize amount of Ruby code in a view template
+  - defined w/i a *helpers* block
+  - filter/process data that is being rendered into the page
+- *redirect* method => sends user to new location in response to a request w/ *redirection*
+  - accomplished by setting the <Location header> in the response
+  - client sees URL in Location header and sends out a new GET request for the associated resource ---> navigates client to that new location
+  ex: often used after user creates/updates data, like after submitting a form
+- code placed in a *before* block is executed before the matching route for every request
+
+Parameters:
+- routes can specify *parameters* by: "/route_name/:param_name"
+  - access w/i route using: "params[:param_name]"
+- # 3 ways to get data into params hash:
+  1. extract from URL (ex: "chapters/1")
+  2. use <query params> in URL (ex: "/?sort=desc")
+  3. submitting a form using a <POST> request
+
+How HTML Forms Work:
+  - when a *form* is submitted, browser makes <HTTP request>
+  - request is made to path or URL specified in the <action attribute> of the <form element>
+  - <method attribute> of the form determines if request made will use <GET or POST>
+  - the <value> of any <input elements> in the form will be sent as <params>
+    - the <keys> of these params are determined by the <name attribute> of the corresponding <input element>
+
+- use <GET> when form submission # doesn't modify any data # (ex: <search>)
+  - use <POST> when # form submission modifies data
+
+Server-side code vs. Client-side code:
+- based on # where the code will be evaluated
+  - *Server side*:
+    - *Gemfile* => executed by Bundler gem to install libraries needed to run program
+      - <Bundler> => Ruby dependency management system
+    - *ruby files* (".rb") => core of sinatra app
+      - code runs on server while handling incoming requests
+    - *view templates* (".erb") => Ruby code inside is evaluated on server to generate response to send to client
+      - # b/c they must be processed by a program on server before being sent to client
+      aka: <server-side templates> (vs. client-side templates (JS))
+  *Client side*:
+    - *stylesheets* (".css") => code is interpreted by web browser (client) as instructions for how to display web page
+    - *JavaScript* (".js") => code is evaluated by JS interpreter w/i browser to <add behavior> to web page
 
 
 
+
+
+EDIT: To get this to work in development you have to add this line set :show_exceptions, :after_handler. I put that line just below my require 'pry'
+
+show_exceptions
+    Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
+    Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
