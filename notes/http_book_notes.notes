@@ -7,7 +7,7 @@
   - sends files to/from *server* thru HTTP
   - <debugging tools (dev tools)> => use to inspect HTTP activity of a page
 - *HTTP* (*Hypertext Transfer Protocol*) => # an agreement in the form of formatted text that dictates how a client and server communicate
-  - *protocol* => a system of rules
+  - *protocol* => a system (set) of rules
   - HTTP is a <text-based> *request response protocol* => a <client> makes a *request* to a <server>, and waits for a *response*
 
 How the Internet Works:
@@ -31,6 +31,7 @@ Resources:
     ex: images, videos, web pages, other files, software, etc...
 
 Statelessness:
+  - *state* => data that persists over time
   - *stateless protocol* => each <request/response> pair is independent of previous one
     - # server does not need to hang on to info (state) b/w requests
       - (if request breaks en route to server, no part of the system has to do any cleanup)
@@ -308,3 +309,17 @@ EDIT: To get this to work in development you have to add this line set :show_exc
 show_exceptions
     Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
     Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
+
+
+-------------- Heroku ---------------
+
+- <Procfile> => defines what type of processes are provided by the app and how to start them
+- <config.ru> => tells web server how to start the app
+- <Puma> => a production-ready web server for deploying projects
+  - <threaded> web server ---> so it can handle more than 1 request at a time using a single process (faster performance)
+- <Webrick> => web server for development
+
+
+------------ Todos ---------------
+
+Session: see videos!
