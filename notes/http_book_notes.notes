@@ -1,4 +1,3 @@
-###Critique someone else's code, then compare your thoughts to the TA's
 
 ---------- HTTP Background ----------
 
@@ -302,13 +301,13 @@ Server-side code vs. Client-side code:
 
 
 
+###Critique someone else's code, then compare your thoughts to the TA's
 
+# To get this to work in development you have to add this line set :show_exceptions, :after_handler. I put that line just below my require 'pry'
 
-EDIT: To get this to work in development you have to add this line set :show_exceptions, :after_handler. I put that line just below my require 'pry'
-
-show_exceptions
-    Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
-    Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
+# show_exceptions
+   # Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
+  #  Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
 
 
 -------------- Heroku ---------------
@@ -323,3 +322,32 @@ show_exceptions
 ------------ Todos ---------------
 
 Session: see videos!
+- don't put methods not used in view templates in <helpers> block
+
+# SINATRA STORES METHODS THAT GET DELETED!!! (EX: total_todos(list))
+  # RESTART SERVER TO FIX!!
+
+- *state* => data that persists over time
+- *session* => provides a way to store data that will persist b/w HTTP reqeusts
+  - associated w/ a specific user by storing a cookie in their browser
+  - in Sinatra, the session data itself is also stored in this cookie
+    - this is configureable and not always the case /w other web freameworks
+- data that is submittied to server often needs to be <validated> to ensure it meets requirements of app
+  - in Todos, we built <server-side> validation ---> we perofrmed the validation logic on the server
+- *flash message* => messages that need to be displayed to user on their next request and then deleted can be stored in the session
+- content from w/i a view template can be stored under a name and retrieved later using "#content_for" and "#yield_content"
+- GET request should only request data
+  - use POST or another non-GET method for any request that modifies data
+- web browsers only support GET and POST in HTML <forms>, so sometimes need to use POST instead of a more appropriate method
+- *view helpers* => provide a way to extract code that determines what HTML markup is generated for a view
+
+
+------------------ Securing Applications -------------------
+
+- # escape HTML!
+
+- Neither POST nor GET is a secure HTTP method
+  - # Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network
+  - (you can still see the parameters very easily in headers)
+- # Serving the app over HTTPS is the only way to protect a user's data
+  -

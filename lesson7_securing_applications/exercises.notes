@@ -1,0 +1,9 @@
+1. Is using POST as the HTTP method for a request more secure than GET? Why or why not?
+  - It is not more secure.
+  - In a POST request, the parameters can still easily be seen in the headers, even though they aren't put of the URL.
+  - # Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network
+
+2. How can a web application be secured so that any data being sent between the client and server can not be viewed by other parties?
+  - Using the HTTPS protocol.
+  - It encrypts both the request and response so that third parties can't easily listen in, using TLS (Transport Layer Security) and CA certificates that both the client and server have.
+  - # Serving the app over HTTPS is the only way to protect a user's data
