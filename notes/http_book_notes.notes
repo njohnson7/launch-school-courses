@@ -342,6 +342,7 @@ Session: see videos!
 - *view helpers* => provide a way to extract code that determines what HTML markup is generated for a view
 
 
+
 ------------------ Securing Applications -------------------
 
 - # escape HTML!
@@ -351,3 +352,24 @@ Session: see videos!
   - (you can still see the parameters very easily in headers)
 - # Serving the app over HTTPS is the only way to protect a user's data
   -
+
+
+----------------- CMS Project -------------------
+
+Approach:
+  1. *requirements*
+    - <what> does the app need to do to satisfy requirements?
+    - <how> will the app accomplish these things?
+      - <what> changes need to be made?
+  2. *implementation* ---> create your own plan from requirements
+  3. *solution*
+    - <how> is yours different?
+      - will there be any noticeable difference to a user?
+    - *tests*
+      - think about what the tests should be doing and write your own
+      - then compare your tests to example tests
+      - then write and verify the rest of the solution
+
+RACK INFO: http://blog.gauravchande.com/what-is-rack-in-ruby-rails
+- pretty print a "last_response" obj => " puts last_response.to_yaml "
+- # get last_response["Location"]    ===    follow_redirect!    ???
