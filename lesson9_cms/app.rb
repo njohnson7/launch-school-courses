@@ -1,5 +1,9 @@
 require 'sinatra'
 
+# get '/' do
+#   'Hello, world!'
+# end
+
 get '/' do
-  'Hello, world!'
+  "Hello World #{params[:name]}".strip
 end

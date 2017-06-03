@@ -20,6 +20,11 @@ class AppTest < Minitest::Test
     assert_equal 'text/html;charset=utf-8', last_response['Content-Type']
     assert_equal 'text/html;charset=utf-8', last_response.content_type
 
-    assert_equal 'Hello, world!', last_response.body
+    assert_includes 'Hello World!', last_response.body
+  end
+
+  def test_params
+    get '/', :name => 'Bob'
+    assert_includes last_response.body, 'Bob'
   end
 end
