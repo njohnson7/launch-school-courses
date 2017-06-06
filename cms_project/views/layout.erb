@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>CMS</title>
-  <style>
-    body { background: #000; color: #eee;}
-    a { color: #33b5e5; }
-  </style>
+  <link rel='stylesheet' href='/stylesheets/cms.css'>
 </head>
 
 <body>
+  <% if session[:msg] %>
+    <div class='msg'><%= session.delete(:msg) %></div>
+  <% end %>
+
   <%= yield %>
 </body>
 </html>
