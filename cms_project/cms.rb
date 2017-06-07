@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erubis'
@@ -6,7 +8,7 @@ require 'psych'
 require 'bcrypt'
 require 'awesome_print'
 
-VALID_EXTENSIONS = %w[.txt .md]
+VALID_EXTENSIONS = %w[.txt .md].freeze
 
 configure do
   enable :sessions
@@ -67,10 +69,11 @@ end
 
 def next_filename(name)
   basename = File.basename(name, '.*')
-  original_name, number = basename.split(/-(\d+)/)
-  duplicate_names = list_files.select { |file| file =~ /#{original_name}/ }
-  highest_duplicate_basename = duplicate_names.map { |file| File.basename(file, '.*') }.max
-  number = highest_duplicate_basename[(/(?<=-)\d+\z/)]
+  original_name = basename.split(/-(\d+)/)
+  duplicate_basenames = list_files.select { |file| file =~ /#{original_name}/ }
+                                  .map { |file| File.basename(file, '.*') }
+  highest_duplicate_basename = duplicate_basenames.max
+  number = highest_duplicate_basename[/(?<=-)\d+\z/]
   extname = File.extname(name)
 
   highest_duplicate_basename += '-1' unless number
@@ -89,8 +92,10 @@ def status_422_error(msg, template)
 end
 
 def store_new_user_credentials(username, password)
-   encrypted_password = BCrypt::Password.create(password)
-   File.open(users_file_path, 'a') { |file| file.puts "#{username}: #{encrypted_password}" }
+  encrypted_password = BCrypt::Password.create(password)
+  File.open(users_file_path, 'a') do |file|
+    file.puts "#{username}: #{encrypted_password}"
+  end
 end
 
 get '/' do
@@ -110,7 +115,8 @@ post '/create' do
   if filename.empty?
     status_422_error('A name is required.', :new)
   elsif invalid_extension?(filename)
-    status_422_error("Filename must end with: #{VALID_EXTENSIONS.join(', ')}", :new)
+    msg = "Filename must end with: #{VALID_EXTENSIONS.join(', ')}"
+    status_422_error(msg, :new)
   elsif list_files.include?(filename)
     status_422_error('File already exists.', :new)
   else
@@ -179,14 +185,10 @@ post '/:filename' do
   require_signed_in_user
 
   old_filename = params[:filename].to_s
-  old_file_path = File.join(data_path, old_filename)
-  old_content = File.read(old_file_path)
-
   new_filename = next_filename(old_filename)
-  new_file_path = File.join(data_path, new_filename)
-  new_content = params[:content]
+  content = params[:content]
 
-  create_document(new_filename, new_content)
+  create_document(new_filename, content)
   session[:msg] = "#{old_filename} has been updated => #{new_filename}"
   redirect '/'
 end
