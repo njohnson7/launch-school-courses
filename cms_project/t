@@ -1,0 +1,25 @@
+
+[1mFrom:[0m /home/one/launchschool/170/cms_project/test/cms_test.rb @ line 110 CMSTest#test_updating_document:
+
+    [1;34m108[0m: [32mdef[0m [1;34mtest_updating_document[0m
+    [1;34m109[0m:   create_document [31m[1;31m'[0m[31mchanges.txt[1;31m'[0m[31m[0m
+ => [1;34m110[0m:     ;require[31m[1;31m'[0m[31mpry[1;31m'[0m[31m[0m;binding.pry;
+    [1;34m111[0m: 
+    [1;34m112[0m:   post [31m[1;31m'[0m[31m/changes.txt[1;31m'[0m[31m[0m, { [35mcontent[0m: [31m[1;31m'[0m[31mthis is a test[1;31m'[0m[31m[0m }, admin_session
+    [1;34m113[0m:   assert_equal [1;34m302[0m, last_response.status
+    [1;34m114[0m:   assert_equal [31m[1;31m'[0m[31mthis is a test[1;31m'[0m[31m[0m, [1;34;4mFile[0m.read([1;34;4mFile[0m.join(data_path, [31m[1;31m'[0m[31mchanges.txt[1;31m'[0m[31m[0m))
+    [1;34m115[0m:   assert_equal [31m[1;31m'[0m[31mhttp://example.org/[1;31m'[0m[31m[0m, last_response.location
+    [1;34m116[0m: 
+    [1;34m117[0m:   follow_redirect!
+    [1;34m118[0m:   assert last_response.ok?
+    [1;34m119[0m:   assert_includes last_response.body, [31m[1;31m'[0m[31mchanges.txt has been updated.[1;31m'[0m[31m[0m
+    [1;34m120[0m:   assert_includes last_response.body, [31m[1;31m"[0m[31m<a href='/changes.txt'>changes.txt</a>[1;31m"[0m[31m[0m
+    [1;34m121[0m: 
+    [1;34m122[0m:   get [31m[1;31m'[0m[31m/[1;31m'[0m[31m[0m
+    [1;34m123[0m:   refute_includes last_response.body, [31m[1;31m'[0m[31mchanges.txt has been updated.[1;31m'[0m[31m[0m
+    [1;34m124[0m: 
+    [1;34m125[0m:   get [31m[1;31m'[0m[31m/changes-2.txt[1;31m'[0m[31m[0m
+    [1;34m126[0m:   assert last_response.ok?
+    [1;34m127[0m:   assert_equal [31m[1;31m'[0m[31mthis is a test[1;31m'[0m[31m[0m, last_response.body
+    [1;34m128[0m: [32mend[0m
+
