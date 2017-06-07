@@ -14,25 +14,23 @@ configure do
   set :session_secret, 'secret'
 end
 
-helpers do
-  def render_markdown(content)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    markdown.render(content)
-  end
+def render_markdown(content)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  markdown.render(content)
+end
 
-  def load_file_content(path)
-    content = File.read(path)
-    case File.extname(path)
-    when '.md'
-      erb render_markdown(content)
-    when '.txt'
-      headers['Content-Type'] = 'text/plain'
-      content
-    else
-      # @filename = File.basename(path)
-      # erb :image
-      send_file path
-    end
+def load_file_content(path)
+  content = File.read(path)
+  case File.extname(path)
+  when '.md'
+    erb render_markdown(content)
+  when '.txt'
+    headers['Content-Type'] = 'text/plain'
+    content
+  else
+    # @filename = File.basename(path)
+    # erb :image
+    send_file path
   end
 end
 
