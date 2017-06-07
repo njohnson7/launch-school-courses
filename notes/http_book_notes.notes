@@ -373,3 +373,10 @@ Approach:
 RACK INFO: http://blog.gauravchande.com/what-is-rack-in-ruby-rails
 - pretty print a "last_response" obj => " puts last_response.to_yaml "
 - # get last_response["Location"]    ===    follow_redirect!    ???
+
+Summary:
+  - Sinatra will render a layout automatically if it's located in "views/layout.erb"
+  - <Rack::Test> => library used to test Sinatra apps
+  - <redirect> method => aborts current request (<halts>)
+  - passwords should never be stored in raw form ---> <hash> first
+  - libs/gems used: File, FileUtils, YAML (Psych), Rack::Test, Redcarpet, BCrypt
