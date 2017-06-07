@@ -402,6 +402,20 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, "<button type='submit'>Sign Up"
   end
 
+  def test_signup_error
+    post '/users/signup', username: '', password: '123'
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, 'Username cannot be empty.'
+
+    post '/users/signup', username: 'eric', password: ''
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, 'Password cannot be empty.'
+
+    post '/users/signup', username: 'admin', password: '123'
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, 'Username has already been taken.'
+  end
+
   def test_signup
     original_users = File.read(users_file_path)
 
@@ -414,5 +428,15 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, 'Signed in as eric.'
   ensure
     File.write(users_file_path, original_users)
+  end
+
+  def test_upload
+    get '/new', {}, admin_session
+    assert last_response.ok?
+    assert_includes last_response.body, 'Upload File'
+
+    post '/upload', {}, admin_session
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, 'Filename cannot be empty.'
   end
 end

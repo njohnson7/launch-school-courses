@@ -4,7 +4,6 @@ require 'tilt/erubis'
 require 'redcarpet'
 require 'psych'
 require 'bcrypt'
-
 require 'awesome_print'
 
 VALID_EXTENSIONS = %w[.txt .md]
@@ -28,8 +27,6 @@ def load_file_content(path)
     headers['Content-Type'] = 'text/plain'
     content
   else
-    # @filename = File.basename(path)
-    # erb :image
     send_file path
   end
 end
@@ -85,13 +82,22 @@ def list_files
   Dir.glob(pattern).map { |path| File.basename(path) }
 end
 
-# index
+def status_422_error(msg, template)
+  status 422
+  session[:msg] = msg
+  erb template
+end
+
+def store_new_user_credentials(username, password)
+   encrypted_password = BCrypt::Password.create(password)
+   File.open(users_file_path, 'a') { |file| file.puts "#{username}: #{encrypted_password}" }
+end
+
 get '/' do
   @files = list_files
   erb :index
 end
 
-# create a new document
 get '/new' do
   require_signed_in_user
   erb :new
@@ -102,37 +108,26 @@ post '/create' do
 
   filename = params[:filename].to_s.strip
   if filename.empty?
-    status 422
-    session[:msg] = 'A name is required.'
-    erb :new
+    status_422_error('A name is required.', :new)
   elsif invalid_extension?(filename)
-    status 422
-    session[:msg] = "Filename must end with: #{VALID_EXTENSIONS.join(', ')}"
-    erb :new
+    status_422_error("Filename must end with: #{VALID_EXTENSIONS.join(', ')}", :new)
   elsif list_files.include?(filename)
-    status 422
-    session[:msg] = 'File already exists.'
-    erb :new
+    status_422_error('File already exists.', :new)
   else
-    create_document filename
+    create_document(filename)
     session[:msg] = "#{filename} has been created."
     redirect '/'
   end
 end
 
-# upload file
 post '/upload' do
   file_hash = params[:file]
   filename = file_hash&.[](:filename).to_s.strip
 
   if filename.empty?
-    status 422
-    session[:msg] = 'Filename cannot be empty.'
-    erb :new
+    status_422_error('Filename cannot be empty.', :new)
   elsif list_files.include?(filename)
-    status 422
-    session[:msg] = 'File already exists.'
-    erb :new
+    status_422_error('File already exists.', :new)
   else
     file = params[:file][:tempfile]
     File.open(File.join(data_path, filename), 'wb') { |f| f.write(file.read) }
@@ -141,7 +136,6 @@ post '/upload' do
   end
 end
 
-# display document
 get '/:filename' do
   filename = params[:filename].to_s
   file_path = File.join(data_path, filename)
@@ -154,7 +148,6 @@ get '/:filename' do
   end
 end
 
-# edit document
 get '/:filename/edit' do
   require_signed_in_user
 
@@ -170,7 +163,6 @@ get '/:filename/edit' do
   end
 end
 
-# delete document
 post '/:filename/delete' do
   require_signed_in_user
 
@@ -183,7 +175,6 @@ post '/:filename/delete' do
   redirect '/'
 end
 
-# update document
 post '/:filename' do
   require_signed_in_user
 
@@ -191,23 +182,19 @@ post '/:filename' do
   old_file_path = File.join(data_path, old_filename)
   old_content = File.read(old_file_path)
 
-
   new_filename = next_filename(old_filename)
   new_file_path = File.join(data_path, new_filename)
   new_content = params[:content]
 
-  create_document new_filename, new_content
-
+  create_document(new_filename, new_content)
   session[:msg] = "#{old_filename} has been updated => #{new_filename}"
   redirect '/'
 end
 
-# view sign in page
 get '/users/signin' do
   erb :signin
 end
 
-# sign in
 post '/users/signin' do
   username = params[:username]
 
@@ -216,20 +203,16 @@ post '/users/signin' do
     session[:msg] = "Welcome #{username}!"
     redirect '/'
   else
-    session[:msg] = 'Invalid credentials.'
-    status 422
-    erb :signin
+    status_422_error('Invalid credentials.', :signin)
   end
 end
 
-# sign out
 post '/users/signout' do
   session.delete(:username)
   session[:msg] = 'You have been signed out.'
   redirect '/'
 end
 
-# duplicate document
 post '/:filename/duplicate' do
   require_signed_in_user
 
@@ -239,36 +222,26 @@ post '/:filename/duplicate' do
   content = File.read(file_path)
 
   create_document(new_filename, content)
-
   session[:msg] = "#{filename} has been duplicated => #{new_filename}"
   redirect '/'
 end
 
-# view sign up page
 get '/users/signup' do
   erb :signup
 end
 
-# sign up
 post '/users/signup' do
   username = params[:username].to_s.strip
   password = params[:password].to_s
-  if username.empty?
-    status 422
-    session[:msg] = 'Username cannot be empty.'
-    erb :signup
-  elsif password.empty?
-    status 422
-    session[:msg] = 'Password cannot be empty.'
-    erb :signup
-  elsif users.keys.include?(username)
-    status 422
-    session[:msg] = 'Username has already been taken.'
-    erb :signup
-  else
-    encrypted_password = BCrypt::Password.create(password)
-    File.open(users_file_path, 'a') { |file| file.puts "#{username}: #{encrypted_password}" }
 
+  if username.empty?
+    status_422_error('Username cannot be empty.', :signup)
+  elsif password.empty?
+    status_422_error('Password cannot be empty.', :signup)
+  elsif users.keys.include?(username)
+    status_422_error('Username has already been taken.', :signup)
+  else
+    store_new_user_credentials(username, password)
     session[:username] = username
     session[:msg] = "Welcome #{username}! Your account has been created."
     redirect '/'
