@@ -1,0 +1,138 @@
+------------- HTTP ---------------
+
+Describe what HTTP is:
+  - HyperText Transfer Protocol
+  - a system of rules for how a client and server communicate
+  - stateless
+
+Role of HTTP request and response:
+  - a client sends a request to a server, which replies with a response
+  - the messages that a client and server send to each other to communicate
+  - specially formatted string
+
+Components of a request/response:
+  - request:
+    -required:
+      - name of the HTTP method (GET, POST, etc)
+      - path ("/", "/index")
+    - optional:
+      - headers
+      - body
+
+  - response:
+    - required:
+      - status code (200, 302, etc)
+    - optional:
+      - headers
+      - body
+
+Components of a URL:
+  - protocol/......
+  - host (google.com)
+  - path ("/...")
+  - parameters
+    - ("/:id" ??)
+    - query string ("?name=value&aaa=bbb")
+
+
+URL containg a few params/values:
+  - "http://www.google.com/search?query=abc&perpage=10"
+
+Difference b/w GET and POST (and when to choose each):
+  - GET:
+    - sent w/o a body
+    - use for sending data to server that doesn't change anything on server
+    - append query string to URL to send params
+    ex:
+      - clicking on a hyperlink that takes you to view another page
+      - performing a search
+
+  - POST:
+    - usually sent w/ a body that contains parameters
+    - use when you're going to be changing data on the server
+    ex:
+      - registering an account
+      - deleting/modifying a text file
+
+
+Difference b/w client-side and server-side code:
+  - client-side: executed on the client
+  - server-side: executed on the server
+
+Distinguish b/w client/server side code in a Sinatra project:
+  - client-side:
+    - JavaScript
+    - HTML
+    - CSS
+
+  - server-side:
+    - ruby files
+    - config.ru, Gemfile, Procfile
+    - erb templates
+
+
+-------------- Web -------------------
+
+How does an HTML form element interact w/ the server-side code that processes it:
+  - action attribute: specifies the path that a route will process
+  - method attribute: specifies the type of HTTP request method
+    - usually POST
+  - has a nested button or input element for sending the request
+    - parameters can be sent by client this way
+    - name attribute: specifies the name of parameter
+    - value attribute / user entered content: specifies value of parameter
+
+  - upon submitting the form, a request is made to the server
+  - server can process this request, including any parameters by using routes
+
+Why is user-entered content a security risk (and how to mitigate)?:
+  - users enter malicious code to gain access to server and view/modify its resources
+  - it bypasses XSS (Cross Site Scripting) protection, b/c if server is displaying code that user wrote, then it will come from the same site
+  ex:
+    - embed JS in forum post
+    - enter a Ruby filename in a CMS app
+    - enter HTML that gets displayed to other users and interpreted by browser
+
+  - mitigate by:
+    - escaping any user entered content (like HTML/JS)
+    - validating any user input (including params, query strings, and path)
+
+
+-------------- Sinatra ----------------
+
+Start a new Sinatra project and write simple routes to handle requests:
+  - get '/path' do ... end    ...etc...
+
+Benefits of using view templates:
+  - keeps code DRY so you can reuse common HTML/etc on multiple pages
+  - better organization and modularity
+  - easier to modify and debug
+  - uses less resources
+
+How to use an ERB template in a Sinatra route:
+  - erb :template_name, layout: :layout
+
+Session (what is it, where is it stored, how is it used)?:
+  - session is information that persists across multiple request/response cycles
+  - HTTP is a stateless protocol so a session can be used to mimic statefulness
+  - it is stored in a cookie that first is sent to client in a response, then gets sent back and forth on each request/response
+  - it is used to verify the identity of the client and store any persitent data
+    ex:
+      - username, error messages, logged in status, other user specific data, etc
+
+Write a view helper and use it within a view template:
+  - helpers do; def foo; end; end
+  - call method in b/w <% %> or <%= %> tags like any other Ruby method
+
+How does redirection work (and why would it be needed in a web app)?:
+  - redirect "/path"
+  - it halts the current route, so any code following the redirect method won't be executed
+  - server sends a response w/ a redirect status code (300 range) and a Location header
+  - client issues a new (GET?) request to the path contained in the Location header
+  - server process request and sends another response
+
+  - needed when:
+    - client makes a request to a page that does not exist or is not accessible
+      - so server can send client to an appropriate page instead, such as a home page or error page
+    - after server processes a post request
+      - (post request just changes data on server, but generally does not display anything to user?)
