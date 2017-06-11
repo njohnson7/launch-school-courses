@@ -39,7 +39,7 @@ Resources:
 
 
 Statelessness:
-  - *state* => data that persists over time
+  - *state* => # data that persists over time
   - *stateless protocol* => each <request/response> pair is independent of previous one
     - # server does not need to hang on to info (state) b/w requests
       - (if request breaks en route to server, no part of the system has to do any cleanup)
@@ -238,6 +238,7 @@ Response Headers:
 ------------ Stateful Web Applications ----------------
 
 Sessions:
+  - *session* => provides a way to store data that will persist b/w requests
   - *session identifier* => <unique token> that gets <passed back and forth> b/w server and client to identify a client to <mimic statefulness>
     - first server sends <session id> to client
     - then client appends id to every request
@@ -420,8 +421,9 @@ Rack:
     - makes it easier to connect and work w/ web servers such as Webrick
     - provides a fluid API for creating web apps
     - kind of like a protocol or specification for client and server to communicate
+
   - we can replace our <TCP server w/ Webrick> and our <Ruby code w/ a Rack app>
-  - when working w/ Rack apps, our entire <app server> consists of the Rack app and a web server (ex: Webrick)
+    - when working w/ Rack apps, our entire <app server> consists of the Rack app and a web server
 
 
 Sinatra:
@@ -437,6 +439,7 @@ Sinatra:
     - HTTP <requests> are handled by # creating routes for a path or set of paths
       - *routes* => # how a developer maps a URL pattern to some Ruby code
         - create by using methods w/ same name as HTTP method to be handled
+        - the <return value> of a route is sent back to client
 
 
 Templates:
@@ -453,15 +456,17 @@ Templates:
       - for <printing a dynamic value>
           ex: "<h1><%= @title %></h1>"
 
-  - *layouts* => view templates that wrap around other view templates
+
+Layouts:
+  - *layouts* => view <templates> that <wrap> around other view templates
     - # provide shared HTML that is used by all views
     - often include links to stylesheets or JS files
 
 
 View Helpers:
   - *helper* (*view helper*) => Ruby methods used to minimize amount of Ruby code in a view template
-    - defined w/i a *helpers* block
-    - filter/process data that is being rendered into the page
+    - defined w/i a *helpers block*
+    - made available in <templates> to filter/process data that is being rendered into the page
 
 
 Redirection:
@@ -469,44 +474,54 @@ Redirection:
     - accomplished by setting the <Location header> in the response
     - client sees URL in Location header and sends out a new GET request for the associated resource ---> navigates client to that new location
     ex: often used after user creates/updates data, like after submitting a form
-  - code placed in a *before* block is executed before the matching route for every request
+
+    - <halts> the current route, so any code following "redirect" won't run
+
+  - <not_found> => a special route that is executed when a request has no matching routes
+
+
+Before block:
+  - *before block* => code in block gets executed before the matching route for every request
+    - for setting up globally needed data that isn't dependent on which route is being executed
+        ex: logged-in status, ivars referenced in a layout
 
 
 Parameters:
-  - <routes> can specify *parameters* by: "/route_name/:param_name"
-    - access w/i route using: "params[:param_name]"
+  - <routes> can specify *route parameters* by: "/route_name/:param_name"
+    - access values passed to app thru URL via <params hash>
+        ex: "params[:param_name]"
+      - *params hash* => automatically made available in routes
 
   - # 3 ways to get data into params hash:
-        1. extract from URL (ex: "chapters/1")
+        1. extract from URL using <route parameters> (ex: "/chapters/:num")
         2. use <query params> in URL (ex: "/?sort=desc")
-        3. submitting a form using a <POST> request
+        3. <submitting a form> using a <POST> request
 
 
 How HTML Forms Work:
   - when a *form* is submitted, browser makes <HTTP request>
   - request is made to path or URL specified in the <action attribute> of the <form element>
   - <method attribute> of the form determines if request made will use <GET or POST>
-  - the <value> of any <input elements> in the form will be sent as <params>
+  - the <value> attributes of any <input elements> in the form will be sent as <params> values
     - the <keys> of these params are determined by the <name attribute> of the corresponding <input element>
 
-  <GET vs. POST>:
-  - use <GET> when form submission # doesn't modify any data # (ex: <search>)
-  - use <POST> when # form submission modifies data
+  - <GET vs. POST>:
+    - use <GET> when form submission # doesn't modify any data # (ex: <search>)
+    - use <POST> when form submission # modifies data
 
 
 Server-side code vs. Client-side code:
-- based on # where the code will be evaluated
-  - *Server side*:
-    - *Gemfile* => executed by Bundler gem to install libraries needed to run program
+- based on # where the code will be executed/evaluated
+  - *server side*:
+    - *Gemfile* => used by Bundler gem to install libraries needed to run program
       - <Bundler> => Ruby dependency management system
-    - *ruby files* (".rb") => core of sinatra app
+    - *ruby files* (".rb") => core of a sinatra app
       - code runs on server while handling incoming requests
-    - *view templates* (".erb") => Ruby code inside is evaluated on server to generate response to send to client
-      - # b/c they must be processed by a program on server before being sent to client
+    - *view templates* (".erb") => # b/c they must be processed by a program on server before being sent to client as a response
       aka: <server-side templates> (vs. client-side templates (JS))
 
-  - *Client side*:
-    - *stylesheets* (".css") => code is interpreted by web browser (client) as instructions for how to display web page
+  - *client side*:
+    - *stylesheets* (".css") => code is interpreted by browser (client) as instructions for how to display web page
     - *JavaScript* (".js") => code is evaluated by JS interpreter w/i browser to <add behavior> to web page
 
 
@@ -519,49 +534,122 @@ Server-side code vs. Client-side code:
    # Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
   #  Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
 
+
+
 ----------------------------------------------------------------------------
 -------------- Heroku ---------------
 
 - <Procfile> => defines what type of processes are provided by the app and how to start them
 - <config.ru> => tells web server how to start the app
-- <Puma> => a production-ready web server for deploying projects
-  - <threaded> web server ---> so it can handle more than 1 request at a time using a single process (faster performance)
+- <Puma> => a <production-ready> web server for deploying projects
+  - <threaded> web server ---> so it # can handle more than 1 request at a time # using a single process (faster performance)
 - <Webrick> => web server for development
+- specify a specific version of Ruby in <Gemfile> to make sure same version is used in both development and production
+
+
 
 ----------------------------------------------------------------------------
 ------------ Todos ---------------
 
-Session: see videos!
-- don't put methods not used in view templates in <helpers> block
-
 # SINATRA STORES METHODS THAT GET DELETED!!! (EX: total_todos(list))
   # RESTART SERVER TO FIX!!
 
-- *state* => data that persists over time
-- *session* => provides a way to store data that will persist b/w HTTP reqeusts
-  - associated w/ a specific user by storing a cookie in their browser
-  - in Sinatra, the session data itself is also stored in this cookie
-    - this is configureable and not always the case /w other web freameworks
-- data that is submittied to server often needs to be <validated> to ensure it meets requirements of app
-  - in Todos, we built <server-side> validation ---> we perofrmed the validation logic on the server
-- *flash message* => messages that need to be displayed to user on their next request and then deleted can be stored in the session
-- content from w/i a view template can be stored under a name and retrieved later using "#content_for" and "#yield_content"
-- GET request should only request data
-  - use POST or another non-GET method for any request that modifies data
-- web browsers only support GET and POST in HTML <forms>, so sometimes need to use POST instead of a more appropriate method
-- *view helpers* => provide a way to extract code that determines what HTML markup is generated for a view
+###############################################################################
+############################ Session: see videos! #############################
+
+
+- don't put methods not used in view templates in <helpers> block
+
+
+Sessions:
+  - *session* => a way to store <persistent data / state>
+    - associated w/ a specific user by storing a <cookie> in their browser
+    - # in Sinatra, the session data itself is also stored in this cookie
+      - this is configureable and not always the case w/ other web freameworks
+
+  - # the session implementation used by Sinatra is supplied by Rack
+    - the session object lives in the <env hash>
+      - in tests, access by: "last_request.env"  (NOT last response)
+      - in routes, access by: "request.env" or just "env"
+    - Rack's *env hash* => large hash of data related to a req/resp pair
+      - used by frameworks to access attributes of request (ex: path, params)
+  - to access session obj: "last_request.env['rack.session']"
+    - create a helper method, "#session"
+
+
+Miscellaneous:
+  - data that is submittied to server often needs to be <validated> to ensure it meets requirements of app
+    - in Todos, we built <server-side> validation ---> we perofrmed the validation logic on the server
+
+  - *flash message* => messages that need to be displayed to user on their next request and then deleted can be <stored in the session>
+
+  - content from w/i a view template can be stored under a name and retrieved later using <#content_for> and <#yield_content>
+
+  - GET request should only request data
+    - use POST or another non-GET method for any request that modifies data
+  - web browsers only support GET and POST in HTML <forms>, so sometimes need to use POST instead of a more appropriate method
+
+  - *view helpers* => provide a way to extract code that determines what HTML markup is generated for a view
+
+  - general route organization <pattern for errors>:
+    - # render a page instead of redirect!
+      - so that we can go back and fix it and retain access to params and ivars set in current route
+
 
 
 
 ----------------------------------------------------------------------------
 ------------------ Securing Applications -------------------
 
-- # escape HTML!
+Sanitizing HTML:
+  - *escaping HTML* => # escape any HTML that comes from an untrusted source (all users)
+    - (must be done manually in Sinatra vs. automaticaly in Rails)
+  - webpages <build HTML dynamically> so there's lots of opportunity for someone to influence what code gets written into the page
+  - replace certain chars w/ HTML entities that browser won't interpret as code
+    - "Rack::Utils.escape_html" method
+      - wrap in a <view helper> to # manually escape values
+          ex: [ruby]
+                          helpers do
+                            def h(content)
+                              Rack::Utils.escape_html(content)
+                            end
+                          end
+              [/ruby]
+              [html]     <h3><%=h todo[:name] %></h3>        [/html]
 
-- Neither POST nor GET is a secure HTTP method
-  - # Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network
-  - (you can still see the parameters very easily in headers)
-- # Serving the app over HTTPS is the only way to protect a user's data
+  - manually escaping can be a problem b/c it's easy to miss some places
+    - so many libraries automatically escape all output
+      - to enable in Sinatra:
+        [ruby]
+                      configure do
+                        set :erb, escape_html: true
+                      end
+        [/ruby]
+        [html]        <%== yield %>                   [/html]
+
+  - # general pattern for handling user-submitted data:
+    - save unmodified values whenever possible
+    - escape all user content when it is displayed
+
+
+HTTP Methods and Security:
+  - Neither POST nor GET is a secure HTTP method
+    - # Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network
+
+  - # Serving the app over HTTPS is the only way to protect a user's data
+
+
+
+----------------------------------------------------------------------------
+----------------- JavaScript -------------------
+
+- *JavaScript* ---> can do things HTML can't by itself
+    ex: drag/drop user interfaces, submitting forms w/o GET/POST, AJAX
+- *XHR* (*XmlHTTPRequest*) (*AJAX*) => requests that can be made using jQuery
+    ex: to submit a form asynchronously
+  - HTTP requests made from JS don't require special handling w/i a Sinatra app
+- client-side code can itneract w/ server-side code
+
 
 
 ----------------------------------------------------------------------------
@@ -587,10 +675,29 @@ RACK INFO: http://blog.gauravchande.com/what-is-rack-in-ruby-rails
 - # get last_response["Location"]    ===    follow_redirect!    ???
 
 
+- *markdown* => a text-to-html markup language
+
+
+Security:
+  - building a path using a request param, and then sending the file's content in the response is not secure!!
+    - user could enter a URL to access the app's source code or passwords
+
+  - guidelines for building secure web apps:
+    1. avoid using params to construct file paths
+      - if you have to:
+        - run any params that have filenames thru "File.basename"
+        - or use an alternative id (ex: index) for file, instead of filename
+    2. use <whitelisting> to explicitly define what is allowed
+    3. think like someone who's attempting to alter the behavior of your app
+      - is it possible to introduce an <unexpected value> into the system thru <expected means> such as params?
+
+
+
 Summary:
   - Sinatra will render a layout automatically if it's located in "views/layout.erb"
   - <Rack::Test> => library used to test Sinatra apps
-  - <redirect> method => aborts current request (<halts>)
+    - provides testing <helper methods>
+  - <redirect> method => <aborts> handling of current request (calls <halt>)
   - passwords should never be stored in raw form ---> <hash> first
   - libs/gems used: File, FileUtils, YAML (Psych), Rack::Test, Redcarpet, BCrypt
 
@@ -603,7 +710,6 @@ Summary:
 
 Accessing the Request Object:
   - # The incoming request object can be accessed from request level (filter, routes, error handlers) through the request method:
-
 [ruby]
   # app running on http://example.com/example
   get '/foo' do
@@ -639,11 +745,12 @@ Accessing the Request Object:
 
 # OR JUST CALL env METHOD FROM INSIDE A ROUTE!
 [ruby]
+          get '/' do
+            env == request.env  # => true
+          end
 
-  get '/' do
-    env == request.env  # => true
-  end
-
+          # in a test:
+          last_request.env
 [end]
 
 

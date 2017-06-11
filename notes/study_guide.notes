@@ -5,19 +5,30 @@ Describe what HTTP is:
   - a system of rules for how a client and server communicate
   - stateless
 
+  - the application protocol the web is built upon
+  - request response protocl
+
+
 Role of HTTP request and response:
   - a client sends a request to a server, which replies with a response
   - the messages that a client and server send to each other to communicate
   - specially formatted string
 
+  - request is made to a host ("google.com")
+
+  - # when your browser issues a request, it's just sending some text to an IP address
+  - b/c client and server have an agreement (HTTP), server can take apart request, understand its components, and send response back to browser
+    - browser then processes response strings into content you can understand
+
+
 Components of a request/response:
   - request:
     -required:
-      - name of the HTTP method (GET, POST, etc)
+      - HTTP method (GET, POST, etc)
       - path ("/", "/index")
     - optional:
       - headers
-      - body
+      - message body (for POST requests)
 
   - response:
     - required:
@@ -27,25 +38,28 @@ Components of a request/response:
       - body
 
 Components of a URL:
-  - protocol/......
-  - host (google.com)
+  - protocol / # scheme! # ("http")
+  - host (www.google.com)
   - path ("/...")
-  - parameters
-    - ("/:id" ??)
-    - query string ("?name=value&aaa=bbb")
+  - query string ("?name=value&aaa=bbb")
+    - made up of query params
+  - # port!
 
 
 URL containg a few params/values:
   - "http://www.google.com/search?query=abc&perpage=10"
 
+
 Difference b/w GET and POST (and when to choose each):
   - GET:
     - sent w/o a body
-    - use for sending data to server that doesn't change anything on server
     - append query string to URL to send params
     ex:
       - clicking on a hyperlink that takes you to view another page
       - performing a search
+
+    - # retrieving data from server!...
+    - # params displayed on URL, so easy for people to see...
 
   - POST:
     - usually sent w/ a body that contains parameters
@@ -56,8 +70,9 @@ Difference b/w GET and POST (and when to choose each):
 
 
 Difference b/w client-side and server-side code:
-  - client-side: executed on the client
+  - client-side: executed on the client  # ( usually browser...)
   - server-side: executed on the server
+
 
 Distinguish b/w client/server side code in a Sinatra project:
   - client-side:
@@ -68,7 +83,9 @@ Distinguish b/w client/server side code in a Sinatra project:
   - server-side:
     - ruby files
     - config.ru, Gemfile, Procfile
-    - erb templates
+    - erb templates # (view templates)
+      - # (actually a mix of both (HTML and ruby))
+    # yaml
 
 
 -------------- Web -------------------
@@ -85,9 +102,17 @@ How does an HTML form element interact w/ the server-side code that processes it
   - upon submitting the form, a request is made to the server
   - server can process this request, including any parameters by using routes
 
+  # - An HTML form that has been rendered on the client-side will send a request to the server as defined in the form itself. It will send it using the specified method (usually POST), to the specified path, with the necessary parameters so that it can be processed by the server.....
+
+  - the name attribute of an input or textarea tag determines the param name that can be used to access the input's value when the form is submitted
+
+  # - form elements => ie, input tags and name attr
+
+
 Why is user-entered content a security risk (and how to mitigate)?:
+  - XSS
   - users enter malicious code to gain access to server and view/modify its resources
-  - it bypasses XSS (Cross Site Scripting) protection, b/c if server is displaying code that user wrote, then it will come from the same site
+  - it bypasses same origin policy, b/c if server is displaying code that user wrote, then it will come from the same site
   ex:
     - embed JS in forum post
     - enter a Ruby filename in a CMS app
@@ -96,6 +121,10 @@ Why is user-entered content a security risk (and how to mitigate)?:
   - mitigate by:
     - escaping any user entered content (like HTML/JS)
     - validating any user input (including params, query strings, and path)
+
+  # - Because, since HTML pages are dynamically generated (for example, by using erb view templates), if unsanitized, a malicious user could enter arbitrary code that would be executed by the server and browser.
+
+  # - We need to escape all user-entered content. With Rack, we can use Rack::Utils.escape_html or by escaping the whole app in Sinatra by setting :escape_html to true.
 
 
 -------------- Sinatra ----------------
@@ -109,8 +138,12 @@ Benefits of using view templates:
   - easier to modify and debug
   - uses less resources
 
+  # - View templates such as ERB and HAML allow us to dynamically create HTML content based on server-side code. This allows for example, for the server to communicate to a database, and then fill the HTML with content obtained from it.
+
+
 How to use an ERB template in a Sinatra route:
   - erb :template_name, layout: :layout
+
 
 Session (what is it, where is it stored, how is it used)?:
   - session is information that persists across multiple request/response cycles
@@ -120,9 +153,32 @@ Session (what is it, where is it stored, how is it used)?:
     ex:
       - username, error messages, logged in status, other user specific data, etc
 
+  # - A session is a way to store data between HTTP requests so that we can build a stateful application above the stateless HTTP protocol. It can be stored in cookies, in-memory or databased. In Sinatra, a session is stored in cookies that expire in a session (no expire date set, so they are deleted when the browser closes) unless you define it with options.
+
+# - Sinatra stores session data in a client-side cookie by default.
+
+  Just remember that sessions and cookies are different. Sinatra (rack, actually) uses cookies for the session store by default, so it's easy to conflate the two concepts when using Sinatra. But just be aware it's possible to have a session store that's not using the cookie (or, only using the cookie to store the session id).
+
+[ruby]
+  # We can enable sessions in Sinatra by enabling them as such:
+  configure do
+    enable :sessions
+    set :session_secret, 'a_secret_signature_for_cookies'
+  end
+
+  # And then storing data in with as such:
+  session[:something_to_remember] = data
+[end]
+
+  # - The most important thing is to understand that the session id is stored on the client, and it is used as a "key" to the session data stored server side. Session data is generated and stored on the server-side and the session id is sent to the client in the form of a cookie.
+
+
 Write a view helper and use it within a view template:
   - helpers do; def foo; end; end
   - call method in b/w <% %> or <%= %> tags like any other Ruby method
+
+  # - Helpers are used to define methods that can be used within views and your application (controller). See here for an explanation on using helpers instead of relying on top-level methods (when class-based (modular) style applications are used, no top-level methods are used, so using helpers is the way to go.
+
 
 How does redirection work (and why would it be needed in a web app)?:
   - redirect "/path"
@@ -135,4 +191,9 @@ How does redirection work (and why would it be needed in a web app)?:
     - client makes a request to a page that does not exist or is not accessible
       - so server can send client to an appropriate page instead, such as a home page or error page
     - after server processes a post request
+      - # (like when a form is submitted and processed)
       - (post request just changes data on server, but generally does not display anything to user?)
+
+  # - halting the request and redirecting to another path
+  # ex:
+    # - dealing w/ paths that don't exist

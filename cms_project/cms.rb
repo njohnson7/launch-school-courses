@@ -249,3 +249,9 @@ post '/users/signup' do
     redirect '/'
   end
 end
+
+get '/pry/' do
+  ;require'pry';binding.pry;
+
+  redirect '/'
+end

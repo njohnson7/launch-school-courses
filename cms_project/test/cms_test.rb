@@ -439,4 +439,14 @@ class CMSTest < Minitest::Test
     assert_equal 422, last_response.status
     assert_includes last_response.body, 'Filename cannot be empty.'
   end
+
+  def test_pry
+      skip
+
+      get '/'
+
+      ;require'pry';binding.pry;
+
+      assert true
+  end
 end
