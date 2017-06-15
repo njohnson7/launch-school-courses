@@ -1,0 +1,99 @@
+--- 1 ---
+Create a new database called residents using the PostgreSQL command line tools:
+
+createdb residents
+
+
+
+
+--- 2 ---
+Load this file into the database created in #1.:
+
+
+ psql -d residents < residents_with_data.sql
+
+
+
+
+
+
+--- 3 ---
+Write a SQL query to list the ten states with the most rows in the people table in descending order.:
+
+[sql]
+
+SELECT state, count(id) FROM people GROUP BY state ORDER BY count DESC LIMIT 10;
+
+[/sql]
+
+
+
+
+--- 4 ---
+Write a SQL query that lists each domain used in an email address in the people table and how many people in the database have an email address containing that domain. Domains should be listed with the most popular first:
+
+[sql]
+
+SELECT substring(email from '%@#"%#"' for '#') AS domain, count(id)
+  FROM people GROUP BY domain ORDER BY count DESC;
+
+--- OR ---
+
+SELECT substr(email, strpos(email, '@') + 1) AS domain, count(id)
+  FROM people GROUP BY domain ORDER BY count DESC;
+
+[/sql]
+
+
+
+
+
+--- 5 ---
+Write a SQL statement that will delete the person with ID 3399 from the people table:
+
+[sql]
+
+
+
+[/sql]
+
+
+
+
+
+--- 6 ---
+Write a SQL statement that will delete all users that are located in the state of California (CA):
+
+[sql]
+
+
+
+
+[/sql]
+
+
+
+
+
+--- 7 ---
+Write a SQL statement that will update the given_name values to be all uppercase for all users with an email address that contains teleworm.us.:
+
+[sql]
+
+
+
+[/sql]
+
+
+
+
+
+--- 8 ---
+Write a SQL statement that will delete all rows from the people table:
+
+[sql]
+
+
+
+[/sql]
+

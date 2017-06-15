@@ -1,0 +1,36 @@
+  __library >> SELECT *,  FROM (SELECT users.*, users_books.*
+.............. FROM users
+.............. INNER JOIN users_books
+.............. ON users.id = users_books.user_id) u;
+
+
+-------------- DO LATER --------------
+### More query ideas.
+
+We would like to leave you with some query ideas that you can try out on the library database that we have walked through in this book. In many cases, you may need to insert more data into your tables before you can create these queries.
+
+    Select books that have never been checked out
+    Select user that has the most books checked out
+    Select users that are most active
+    Select users with the most books
+    Select users with the most reviews
+    Select queries with =, vs in, vs Not IN, vs Like
+    SQL queries with wild card search and limit
+
+
+
+Docs video:
+  - description of syntax box:
+    - anything inside square brackets "[ ]" ---> optional
+      - everything else is required
+    - "{ }" ---> choose one
+        ex: "{ UNION | INTERSECT | EXCEPT }"
+    - <bold/italic terms>: more info about term is somewhere in page later
+
+
+PSQL review video:
+  - <modifiers column>: meta-data about the column that DB uses when you're inserting values or modifying already existing values
+  - <indexes and constraints>: things that DB uses to enforce rules about what data can be stored in the table, as well as the relationships b/w values in diff. places and diff. tables
+
+
+
