@@ -33,4 +33,8 @@ PSQL review video:
   - <indexes and constraints>: things that DB uses to enforce rules about what data can be stored in the table, as well as the relationships b/w values in diff. places and diff. tables
 
 
-
+# remember!
+[sql]
+      SELECT year / 10 * 10 AS decade, genre, string_agg(title, ', ') AS films
+        FROM films GROUP BY decade, genre ORDER BY decade, genre;
+[/sql]
