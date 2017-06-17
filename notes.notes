@@ -38,3 +38,98 @@ PSQL review video:
       SELECT year / 10 * 10 AS decade, genre, string_agg(title, ', ') AS films
         FROM films GROUP BY decade, genre ORDER BY decade, genre;
 [/sql]
+
+
+
+------------------------------------------------------------------------
+    ### LESSON 2 ASSIGNMENT 10 NOTES ###
+      - "https://launchschool.com/lessons/d8c90dd4/assignments/7761a32a"
+      - how SELECT works underneath
+------------------------------------------------------------------------
+
+
+
+--------- Lessos 2 Assignment 11 VIDEO - Table and COlumn Aliases-------------
+
+- alias: using the AS keyword in SQL to rename s/t that exists in database or schema
+  - when you alias a table, that becomes the name you # have to use # for the rest of the query (# you can't use original name!)
+  - we can replace original name w/ alias to make query shorter and easier to understand
+  - usually alias using the first letter of the table
+
+  - generally it's good not to alias table names unless you absolutely have to
+
+  - always good to alias functions like count, so that column name makes more sense
+
+- no need to specify table when SELECTing a column and JOINing 2 tables if column name is unique to both tables
+
+
+
+
+--------- Lesson 3 Database Diagrams: Levels of Schema VIDEO -------------
+####################### WATCH AGAIN AND TAKE MORE NOTES! ######################
+
+- *conceptual schema* => high-level design focused on identifying entities and their relationships
+  - *entity relationship model* (*ERD*) (*entity relationship diagram*) => a conceptual schema  !!! FLASH CARD...? !!!
+    - deals w/ <entities>
+
+- *physical schema* => low-level DB-specific design focused on implementation
+
+
+
+
+
+--------- Lesson 3 Database Diagrams: Cardinality and Modality VIDEO ---------
+####################### WATCH AGAIN AND TAKE MORE NOTES! ######################
+
+- *cardinality* => the number of objects on each side of the relationship (1:1, 1:M, M:M)
+
+- *modality* => if the relationship is required (1) or optional (0)
+  - required (1) => has to be at least one instance of that entity
+  - not requried (optional) (0) => don't need to be any instances at all
+  - the lower bound on how many instances there can be in a relationship
+
+- <one-to-one relationships> are rare in databases
+  - two entitities w/ a one-to-one relationship can often be combined into 1 entity and/or stored in the same table
+  - the physical schema you create for a one-to-one rel is the same as a one-to-many rel
+  - which primary key should be used as the foreign key is ambiguous
+
+- *crows foot notation* => a database diagram notation that literally represents rels
+
+- important things to consider when looking at diagrams
+  - what level of schema is it representing?
+  - how are the different kinds of rels represented?
+  - are the attributes and entities shown, and if so how?
+
+
+
+
+--------- Lesson 4 JOINs VIDEO ---------
+!!!!!!!! FLASH CARDS!!!!!!!
+- INNER JOIN tells DB that it needs to find a matching row in both tables in order to return a row for either one
+  - so INNER JOIN is good when you know there will always be a mtaching value in both tables
+
+- LEFT OUTER JOIN => always get all rows from left table, but only matching rows from right table
+
+- LEFT OUTER JOIN is more commonly used
+
+- usually JOIN is equivalent to INNER JOIN
+- usually LEFT JOIN is equivalent to LEFT OUTER JOIN
+  - but it's best to use most explicit name for understandiblity
+
+- CROSS JOIN => not common; generates every combo of 2 tables
+
+- alternative ways to write JOINS:
+  - CROSS JOIN
+      ex: SELECT * FROM users, comments;
+  - INNER JOIN
+      ex: SELECT * FROM users, comments WHERE comments.user_id = users.id
+  - # best to use explict JOIN format!
+
+
+[sql]
+  SELECT customers.id, customers.email, COUNT(DISTINCT tickets.event_id)
+    FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id
+    GROUP BY customers.id
+    HAVING COUNT(DISTINCT tickets.event_id) = 3;
+[/sql]
+
