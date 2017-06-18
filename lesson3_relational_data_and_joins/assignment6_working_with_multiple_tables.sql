@@ -98,11 +98,3 @@ SELECT events.name AS event, events.starts_at, sections.name AS section, seats.r
     INNER JOIN seats ON seats.id = tickets.seat_id
     INNER JOIN sections ON sections.id = seats.section_id
   WHERE customers.email = 'gennaro.rath@mcdermott.co';
-
-
-
-
-
-
-
-

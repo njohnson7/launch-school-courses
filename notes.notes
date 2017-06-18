@@ -133,3 +133,19 @@ PSQL review video:
     HAVING COUNT(DISTINCT tickets.event_id) = 3;
 [/sql]
 
+
+
+
+----------------------- DDL EXERCISES ----------------------------------------
+#################### possible notes/flashcards.... ###########################
+    - data types (numeric, real, etc)
+    - IN operator
+    - how altering table's schema affects data in rows (type, constraints, etc)
+
+
+
+
+----------------------- DDL EXERCISES ----------------------------------------
+#################### possible notes/flashcards.... ###########################
+  - REFERENCES ... ON DELETE CASCADE
+
