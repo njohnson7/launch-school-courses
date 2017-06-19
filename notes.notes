@@ -149,3 +149,25 @@ PSQL review video:
 #################### possible notes/flashcards.... ###########################
   - REFERENCES ... ON DELETE CASCADE
 
+
+----------------------- M-M EXERCISES ----------------------------------------
+#################### possible notes/flashcards.... ###########################
+
+
+Further exploration #5:
+ SELECT customers.name,
+..............        lag(customers.name)
+..............          OVER (ORDER BY customers.name)
+..............          AS previous,
+..............        services.description
+..............   FROM customers
+..............     LEFT OUTER JOIN customers_services ON customer_id = customers.id
+..............     LEFT OUTER JOIN services ON services.id = service_id;
+
+
+Number 6:
+SELECT description, count(customer_id)
+.............. FROM services INNER JOIN customers_services ON customers_services.service_id = services.id
+.............. GROUP BY services.id
+.............. HAVING count(customer_id) >= 3
+.............. ORDER BY description;
