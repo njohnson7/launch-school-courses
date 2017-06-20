@@ -17,6 +17,8 @@ We would like to leave you with some query ideas that you can try out on the lib
     Select queries with =, vs in, vs Not IN, vs Like
     SQL queries with wild card search and limit
 
+### M-to-M exercise 5 further exploration: lag
+
 
 
 Docs video:
@@ -103,7 +105,7 @@ PSQL review video:
 
 
 
---------- Lesson 4 JOINs VIDEO ---------
+--------- Lesson 3 JOINs VIDEO ---------
 !!!!!!!! FLASH CARDS!!!!!!!
 - INNER JOIN tells DB that it needs to find a matching row in both tables in order to return a row for either one
   - so INNER JOIN is good when you know there will always be a mtaching value in both tables
@@ -145,29 +147,33 @@ PSQL review video:
 
 
 
------------------------ DDL EXERCISES ----------------------------------------
-#################### possible notes/flashcards.... ###########################
-  - REFERENCES ... ON DELETE CASCADE
+
+--------------------- LESSON 4 - Interacting w/ a DB in code  -----------------
+
+A-3 VIDEO - Excuting SQL statements from Ruby:
+
+- pg gem: default Postgres adapter gem for Ruby
+
+- tuple => a Ruby hash (in pg gem) (different meaning in DB terminology)
+- semicolons are optional when using pg gem (it adds it for you automatically)
+- always have a separate exec call for every statment
+
+#### flashcards/notes -----> pg methods
 
 
------------------------ M-M EXERCISES ----------------------------------------
-#################### possible notes/flashcards.... ###########################
+
+A-4 Video - Demo:
+  # .... #
+
+A-10+... Notes:
+  # take notes! #
 
 
-Further exploration #5:
- SELECT customers.name,
-..............        lag(customers.name)
-..............          OVER (ORDER BY customers.name)
-..............          AS previous,
-..............        services.description
-..............   FROM customers
-..............     LEFT OUTER JOIN customers_services ON customer_id = customers.id
-..............     LEFT OUTER JOIN services ON services.id = service_id;
 
 
-Number 6:
-SELECT description, count(customer_id)
-.............. FROM services INNER JOIN customers_services ON customers_services.service_id = services.id
-.............. GROUP BY services.id
-.............. HAVING count(customer_id) >= 3
-.............. ORDER BY description;
+
+---------- questions ------------
+
+- difference b/w entity and entity instance?
+- "Relational databases are called relational because they persist data in a set of relations"
+  - # lookup # ---> "persist data in a set of relations"...

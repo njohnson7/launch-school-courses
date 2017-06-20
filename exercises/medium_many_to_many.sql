@@ -85,9 +85,9 @@ SELECT customers.* FROM customers
 -- further exploration:
 
 SELECT customers.*, services.* FROM customers
-.............. FULL OUTER JOIN customers_services ON customers_services.customer_id = customers.id
-.............. FULL OUTER JOIN services ON services.id = customers_services.service_id
-.............. WHERE services.id IS NULL OR customers.id IS NULL;
+  FULL OUTER JOIN customers_services ON customers_services.customer_id = customers.id
+  FULL OUTER JOIN services ON services.id = customers_services.service_id
+  WHERE services.id IS NULL OR customers.id IS NULL;
 
 
 
@@ -100,8 +100,8 @@ SELECT customers.*, services.* FROM customers
 ---------------------- 4.  Get Services With No Customers----------------------
 
 SELECT description FROM customers_services
-.............. RIGHT OUTER JOIN services ON services.id = customers_services.service_id
-.............. WHERE service_id IS NULL;
+  RIGHT OUTER JOIN services ON services.id = customers_services.service_id
+  WHERE service_id IS NULL;
 
 
 
@@ -119,25 +119,28 @@ SELECT description FROM customers_services
 
 
 SELECT customers.name, string_agg(services.description, ', ')
-..............   FROM customers
-..............     LEFT OUTER JOIN customers_services ON customers_services.customer_id = customers.id
-..............     LEFT OUTER JOIN services ON services.id = customers_services.service_id
-..............   GROUP BY customers.id;
+    FROM customers
+      LEFT OUTER JOIN customers_services ON customers_services.customer_id = customers.id
+      LEFT OUTER JOIN services ON services.id = customers_services.service_id
+    GROUP BY customers.id;
+
+-- further exploration:
+
+SELECT CASE WHEN customers.name = lag(customers.name) OVER (ORDER BY customers.name) THEN NULL
+            ELSE customers.name
+            END,
+       description
+  FROM customers
+  LEFT OUTER JOIN customers_services
+               ON customer_id = customers.id
+  LEFT OUTER JOIN services
+               ON services.id = service_id;
 
 
 
 
 
 
-------------___FURTHER EXPLORATION--------------
- SELECT customers.name,
-..............        lag(customers.name)
-..............          OVER (ORDER BY customers.name)
-..............          AS previous,
-..............        services.description
-..............   FROM customers
-..............     LEFT OUTER JOIN customers_services ON customer_id = customers.id
-..............     LEFT OUTER JOIN services ON services.id = service_id;
 
 
 
@@ -146,10 +149,10 @@ SELECT customers.name, string_agg(services.description, ', ')
 ---------------------- 6.  Services With At Least 3 Customers------------------
 
 SELECT description, count(customer_id)
-.............. FROM services INNER JOIN customers_services ON customers_services.service_id = services.id
-.............. GROUP BY services.id
-.............. HAVING count(customer_id) >= 3
-.............. ORDER BY description;
+  FROM services INNER JOIN customers_services ON customers_services.service_id = services.id
+  GROUP BY services.id
+  HAVING count(customer_id) >= 3
+  ORDER BY description;
 
 
 
@@ -165,6 +168,9 @@ SELECT description, count(customer_id)
 
 ---------------------- 7.  Total Gross Income----------------------------------
 
+SELECT sum(price) AS gross
+  FROM services
+  INNER JOIN customers_services ON service_id = services.id;
 
 
 
@@ -179,6 +185,10 @@ SELECT description, count(customer_id)
 
 
 ---------------------- 8.  Add New Customer------------------------------------
+
+INSERT INTO customers (name, payment_token) VALUES ('John Doe', 'EYODHLCN');
+
+INSERT INTO customers_services VALUES (7, 1), (7, 2), (7, 3);
 
 
 
@@ -195,10 +205,15 @@ SELECT description, count(customer_id)
 
 ---------------------- 9.  Hypothetically--------------------------------------
 
+SELECT sum(price) FROM services
+  INNER JOIN customers_services ON service_id = services.id
+  WHERE price > 100;
+
+SELECT sum(price) FROM services CROSS JOIN customers WHERE price > 100;
 
 
-
-
+-- or w/ a subquery:
+SELECT sum(price) * (SELECT count(id) FROM customers) AS sum FROM services WHERE price > 100;
 
 
 
@@ -210,6 +225,8 @@ SELECT description, count(customer_id)
 
 ---------------------- 10. Deleting Rows---------------------------------------
 
+DELETE FROM customers WHERE name = 'Chen Ke-Hua';
 
+DELETE FROM customers_services WHERE service_id = 7;
 
-
+DELETE FROM services where description = 'Bulk Email';
