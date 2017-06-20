@@ -165,8 +165,28 @@ A-3 VIDEO - Excuting SQL statements from Ruby:
 A-4 Video - Demo:
   # .... #
 
-A-10+... Notes:
+A-10... Notes:
   # take notes! #
+
+A-11: Video - Code Structure (diagram):
+  # take notes! #
+
+A-12 Notes:
+  - ILIKE => case insenstivie version of LIKE operator
+
+A-13.... etc:
+  # review? #
+
+
+
+
+--------------------- LESSON 5 - Database-backed Web Apps  -----------------
+
+What schema does an application require?:
+  - # Being able to map the data used by a project to a database schema is an important skill.
+
+A-3 Project Overview Video:
+  # watch again and take notes! #
 
 
 
