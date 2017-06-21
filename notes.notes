@@ -188,7 +188,11 @@ What schema does an application require?:
 A-3 Project Overview Video:
   # watch again and take notes! #
 
+A-4... etc...:
+  # take notes... #
 
+Load_todos video:
+  - by default, everything we send to or get back from PG gem that gets turned into a query or gets sent back as result is a <string>
 
 
 
