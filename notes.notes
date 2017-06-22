@@ -194,6 +194,80 @@ A-4... etc...:
 Load_todos video:
   - by default, everything we send to or get back from PG gem that gets turned into a query or gets sent back as result is a <string>
 
+- sinatra reloader can load more files:
+  - "http://www.sinatrarb.com/contrib/reloader"
+
+SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+LEFT OUTER JOIN
+  (SELECT list_id, count(*) AS incomplete FROM todos
+   WHERE completed = false
+   GROUP BY list_id)
+ AS sub ON sub.list_id = lists.id
+GROUP BY lists.id, sub.incomplete;
+
+
+
+--------------------- LESSON 6 - Optimizing SQL Queries  -----------------
+KEY POINTS:
+  - #  what are N + 1 queries
+    - #  how can they be addressed?
+  - #  what is a subquery?
+    - #  how to use it?
+
+A-1 video:
+  - < N + 1 query > => #  total num of queries == num of elems on screen + 1 for original query
+    - ex: loading todo lists on "/lists"
+
+  -basic web dev pattern:
+    - get things to work using basic methods
+    - after, go and optimize things to improve performance
+
+  - minimzing amount of SQL queries needed to display a page is an important way to optimize
+    - allows us to sustain a larger num of users, and also make better use of resources on host
+
+
+
+- many queries can be accomplished by using either JOINs or subqueries
+
+
+A-3 video - optimizing n+1 queries:
+  # TAKE NOTES FROM VIDEO AT 18:20-end!!!
+
+  - only optimize like this when really necessary
+    - like after you notice performance issues
+      - then you can create special case queries liek this
+  - more generalized queries makes developing app much simpler and convenient
+
+
+
+A-3 video - pushing down operations to the DB:
+  # maybe take more notes...?
+
+  - it's more efficent to get DB to count things than Ruby
+    - especially w/ large amounts of data!
+
+# what we did in video:
+  1. we moved some business logic from the app into the DB (ie, count)
+    - allows us to perform same functionality in more efficient way
+
+  2. we standardized how hashes are used in the app, and made sure that they always have the same keys in them
+    - makes app simpler
+    - lets us rely on fact that certain keys will always be there
+
+  3. we changed way we load data for a list page
+    - load list hash into ivar
+    - load todos into separate ivar
+
+
+
+
+----------------- TO STUDY -------------------
+  - #  review all 'what to focus on' and 'summaries'
+
+
+
+
 
 
 ---------- questions ------------
@@ -201,3 +275,108 @@ Load_todos video:
 - difference b/w entity and entity instance?
 - "Relational databases are called relational because they persist data in a set of relations"
   - # lookup # ---> "persist data in a set of relations"...
+
+- # heroku todos internal server error??
+
+
+
+
+
+
+
+---------------------------------------------------
+[sql]
+
+
+
+INSERT INTO lists (name) VALUES
+  ('Groceries'),
+  ('Homework'),
+  ('Chores'),
+  ('Work'),
+  ('Trips'),
+  ('Calls'),
+  ('Errands');
+
+INSERT INTO todos (name, completed, list_id) VALUES
+  ('Science', false, 1),
+  ('Math', false, 1),
+  ('Lettuce', false, 2),
+  ('Cheese', false, 2),
+  ('Onion', true, 2),
+  ('Dust bookshelves', false, 4),
+  ('Grocery store', false, 8),
+  ('Cleaners', false, 8),
+  ('Bank', true, 8),
+  ('Library', false, 8);
+
+
+SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+LEFT OUTER JOIN
+  (SELECT list_id, count(*) AS incomplete FROM todos
+   WHERE completed = false
+   GROUP BY list_id)
+ AS sub ON sub.list_id = lists.id
+GROUP BY lists.id, sub.incomplete;
+
+
+
+SELECT lists.*,
+       count(todos.id) AS todos_count,
+       count(nullif(todos.completed, true)) AS todos_remaining
+  FROM lists
+    LEFT JOIN todos ON todos.list_id = lists.id
+  GROUP BY lists.id;
+
+
+[end]
+
+
+
+
+
+----------- backup from DB_persistence.rb -------------------------
+[ruby]
+
+def all_lists
+  sql = <<~SQL
+    SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+    FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+    LEFT OUTER JOIN
+      (SELECT list_id, count(*) AS incomplete FROM todos
+       WHERE completed = false
+       GROUP BY list_id)
+     AS sub ON sub.list_id = lists.id
+    GROUP BY lists.id, sub.incomplete;
+  SQL
+  result = query(sql)
+
+  result.map do |tuple|
+    list_id = tuple['id'].to_i
+
+    { id:    list_id,
+      name:  tuple['name'],
+      todos: create_empty_todos(tuple['incomplete'], tuple['total']) }
+  end
+end
+
+def create_empty_todos(incomplete, total)
+  num_complete = total.to_i - incomplete.to_i
+  num_incomplete = incomplete.to_i
+
+  [ *(1..num_complete).map { |n| { id: 0, name: '', completed: true } },
+    *(1..num_incomplete).map { |n| { id: 0, name: '', completed: false } } ]
+end
+
+
+### IMPLEMENT...?
+  # def error=(msg)
+  #   session[:error] = msg
+  # end
+
+  # def success=(msg)
+  #   session[:success] = msg
+  # end
+
+[end]

@@ -46,3 +46,15 @@ psql todos < schema.sql
 
   -- b/c Enumerable is included in PG::Result so any Enumerable methods are available to be called on it
 
+
+
+
+
+
+---------------------- 11. Working with Lists --------------------
+---------------------- 12. Working with Todos --------------------
+
+  -- see database_persistence.rb file
+
+
+
