@@ -1,0 +1,672 @@
+SQL:
+  - DDL, DML, DCL
+  - INNER/LEFT/RIGHT JOIN
+  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
+  - GROUP BY, ORDER BY, WHERE, HAVING
+
+PostgreSQL:
+  - sequence
+  - auto-incrementing column
+  - DEFAULT value
+  - keys:  primary, foreign, natural, surrogate
+  - CHECK constraints
+  - foreign key constraints
+
+DB Diagrams:
+  - cardinality, modality
+  - crow's foot notation
+
+=============================================================================
+=============================================================================
+------------------ SQL -------------------------------------------------------
+=============================================================================
+=============================================================================
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Name and define the three sublanguages of SQL.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- DDL: (*Data Definition Language*)
+  - responsible for creating, modifying, and deleting any attributes related to a database's or table's structure or schema
+  ex: `ALTER, CREATE, DROP, ADD, DESCRIBE`
+
+  - *schema* => a DB's schema is the structure of a table....?
+    - everything displayed by the `\d` command
+        ex: a column's name, type, and any options # (ex: properties/keys/constraints)
+
+  - Data Definition Statements are commands that relate to the structure of the database.
+      ex: `createdb CREATE TABLE \d table_name psql database_name DROP DATABASE ALTER TABLE DROP TABLE`...? (some aren't technically part of SQL standard though....?)
+
+
+
+- DML: (*Data Manipulation Language*)
+  - responsible for creating, reading, updating, and deleting the actual data w/i a DB
+  - CRUD operations (create, read, update, delete data)
+      ex: `INSERT, SELECT, UPDATE, DELETE`
+
+  - DB's *data* => the actual content of the tables
+      ex: `SELECT * FROM table_name`
+
+  - Data Manipulation Statements are used for the accessing and manipulating the data of the database.
+
+
+
+-  even though the output looks different, # both the data and schema perspectives are views into the same table.
+
+
+
+- DCL: (*Data Control Language*)
+  - responsible for controlling who can access what in a DB
+    - ie, permissions/authorizations given to users of a DB
+  ex: `GRANT, REVOKE`
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Explain the difference between INNER, LEFT OUTER, and RIGHT OUTER joins.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- a JOIN is a way to combine the rows/columns of two or more tables
+
+- *INNER JOINs*:
+  - joins only the rows in both tables in which the expression in the ON clause evaluates to true...?
+
+  - An INNER JOIN returns a result set that contains the common elements of the tables, i.e the intersection where they match on the joined column.
+  - the most frequently used JOINs.
+
+
+- *LEFT OUTER JOINs*:
+  - join all the rows in the left table, but only the rows in the right table that satisfy the condition specified in the ON clause, otherwise the rows in the right table will be filled with NULL or undefined values
+
+
+- *RIGHT OUTER JOINs*:
+  - join all the rows in the right table, but only rows in the left table where ON clause evals to true
+
+
+#####
+- PostgreSQL allows relationships between both the schema and data of different tables through the use of FOREIGN KEYS and an operation called a JOIN
+- *JOINs* => clauses in SQL statements that link 2 tables based on 1+ fields
+  - reduce redundancy in DB:
+    - A table doesn't have to contain all the fields related to its rows, and table data can be used in multiple places
+#####
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Write SQL statements using INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+[sql]
+
+  CREATE TABLE people (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    age integer NOT NULL CHECK (age > 0)
+  );
+
+  INSERT INTO people (name, age)
+  VALUES
+    ('Bob', 22), ('Fred', 66), ('Eric', 55), ('Nancy', 44),
+    ('Steve', 22), ('Fiona', 77), ('Feltzheimer', 99);
+
+  UPDATE people SET age = 33 WHERE id = 1;
+
+  DELETE FROM people WHERE id = 2;
+
+  ALTER TABLE people ADD COLUMN gender char(1);
+
+  ALTER TABLE people ALTER COLUMN name TYPE varchar(100);
+
+  ALTER TABLE people DROP COLUMN gender;
+
+  ALTER TABLE people RENAME COLUMN name TO first_name;
+
+  ALTER TABLE people RENAME TO ppl;
+
+  DROP TABLE people;
+
+[/sql]
+
+
+- SELECT:
+  - the most used command, and has the most clauses
+  - command for retrieving data in a table
+  - a wild card character, `*`, is an indicator to the SELECT command to return all the columns it finds in a given table(s).
+  - the FROM clause tells the SELECT statement which DB table will be used.
+  - the WHERE clause adds selection criteria, so that only certain rows are selected based on the specified condition(s)
+
+- *UPDATE* / *DELETE*:
+  - WHERE clause provides criteria for updating/deleting specific records
+    - not providing a WHERE clause to the query will apply action to all records
+  - # always back up your DB and test your UPDATE and DELETE queries on dummy data first.
+
+- *ALTER*
+  - Before jumping in to alter your table, take extra time to think about how the change will affect your data.
+      ex: Deleting a column means all data in that column will be lost forever.
+  - <ALTER TABLE> statement is for altering a # table schema only
+    - use <UPDATE> to change its # data
+  - use an ADD COLUMN clause in an ALTER TABLE statement to add a column that wasn't specified in the original schema
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Understand how to use GROUP BY, ORDER BY, WHERE, and HAVING.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+[sql]
+
+SELECT * FROM people WHERE age > 44;
+
+SELECT * FROM people ORDER BY age DESC;
+
+SELECT * FROM people ORDER BY age ASC;
+
+SELECT gender, count(id) FROM people
+GROUP BY gender;
+
+SELECT string_agg(name, ', '), count(id) FROM people
+GROUP BY gender
+HAVING count(id) > 2;
+
+[/sql]
+
+
+
+
+
+
+
+
+=============================================================================
+=============================================================================
+------------------ PostgreSQL ------------------------------------------------
+=============================================================================
+=============================================================================
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Describe what a sequence is and what they are used for.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- a sequence is a type of relation that is often created to be used as the primary key column of a table.
+- It can be created by:
+  - automatically:  specifying `serial` in the data type of a column
+    - also will add `TYPE` of `integer` to column
+    - also will add a `NOT NULL` constraint to the column
+    - also will add a DEFAULT value of `nextval('seq_name'::regclass)` to the column
+  - manually:  `CREATE SEQUENCE seq_name`
+    - then you have to add the above modifiers yourself
+
+- It is usually used in this form:
+  [sql]
+    CREATE TABLE people (id serial PRIMARY KEY)
+  [/sql]
+    - this will create a sequence with the name `people_id_seq`
+    - it will have a `start_value` of 1 by default, and will automatically increment every time a row is inserted or attempted to be inserted into the table
+    - this also adds a PRIMARY KEY constraint to the column
+
+
+- setval() is a function that sets the current value of a sequence.
+  - Remember, that we are using sequences to set and increment the default value of certain table ids when a value isn't supplied.
+  - In the above data we set our ids manually.
+  - But if we want the option to auto generate ids later on, we'll have to make sure the sequence values match the current id values.
+  - This is why we use setval() in the above list of commands.
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Create an auto-incrementing column.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- specifying `serial` in the data type of a column is a way to create identifier columns for a PSQL DB to auto increment ids and set their type as integer
+  - (similar to using `AUTO_INCREMENT` in other RDBMSs)
+
+[sql]
+
+---- manually ----
+
+CREATE SEQUENCE cats_id_seq;
+
+CREATE TABLE cats (
+  id integer NOT NULL DEFAULT nextval('cats_id_seq'),
+  name text
+);
+
+
+
+---- shortcut using serial ----
+
+CREATE TABLE cats (
+  id serial,
+  name text
+);
+
+
+
+-- the correct way to insert data into a column that has the nextval function:
+
+INSERT INTO cats (name) VALUES ('Fluffy');
+
+[/sql]
+
+- each time a new record is inserted (or attempted to be inserted...?), the `nextval()` function increments the last id by 1, and that value is set as the default value of the current record's id
+  - b/c the id column has the nextval property, we should not include it when inserting values, and let PSQL automatically generate a value
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Define a default value for a column.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+[sql]
+
+---- new table ----
+
+CREATE TABLE cats (
+  id serial PRIMARY KEY,
+  name text DEFAULT 'Fluffy',
+  age integer
+);
+
+INSERT INTO cats (age) VALUES (5);
+
+
+
+---- existing table ----
+
+ALTER TABLE cats ALTER COLUMN age SET DEFAULT 1;
+
+INSERT INTO cats (name) VALUES ('Caaaat');
+
+[/sql]
+
+- the column `name` has an <extra property> `DEFAULT` w/ a <value> of "Fluffy"
+
+- PSQL will use the default value listed if no value is set when a new record is inserted
+
+- if the `NULL` property of a column is set to `NOT`, and has no default value, then the column cannot be skipped when inserting a record
+  - # The NOT NULL constraint prevents a column from allowing a null value (i.e. this column must contain data).
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Be able to describe what a primary, foreign, natural, and surrogate keys are.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- *primary key*:
+  #####
+    - *PK* => a column that uniquely identifies a <record> (row of data) of a table
+      - b/c of this we can use a row's PK value to reference that row from other tables
+    - maximum of 1 PK column per table
+    - all values in the PK column must be unique throughout that table
+      - PSQL doesn't allow duplicate values to be added to PK column
+
+    - PKS are used b/c each *record* (row of data) must be uniquely identifiable for the DB to be able to keep track of all its records
+    - PKS are given performance benefits in PSQL b/c they're frequently used to look up data, esp. in multi-table lookups
+
+    - <terminology> -- 2 options:
+      - #  id column is the Primary Key of this table
+      - #  the Primary Key constraint has been applied to the id column
+  #####
+
+  - primary key constraint automatically sets a `NOT NULL` constraint
+
+  - standard conventions:
+    - each table should have a primary key column with the name of `id`
+      - (technically any column can be the PK)
+    - this should automatically be set to a unique value upon row insertion
+    - it is usually a positive integer, generated by means of an auto-incrementing sequence, such as `serial`, but it can also be another data type, such as a UUID, which can be better suited for certain use cases
+
+
+- *foreign key*:
+   - # Foreign keys are how a RDBMS sets up relationships between rows of data, either in the same table or across tables.
+  - a foreign key column holds values that reference a primary key
+    - usually the PK is in another table, but can also be another column in the same table
+    - # FK columns contain the value of the referenced row's PK
+  - it's often used to specify a relationship between two tables
+    ex: when JOINing tables, it is used in the ON clause to compare with the primary key of another table
+  - a foreign key constraint does # not # automatically add a `NOT NULL` constraint by default
+  - foreign keys are usually used in a table that has a one to many relationship w/ another table
+    - the FK is on the many side, and the PK is on the one side
+
+  - a foreign key constraint ensures the <referential integrity> w/i a DB
+    - it makes sure that every foreign key value in a table references an existing primary key in the table it is related to
+      - it will not allow deletion of a primary key from one table that is referenced by another table, nor addition of a foreign key that doesn't reference an exisitng primary key
+
+
+
+ex:
+  [sql]
+        CREATE TABLE people (
+          id serial PRIMARY KEY,
+          name text
+        );
+
+        CREATE TABLE phones (
+          id serial PRIMARY KEY,
+          imei_number integer UNIQUE NOT NULL,
+          owner_id integer REFERENCES people(id)
+        );
+  [end]
+
+#####
+  - the `PRIMARY KEY` constraint sets the <primary key> of these tables to the id column
+  - the `FOREIGN KEY` constraint maps the owner_id from the phones table to the primary key id of the people table.
+#####
+
+
+- a table can only have one primary key, but can have multiple foreign keys
+- both PKs (and FKs...?) can be made up of more than 1 column, in which case they are called <composite keys>
+  - # see cardinality section below...
+  - usually in M:M rels
+
+
+
+
+- *natural key*:
+  - a key that can be used to uniquely identify rows of data w/i a table, using a column that already exists and is a an attribute of the entity that the table represents
+  ex: IMEI for phones (International Mobile Equipment Identity)
+    - this is a number that's assigned to every cell phone to uniquely identify it
+
+- *surrogate key*:
+  - a key that's created only for the purpose of being used as a unique identifer for rows of data w/i a table
+    - it isn't an attribute of the entity
+  ex: creating an auto-incrementing sequence to be used as a primary key of a table
+
+
+
+#........keys and constraints........#
+- "https://launchschool.com/books/sql/read/constraints"
+  - A database must adhere to certain properties to maintain the integrity and quality of the data that it is storing.
+  - Keys and Constraints are rules that define what data values are allowed in certain data columns.
+  - They are an important database concept and are part of a database's schema definition.
+  - Defining Keys and constraints is part of the database design process and ensures that the data within a database is reliable and maintains its integrity.
+  - Constraints can apply to a specific column, an entire table, more than one table, or an entire schema.
+  - A reliable database system ensures that constraints hold at all times.
+  - Keys are a special type of constraint used to establish relationships and uniqueness.
+#....................................#
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Create and remove CHECK constraints from a column.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+[sql]
+
+  -- CREATE TABLE:
+  CREATE TABLE cats (
+    id serial PRIMARY KEY,
+    name text CHECK (length(name) > 0),
+    age integer
+  );
+
+  -- fail -> name can't be empty:
+  INSERT INTO cats (name) VALUES ('');
+
+   -- success:
+  INSERT INTO cats (name) VALUES ('F');
+
+
+
+  -- ADD CONSTRAINT:
+  ALTER TABLE cats ADD CONSTRAINT positive_age CHECK (age > 0);
+
+  -- success -> age can be NULL:
+  INSERT INTO cats (name) VALUES ('Fluffy');
+
+  -- fail -> age can't be negative:
+  INSERT INTO cats (name, age) VALUES ('Furball', -5);
+
+  -- success:
+  INSERT INTO cats (name, age) VALUES ('Furball', 5);
+
+
+
+  -- DROP CONSTRAINT:
+  ALTER TABLE cats DROP CONSTRAINT positive_age;
+
+  -- success -> no more CHECK constraint on age:
+  INSERT INTO cats VALUES ('Teddy', -3)
+
+[end]
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Create and remove foreign key constraints from a column.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+[sql]
+
+  CREATE TABLE cats (
+    id serial PRIMARY KEY,
+    name text
+  );
+
+  -- CREATE TABLE:
+  CREATE TABLE toys (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    cat_id integer REFERENCES cats(id)
+  );
+
+  -- or:
+  CREATE TABLE toys (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    cat_id integer,
+    FOREIGN KEY toys_cat_id_fkey REFERENCES cats(id)
+  );
+
+
+
+  -- DROP:
+  ALTER TABLE toys DROP FOREIGN KEY toys_cat_id_fkey;
+
+
+
+  -- ADD:
+  ALTER TABLE toys ADD FOREIGN KEY cat_id REFERENCES cats(id);
+
+
+
+
+  -- foreign keys maintain referential integrity:
+  INSERT INTO cats VALUES (1, 'fluffy');
+  INSERT INTO toys VALUES (1, 'mouse', 1);
+
+  INSERT INTO toys VALUES (1, 'mouse', 2);
+    -- duplicate key value violates unique constraint "toys_pkey"
+    -- DETAIL:  Key (id)=(1) already exists.
+
+  DELETE FROM cats WHERE id = 1;
+    -- update or delete on table "cats" violates foreign key constraint "toys_cat_id_fkey" on ta
+    -- DETAIL:  Key (id)=(1) is still referenced from table "toys".
+
+[end]
+
+
+
+
+
+
+
+=============================================================================
+=============================================================================
+------------------ Database Diagrams -----------------------------------------
+=============================================================================
+=============================================================================
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Define cardinality and modality.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+- *cardinality* => the number of objects on each side of a relationship
+  - 3 types: one-to-one, one-to-many- many-to-many (1:1, 1:M, M:M)
+    - 1:1 are rarely used, as usually this type of relationship can be combined into one entity
+        ex: a phone has one IMEI number and an IMEI number has one phone
+
+    - 1:M are when for one entity instance of a relation, there can be multiple entity instances of the relation on the other side of the relationship
+        ex: a phone has one owner, but an owner can have many phones
+          - the FK in the phones table would reference the PK in the owners table
+
+    - M:M are when there can be multiple entity instances on either side of the relationship
+        ex: a phone can have multiple contacts on it, and the same contact can be on multiple different phones
+      - a join table is  usually created to specify this
+          ex: contacts_owners
+
+
+- *modality* => whether a relationship is required or optional
+  - 1 is used to indicate required
+    - there must be at least one entity instance on one side of a relationship
+    ex: all phones must have an IMEI number
+
+  - 0 is used to indicate optional (or not required)
+    - there doesn't have to be any entity instances on one side of a relationship
+    ex: a phone does not need to have an owner, it could be still in the store
+    ex: an owner may not have lost his phone
+
+
+
+
+# libary example from SQL BOOK:
+  - "https://launchschool.com/books/sql/read/multi_tables"
+    - One User has MANY books that he/she may have checked out or returned.
+    - A Book is/has been checked out by MANY users.
+    - One Book has MANY reviews.
+    - One User has MANY reviews.
+    - A User has ONE address.
+
+
+  - A <one-to-one relationship> between two entities exists when a particular entity instance exists in one table, and it can have only one associated entity instance in another table.
+        ex: A user has only one address, and an address belongs to only one user.
+
+    - # implementation: the id that is the PRIMARY KEY of the users table is used as both the FOREIGN KEY and PRIMARY KEY of the addresses table.
+        ex:
+    [sql]
+          CREATE TABLE users (
+            id serial,
+            username VARCHAR(25) NOT NULL,
+            enabled boolean DEFAULT TRUE,
+            last_login timestamp NOT NULL DEFAULT NOW(),
+            PRIMARY KEY (id)
+          );
+
+          /*
+           one to one: User has one address
+          */
+
+          CREATE TABLE addresses (
+            user_id int NOT NULL,
+            street VARCHAR(30) NOT NULL,
+            city VARCHAR(30) NOT NULL,
+            state VARCHAR(30) NOT NULL,
+            PRIMARY KEY (user_id),
+            CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
+          );
+    [end]
+
+
+
+  - A <one-to-many relationship> exists between two entities if an entity instance in one of the tables can be associated with multiple records (entity instances) in the other table. The opposite relationship does not exist; that is, each entity instance in the second table can only be associated with one entity instance in the first table.
+      ex: A book has many reviews. A review belongs to only one book.
+
+    - implementation: by ensuring that the book_id that is the PRIMARY KEY of the books table is a FOREIGN KEY of the reviews table
+
+
+
+  - a <many-to-many relationship> exists between two entities if for one entity instance there may be multiple records in the other table and vice versa.
+      ex: A user has many books checked out or may have checked them out in the past. A book has many users that have checked a book out.
+
+    - implementation: by introducing a third cross-reference table (JOIN table), that holds the relationship between the two entities, which is the PRIMARY KEY of the books table and the PRIMARY KEY of the user table.
+        ex: Look at the line `PRIMARY KEY (user_id, book_id)`. The primary key is not a single key, but a *composite key* based on user_id and book_id. Therefore, the pair has to be unique.
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Be able to draw database diagrams using crow's foot notation.:
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+- #  SEE PICTURES!
+  - "https://launchschool.com/books/sql/read/multi_tables"
+
+//    -|-|-------O-|-
+          - one-to-one relationship
+            - left side is required to have at least one entity instance
+            - right side is not required, and may have 0 entity instances
+
+//    -|-|-------O-<
+          - one-to-many relationship
+            - left side is required
+            - right is optional
+
+//    >-|-------O-<
+          - many-to-many relationship
+            - left side is required
+            - right side is optional

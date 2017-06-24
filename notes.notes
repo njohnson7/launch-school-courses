@@ -274,8 +274,37 @@ A-3 video - pushing down operations to the DB:
 
 
 
+
+
+=============================================================================
 ----------------- TO STUDY -------------------
+=============================================================================
+
+
   - #  review all 'what to focus on' and 'summaries'
+
+  - #  answer all study guide questions throroughly and write out examples when possible
+
+SQL:
+  - DDL, DML, DCL
+  - INNER/LEFT/RIGHT JOIN
+  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
+  - GROUP BY, ORDER BY, WHERE, HAVING
+
+PostgreSQL:
+  - sequence
+  - auto-incrementing column
+  - DEFAULT value
+  - keys:  primary, foreign, natural, surrogate
+  - CHECK constraints
+  - foreign key constraints
+
+DB Diagrams:
+  - cardinality, modality
+  - crow's foot notation
+
+=============================================================================
+=============================================================================
 
 
 
@@ -390,5 +419,28 @@ end
   # def success=(msg)
   #   session[:success] = msg
   # end
+
+[end]
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------delete...--------------------------
+
+[sql]
+
+
+
+
+
+
+
 
 [end]
