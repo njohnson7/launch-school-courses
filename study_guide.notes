@@ -38,6 +38,11 @@ DB Diagrams:
 
 
 
+- Relational databases are called relational because they persist data in a set of relations, or, as they are more commonly called, tables.
+- A relationship is a connection between entity instances, or rows of data, usually resulting from a relationship between what those rows of data represent.
+
+
+
 
 
 ---============================================================================
@@ -131,45 +136,84 @@ Explain the difference between INNER, LEFT OUTER, and RIGHT OUTER joins.:
 ---============================================================================
 
 
-! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!   WATCH JOINs VIDEOS   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  - "https://launchschool.com/lessons/1b2f0fb4/assignments/2164a0fc"
-
-
-
 - a JOIN is a way to combine the rows/columns of two or more tables
 
 - (JOINs are usually faster than subqueries)
+
 
 - *INNER JOINs*:
   - returns a result set containing elements common to both tables
     - ie, the intersection where they match on the joined column.
   - most common type of JOIN
+  - ...connects 2 tables together where the condition is true in the ON clause...
+  - INNER JOIN tells the DB that it needs to find a matching row in both tables in order to return data from either one
+    - rows that don't have a matching value in either one of the tables are not included in the results
+  - use INNER JOIN when you know when all the values will be there and there won't be any opportunity for a missing value
+    - when this isn't the case, use OUTER JOIN to make sure that you always get # all # of the values from one table or the other
+
 
 
 - *LEFT OUTER JOINs*:
   - join all the rows in the left table, but only the rows in the right table that satisfy the condition specified in the ON clause, otherwise the columns in the right table will be filled with NULL or undefined values for any left table row that doesn't satisfy the condition
     - it will always include all rows from the left table, even if there are no matching rows in the other table
+  - LEFT OUTER JOIN tells DB that we want to get back the data from # all # of the rows in the left table (the first table)
+    - so there will be # at least one # row for every row in left table, regardless of if there was a matching value in the right table
+    - always get all the values in the left table
+    - only get  values from right table if there's a matching row
+      - otherwise filled w/ NULL values in right columns
+
 
 
 - *RIGHT OUTER JOINs*:
   - join all the rows in the right table, but only rows in the left table where ON clause evals to true
   - similar to a LEFT join, except all the rows in the right table are included instead
+  - LEFT OUTER JOIN is much more common
+    - usualyl when you write a query, you start w/ the table that you want all the values for
+      - so you use LEFT OUTER JOIN to connect other tables to the rows of that first (left) table, but you don't want to exclude rows from the original table that don't have matching values in the other table(s)
+
+
 
 
 #####
+
 - PostgreSQL allows relationships between both the schema and data of different tables through the use of FOREIGN KEYS and an operation called a JOIN
 - *JOINs* => clauses in SQL statements that link 2 tables based on 1+ fields
   - reduce redundancy in DB:
     - A table doesn't have to contain all the fields related to its rows, and table data can be used in multiple places
+
+- it's best to always use the most explicit name for JOINs b/c it improves the understanding for other humans that are working on the same code you are
+
 #####
+
 
 
 
 
 #.............#
+
 - one reason JOINs are useful is b/c after converting an existing single table to a 1:M rel, If we had an application that was expecting query results to be returned with this structure, we would be able to craft new queries using JOINs so that our application's code wouldn't need to change even though the database schema did.
+
+
+- CROSS JOIN => returns the cartesian product
+  - takes each row from 1st table and matches it up to each row in 2nd table, and returns every possible combo of rows from those 2 tables
+  - no ON clause
+  - not commonly used b/c not many use cases
+  - CROSS JOIN is generally best suited to generating test data rather than production queries.
+
+
+- different ways to write out JOINs:
+  - CROSS JOIN
+      ex: SELECT * FROM users, comments;
+  - INNER JOIN
+      ex: SELECT * FROM users, comments WHERE comments.user_id = users.id
+  - regular JOIN syntax is better:
+    - it's more explicit about what kind of JOIN is being used
+    - easier to change (ie, from LEFT to RIGHT)
+    - how the table is being joined is in the join clause (ON clause), instead of conditions
+      - it's less obvious whihc WHERE condition is being used for JOIN vs. which is being used to filter the data being returned
+    - best to be explicit!
+      -
+
 #.............#
 
 
@@ -918,16 +962,79 @@ Create and remove foreign key constraints from a column.:
 =============================================================================
 =============================================================================
 
+- 3 levels of schema/abstraction :
+  - things shown are different, depending on level
 
-! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!   WATCH DATABASE DIAGRAMS VIDEOS !!!!!!!!!!!!!!!!!!!!!!!!!!
-! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  - "https://launchschool.com/lessons/1b2f0fb4/assignments/db29d48b"
-  - "https://launchschool.com/lessons/1b2f0fb4/assignments/f3a4f56e"
+  - *conceptual schema* => a high-level design focused on identifying entities and their relationships (...and higher level attributes...)
+    - bigger objects
+    - higher level concepts and entities
+    - very abstract way of thinking about data
+      - isn;t concerend w/ how data or relationships b/w objects will be stored in DB
+
+  - *physical schema* => a low-level database-specific design focused on implementation
+    - all the diffrent attrs that an entity can hold
+    - data types of all those entities
+    - rules about how different entities and attrs relate to each other
+
+    - has column name, column type, and symbols to the right
+      - symbols: N => NOT NULL, P => primary key, F => foreign key
+      - line from PK to FK
+    - talk about tables, not entities at this level
 
 
-- *conceptual schema* => a high-level design focused on identifying entities and their relationships
-- *physical schema* => a low-level database-specific design focused on implementation
+
+  - *logical* => combo b/w the above 2
+    - isn't specific to an actual DB
+        ex: use SQL Standard column types
+    - not commonly used
+    -
+
+
+- Entity-relationship model (ERD) (entity relationship diagram)
+  - a conceptual schema
+  - entities => higher level concepts/objects in the system you'r thinking about building
+    - represented by a rectangle
+      - name appearing inside of the entity
+        - that's # the name of that entity itself #
+            ex: call, user, order item etc
+  - ER models focus purely on the entities and how they relate
+    - so we need a way to describe rels b/w different entities
+      - 2 main ways to do: draw lines b/w entities (4:30)
+      - 2 kinds of connections:
+        - single line joining directly to entity => singular side of relationship
+        - foot of bird/rake side => many side
+          - multiple instances of that entity on that side
+  - 1:1
+  - 1:m => first side single instance, other side multiple instances (all of same type of entity)
+      ex: single contact can have many calls
+  - m:m => multiple instances of a specific kind of entity on either side of rel
+
+  - shows entities and the rels b/w them
+
+  - call boxes in ERD # entities, NOT TABLES #
+    - at conceptual level, you don't think about how data will be stored yet
+    - 5 entities doesn't always mean 5 tables
+      - usually at least 5, maybe more
+
+  - at this point think about what the data is that you're representing, and how that data is grouped into entities that represdent specific pieces of the functionality of the app
+
+  - based on the direction in the ERD, you can figure out where the ids are going to be in the physical schema
+    - on the many side, there will be a FK
+    - on the one side, there will be a PK
+
+  - when you see an ERD, think about how it will translate into an actual DB
+
+  - whenever you have a M:M rel b/w 2 entities, there will always be an extra table in the physical shceam that represents that rel
+    - so 2 entities in ERD ----> 3 tables
+    - join tables
+      - b/c they join together 2 sides of the rel
+
+    - #  the number of entities in a high level shcema won't always match the num of DB tables in a low-level schema
+
+
+
+
+
 
 ---============================================================================
 ---============================================================================
@@ -952,7 +1059,7 @@ Define cardinality and modality.:
           ex: contacts_owners
 
 
-- *modality* => indicates whether a relationship is required or optional
+- *modality* => indicates whether a relationship is required (1) or not required (optional) (0)
   - 1 is used to indicate required
     - there must be at least one entity instance on one side of a relationship
     ex: all phones must have an IMEI number
@@ -961,6 +1068,17 @@ Define cardinality and modality.:
     - there doesn't have to be any entity instances on one side of a relationship
     ex: a phone does not need to have an owner, it could be still in the store
     ex: an owner may not have lost his phone
+
+  - modality => lower bound on how many instances there can be in a rel
+  - notated by 1 or 0
+
+  - adding modality to ERD:
+    - more specific about the business rules that govern the way an app will operate
+      - ex: book has to have at least 1 author
+    - usually not directly reflected in physical scheam
+      - sometimes constraints are added to enforce these ruiles
+      - but this is more useful for dev to understand how system will work, and understanding rels b/w entities
+      -
 
 
 
@@ -1002,12 +1120,24 @@ Define cardinality and modality.:
           );
     [end]
 
+    - 1:1 rels are rare
+      - if there is one, usually it means the 2 entities should be folded into a single entity
+        - or storedi n the same table when ERD is converted to physical schema
+        - ambiguous in physical schema which side the PK id should be on to tie them together
+        - 1:1 rels look the same as 1:M rels in a physical schema
+          - ie, FK and PK
+
+
+
+
 
 
   - A <one-to-many relationship> exists between two entities if an entity instance in one of the tables can be associated with multiple records (entity instances) in the other table. The opposite relationship does not exist; that is, each entity instance in the second table can only be associated with one entity instance in the first table.
       ex: A book has many reviews. A review belongs to only one book.
 
     - implementation: by ensuring that the book_id that is the PRIMARY KEY of the books table is a FOREIGN KEY of the reviews table
+
+    -
 
 
 
@@ -1032,19 +1162,45 @@ Be able to draw database diagrams using crow's foot notation.:
 - #  SEE PICTURES!
   - "https://launchschool.com/books/sql/read/multi_tables"
 
+- #  NO NEED FOR JOIN TABLES IN ERDs!
+  - they represent entities, not tables, so 1 less entity than table in 1:M rels
+
 //    -|-|-------O-|-
           - one-to-one relationship
-            - left side is required to have at least one entity instance
+            - left side is required to have exactly one entity instance
+              - exactly one
             - right side is not required, and may have 0 entity instances
+              - 0 or 1
 
 //    -|-|-------O-<
           - one-to-many relationship
             - left side is required
             - right is optional
+              - 0 or more
 
 //    >-|-------O-<
           - many-to-many relationship
             - left side is required
+              - at least 1 or more
             - right side is optional
 
 - *ERD* => a conceptual schema
+
+- Crows foot:
+  - one of the most common ERD notatiosn
+  - easy to understand
+    - b/c it literally represents the idea its trying to represent
+      - 1/0 for modality
+      - crows foot vs. single line for cardinality
+
+
+- when you encounter a diagram:
+  - ask what level of schema it's representing (phys/concept/logic)
+  - how are certain things represented
+    - the different types of rels
+    - are the rels themselves actually shown
+    - are the attrs of the entities show, and if so, in what way?
+      - are the data types of those attrs displayed as well?
+
+
+

@@ -10,13 +10,6 @@
   - #  add examples of what ahppens when you try to alter a table's schema and the table already has values that violate a new constraint/type/etc...
 
 
-  - #  finish lesson 3, and M:M exercise set
-  - #  watch JOINs video
-  - #  watch both diagrams videos
-  - #  review these notes
-  - #  anki all SQL cards
-  - #  look up entity vs entity instance
-
 SQL:
   - DDL, DML, DCL
   - INNER/LEFT/RIGHT JOIN
@@ -288,6 +281,7 @@ KEY POINTS:
 
 A-1 video:
   - < N + 1 query > => #  total num of queries == num of elems on screen + 1 for original query
+          !!!! FLASH CARD !!!!!
     - ex: loading todo lists on "/lists"
 
   -basic web dev pattern:
@@ -462,69 +456,4 @@ end
   #   session[:success] = msg
   # end
 
-[end]
-
-
-
-
-
-
-
-
-
-
-
------------------------------------delete...--------------------------
-
-[sql]
-
-
-SELECT *, length(username) FROM users LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(username) FROM users LEFT JOIN addresses ON users.id = user_id;
---------------------------------------------------------------------------------
-select *, length(username) from users left join addresses on user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, LENGTH(username) FROM users LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(users.username) FROM users LEFT JOIN addresses ON addresses.user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(username) FROM users LEFT OUTER JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT users.*, addresses.*, length(username) FROM users LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(u.username) FROM users u LEFT JOIN addresses a ON a.user_id = u.id;
---------------------------------------------------------------------------------
-SELECT *, length(u.username) FROM users AS u LEFT JOIN addresses AS a ON a.user_id = u.id;
---------------------------------------------------------------------------------
-SELECT *, length(username)
-  FROM users LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(username)
-  FROM users
-  LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT *, length(username) FROM users
-LEFT JOIN addresses ON user_id = users.id;
---------------------------------------------------------------------------------
-SELECT    *, length(username) FROM users
-LEFT JOIN addresses ON user_id = users.id;
-
-
-
-
-INSERT INTO directors (name) VALUES ('John McTiernan');
-INSERT INTO directors (name) VALUES ('Michael Curtiz');
-INSERT INTO directors (name) VALUES ('Francis Ford Coppola');
-INSERT INTO directors (name) VALUES ('Michael Anderson');
-INSERT INTO directors (name) VALUES ('Tomas Alfredson');
-INSERT INTO directors (name) VALUES ('Mike Nichols');
-SELECT * FROM directors;
-
-UPDATE films SET director_id=1 WHERE director = 'John McTiernan';
-UPDATE films SET director_id=2 WHERE director = 'Michael Curtiz';
-UPDATE films SET director_id=3 WHERE director = 'Francis Ford Coppola';
-UPDATE films SET director_id=4 WHERE director = 'Michael Anderson';
-UPDATE films SET director_id=5 WHERE director = 'Tomas Alfredson';
-UPDATE films SET director_id=6 WHERE director = 'Mike Nichols';
 [end]
