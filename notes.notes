@@ -1,24 +1,51 @@
-  __library >> SELECT *,  FROM (SELECT users.*, users_books.*
-.............. FROM users
-.............. INNER JOIN users_books
-.............. ON users.id = users_books.user_id) u;
+=============================================================================
+----------------- TO STUDY -------------------
+=============================================================================
 
 
--------------- DO LATER --------------
-### More query ideas.
+  - #  review all 'what to focus on' and 'summaries'
 
-We would like to leave you with some query ideas that you can try out on the library database that we have walked through in this book. In many cases, you may need to insert more data into your tables before you can create these queries.
+  - #  answer all study guide questions throroughly and write out examples when possible
 
-    Select books that have never been checked out
-    Select user that has the most books checked out
-    Select users that are most active
-    Select users with the most books
-    Select users with the most reviews
-    Select queries with =, vs in, vs Not IN, vs Like
-    SQL queries with wild card search and limit
+  - #  add examples of what ahppens when you try to alter a table's schema and the table already has values that violate a new constraint/type/etc...
 
-### M-to-M exercise 5 further exploration: lag
 
+  - #  finish lesson 3, and M:M exercise set
+  - #  watch JOINs video
+  - #  watch both diagrams videos
+  - #  review these notes
+  - #  anki all SQL cards
+  - #  look up entity vs entity instance
+
+SQL:
+  - DDL, DML, DCL
+  - INNER/LEFT/RIGHT JOIN
+  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
+  - GROUP BY, ORDER BY, WHERE, HAVING
+
+PostgreSQL:
+  - sequence
+  - auto-incrementing column
+  - DEFAULT value
+  - keys:  primary, foreign, natural, surrogate
+  - CHECK constraints
+  - foreign key constraints
+
+DB Diagrams:
+  - cardinality, modality
+  - crow's foot notation
+
+
+
+========
+
+- table and column aliases video...?
+  - "https://launchschool.com/lessons/d8c90dd4/assignments/1a303905"
+
+
+
+=============================================================================
+=============================================================================
 
 
 Docs video:
@@ -30,7 +57,7 @@ Docs video:
     - <bold/italic terms>: more info about term is somewhere in page later
 
 
-PSQL review video:
+PSQL CLI interface video:
   - <modifiers column>: meta-data about the column that DB uses when you're inserting values or modifying already existing values
   - <indexes and constraints>: things that DB uses to enforce rules about what data can be stored in the table, as well as the relationships b/w values in diff. places and diff. tables
 
@@ -43,12 +70,56 @@ PSQL review video:
 
 
 
-------------------------------------------------------------------------
-    ### LESSON 2 ASSIGNMENT 10 NOTES ###
-      - "https://launchschool.com/lessons/d8c90dd4/assignments/7761a32a"
-      - how SELECT works underneath
-------------------------------------------------------------------------
 
+
+
+
+==============================================================================
+              #     How PostgreSQL Executes a SELECT Query     #
+==============================================================================
+
+1. <rows> are <collected> into a <virtual derived table>
+  - a new temporary table is created using the data from all tables in the `FROM` and `JOIN` clauses
+
+2. <rows> are <filtered> using `WHERE` <conditions>
+  - all the conditions in the WHERE clause are evaluated for each row
+      ---> rows that don't meet these requirements are removed
+
+3. <rows> are <divided> into <groups> specified by `GROUP BY` clause
+  - both GROUP BY and aggregate functions perform grouping
+
+4. <groups> are <filtered> using `HAVING` conditions
+  - HAVING conditions are similar to WHERE conditions
+    - except they are applied to the values that are used to create groups, instead of individual rows
+    - so a column appearing in a HAVING clause should almost always appear in the GROUP BY clause and/or aggregate function
+
+5. <compute values to return> using <select list>
+  - each element in the select list is evaluated, including any functions
+  - the resulting values are associated with either:
+    a. name of the column they are from
+    b. name of the last function evaluated
+    c. name specified by `AS`
+
+6. <sort> results
+  - result set is sorted as specified in an `ORDER BY` clause
+    - w/o this clause, the order is based on the result of how the DB executed the query and the rows' order in the original tables
+    - it's best to always specify an explicit order if your app relies on rows being returned in a specific order
+
+7. <limit> results
+  - if `LIMIT` or `OFFSET` clauses are included in the query, these are used to adjust which rows in the result set are returned
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================================================
 
 
 --------- Lessos 2 Assignment 11 VIDEO - Table and COlumn Aliases-------------
@@ -276,35 +347,6 @@ A-3 video - pushing down operations to the DB:
 
 
 
-=============================================================================
------------------ TO STUDY -------------------
-=============================================================================
-
-
-  - #  review all 'what to focus on' and 'summaries'
-
-  - #  answer all study guide questions throroughly and write out examples when possible
-
-SQL:
-  - DDL, DML, DCL
-  - INNER/LEFT/RIGHT JOIN
-  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
-  - GROUP BY, ORDER BY, WHERE, HAVING
-
-PostgreSQL:
-  - sequence
-  - auto-incrementing column
-  - DEFAULT value
-  - keys:  primary, foreign, natural, surrogate
-  - CHECK constraints
-  - foreign key constraints
-
-DB Diagrams:
-  - cardinality, modality
-  - crow's foot notation
-
-=============================================================================
-=============================================================================
 
 
 
@@ -437,10 +479,52 @@ end
 [sql]
 
 
+SELECT *, length(username) FROM users LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(username) FROM users LEFT JOIN addresses ON users.id = user_id;
+--------------------------------------------------------------------------------
+select *, length(username) from users left join addresses on user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, LENGTH(username) FROM users LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(users.username) FROM users LEFT JOIN addresses ON addresses.user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(username) FROM users LEFT OUTER JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT users.*, addresses.*, length(username) FROM users LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(u.username) FROM users u LEFT JOIN addresses a ON a.user_id = u.id;
+--------------------------------------------------------------------------------
+SELECT *, length(u.username) FROM users AS u LEFT JOIN addresses AS a ON a.user_id = u.id;
+--------------------------------------------------------------------------------
+SELECT *, length(username)
+  FROM users LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(username)
+  FROM users
+  LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT *, length(username) FROM users
+LEFT JOIN addresses ON user_id = users.id;
+--------------------------------------------------------------------------------
+SELECT    *, length(username) FROM users
+LEFT JOIN addresses ON user_id = users.id;
 
 
 
 
+INSERT INTO directors (name) VALUES ('John McTiernan');
+INSERT INTO directors (name) VALUES ('Michael Curtiz');
+INSERT INTO directors (name) VALUES ('Francis Ford Coppola');
+INSERT INTO directors (name) VALUES ('Michael Anderson');
+INSERT INTO directors (name) VALUES ('Tomas Alfredson');
+INSERT INTO directors (name) VALUES ('Mike Nichols');
+SELECT * FROM directors;
 
-
+UPDATE films SET director_id=1 WHERE director = 'John McTiernan';
+UPDATE films SET director_id=2 WHERE director = 'Michael Curtiz';
+UPDATE films SET director_id=3 WHERE director = 'Francis Ford Coppola';
+UPDATE films SET director_id=4 WHERE director = 'Michael Anderson';
+UPDATE films SET director_id=5 WHERE director = 'Tomas Alfredson';
+UPDATE films SET director_id=6 WHERE director = 'Mike Nichols';
 [end]

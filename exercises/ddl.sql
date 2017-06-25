@@ -26,7 +26,6 @@ CREATE TABLE stars (
 
 
 
-
 -------------- 2.  Relating Stars and Planets --------------------------------
 
 ALTER TABLE planets ADD COLUMN star_id integer NOT NULL REFERENCES stars;
