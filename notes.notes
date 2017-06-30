@@ -1,0 +1,16 @@
+================================================================
+--- Lesson 2 - Improving HTML/CSS Video ---
+================================================================
+
+- header:
+  - instead of #header --->
+  - direct child:
+        body > header {
+          padding: 1rem 2.5rem;
+          background: #FF2D00;
+        }
+    - or role selector:
+          header[role=banner] {
+            padding: 1rem 2.5rem;
+            background: #FF2D00;
+          }
