@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang='en-US'>
+
 <head>
   <title>Floats and Page Layout</title>
   <meta charset='utf-8'>
@@ -9,24 +10,32 @@
     }
 
     #columns {
-      margin: 0 0 0 220px;
+      background: #333;
+      margin: 0 auto;
+      padding: 20px;
+      width: 840px;
+      overflow: hidden;
+    }
+
+    /* instead of: */
+    #columns:after {
+      display: block;
+      clear: both;
+      content: '';
     }
 
     #primary, #secondary {
       background: #33b5e5;
-      padding: 25px;
-      box-sizing: border-box;
     }
 
     #primary {
-      float: right;
-      width: 100%
+      float: left;
+      width: 575px;
     }
 
     #secondary {
-      float: left;
-      width: 200px;
-      margin: 0 0 0 -220px;
+      float: right;
+      width: 245px;
     }
   </style>
 </head>
