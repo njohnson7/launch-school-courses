@@ -1,44 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>JS Bin</title>
-    <style>
-      body {
-        background: black;
-      }
+<head>
+  <meta charset="utf-8" />
+  <title>JS Bin</title>
+  <style>
+    body {
+      background: black;
+    }
 
-      p {
-        padding: 1em;
-        margin: 0;
-      }
+    p {
+      padding: 1em;
+      margin: 0;
+    }
 
-      main {
-        min-width: 600px;
-      }
+    main {
+      min-width: 600px;
+    }
 
-      main > p {
-        background: #18aaff;
-        box-sizing: border-box;
-        float: right;
-        width: 80%;
-      }
+    main > p {
+      background: #18aaff;
+      box-sizing: border-box;
+      float: right;
+      width: 80%;
+    }
 
-      #floated {
-        background: #ecaa33;
-        box-sizing: border-box;
-        float: left;
-        width: 20%;
-      }
-    </style>
-  </head>
+    #floated {
+      background: #ecaa33;
+      box-sizing: border-box;
+      float: left;
+      width: 20%;
+    }
 
-  <body>
-    <main>
-      <div id="floated">
-        <p>This paragraph should appear on its own line.</p>
-      </div>
-      <p>This paragraph should appear below the div. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </main>
-  </body>
+    /*================*/
+
+    main:after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+
+    #test {
+      background: #255;
+      color: #eee;
+      left: 50px;
+      position: relative;
+      top: 100px;
+      width: 500px;
+    }
+
+    #top-bar {
+      position: fixed;
+      right: 0;
+      top: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+  <main>
+    <div id="floated">
+      <p>This paragraph should appear on its own line.</p>
+    </div>
+    <p>This paragraph should appear below the div. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </main>
+
+  <div id='test'>
+    <h1>test</h1>
+  </div>
+</body>
 </html>
