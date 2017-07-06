@@ -9,7 +9,9 @@ main {
   border: solid 2px #999;
   padding: 20px;
   margin: 0 auto;
-  width: 990px;
+  width: 1000px;
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
@@ -19,7 +21,7 @@ h1 {
 
 p {
   line-height: 2.2rem;
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 h2 {
@@ -84,38 +86,83 @@ a {
 
 .yes-width-yes-height-float-left-div {float: left;background-color: #ff6347;width: 400px;height: 70px;}
 
-.yes-width-yes-height-float-right-div {
-
-}
+.yes-width-yes-height-float-right-div {height: 70px;width: 490px;float: right;background-color: #1e90ff;}
 
 .float-div-p {
   text-align: center;
   margin: 25px;
 }
 
-.float-left-div {
-
+.block-anchor, .inline-block-anchor {
+  background-color: #1e90ff;
+  color: #eee;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
 }
 
-.float-right-div {
-
+.block-anchor {
+  display: block;
+  margin: 10px;
+  padding: 10px;
 }
 
-.float-bottom-div {
-
+.inline-block-anchor {
+  display: inline-block;
+  margin: 8px;
+  padding: 22px 67px;
+  font-size: 1.08rem;
 }
 
-.fixed {
-
+.left-pad {
+  margin-left: 110px;
 }
 
-.relative {
+.top-border {border-top: dashed 2px #555;padding: 30px;text-align: center;margin-top: 45px;}
 
+.float-left-div, .float-right-div, .float-bottom-div {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.08rem;
 }
 
-.absolute {
-
+.float-left-div, .float-right-div {
+  padding: 45px 0;
 }
+
+.float-left-div {float: left;background-color: #ff6347;width: 473px;}
+
+.float-right-div {float: right;background-color: #1e90ff;width: 527px;}
+
+.float-bottom-div {clear: both;background-color: #2e8b57;padding: 15px;margin-bottom: 30px;}
+
+code {
+  display: block;
+  margin: 20px 98px;
+  white-space: pre;
+}
+
+ul {
+  font-style: italic;
+  line-height: 30px;
+  margin: 0 40px 40px;
+}
+
+.fixed, .relative, .absolute {
+  border-radius: 10px;
+  text-align: center;
+  padding: 24px;
+}
+
+.fixed, .absolute {
+  width: 150px;
+}
+
+.fixed {background-color: #1e90ff;position: fixed;bottom: 45px;z-index: -1;left: 35px;padding: 24px 36px;}
+
+.relative {background-color: #ff6347;position: relative;width: 275px;right: 88px;top: 36px;}
+
+.absolute {background-color: #008000;position: absolute;left: 250px;bottom: 410px;padding: 24px 25px;}
 
 div p {
   margin: 0;
@@ -125,7 +172,15 @@ div p {
 
 .clearfix {
   clear: both;
-  content: '';
+  /* content: ''; */
   display: block;
-  margin-top: 90px;
+  padding-top: 45px;
+}
+
+div {
+  color: #fff;
+}
+
+.no-width-yes-height-div p {
+  padding: 22px 0;
 }
