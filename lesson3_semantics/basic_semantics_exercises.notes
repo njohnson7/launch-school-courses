@@ -1,0 +1,26 @@
+1. which tags are/aren't semantic?
+- semantic: article, aside, footer, h3, header, section, strong
+- not: b, div, span
+
+
+
+2. ...
+<article>
+
+
+
+3. ...
+<blockquote> b/c it is an extended quotation
+
+
+
+
+4. ...
+<section>
+- it's not an aside b/c it appears to be part of the main document flow
+
+
+
+
+5. ...
+<aside> b/c it's tangnetially related to the material above, and not part of the main text

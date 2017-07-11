@@ -42,3 +42,44 @@ Decipher the Design Files:
 
 - 'Further Reading' section on all assignments
 - install HTML linter for Sublime
+
+
+
+
+
+----------------------- SCRATCH ------------------------------
+
+[html]
+
+<footer>
+  <small>&copy; Styles Conference</small>
+</footer>
+
+            <a class="btn btn-danger">...</a>
+            <a class="btn btn-success">...</a>
+[end][css]
+            .btn {
+              font-size: 16px;
+            }
+            .btn-danger {
+              background: red;
+            }
+            .btn-success {
+              background: green;
+            }
+
+            .banner {
+              font-size: 14px;
+              width: 5em;
+            }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  /* fallback to 50% if 50vw not recognized: */
+  width: 50%; width: 50vw;
+}
+
+[end]
