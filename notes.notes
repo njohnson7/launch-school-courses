@@ -46,6 +46,8 @@ Decipher the Design Files:
 - vertical-align on inline-block elems
 - watch flexbox talk
   - and flexbox info...?: "https://launchschool.com/lessons/4933c521/assignments/232bf105"
+- # physical pixel vs. CSS pixel ---> problem for assessment?
+- Shaye HOwe positioning
 
 
 https://launchschool.com/lessons/283ebb5e/assignments/88ab86cc
@@ -53,7 +55,7 @@ https://launchschool.com/lessons/4933c521/assignments/cf6a0e33
 
 
 ----------------------- SCRATCH ------------------------------
-
+The `border-collapse` property must have its default value of ***~~`separated`~~ [separate]*** when using `border-spacing`.
 [html]
 
 <footer>
