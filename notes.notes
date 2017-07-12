@@ -42,9 +42,14 @@ Decipher the Design Files:
 
 - 'Further Reading' section on all assignments
 - install HTML linter for Sublime
+- visual formatting model / visual display model
+- vertical-align on inline-block elems
+- watch flexbox talk
+  - and flexbox info...?: "https://launchschool.com/lessons/4933c521/assignments/232bf105"
 
 
-
+https://launchschool.com/lessons/283ebb5e/assignments/88ab86cc
+https://launchschool.com/lessons/4933c521/assignments/cf6a0e33
 
 
 ----------------------- SCRATCH ------------------------------
@@ -57,7 +62,28 @@ Decipher the Design Files:
 
             <a class="btn btn-danger">...</a>
             <a class="btn btn-success">...</a>
+
+
+                <header class="container">...</header>
+                <footer class="container">...</footer>
+
+                <p>This is the first sentence</p>
+                <p>This is the second sentence</p>
 [end][css]
+                p {
+                  margin-top: 32px;
+                  margin-bottom: 15px;
+                }
+
+
+                .container {
+                  margin: 0 auto;
+                  padding-left: 30px;
+                  padding-right: 30px;
+                  width: 960px;
+                }
+
+
             .btn {
               font-size: 16px;
             }
@@ -80,6 +106,14 @@ body {
 p {
   /* fallback to 50% if 50vw not recognized: */
   width: 50%; width: 50vw;
+}
+
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 [end]
