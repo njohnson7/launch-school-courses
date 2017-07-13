@@ -48,6 +48,9 @@ Decipher the Design Files:
   - and flexbox info...?: "https://launchschool.com/lessons/4933c521/assignments/232bf105"
 - # physical pixel vs. CSS pixel ---> problem for assessment?
 - Shaye HOwe positioning
+- do shay howe tutorial again?
+- w3c proper style on assessment
+- watch floats video: "https://css-tricks.com/video-screencasts/42-all-about-floats-screencast/"
 
 
 https://launchschool.com/lessons/283ebb5e/assignments/88ab86cc
@@ -55,7 +58,9 @@ https://launchschool.com/lessons/4933c521/assignments/cf6a0e33
 
 
 ----------------------- SCRATCH ------------------------------
-The `border-collapse` property must have its default value of ***~~`separated`~~ [separate]*** when using `border-spacing`.
+
+
+
 [html]
 
 <footer>

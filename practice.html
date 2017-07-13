@@ -7,33 +7,24 @@
     body {
       background: #000;
       color: #eee;
-      width: 800px;
-      height: 1600px;
+
     }
 
+
+    div:not(.awesome) { color: blue; }
+    :not(div) { color: red; }
     body {
-      width: 800px;
-      height: 1600px;
+      color: green;
     }
-    article {
-      padding: 10%;
-      /*box-size: border-box;*/
-      box-sizing: border-box;
-      /*border: 15px solid red;*/
-      width: 400px;
-    }
-
-
-
   </style>
 </head>
-
-
 <body>
 
-
-<article>jahsdjkashd</article>
-
+  <div>This div will be selected</div>
+  <div class="awesome">...</div>
+  <div class="awesome">222</div>
+  <section>This section will be selected</section>
+  <section class="awesome">This section will be selected</section>
 
 </body>
 </html>
