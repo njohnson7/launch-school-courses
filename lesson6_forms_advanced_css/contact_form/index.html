@@ -6,7 +6,7 @@
   <link rel='stylesheet' href='style.css'>
 </head>
 <body>
-  <form action='' method='post'>
+  <form action='#' method='post'>
     <fieldset>
       <dl class='name partial'>
         <dt>
@@ -29,7 +29,7 @@
           <label for='email'>Email</label>
         </dt>
         <dd>
-          <input type='email' name='email' id='email' placeholder='bob@gmail.com' inputmode='email' required>
+          <input type='email' name='email' inputmode='email' id='email' placeholder='bob@gmail.com' required>
         </dd>
       </dl>
       <dl class='city partial'>
@@ -37,7 +37,7 @@
           <label for='city'>City</label>
         </dt>
         <dd>
-          <input type='text' name='city' id='city' required>
+          <input type='text' name='city' id='city'>
         </dd>
       </dl>
       <dl class='state partial'>
@@ -45,8 +45,8 @@
           <label for='state'>State</label>
         </dt>
         <dd>
-          <select name='state' id='state' required>
-            <option>AK</option><option>AL</option><option>AR</option><option>AZ</option><option selected>CA</option><option>CO</option><option>CT</option><option>DC</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>IA</option><option>ID</option><option>IL</option><option>IN</option><option>KS</option><option>KY</option><option>LA</option><option>MA</option><option>MD</option><option>ME</option><option>MI</option><option>MN</option><option>MO</option><option>MS</option><option>MT</option><option>NC</option><option>ND</option><option>NE</option><option>NH</option><option>NJ</option><option>NM</option><option>NV</option><option>NY</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VA</option><option>VT</option><option>WA</option><option>WI</option><option>WV</option><option>WY</option>
+          <select name='state' id='state'>
+            <option>AK</option><option>AL</option><option>AR</option><option>AZ</option><option>CA</option><option>CO</option><option>CT</option><option>DC</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>IA</option><option>ID</option><option>IL</option><option>IN</option><option>KS</option><option>KY</option><option>LA</option><option>MA</option><option>MD</option><option>ME</option><option>MI</option><option>MN</option><option>MO</option><option>MS</option><option>MT</option><option>NC</option><option>ND</option><option>NE</option><option>NH</option><option>NJ</option><option>NM</option><option>NV</option><option>NY</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VA</option><option>VT</option><option>WA</option><option>WI</option><option>WV</option><option>WY</option>
           </select>
         </dd>
       </dl>
@@ -55,43 +55,43 @@
           <label for='zipcode'>Zipcode</label>
         </dt>
         <dd>
-          <input type='text' name='zipcode' id='zipcode' placeholder='55555' minlength='5' maxlength='5' inputmode='numeric' required>
+          <input type='text' name='zipcode' id='zipcode' placeholder='55555' minlength='5' maxlength='5' inputmode='numeric'>
         </dd>
       </dl>
-      <dl class='colors'>
+      <dl class='color'>
         <dt>Which of these colors do you most prefer?</dt>
         <dd>
           <label>
-            <input type='radio' name='colors' value='red' checked>Red
+            <input type='radio' name='color' value='red' checked>Red
           </label>
         </dd>
         <dd>
           <label>
-            <input type='radio' name='colors' value='orange'>Orange
+            <input type='radio' name='color' value='orange'>Orange
           </label>
         </dd>
         <dd>
           <label>
-            <input type='radio' name='colors' value='yellow'>Yellow
+            <input type='radio' name='color' value='yellow'>Yellow
           </label>
         </dd>
         <dd>
           <label>
-            <input type='radio' name='colors' value='green'>Green
+            <input type='radio' name='color' value='green'>Green
           </label>
         </dd>
         <dd>
           <label>
-            <input type='radio' name='colors' value='blue'>Blue
+            <input type='radio' name='color' value='blue'>Blue
           </label>
         </dd>
         <dd>
           <label>
-            <input type='radio' name='colors' value='purple'>Purple
+            <input type='radio' name='color' value='purple'>Purple
           </label>
         </dd>
       </dl>
-      <dl class='technologies'>
+      <dl>
         <dt>What web technologies do you want to hear more about?</dt>
         <dd>
           <label>
@@ -119,7 +119,7 @@
           </label>
         </dd>
       </dl>
-      <dl class='comment'>
+      <dl>
         <dt>
           <label for='comment'>Comment</label>
         </dt>
