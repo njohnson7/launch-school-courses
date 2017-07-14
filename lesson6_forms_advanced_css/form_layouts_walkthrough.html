@@ -34,9 +34,7 @@
       margin-top: 10px;
     }
     select {
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
       border: 1px solid #33b5e5;
       height: 40px;
       padding: 0 8px;
@@ -67,8 +65,10 @@
         <label for='name'>Your Name</label>
       </dt>
       <dd>
-        <input type='text' name='name' id='name' value='WTF OMG BBQ gg'>
+        <input type='text' name='name' id='name'>
       </dd>
+    </dl>
+    <dl>
       <dt>
         <label for='address'>Address</label>
       </dt>
@@ -76,33 +76,33 @@
         <input type='text' name='address' id='address'>
         <input type='text' name='address2'>
       </dd>
-      <dl class='city partial'>
-        <dt>
-          <label for='city'>City</label>
-        </dt>
-        <dd>
-          <input type='text' name='city' id='city'>
-        </dd>
-      </dl><!--
-      --><dl class='state partial'>
-        <dt>
-          <label for='state'>State</label>
-        </dt>
-        <dd>
-          <select id='state' name='state'>
-            <option>AK</option>
-            <option>AL</option>
-          </select>
-        </dd>
-      </dl><!--
-      --><dl class='zipcode partial'>
-        <dt>
-          <label for='zipcode'>Zipcode</label>
-        </dt>
-        <dd>
-          <input type='text' name='zipcode' id='zipcode'>
-        </dd>
-      </dl>
+    </dl>
+    <dl class='city partial'>
+      <dt>
+        <label for='city'>City</label>
+      </dt>
+      <dd>
+        <input type='text' name='city' id='city'>
+      </dd>
+    </dl><!--
+    --><dl class='state partial'>
+      <dt>
+        <label for='state'>State</label>
+      </dt>
+      <dd>
+        <select id='state' name='state'>
+          <option>AK</option>
+          <option>AL</option>
+        </select>
+      </dd>
+    </dl><!--
+    --><dl class='zipcode partial'>
+      <dt>
+        <label for='zipcode'>Zipcode</label>
+      </dt>
+      <dd>
+        <input type='text' name='zipcode' id='zipcode'>
+      </dd>
     </dl>
   </form>
 </body>
