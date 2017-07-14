@@ -1,18 +1,31 @@
 @import url('whitespace-reset.css');
 
-body {
-  background: #000;
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
 
+.clearfix:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+html, body {
+  background: #d2dbbd linear-gradient(#d2dbbd, #fcfff5) no-repeat;
   color: #3e606f;
-  font: normal 18px 'Roboto Condensed', sans-serif;
-  background-image: linear-gradient(to bottom, #d2dbbd, #fcfff5);
-  background-repeat: no-repeat;
+  font: normal normal 18px 'Roboto Condensed', sans-serif;
+}
+
+header, main, footer {
+  margin: 0 auto;
+  width: 960px;
 }
 
 header {
-  margin: 0 auto;
   padding: 20px 20px 0 20px;
-  width: 940px;
+}
+
+h1, h2 {
+  font-weight: normal;
 }
 
 h1 {
@@ -20,13 +33,12 @@ h1 {
   color: #193441;
   float: left;
   font-size: 36px;
-  font-weight: normal;
-  padding: 45px 0 15px 115px;
+  padding: 45px 0 15px 112px;
 }
 
 nav {
   float: right;
-  padding: 75px 0 0 0;
+  padding-top: 75px;
 }
 
 nav li {
@@ -35,16 +47,42 @@ nav li {
 
 nav a {
   background: #fcfff5;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
   color: #91aa9d;
   display: block;
-  padding: 10px 40px 14px 40px;
+  padding: 11px 40px 14px;
   text-decoration: none;
 }
 
 nav a.active {
-  color: #fcfff5;
   background: #91aa9d;
+  color: #fcfff5;
 }
 
+main {
+  background: #fff;
+  box-shadow: 0px 5px 5px #b5b5b5;
+  padding: 30px 30px 48px;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 37px 0 20px 0;
+}
+
+p {
+  line-height: 23px;
+  margin-bottom: 20px;
+}
+
+.img-article {
+  float: right;
+  margin-left: 37px;
+}
+
+footer {
+  font-size: 14px;
+  margin-bottom: 35px;
+  margin-top: 12px;
+}
