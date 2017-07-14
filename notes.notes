@@ -41,7 +41,7 @@ Decipher the Design Files:
 =============================================================================
 
 - 'Further Reading' section on all assignments
-- install HTML linter for Sublime
+- install HTML linter for Sublime?
 - visual formatting model / visual display model
 - vertical-align on inline-block elems
 - watch flexbox talk
@@ -50,11 +50,32 @@ Decipher the Design Files:
 - Shaye HOwe positioning
 - do shay howe tutorial again?
 - w3c proper style on assessment
-- watch floats video: "https://css-tricks.com/video-screencasts/42-all-about-floats-screencast/"
+- chrome devtools screencasts...?: "https://developers.google.com/web/tools/chrome-devtools/?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3"
+
+Maybe Todo:
+- more flashcards about frames: "https://launchschool.com/lessons/b80a876c/assignments/d3382604"
+- form docs and guide on MDN:
+  - "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form"
+  - "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms"
+- types of input: "https://launchschool.com/lessons/b80a876c/assignments/829021b6"
 
 
-https://launchschool.com/lessons/283ebb5e/assignments/88ab86cc
-https://launchschool.com/lessons/4933c521/assignments/cf6a0e33
+
+
+
+=============================================================================
+------------------------------- Form Layouts --------------------------------
+=============================================================================
+Video:
+- 2 main types of form layouts:
+  1. <label> positioned directly above corresponding input (vertically) (top-to-bottom)
+  2. <label> positioned horizontally (usually left side)
+
+- <dl> is better than <div>....
+
+
+
+
 
 
 ----------------------- SCRATCH ------------------------------
@@ -62,6 +83,44 @@ https://launchschool.com/lessons/4933c521/assignments/cf6a0e33
 
 
 [html]
+
+<form action="/search" method="get" novalidate>
+
+<input type='text' name='phone' placeholder='(212) 555-1212'>
+
+
+
+
+
+
+
+
+
+<form action="/login" method="post">
+  <fieldset>
+    <h1>Log In</h1>
+    <label for="email">Email address</label>
+    <input type="email" name="email" id="email" />
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" />
+    <div class="actions">
+      <input type="submit" value="Login" />
+      <button type="submit" formaction="/account/delete">Delete account</button>
+      <button type="submit" formaction="/account/password_reset">Reset password</button>
+    </div>
+  </fieldset>
+</form>
+
+
+<form id="search" action="/search" method="get">
+  <fieldset>
+    <input type="search" name="query" />
+  </fieldset>
+</form>
+
+<input type="submit" value="Search" form="search" />
+
+
 
 <footer>
   <small>&copy; Styles Conference</small>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <title>Forms Layouts</title>
+  <meta charset='utf-8'>
+  <style>
+    body { background: #000; color: #eee; }
+    * { box-sizing: border-box; }
+    input, select { background: #222; color: #eee; }
+    body {
+      font: normal 14px Helvetica, Arial, sans-serif;
+    }
+    dl {
+      margin: 0;
+      padding-bottom: 20px;
+    }
+    dt {
+      padding-bottom: 10px;
+      vertical-align: middle;
+    }
+    dd {
+      margin: 0;
+      padding-bottom: 20px;
+    }
+    input[type='text'] {
+      border: 1px solid #33b5e5;
+      border-radius: 4px;
+      font: normal 14px Helvetica, Arial, sans-serif;
+      height: 40px;
+      padding: 0 8px;
+      width: 100%;
+    }
+    input[type='text'] + input[type='text'] {
+      margin-top: 10px;
+    }
+    select {
+      -webkit-appearance: none;
+         -moz-appearance: none;
+              appearance: none;
+      border: 1px solid #33b5e5;
+      height: 40px;
+      padding: 0 8px;
+      width: 100%;
+    }
+    dl.partial {
+      display: inline-block;
+      padding-right: 20px;
+    }
+    dl.city {
+      display: inline-block;
+      padding-right: 20px;
+      width: 50%;
+    }
+    dl.state {
+      width: 25%;
+    }
+    dl.zipcode {
+      width: 25%;
+      padding-right: 0;
+    }
+  </style>
+</head>
+<body>
+  <form action='#' method='post'>
+    <dl>
+      <dt>
+        <label for='name'>Your Name</label>
+      </dt>
+      <dd>
+        <input type='text' name='name' id='name' value='WTF OMG BBQ gg'>
+      </dd>
+      <dt>
+        <label for='address'>Address</label>
+      </dt>
+      <dd>
+        <input type='text' name='address' id='address'>
+        <input type='text' name='address2'>
+      </dd>
+      <dl class='city partial'>
+        <dt>
+          <label for='city'>City</label>
+        </dt>
+        <dd>
+          <input type='text' name='city' id='city'>
+        </dd>
+      </dl><!--
+      --><dl class='state partial'>
+        <dt>
+          <label for='state'>State</label>
+        </dt>
+        <dd>
+          <select id='state' name='state'>
+            <option>AK</option>
+            <option>AL</option>
+          </select>
+        </dd>
+      </dl><!--
+      --><dl class='zipcode partial'>
+        <dt>
+          <label for='zipcode'>Zipcode</label>
+        </dt>
+        <dd>
+          <input type='text' name='zipcode' id='zipcode'>
+        </dd>
+      </dl>
+    </dl>
+  </form>
+</body>
+</html>

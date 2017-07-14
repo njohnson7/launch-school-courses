@@ -11,43 +11,62 @@
     }
 
 
-    div:not(.awesome) { color: blue; }
-    :not(div) { color: red; }
-    body {
-      color: green;
-    }
-
-    div {
-      background-image: url('alert.png');
-      background-position: 20px 10px;
-      background-repeat: no-repeat;
-    }
-
-    div {
-      background: linear-gradient(to right bottom, #648880, #293f50);
-    }
-
-
   </style>
 </head>
 <body>
+<form action="" method="post">
+  <fieldset>
+    <dl>
+      <dt>
+        <label>Email</label>
+      </dt>
+      <dd>
+        <input type="email" name="email" disabled value="joe@lindt.com" />
+      </dd>
+      <dt>
+        <label>Full Name</label>
+      </dt>
+      <dd>
+        <input type="text" name="full_name" disabled value="Joe Lindt" />
+      </dd>
+      <dt>
+        <label for="location">Location</label>
+      </dt>
+      <dd>
+        <input type="text" name="location" id="location" placeholder="Gibsonton, FL" required autofocus/>
+      </dd>
+      <dt>
+        <label for="birthday">Birthday</label>
+      </dt>
+      <dd>
+        <input type="text" name="birthday" id="birthday" placeholder="2/28"/>
+      </dd>
+    </dl>
+    <input type="submit" value="Save" />
+  </fieldset>
+</form>
 
-  <div>This div will be selected</div>
-  <div class="awesome">...</div>
-  <div class="awesome">222</div>
-  <section>This section will be selected</section>
-  <section class="awesome">This section will be selected</section>
+
+<!-- The second value will be selected initially -->
+<select name="select"> <!--Supplement an id here instead of using 'name'-->
+  <option value="value1">Value 1</option>
+  <option value="value2" selected>Value 2</option>
+  <option value="value3">Value 3</option>
+</select>
 
 
-<audio controls>
-  <source src="jazz.ogg" type="audio/ogg">
-  <source src="jazz.mp3" type="audio/mpeg">
-  Please <a href="jazz.mp3" download>download</a> the audio file.
-</audio>
+<select name="movie">
+  <optgroup label="DVD">
+    <option>Frozen</option>
+    <option>Toy Story 3</option>
+  </optgroup>
+  <optgroup label="Blu-Ray">
+    <option>Monsters, Inc</option>
+    <option>WALL-E</option>
+  </optgroup>
+</select>
 
-<video src="earth.ogv" controls poster="earth-video-screenshot.jpg"></video>
-
-<iframe src="https://www.google.com/maps/embed?..."></iframe>
+<textarea name='tweet' rows='5' cols='40'>...value...</textarea>
 
 </body>
 </html>
