@@ -4,69 +4,35 @@
   <title>Practice</title>
   <meta charset='utf-8'>
   <style>
-    body {
-      background: #000;
-      color: #eee;
+    body { background: #000; color: #eee; }
+    html { box-sizing: border-box; }
+    *, *:before, *:after { box-sizing: inherit; }
+    input, select { background: #222; color: #eee; }
 
+    ul {
+      list-style: none;
+      padding-left: 0;
     }
 
+    ul li:before, ul li:after {
+      background: #33b5e5;
+      border: 2px solid #333;
+      border-radius: 100%;
+      content: '';
+      display: inline-block;
+      height: 6px;
+      margin: 0 5px;
+    }
 
   </style>
 </head>
 <body>
-<form action="" method="post">
-  <fieldset>
-    <dl>
-      <dt>
-        <label>Email</label>
-      </dt>
-      <dd>
-        <input type="email" name="email" disabled value="joe@lindt.com" />
-      </dd>
-      <dt>
-        <label>Full Name</label>
-      </dt>
-      <dd>
-        <input type="text" name="full_name" disabled value="Joe Lindt" />
-      </dd>
-      <dt>
-        <label for="location">Location</label>
-      </dt>
-      <dd>
-        <input type="text" name="location" id="location" placeholder="Gibsonton, FL" required autofocus/>
-      </dd>
-      <dt>
-        <label for="birthday">Birthday</label>
-      </dt>
-      <dd>
-        <input type="text" name="birthday" id="birthday" placeholder="2/28"/>
-      </dd>
-    </dl>
-    <input type="submit" value="Save" />
-  </fieldset>
-</form>
 
-
-<!-- The second value will be selected initially -->
-<select name="select"> <!--Supplement an id here instead of using 'name'-->
-  <option value="value1">Value 1</option>
-  <option value="value2" selected>Value 2</option>
-  <option value="value3">Value 3</option>
-</select>
-
-
-<select name="movie">
-  <optgroup label="DVD">
-    <option>Frozen</option>
-    <option>Toy Story 3</option>
-  </optgroup>
-  <optgroup label="Blu-Ray">
-    <option>Monsters, Inc</option>
-    <option>WALL-E</option>
-  </optgroup>
-</select>
-
-<textarea name='tweet' rows='5' cols='40'>...value...</textarea>
+  <ul>
+    <li>Wheat bread</li>
+    <li>eggs</li>
+    <li>milk</li>
+  </ul>
 
 </body>
 </html>
