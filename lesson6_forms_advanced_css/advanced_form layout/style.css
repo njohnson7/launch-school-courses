@@ -1,0 +1,124 @@
+@import url('custom-whitespace-reset.css');
+
+html, body, input, select, button {
+  color: #282827;
+  font: normal 16px Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  width: 600px;
+}
+
+header { margin: 24px 0 22px; }
+
+fieldset {
+  background: #ececec;
+  border-left: solid 4px #cdcccb;
+  margin: -10px 0;
+  padding: 44px 32px 25px;
+}
+
+h2, label, button { font-weight: bold; }
+
+h1 { font-size: 28px; }
+
+.heading {
+  color: #282827;
+  font-size: 20px;
+  position: relative;
+  right: 2px;
+  top: 35px;
+}
+
+label { color: #676767; }
+
+input, textarea, button { border-radius: 3px; }
+
+input, p, span {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+input, textarea {
+  border: solid 1px #2e67b2;
+  padding: 12px 8px;
+}
+
+input {
+  font-size: 14px;
+  height: 40px;
+  width: 100%;
+}
+
+textarea {
+  display: block;
+  height: 107px;
+  margin: 7px 0 28px;
+  max-height: 280px;
+  resize: vertical;
+  width: 100%;
+}
+
+button {
+  background: #2e67b2;
+  border: none;
+  color: #fff;
+  height: 46px;
+  width: 176px;
+}
+
+button:hover, button:focus { background: #6095cb; }
+
+dl { margin-bottom: 25px; }
+
+dt { margin: 10px 0; }
+
+dl.name, .social-media, .account-info { font-size: 0; }
+
+.name dt, .name dd, .social-media dl, .account-info dl { font-size: 1rem; }
+
+.name dd {
+  display: inline-block;
+  width: 49%;
+}
+
+.name dd:first-of-type { margin-right: 2%; }
+
+.social-media dl {
+  display: inline-block;
+  width: 31.33333333333%;
+}
+
+.social-media dl { margin-right: 3%; }
+
+.social-media dl:last-of-type { margin-right: 0; }
+
+dl.password {
+  display: inline-block;
+  margin-top: -10px;
+  width: 48.5%;
+}
+
+dl.password + dl.password { margin-left: 3%; }
+
+input[type='checkbox'] {
+  float: left;
+  height: 1em;
+  width: 1em;
+}
+
+span {
+  display: block;
+  float: right;
+  margin-bottom: 25px;
+  width: 96%;
+}
+
+input:checked + span { font-weight: bold; }
+
+fieldset:last-of-type {
+  border-top: solid 0 #000;
+  margin-top: 12px;
+  padding: 25px 32px 25px;
+}
