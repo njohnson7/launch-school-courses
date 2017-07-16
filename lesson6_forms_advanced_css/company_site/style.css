@@ -195,6 +195,7 @@ dd {
   background: #fff;
   border: 1px solid transparent;
   margin: 107px 185px 143px 187px;
+  margin: 107px auto 143px auto;
   position: relative;
   width: 828px;
   z-index: 20;
@@ -220,5 +221,4 @@ dd {
   right: 23px;
   top: 25px;
   width: 30px;
-
 }
