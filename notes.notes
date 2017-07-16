@@ -96,7 +96,8 @@ Video:
 <input type='text' name='phone' placeholder='(212) 555-1212'>
 
 
-
+<!-- Separate CSS File -->
+<link href="styles.css" rel="stylesheet" media="all and (max-width: 1024px)">
 
 
 
@@ -127,7 +128,7 @@ Video:
 
 <input type="submit" value="Search" form="search" />
 
-
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 
 <footer>
   <small>&copy; Styles Conference</small>
@@ -188,5 +189,80 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+
+
+.container {
+  width: 538px;
+}
+section, aside {
+  margin: 10px;
+}
+section {
+  float: left;
+  width: 340px;
+}
+aside {
+  float: right;
+  width: 158px;
+}
+/*===================*/
+section, aside {
+  margin: 1.858736059%; /*  10px ÷ 538px = .018587361 */
+}
+section {
+  float: left;
+  width: 63.197026%;    /* 340px ÷ 538px = .63197026 */
+}
+aside {
+  float: right;
+  width: 29.3680297%;  /* 158px ÷ 538px = .293680297 */
+}
+
+@media print {
+  body { font-size: 10pt }
+}
+@media screen {
+  body { font-size: 13px }
+}
+@media screen, print {
+  body { line-height: 1.2 }
+}
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    body { line-height: 1.4 }
+}
+
+@media all and (min-width: 800px) and (max-width: 1024px) { a { line-height: 1.4 } }
+@media not screen and (color) { a { line-height: 1.4 } }
+@media only screen and (orientation: portrait) { a { line-height: 1.4 } }
+@media (min-width: 700px), handheld and (orientation: landscape) { a { line-height: 1.4 } }
+
+@media all and (min-width: 320px) and (max-width: 780px) { a { line-height: 1.4 } }
+
+img, video, canvas {
+  max-width: 100%;
+}
+
+
+a { color: #ff0000; }
+
+@media (max-width: 480px) {
+  a { color: #0066cc; }
+}
+
+@media screen and (max-width: 480px), screen and (orientation: portrait) { /*...*/}
+
+[end]
+
+
+[ruby]
+
+def dd(target, context)
+  puts format("%.8f\%", (target.fdiv(context) * 100)) + ";"
+end
+
 
 [end]

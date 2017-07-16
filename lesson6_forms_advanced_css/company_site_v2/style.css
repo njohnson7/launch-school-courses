@@ -1,0 +1,424 @@
+@import url('whitespace-reset.css');
+
+html { font: normal 20px Helvetica, Arial, sans-serif; }
+body {
+  background: #2f2840 url('images/bg_body.gif') 95px 0;
+  color: #45494d;
+  max-width: 100vw;
+}
+
+h2, h3, .active {
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 0 auto;
+}
+
+h2:before, h2:after {
+  content: '\2022';
+  font-size: 1.5rem;
+  /*padding: 0 25px;*/
+  padding: 0 3.22580645%;
+  vertical-align: middle;
+}
+
+h3 {
+  color: #3e59b2;
+  font-size: 1.2rem;
+  /*margin-top: 30px;*/
+  margin-top: 3.87096774%;
+}
+
+p {
+  line-height: 1.4rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0 auto;
+  text-align: center;
+  /*width: 435px;*/
+  width: 32.39017126%;
+}
+li {
+  display: inline-block;
+  /*padding-right: 65px;*/
+  padding-right: 14.94252874%;
+}
+li:last-of-type {
+  padding-right: 0;
+}
+
+a {
+  color: #cacaca;
+  text-decoration: none;
+}
+
+header img {
+  display: block;
+  /*margin: 135px auto 0;*/
+  margin: 10.05212211% auto 0;
+}
+
+nav {
+  font-size: 1.3rem;
+  /*margin-top: 125px;*/
+  margin-top: 9.30752048%;
+  text-transform: uppercase;
+}
+
+.active {
+  color: #6db9ff;
+}
+
+main {
+  background: #fff;
+  border-bottom: 0.00000001px solid transparent;
+  border-top: 0.00000001px solid transparent;
+  /*margin-top: 40px;*/
+  margin-top: 2.97840655%;
+  text-align: center;
+  width: 100%;
+}
+
+article {
+  /*margin: 120px auto 0;*/
+  margin: 8.93521966% auto 0;
+  /*width: 775px;*/
+  width: 57.70662695%;
+}
+
+article p {
+  /*margin-top: 15px;*/
+  margin-top: 1.93548387%;
+}
+
+article:last-of-type {
+  margin-bottom: 135px;
+  margin-bottom: 10.05212211%;
+}
+
+.founder h2 {
+  /*margin-top: 145px;*/
+  margin-top: 18.70967742%;
+
+}
+
+.founder p {
+  /*margin-top: 45px;*/
+  margin-top: 5.80645161%;
+}
+
+footer {
+  background: #e7e7e7;
+  border-bottom: 0.00000001px solid transparent;
+  border-top: 0.00000001px solid transparent;
+  color: #b2b2b2;
+}
+
+footer p {
+  /*margin: 88px auto 0;*/
+  margin: 6.55249442% auto 0;
+  text-align: center;
+  /*width: 505px;*/
+  width: 37.60238273%;
+}
+
+footer ul {
+  font-size: 0;
+  /*margin: 37px auto 77px;*/
+  margin: 2.75502606% auto 5.73343261%;
+  /*width: 556px;*/
+  width: 41.39985108%;
+}
+footer li {
+  /*padding-right: 124px;*/
+  padding-right: 22.30215827%;
+}
+footer a {
+  background: transparent url('images/icons_social-media.png') 0 0 no-repeat;
+  display: block;
+  height: 46px;
+  /*height: 27.05882353%;*/
+  width: 46px;
+  /*width: 27.05882353%;*/
+}
+
+.facebook {
+  background-position: 0 33.333333333%;
+}
+.email {
+  background-position: 0 66.666666666%;
+}
+.instagram {
+  background-position: 0 100%;
+}
+
+/*================================= projects =================================*/
+
+.project img {
+  display: block;
+  /*margin: 110px -124px 0;*/
+  margin: 14.19354839% -16.00000000% 0;
+  max-width: 100%;
+}
+
+.project article:first-of-type img {
+  /*margin-top: 35px;*/
+  margin-top: 4.51612903%;
+
+}
+
+.project h3 {
+  /*margin-top: 57px;*/
+  margin-top: 7.35483871%;
+}
+
+/*=================================== team ===================================*/
+
+.team p {
+  /*margin-top: 40px;*/
+  margin-top: 5.16129032%;
+}
+
+dl:first-of-type {
+  /*margin-top: 125px;*/
+  margin-top: 16.12903226%;
+}
+dl {
+  display: inline-block;
+  /*padding-right: 60px;*/
+  padding-right: 7.74193548%;
+}
+a:last-of-type dl {
+  padding-right: 0;
+}
+dd {
+  /*margin-top: 32px;*/
+  margin-top: 16%;
+}
+
+.team article {
+  /*margin-bottom: 225px;*/
+  margin-bottom: 16.75353686%;
+}
+
+/*=============================== team_detail ================================*/
+
+.dimmed {
+  position: relative;
+}
+.dimmed:before {
+  background: rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+.team-detail article {
+  background: #fff;
+  border: 0.00000001px solid transparent;
+  /*margin: 107px auto 143px auto;*/
+  margin: 8.76395476% auto 11.71257505%;
+  position: relative;
+  /*width: 828px;*/
+  width: 67.81826670%;
+  z-index: 20;
+}
+
+.team-detail h3 {
+  background: transparent url('images/img_kevin.jpg') 0 0 no-repeat;
+  background-size: 96px;
+  height: 104px;
+  /*height: 12.56038647%;*/
+
+  /*padding: 42px 0 0 127px;*/
+  padding: 5.07246377% 0 0 15.33816425%;
+  /*margin: 125px 550px 0 87px;*/
+  margin: 15.09661836% 66.42512077% 0 10.50724638%;
+}
+
+.team-detail p {
+  /*margin: 37px 76px 107px 85px;*/
+  margin: 4.46859903% 9.17874396% 12.92270531% 10.26570048%;
+  text-align: justify;
+}
+
+.team-detail a {
+  background: transparent url('images/icon_close.png') 0 0 no-repeat;
+  height: 30px;
+  /*height: 3.62318841%;*/
+  position: absolute;
+  /*right: 23px;*/
+  right: 2.77777778%;
+  /*top: 25px;*/
+  top: 3.01932367%;
+  /*width: 30px;*/
+  width: 3.62318841%;
+}
+
+/*============================== media queries ===============================*/
+
+@media (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+  body {
+    max-width: 100vw;
+  }
+  header img {
+    margin-top: 7%;
+  }
+  nav {
+    margin-top: 4%;
+  }
+  ul {
+    width: 70%;
+  }
+  article {
+    width: 90%;
+  }
+  article p {
+    text-align: justify;
+  }
+  footer p {
+    width: 70%;
+  }
+  footer ul {
+    width: 70%;
+  }
+  footer li {
+    padding-right: 10%;
+  }
+
+  .project img {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .team p {
+    margin-bottom: 8%;
+  }
+  .team dl {
+    margin-top: 3%;
+  }
+  .team img {
+    width: 75%;
+  }
+  .team a:nth-of-type(2) dl {
+    padding-right: 0;
+  }
+  .team a:nth-of-type(2):after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  .team-detail h3 {
+    padding: 8.072464% 0 0 21.338164%;
+  }
+  .team-detail a {
+    width: 5.623188%
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  body {
+    max-width: 100vw;
+  }
+  header img {
+    content: 'Space Design';
+    float: left;
+    margin-top: 1%;
+    object-position: 0 20px;
+    width: 17%;
+  }
+
+  h1:after {
+    background-size: 20%;
+    content: 'Space Design';
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    top: 4.4%;
+    left: 13.4%;
+    height: 20px;
+    width: 100%;
+  }
+  nav {
+    float: right;
+    font-size: .9rem;
+    margin-top: 4%;
+    margin-right: -3%;
+  }
+  nav li {
+    display: block;
+    float: right;
+    padding: 0;
+  }
+  ul {
+    width: 70%;
+  }
+  header:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+  article {
+    width: 90%;
+  }
+  article p {
+    text-align: justify;
+  }
+  footer p {
+    width: 70%;
+  }
+  footer ul {
+    width: 70%;
+  }
+  footer li {
+    padding-right: 10%;
+  }
+
+  .project img {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .team p {
+    margin-bottom: 8%;
+  }
+  .team dl {
+    margin-top: 3%;
+    padding-right: 0;
+  }
+  .team img {
+    width: 50%;
+  }
+  .team a:nth-of-type(2) dl {
+    padding-right: 0;
+  }
+  .team a:nth-of-type(2):after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  .team-detail h3 {
+    padding: 8.072464% 0 0 21.338164%;
+  }
+  .team-detail a {
+    width: 5.623188%
+  }
+
+}
