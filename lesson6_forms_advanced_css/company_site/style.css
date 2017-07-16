@@ -39,7 +39,7 @@ li {
   display: inline-block;
   padding-right: 65px;
 }
-li:last-of-type, dl:last-of-type {
+li:last-of-type {
   padding-right: 0;
 }
 
@@ -159,6 +159,9 @@ dl:first-of-type {
 dl {
   display: inline-block;
   padding-right: 60px;
+}
+a:last-of-type dl {
+  padding-right: 0;
 }
 dd {
   margin-top: 32px;
