@@ -1,0 +1,224 @@
+@import url('whitespace-reset.css');
+body {
+  background: #45494d url('images/bg_body.gif') 60px 0;
+  color: #45494d;
+  font: normal 20px Helvetica, Arial, sans-serif;
+}
+
+h2, h3, nav {
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 36px;
+  margin: 0 auto;
+}
+
+h2:before, h2:after {
+  content: '\2022';
+  padding: 0 25px;
+}
+
+h3 {
+  color: #3e59b2;
+  font-size: 24px;
+  margin-top: 30px;
+}
+
+p {
+  line-height: 28px;
+}
+
+ul {
+  list-style: none;
+  margin: 0 auto;
+  text-align: center;
+  width: 435px;
+}
+li {
+  display: inline-block;
+  padding-right: 65px;
+}
+li:last-of-type, dl:last-of-type {
+  padding-right: 0;
+}
+
+a {
+  color: #cacaca;
+  text-decoration: none;
+}
+
+header img {
+  display: block;
+  margin: 135px auto 0;
+}
+
+nav {
+  font-size: 26px;
+  margin-top: 125px;
+  text-transform: uppercase;
+}
+
+.active {
+  color: #6db9ff;
+}
+
+main {
+  background: #fff;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+article {
+  margin: 120px auto 0;
+  width: 775px;
+}
+
+article p {
+  margin-top: 15px;
+}
+
+article:last-of-type {
+  margin-bottom: 135px;
+}
+
+.founder h2 {
+  margin-top: 145px;
+}
+
+.founder p {
+  margin-top: 45px;
+}
+
+footer {
+  background: #e7e7e7;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  color: #b2b2b2;
+}
+
+footer p {
+  margin: 88px auto 0;
+  text-align: center;
+  width: 465px;
+}
+
+footer ul {
+  font-size: 0;
+  margin: 37px auto 77px;
+  width: 556px;
+}
+footer li {
+  padding-right: 124px;
+}
+footer a {
+  background: transparent url('images/icons_social-media.png') 0 0 no-repeat;
+  display: block;
+  height: 46px;
+  width: 46px;
+}
+.facebook {
+  background-position: 0 -46px;
+}
+.email {
+  background-position: 0 -92px;
+}
+.instagram {
+  background-position: 0 -138px;
+}
+
+/*================================= projects =================================*/
+
+.project img {
+  display: block;
+  margin: 35px -124px 0;
+  margin: 110px -124px 0;
+}
+
+.project article:first-of-type img {
+  margin-top: 35px;
+}
+
+.project h3 {
+  margin-top: 57px;
+}
+
+/*=================================== team ===================================*/
+
+.team p {
+  margin-top: 40px;
+}
+
+/*img: 140w 152h*/
+dl:first-of-type {
+  margin-top: 125px;
+}
+dl {
+  display: inline-block;
+  padding-right: 60px;
+}
+dd {
+  margin-top: 32px;
+}
+
+.team article {
+  margin-bottom: 225px;
+}
+
+/*=============================== team_detail ================================*/
+
+.dimmed {
+  position: relative;
+}
+.dimmed:before {
+  background: rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+.team-detail article {
+  background: #fff;
+  margin: 107px 0 143px 0;
+  position: relative;
+  width: 300px;
+  z-index: 20;
+}
+
+.team-detail article {
+  background: #fff;
+  border: 1px solid transparent;
+  margin: 107px 185px 143px 187px;
+  position: relative;
+  width: 828px;
+  z-index: 20;
+}
+
+.team-detail h3 {
+  background: transparent url('images/img_kevin.jpg') 0 0 no-repeat;
+  background-size: 96px;
+  height: 104px;
+  padding: 42px 0 0 127px;
+  margin: 125px 550px 0 87px;
+}
+
+.team-detail p {
+  margin: 37px 76px 107px 85px;
+  text-align: justify;
+}
+
+.team-detail a {
+  background: transparent url('images/icon_close.png') 0 0 no-repeat;
+  height: 30px;
+  position: absolute;
+  right: 23px;
+  top: 25px;
+  width: 30px;
+
+}
