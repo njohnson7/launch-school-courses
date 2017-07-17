@@ -1,0 +1,94 @@
+@import url('whitespace-reset.css');
+
+html {
+  background: #ffd505;
+  font: normal 16px Helvetica, Arial, sans-seirf;
+}
+
+main {
+  margin: 0 auto;
+  width: 900px;
+}
+
+header {
+  background: #057ec1;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 30px 25px 30px;
+}
+
+header a {
+  color: #fff;
+  font-weight: bold;
+  font-size: 2.4rem;
+  text-decoration: none;
+}
+
+section {
+  background: #ececec;
+  margin-top: 30px;
+  padding: 25px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+ul {
+  margin: 8px 0 17px;
+  font-size: 0;
+}
+
+li {
+  background: #fff;
+  display: inline-block;
+  font-size: 1rem;
+  height: 235px;
+  margin: 17px 17px 0 0;
+  padding: 0px 15px 15px;
+  width: 200px;
+}
+
+li:nth-of-type(4) {
+  margin-right: -1px;
+}
+
+img {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+figure {
+  height: 140px;
+  margin-bottom: 20px;
+}
+
+input {
+  position: relative;
+  margin: -1000px;
+}
+
+input:checked:after {
+  background: rgba(0, 0, 0, 0.4);
+  content: '';
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+
+input:checked + figure img {
+  position: absolute;
+  height: 50%;
+  top: 25vw;
+  left: 25vh;
+}
