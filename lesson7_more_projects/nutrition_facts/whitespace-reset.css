@@ -13,4 +13,3 @@ summary::-webkit-details-marker { display: none; }
 html { box-sizing: border-box; }
 *,*:before,*:after { box-sizing: inherit; }
 h1,h2,h3,h4,h5,h6,th { font-weight: normal; }
-th, td { padding: 0; }
