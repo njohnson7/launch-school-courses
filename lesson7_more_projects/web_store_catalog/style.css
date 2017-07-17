@@ -88,7 +88,9 @@ input:checked:after {
 
 input:checked + figure img {
   position: absolute;
-  height: 50%;
-  top: 25vw;
-  left: 25vh;
+  /*height: 50%;*/
+  height: auto;
+  width: 400px;
+  top: 100px;
+  left: 26vh;
 }

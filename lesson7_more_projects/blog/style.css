@@ -1,0 +1,224 @@
+@import url('whitespace-reset.css');
+
+html {
+  font: normal 20px Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #45494d;
+}
+
+header {
+  background: #3D3D40 url('images/logo.png') 47% 53% no-repeat;
+  background-size: 27rem;
+  margin: 0 auto;
+  padding: 12% 0 5%;
+}
+
+h1 {
+  color: #fff;
+  font-size: 3.4rem;
+  font-weight: bold;
+  letter-spacing: 1.4rem;
+  margin: 0 auto;
+  max-width: 1000px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+a {
+  color: #45494d;
+}
+
+nav {
+  margin: 25% auto 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+h1 a, nav a {
+  color: #fff;
+  text-decoration: none;
+}
+.active, a {
+  text-decoration: none;
+}
+.active, .author a {
+  color: #50c3af;
+}
+nav li {
+  display: inline-block;
+  padding: 0 1.5rem;
+}
+
+.row {
+  margin: 8% auto;
+  max-width: 1000px;
+  /*min-width: 200px;*/
+  /*overflow: hidden;*/
+  /*min-height: 607px;*/
+  /* height: auto; */
+}
+
+.row:after, main:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+main {
+  background: #fff;
+  float: left;
+  height: 100%;
+  margin-left: 2%;
+  margin-right: 9%;
+  width: 66%;
+}
+
+.sidebar {
+  background: #f6f7f8;
+  color: #787b80;
+  /*float: right;*/
+  font-size: 0.7rem;
+  /*height: 100%;*/
+  /*margin: -23%;*/
+  overflow: hidden;
+  /*min-heght: 652.5px;*/
+  padding: 4%;
+  /*width: 23%;*/
+}
+.sidebar h3 {
+  color: #40474e;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.categories ul {
+  letter-spacing: .05rem;
+  margin: 15% 0;
+  list-style: disc url('images/blt_ul.png') inside;
+}
+.categories li {
+  margin: 0.35rem 0;
+}
+.categories a {
+  color: #787b80;
+  margin-left: 0.2rem;
+}
+
+.about {
+  margin: 63.666667% 0;
+  text-align: justify;
+}
+
+.about p {
+  margin: 17% 0;
+  line-height: 1.1rem;
+}
+
+article ~ article {
+  margin-top: 12%;
+}
+
+h2 {
+  letter-spacing: 0.1rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.author {
+  margin-top: 2%;
+}
+
+article p {
+  line-height: 1.4rem;
+  margin-top: 4%;
+  text-align: justify;
+}
+
+.nav-buttons {
+  margin-top: 12%;
+}
+
+.nav-buttons li {
+  display: inline-block;
+  margin-right: 1.3rem;
+  /* width: 4rem; */
+}
+
+.button {
+  background: #d2d5da;
+  border-radius: 2rem;
+  color: #fff;
+  display: block;
+  font-size: 0.7rem;
+  padding: .5rem 1.6rem .3rem;
+  text-align: center;
+  vertical-align: middle;
+  /* width: 4.2rem; */
+}
+
+.post .button {
+  /* width: 1rem; */
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+}
+
+.button:hover, .button:focus, .post .button {
+  background: #50c3af;
+}
+
+footer {
+  border-top: 1px solid #d0d0d0;
+  margin: 0 auto;
+  padding: 3% 0;
+  text-align: left;
+  width: 1000px;
+}
+
+small {
+  font-size: 0.6rem;
+}
+
+.post {
+
+}
+
+.kevin, .chris {
+  background: transparent url('images/img_kevin.jpg') 0 -0.5rem no-repeat;
+  background-size: 2.5rem;
+  padding: 0.2rem 2.8rem 0;
+}
+
+.chris {
+  background: transparent url('images/img_chris.jpg') 0 -0.5rem no-repeat;
+  background-size: 2.5rem;
+  margin-top: 1.8rem;
+}
+
+form {
+  margin-top: 0%;
+}
+
+input, textarea {
+  display: block;
+  font: .75rem Helvetica, Arial, sans-serif;
+  margin: 1.2% 0.7% 3.3%;
+  padding: 0.4rem 0.4rem;
+  /* vertical-align: middle; */
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+  height: 6.4rem;
+}
+
+@media (max-width: 768px) {
+  main, .sidebar {
+    /*float: none;*/
+  }
+}
