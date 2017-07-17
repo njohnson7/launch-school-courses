@@ -42,10 +42,6 @@ section:first-of-type dt, section:first-of-type dd {
   padding-top: 5px;
 }
 
-section:first-of-type dt {
-
-}
-
 dl:after {
   clear: both;
   content: '';

@@ -93,171 +93,17 @@ Video:
 
 [html]
 
-<form action="/search" method="get" novalidate>
-
-<input type='text' name='phone' placeholder='(212) 555-1212'>
-
-
-<!-- Separate CSS File -->
-<link href="styles.css" rel="stylesheet" media="all and (max-width: 1024px)">
 
 
 
-
-
-
-<form action="/login" method="post">
-  <fieldset>
-    <h1>Log In</h1>
-    <label for="email">Email address</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <div class="actions">
-      <input type="submit" value="Login" />
-      <button type="submit" formaction="/account/delete">Delete account</button>
-      <button type="submit" formaction="/account/password_reset">Reset password</button>
-    </div>
-  </fieldset>
-</form>
-
-
-<form id="search" action="/search" method="get">
-  <fieldset>
-    <input type="search" name="query" />
-  </fieldset>
-</form>
-
-<input type="submit" value="Search" form="search" />
-
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-
-<footer>
-  <small>&copy; Styles Conference</small>
-</footer>
-
-            <a class="btn btn-danger">...</a>
-            <a class="btn btn-success">...</a>
-
-
-                <header class="container">...</header>
-                <footer class="container">...</footer>
-
-                <p>This is the first sentence</p>
-                <p>This is the second sentence</p>
 [end][css]
-                p {
-                  margin-top: 32px;
-                  margin-bottom: 15px;
-                }
 
 
-                .container {
-                  margin: 0 auto;
-                  padding-left: 30px;
-                  padding-right: 30px;
-                  width: 960px;
-                }
-
-
-            .btn {
-              font-size: 16px;
-            }
-            .btn-danger {
-              background: red;
-            }
-            .btn-success {
-              background: green;
-            }
-
-            .banner {
-              font-size: 14px;
-              width: 5em;
-            }
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-p {
-  /* fallback to 50% if 50vw not recognized: */
-  width: 50%; width: 50vw;
-}
-
-
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-
-
-.container {
-  width: 538px;
-}
-section, aside {
-  margin: 10px;
-}
-section {
-  float: left;
-  width: 340px;
-}
-aside {
-  float: right;
-  width: 158px;
-}
-/*===================*/
-section, aside {
-  margin: 1.858736059%; /*  10px ÷ 538px = .018587361 */
-}
-section {
-  float: left;
-  width: 63.197026%;    /* 340px ÷ 538px = .63197026 */
-}
-aside {
-  float: right;
-  width: 29.3680297%;  /* 158px ÷ 538px = .293680297 */
-}
-
-@media print {
-  body { font-size: 10pt }
-}
-@media screen {
-  body { font-size: 13px }
-}
-@media screen, print {
-  body { line-height: 1.2 }
-}
-@media only screen
-  and (min-device-width: 320px)
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    body { line-height: 1.4 }
-}
-
-@media all and (min-width: 800px) and (max-width: 1024px) { a { line-height: 1.4 } }
-@media not screen and (color) { a { line-height: 1.4 } }
-@media only screen and (orientation: portrait) { a { line-height: 1.4 } }
-@media (min-width: 700px), handheld and (orientation: landscape) { a { line-height: 1.4 } }
-
-@media all and (min-width: 320px) and (max-width: 780px) { a { line-height: 1.4 } }
-
-img, video, canvas {
-  max-width: 100%;
-}
-
-
-a { color: #ff0000; }
-
-@media (max-width: 480px) {
-  a { color: #0066cc; }
-}
-
-@media screen and (max-width: 480px), screen and (orientation: portrait) { /*...*/}
 
 [end]
+
+
+
 
 
 [ruby]
@@ -268,3 +114,4 @@ end
 
 
 [end]
+
