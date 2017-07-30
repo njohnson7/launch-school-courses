@@ -1,31 +1,29 @@
+var basket = 'empty';    // global var basket
 
-var name = 'Bob';
-console.log(name);
-
-for (var i = 0; i < 3; i++) {
-  console.log(name);
-}
-
-console.log(name);
-// Bob * 5
-console.log('-------\n');
-
-
-var name = 'Bob'
-
-function greet() {
-  console.log(name);
-}
-
-greet(); // logs 'Bob'
-
-var name = 'Bob'
-
-function greet() {
-  function say() {
-    console.log(name);
+function goShopping() {  // global function goShopping
+  function shop1() {     // local function shop1()
+    basket = 'tv';       // reassign global var basket
   }
-  say();
+
+  console.log(basket);   // >> 'empty', resolves to global var
+
+  function shop2() {
+    basket = 'computer'; // reassign basket 'computer'
+  }
+
+  function shop3() {
+    var basket = 'play station'; // declare and initialize new local var, basket
+    console.log(basket);         // >> 'play station' -- resolves to local var b/c of shadowing
+  }
+
+  shop1(); // reassing global basket to 'tv'
+  shop2(); // reassign global basket to 'computer'
+  shop3(); // >> 'play station' -- new local var basket declared and initialized
+
+  console.log(basket); // >> 'computer'
 }
 
-greet(); // logs 'Bob'
+goShopping();
+// >> 'empty'
+// >> 'play station'
+// >> 'computer'
