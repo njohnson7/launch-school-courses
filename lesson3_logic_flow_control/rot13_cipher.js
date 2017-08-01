@@ -19,6 +19,37 @@ function rot13(str) {
   return newStr;
 }
 
+function rot13(str) {
+  var LOWER_A_CODE = 97;
+  var LOWER_N_CODE = 110;
+  var LOWER_Z_CODE = 122;
+  var UPPER_A_CODE = 65;
+  var UPPER_N_CODE = 78;
+  var UPPER_Z_CODE = 90;
+  var AMOUNT_TO_ROTATE = 13;
+  var newStr = '';
+  var charCode;
+
+  for (var i = 0; i < str.length; i++) {
+    charCode = str.charCodeAt(i);
+    if (
+      charCode >= LOWER_A_CODE && charCode < LOWER_N_CODE ||
+      charCode >= UPPER_A_CODE && charCode < UPPER_N_CODE
+    ) {
+      charCode += AMOUNT_TO_ROTATE;
+    } else if (
+        charCode >= LOWER_N_CODE && charCode <= LOWER_Z_CODE ||
+        charCode >= UPPER_N_CODE && charCode <= UPPER_Z_CODE
+      ) {
+      charCode -= AMOUNT_TO_ROTATE;
+    }
+
+    newStr += String.fromCharCode(charCode);
+  }
+
+  return newStr;
+}
+
 console.log(rot13('abc'));          // nop
 console.log(rot13('xyz'));          // klm
 console.log(rot13('ABC'));          // NOP
