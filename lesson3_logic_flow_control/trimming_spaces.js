@@ -31,4 +31,3 @@ console.log(trim(''));         // ""
 
 var str = '   foo  ';
 str.trim();  // "foo"
-
