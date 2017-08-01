@@ -1,19 +1,11 @@
 
-startle = -> { puts 'Yikes!' }  # => #<Proc:0x00000000d8a478@/home/one/launchschool/210/ruby_notes.rb:2 (lambda)>
-surprise = startle              # => #<Proc:0x00000000d8a478@/home/one/launchschool/210/ruby_notes.rb:2 (lambda)>
-surprise.()                     # => nil
-surprise[]                      # => nil
 
-take_two = proc { |a, b| p a, b }  # => #<Proc:0x00000000d89708@/home/one/launchschool/210/ruby_notes.rb:7>
-take_two.()          # => [nil, nil]
-take_two.(1)         # => [1, nil]
-take_two.(1, 2, 10)  # => [1, 2]
+'Blue Whale'.index('Blue')   # => 0
+'Blue Whale'.index('Blute')  # => nil
+'Blue Whale'.index('Whale')  # => 5
+'canal'.rindex('a')          # => 3
+'canal'.rindex('x')          # => nil
+'Blue Whale'.index('e', 4)   # => 9
+'canal'.rindex('a', 2)       # => 1
+'canal'.rindex('a', 0)       # => nil
 
-# >> Yikes!
-# >> Yikes!
-# >> nil
-# >> nil
-# >> 1
-# >> nil
-# >> 1
-# >> 2

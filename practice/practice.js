@@ -1,16 +1,7 @@
-var a;
-var setScope;
-a = 'outer';
 
-console.log(a);
-// setScope();
-console.log(a);
+// bad
+var string = a.toString();
 
-setScope = function() {
-  a = 'inner';
-}
-
-console.log(a);
-setScope();
-console.log(a);
+// good
+var string = String(a);
 

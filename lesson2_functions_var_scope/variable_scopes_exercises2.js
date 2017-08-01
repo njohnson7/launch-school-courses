@@ -195,5 +195,7 @@ setScope();      // TypeError
 console.log(a);
 
 setScope = function() {
-  a = 'inner';  // reassigns a to 'inner'
+  a = 'inner';
 }
+
+
