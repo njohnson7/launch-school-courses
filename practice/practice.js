@@ -2,15 +2,26 @@
 
 
 
-var count = [1, 2, 3];
-count.length = 10;
-count;  // [ 1, 2, 3, undefined x 7 ]
-count.length = 2;
-count;  // [ 1, 2 ] - excess elements are lost
+var initials = ['A', 'H', 'E'];
+initials + 'B';   // 'A,H,EB'
+initials;         // ['A', 'H', 'E']
+
+var initials = ['A', 'H', 'E'];
+initials + ['B']; // 'A,H,EB'
+initials;         // ['A', 'H', 'E']
+
+[1] * 2;              // 2
+[1, 2] * 2;           // NaN
 
 
-typeof []; // 'object'
+var a = ['Bob', 'Josie', 'Sam'];
+var b = ['Bob', 'Josie', 'Sam'];
+console.log(a == b);   // false
+console.log(a === b);  // false
 
+console.log(a == a);   // true
+console.log(a === a);  // true
 
-Array.isArray([]);      // true
-Array.isArray('array'); // false
+var c = a;
+console.log(a == c);   // true
+console.log(a === c);  // true

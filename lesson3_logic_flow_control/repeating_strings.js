@@ -16,4 +16,3 @@ console.log(repeat('abc', 'a'));  // undefined
 'abcd'.repeat('a'); // ""
 'abcd'.repeat(1.6); // "abcd"
 'abcd'.repeat(1/0); // RangeError
-
