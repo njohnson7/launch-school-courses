@@ -1,11 +1,18 @@
 
+def repeatedCharacters(str)
+  str.downcase.chars
+  .uniq
+  .map { |c| [c.to_sym, str.downcase.count(c)] }
+  .reject { |k, v| v < 2 }.to_h
+end
 
-'Blue Whale'.index('Blue')   # => 0
-'Blue Whale'.index('Blute')  # => nil
-'Blue Whale'.index('Whale')  # => 5
-'canal'.rindex('a')          # => 3
-'canal'.rindex('x')          # => nil
-'Blue Whale'.index('e', 4)   # => 9
-'canal'.rindex('a', 2)       # => 1
-'canal'.rindex('a', 0)       # => nil
-
+p repeatedCharacters('Programming')    ==
+  { r: 2, g: 2, m: 2 }
+p repeatedCharacters('Combination')    ==
+  { o: 2, i: 2, n: 2 }
+p repeatedCharacters('Pet')            ==
+  {}
+p repeatedCharacters('Paper')          ==
+  { p: 2 }
+p repeatedCharacters('Baseless')       ==
+  { s: 3, e: 2 }
