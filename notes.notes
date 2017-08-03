@@ -10,3 +10,19 @@
   - "https://launchschool.com/lessons/56df7843/assignments/0c65c1ca"
 - Array methods...?
 - Date stuff
+- read style guide
+
+
+--------- Written Test SG ---------
+- # 5-8min per question! (20q/3hrs)
+- primitive values, types and type conversions
+- variable scopes and hoisting
+- function declarations, expressions and scopes
+- object properties and mutation
+- assignments and comparison
+- pure functions and side effects
+=====
+- return value of an expression,
+- whether there are side effects,
+- whether new objects are created,
+- or whether something is being output.
