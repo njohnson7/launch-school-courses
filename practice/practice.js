@@ -1,10 +1,16 @@
 
 
 
+var strPrim = 'foo';
+var strObj = new String(strPrim);
 
-function fun1(...theArgs) {
-  console.log(theArgs.length);
-}
-fun1();  // 0
-fun1(5); // 1
-fun1(5, 6, 7); // 3
+console.log(typeof strPrim); // "string"
+console.log(typeof strObj);  // "object"
+
+
+var str = 'abc';
+console.log(str.length);    // 3
+console.log(str.charAt(1)); // 'b'
+
+String(null); // 'null'
+String(undefined); // 'undefined'
