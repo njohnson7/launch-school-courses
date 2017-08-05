@@ -186,20 +186,69 @@
 //======= Array Pop and Push =======//
 
 
+// function pop(arr) {
+//   return arr.splice(-1)[0];
+// }
+
+// function push(arr, ...values) {
+//   values.forEach(value => arr[arr.length] = value);
+//   return arr.length;
+// }
+// function push(arr, ...values) {
+//   values.forEach(value => arr.splice(100, 0, value));
+//   return arr.length;
+// }
+// // function push(arr, ...values) {
+// //   return (values[0] ? arr.splice(arr.length, 0, values[0]) && push(arr, values.slice(1)) : arr);
+// // }
+// // function push(arr, ...values) {
+// //   return (values.length ? arr.splice(arr.length, 0, values[0]) && push(arr, values.slice(1)) : arr);
+// // }
 
 
-var array = [1, 2, 3];
-pop(array);                   // 3
-console.log(array);           // [1, 2]
-pop([]);                      // undefined
-pop([1, 2, ['a', 'b', 'c']]); // [ 'a', 'b', 'c' ]
 
-var array = [1, 2, 3];
-push(array, 4, 5, 6);         // 6
-console.log(array);           // [1, 2, 3, 4, 5, 6]
-push([1, 2], ['a', 'b']);     // 3
-push([], 1);                  // 1
-push([]);                     // 0
+// // // buggy versions (fixed):
+// // function pop(array) {
+// //   var poppedElement = array[array.length - 1];
+// //   array.splice(array.length - 1);
+// //   return poppedElement;
+// // }
+// // function push(array) {
+// //   for (var i = 1; i < arguments.length; i++) {
+// //     array[array.length] = arguments[i];
+// //   }
+
+// //   return array.length;
+// // }
+
+
+
+// // FE:
+// function pop(arr) {
+//   var lastElem = arr[arr.length - 1];
+//   arr.length = Math.max(0, arr.length - 1);
+//   return lastElem;
+// }
+// function pop(arr) {
+//   var lastElem = arr.slice(-1)[0];
+//   arr.length = Math.max(0, arr.length - 1);
+//   return lastElem;
+// }
+
+
+// var array = [1, 2, 3];
+// console.log(pop(array));                   // 3
+// console.log(array);                        // [1, 2]
+// console.log(pop([]));                      // undefined
+// console.log(pop([1, 2, ['a', 'b', 'c']])); // [ 'a', 'b', 'c' ]
+
+// var array = [1, 2, 3];
+// console.log(push(array, 4, 5, 6));         // 6
+// console.log(array);                        // [1, 2, 3, 4, 5, 6]
+// console.log(push([1, 2], ['a', 'b']));     // 3
+// console.log(push([], 1));                  // 1
+// console.log(push([]));                     // 0
+
 
 
 
@@ -208,7 +257,14 @@ push([]);                     // 0
 /*---------------- 6 -----------------*/console.log('\n--------- 6 ----------');
 //======= Array and String Reverse =======//
 
+function reverse(inputForReversal) {
 
+}
+
+console.log(reverse('Hello'));          // olleH
+console.log(reverse('a'));              // a
+console.log(reverse([1, 2, 3, 4]));     // [4, 3, 2, 1]
+console.log(reverse([]));               // []
 
 
 
