@@ -82,7 +82,6 @@ if (myOtherString || myArray) { // falsy || []  --->  truthy
 
 
 
-String(thing);
 
 
 /*---------------- 4 -----------------*/console.log('\n\n-------- 4 ---------');
@@ -100,7 +99,7 @@ console.log(name, saveName); // 'Bob Bob'
 
 
 // FE:
-
+// b/c string primitives are automatically converted to Objects when methods are called on them
 
 
 
@@ -111,7 +110,26 @@ console.log(name, saveName); // 'Bob Bob'
 
 
 
+// Enter the first number: 23
+// Enter the second number: 17
 
+// 23 + 17 = 40
+// 23 - 17 = 6
+// 23 * 17 = 391
+// 23 / 17 = 1
+// 23 % 17 = 6
+// 23 ** 17 = 1.4105003956066297e+23
+
+
+// var number1 = Number(prompt('Enter the first number:'));
+// var number2 = Number(prompt('Enter the second number:'));
+
+// console.log(number1 + ' + ' + number2 + ' = ' + (number1 + number2));
+// console.log(number1 + ' - ' + number2 + ' = ' + (number1 - number2));
+// console.log(number1 + ' * ' + number2 + ' = ' + (number1 * number2));
+// console.log(number1 + ' / ' + number2 + ' = ' + Math.floor(number1 / number2));
+// console.log(number1 + ' % ' + number2 + ' = ' + (number1 % number2));
+// console.log(number1 + ' ** ' + number2 + ' = ' + Math.pow(number1, number2));
 
 
 
@@ -121,7 +139,31 @@ console.log(name, saveName); // 'Bob Bob'
 /*---------------- 6 -----------------*/console.log('\n\n-------- 6 ---------');
 //===== Counting the Number of Characters: =====//
 
+// var phrase = prompt('Please write a phrase:');
+// console.log('There are ' + String(phrase.length) + ' characters in "' + phrase + '".');
+// console.log(`There are ${phrase.length} characters in "${phrase}".`);
 
+
+// // FE - no spaces:
+// var phrase = prompt('Please write a phrase:');
+// var numChars = phrase.replace(/ /g, '').length;
+// console.log(`There are ${numChars} characters in "${phrase}".`);
+
+
+// // FE - alpha only:
+// var phrase = prompt('Please write a phrase:');
+// var numChars = phrase.replace(/[^a-z]/gi, '').length;
+// console.log(`There are ${numChars} characters in "${phrase}".`);
+
+
+
+// Please write a phrase: walk
+// // console output
+// There are 4 characters in "walk".
+
+// Please write a phrase: walk, don't run
+// // console output
+// There are 15 characters in "walk, don't run".
 
 
 
@@ -133,10 +175,61 @@ console.log(name, saveName); // 'Bob Bob'
 /*---------------- 7 -----------------*/console.log('\n\n-------- 7 ---------');
 //===== Convert String to a Number: =====//
 
+function stringToInteger(strNum) {
+  var NUMS = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
+  var result = 0;
+  var value;
+  var digit;
+  var len = strNum.length;
+
+  for (var i = 0; i < len; i++) {
+    digit = NUMS[strNum[len - (i + 1)]];
+    value = digit * 10**i;
+    result += value;
+  }
+
+  return result;
+}
 
 
+function stringToInteger(strNum) {
+  var NUMS = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
+  var reversedDigits = strNum.split('').reverse();
+
+  result = reversedDigits.reduce(function(sum, digit, i) {
+    return sum + NUMS[digit] * 10**i;
+  }, 0);
+
+  return result;
+}
 
 
+function stringToInteger(strNum) {
+  var NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  var reversedDigits = strNum.split('').reverse();
+  return reversedDigits.reduce((sum, digit, i) => sum + NUMS[digit] * 10**i, 0);
+}
+
+var NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+function stringToInteger(num) {
+  return num.split('').reverse().reduce((sum, n, i) => sum + NUMS[n] * 10**i, 0);
+}
+
+
+var NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+function stringToInteger(num) {
+  return num.split('').reverse().reduce((sum, n, i) => sum + NUMS[n] * 10**i, 0);
+}
+
+
+var DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+function stringToInteger(str) {
+  return str.split('').reduce((sum, n) => 10 * sum + DIGITS[n], 0);
+}
+
+
+console.log(stringToInteger('4321'));          // 4321
+console.log(stringToInteger('570'));           // 570
 
 
 
@@ -145,9 +238,46 @@ console.log(name, saveName); // 'Bob Bob'
 /*---------------- 8 -----------------*/console.log('\n\n-------- 8 ---------');
 //===== Convert String to a Signed Number: =====//
 
+var DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function stringToSignedInteger(str) {
+  var sign = 1;
+
+  if (/^[-+]/.test(str)) {
+    if (str[0] === '-') sign = -1;
+    str = str.slice(1);
+  }
+
+  return sign * str.split('').reduce((sum, n) => 10 * sum + DIGITS[n], 0);
+}
 
 
+function stringToSignedInteger(str) {
+  switch (str[0]) {
+    case '-': return -stringToInteger(str.slice(1));
+    case '+': return stringToInteger(str.slice(1));
+    default:  return stringToInteger(str);
+  }
+}
 
+
+function stringToSignedInteger(str) {
+  var num = stringToInteger(str.replace(/^[-+]/, ''));
+  return RegExp.lastMatch === '-' ? -num : num;
+}
+
+
+function stringToSignedInteger(str) {
+  return stringToInteger(str.replace(/^[-+]/, '')) * (str[0] === '-' ? -1 : 1);
+}
+
+function stringToSignedInteger(str) {
+  return stringToInteger(str.replace(/^[-+]/, '')) * (RegExp.lastMatch === '-' ? -1 : 1);
+}
+
+console.log(stringToSignedInteger('4321'));      // 4321
+console.log(stringToSignedInteger('-570'));      // -570
+console.log(stringToSignedInteger('+100'));      // 100
 
 
 
@@ -157,10 +287,44 @@ console.log(name, saveName); // 'Bob Bob'
 /*---------------- 9 -----------------*/console.log('\n\n-------- 9 ---------');
 //===== Convert a Number to a String: =====//
 
+var DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+function integerToString(num) {
+  var result = '';
+
+  do {
+    result = DIGITS[num % 10] + result;
+    num = Math.floor(num / 10);
+  } while (num > 0);
+
+  return result;
+}
+
+
+function integerToString(num, result = '') {
+  if (num < 10) return DIGITS[num % 10] + result;
+  return integerToString(Math.floor(num / 10), DIGITS[num % 10] + result);
+}
+
+
+function integerToString(num, result = '') {
+  result = DIGITS[num % 10] + result;
+  return (num < 10 ? result : integerToString(Math.floor(num / 10), result));
+}
+
+
+function integerToString(num, result = '') {
+  result = '0123456789'[num % 10] + result;
+  return (num < 10 ? result : integerToString(Math.floor(num / 10), result));
+}
 
 
 
 
+console.log(integerToString(4321));    // "4321"
+console.log(integerToString(0));       // "0"
+console.log(integerToString(5000));    // "5000"
+console.log(integerToString(50200123));
 
 
 
@@ -169,7 +333,14 @@ console.log(name, saveName); // 'Bob Bob'
 /*---------------- 10 -----------------*/console.log('\n\n-------- 10--------');
 //===== Convert a Signed Number to a String: =====//
 
+SIGNS = { '-1': '-', 0: '', 1: '+' };
+
+function signedIntegerToString(num) {
+  return SIGNS[Math.sign(num)] + integerToString(Math.abs(num));
+}
 
 
 
-
+console.log(signedIntegerToString(4321));      // "+4321"
+console.log(signedIntegerToString(-123));      // "-123"
+console.log(signedIntegerToString(0));         // "0"

@@ -2,7 +2,9 @@
 - JS version in MDN documentation
 - assessment study guide
 - method vs. function vs. property
-  - why isn't `String.fromCharCode` a function??
+  - why isn't `String.fromCharCode` a function?
+- uncaught vs caught error?
+
 
 
 ----------- STUDY MORE -----------
@@ -10,10 +12,13 @@
   - "https://launchschool.com/lessons/56df7843/assignments/0c65c1ca"
   - # practice debugger more!
 - Array methods...?
+- String methods
 - Date object stuff...?
 - # read style guide
 - # 2 videos
 - # JS Fundamentals exercises
+- hoisting details
+- function expressions
 
 -prob solv vids
 
@@ -31,3 +36,22 @@
 - whether there are side effects,
 - whether new objects are created,
 - or whether something is being output.
+
+
+
+--------- Maybe -------------
+- how to create snippets in devtools
+xx- var names...
+xx- debugger
+xx- devtools on test for debuger?
+xx-how often to run code? (every line like in ruby?)
+  - test things in console like irb?
+advantages to JS over ruby?
+
+single line if else?
+blinking chrome cursor?
+- use for loop for early return. fprEach otherwise...?
+
+custom console log?
+let?
+const?
