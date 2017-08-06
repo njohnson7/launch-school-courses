@@ -683,27 +683,38 @@
 /*---------------- 10 -----------------*/console.log('\n--------- 10 --------');
 //======= Array Comparison =======//
 
-// function areArraysEqual(arr1, arr2) {
-//   if (arr1.length !== arr2.length) return false;
+function areArraysEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
 
-//   arr1.sort();
-//   arr2.sort();
+  arr1.sort();
+  arr2.sort();
 
-//   for (var i = 0; i < arr1.length; i++) {
-//     if (arr1[i] !== arr2[i]) return false;
-//   }
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) return false;
+  }
 
-//   return true;
-// }
-
-// console.log(areArraysEqual([1, 2, 3], [1, 2, 3]));              // true
-// console.log(areArraysEqual([1, 2, 3], [3, 2, 1]));              // true
-// console.log(areArraysEqual(['a', 'b', 'c'], ['b', 'c', 'a']));  // true
-// console.log(areArraysEqual(['1', 2, 3], [1, 2, 3]));            // false
-// console.log(areArraysEqual([1, 1, 2, 3], [3, 1, 2, 1]));        // true
-// console.log(areArraysEqual([1, 2, 3, 4], [1, 1, 2, 3]));        // false
-// console.log(areArraysEqual([1, 1, 2, 2], [4, 2, 3, 1]));        // false
+  return true;
+}
 
 
+function areArraysEqual(arr1, arr2) {
+  return arr1.length === arr2.length &&
+    arr1.slice().sort().every((elem, i) => elem === arr2.slice().sort()[i]);
+}
 
+console.log(areArraysEqual([1, 2, 3], [1, 2, 3]));              // true
+console.log(areArraysEqual([1, 2, 3], [3, 2, 1]));              // true
+console.log(areArraysEqual(['a', 'b', 'c'], ['b', 'c', 'a']));  // true
+console.log(areArraysEqual(['1', 2, 3], [1, 2, 3]));            // false
+console.log(areArraysEqual([1, 1, 2, 3], [3, 1, 2, 1]));        // true
+console.log(areArraysEqual([1, 2, 3, 4], [1, 1, 2, 3]));        // false
+console.log(areArraysEqual([1, 1, 2, 2], [4, 2, 3, 1]));        // false
+console.log(areArraysEqual([1, 1, 2], [1, 1, 2, 4]));           // false
+console.log(areArraysEqual([1, 2, 2], [1, 1, 2]));              // false
+console.log('======');
 
+var a = [2, 3, 1];
+var b = [3, 1, 2];
+console.log(areArraysEqual(a, b));  // true
+console.log(a);  // [2, 3, 1]
+console.log(b);  // [3, 1, 2]
