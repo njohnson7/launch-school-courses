@@ -1,9 +1,8 @@
 
+for (var i = 0, j = 5, i < len; i++, j--) { ... }
 
-var arr1 = [1, 2, 3, 4];
-var arr2 = arr1;
-
-arr1 = [1, 2];
-console.log(arr2);
-
+function myFunc() {
+  var x = 0;
+  return (x += 1, x); // the same as return ++x;
+}
 
