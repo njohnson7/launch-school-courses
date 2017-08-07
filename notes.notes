@@ -4,6 +4,10 @@
 - method vs. function vs. property
   - why isn't `String.fromCharCode` a function?
 - uncaught vs caught error?
+- # are array indexes also properties?
+- is `arr[1]` and `arr[1] = 5` and `obj['a']` considered a method or operator?
+  - (square bracket notation)
+- "computed elem operator"?
 
 
 
@@ -56,4 +60,3 @@ custom console log?
 let?
 const?
 
-= refactor splice?
