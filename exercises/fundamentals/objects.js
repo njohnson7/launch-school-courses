@@ -268,45 +268,51 @@
 /*---------------- 9 -----------------*/console.log('\n--------- 9 ----------');
 //========== After Midnight Part 1 ===========//
 
-timeOfDay(0);       // "00:00"
-timeOfDay(-3);      // "23:57"
-timeOfDay(35);      // "00:35"
-timeOfDay(-1437);   // "00:03"
-timeOfDay(3000);    // "02:00"
-timeOfDay(800);     // "13:20"
-timeOfDay(-4231);   // "01:29"
 
-// Note: Disregard Daylight Savings and Standard Time and other complications.
+// // Note: Disregard Daylight Savings and Standard Time and other complications.
 
-var MINUTES_PER_HOUR = 60;
-var HOURS_PER_DAY = 24;
-var MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
+// var MINUTES_PER_HOUR = 60;
+// var HOURS_PER_DAY = 24;
+// var MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
 
-function timeOfDay(deltaMinutes) {
-  var hours;
-  var minutes;
+// function timeOfDay(deltaMinutes) {
+//   var hours;
+//   var minutes;
 
-  deltaMinutes = deltaMinutes % MINUTES_PER_DAY;
-  if (deltaMinutes < 0) {
-    deltaMinutes = MINUTES_PER_DAY + deltaMinutes;
-  }
+//   deltaMinutes = deltaMinutes % MINUTES_PER_DAY;
+//   if (deltaMinutes < 0) {
+//     deltaMinutes = MINUTES_PER_DAY + deltaMinutes;
+//   }
 
-  hours = Math.floor(deltaMinutes / MINUTES_PER_HOUR);
-  minutes = deltaMinutes % MINUTES_PER_HOUR;
+//   hours = Math.floor(deltaMinutes / MINUTES_PER_HOUR);
+//   minutes = deltaMinutes % MINUTES_PER_HOUR;
 
-  return padWithZeroes(hours, 2) + ':' + padWithZeroes(minutes, 2);
-}
+//   return padWithZeroes(hours, 2) + ':' + padWithZeroes(minutes, 2);
+// }
 
-function padWithZeroes(number, length) {
-  var numberString = String(number);
+// function padWithZeroes(number, length) {
+//   var numberString = String(number);
 
-  while (numberString.length < length) {
-    numberString = '0' + numberString;
-  }
+//   while (numberString.length < length) {
+//     numberString = '0' + numberString;
+//   }
 
-  return numberString;
-}
+//   return numberString;
+// }
 
+// function timeOfDay(mins) {
+//   return new Date(mins * 60000).toUTCString().match(/..:../)[0];
+// }
+
+// var timeOfDay = mins => new Date(mins * 60000).toUTCString().match(/..:../)[0];
+
+// console.log(timeOfDay(0));       // "00:00"
+// console.log(timeOfDay(-3));      // "23:57"
+// console.log(timeOfDay(35));      // "00:35"
+// console.log(timeOfDay(-1437));   // "00:03"
+// console.log(timeOfDay(3000));    // "02:00"
+// console.log(timeOfDay(800));     // "13:20"
+// console.log(timeOfDay(-4231));   // "01:29"
 
 
 
@@ -319,7 +325,37 @@ function padWithZeroes(number, length) {
 
 
 
+// Note: Disregard Daylight Savings and Standard Time and other irregularities.
 
-function flipper(stringArr) {
-  return stringArr.reverse().map(w => w.length === 0 ? w : w.slice(0, -1) + w.slice(-1).toUpperCase());
+var MINUTES_PER_HOUR = 60;
+var HOURS_PER_DAY = 24;
+var MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
+
+function afterMidnight(timeStr) {
+  var timeComponents = timeStr.split(':');
+  var hours = parseInt(timeComponents[0]);
+  var minutes = parseInt(timeComponents[1]);
+
+  return hours * MINUTES_PER_HOUR + minutes;
 }
+
+function beforeMidnight(timeStr) {
+  var deltaMinutes = MINUTES_PER_DAY - afterMidnight(timeStr);
+  if (deltaMinutes === MINUTES_PER_DAY) {
+    deltaMinutes = 0;
+  }
+  return deltaMinutes;
+}
+
+function afterMidnight(str) {
+  return Math.abs((new Date('1970-01-01T00:00') - new Date(`1970-01-01T${str}`)) / 60000);
+}
+
+function beforeMidnight(str) {
+  return (1440 - afterMidnight(str)) % 1440;
+}
+
+console.log(afterMidnight('00:00'));        // 0
+console.log(beforeMidnight('00:00'));       // 0
+console.log(afterMidnight('12:34'));        // 754
+console.log(beforeMidnight('12:34'));       // 686

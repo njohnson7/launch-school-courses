@@ -25,6 +25,7 @@ function binarySearch(arr, value, num = 0) {
   }
 }
 
+
 function binarySearch(arr, value, num = 0) {
   var half = Math.ceil(arr.length / 2) - 1;
 
@@ -36,6 +37,15 @@ function binarySearch(arr, value, num = 0) {
   } else {
     return binarySearch(arr.slice(0, half), value, num);
   }
+}
+
+
+function binarySearch(arr, value, num = 0) {
+  var half = Math.ceil(arr.length / 2) - 1;
+  if (arr[half] === value) return half + num;
+  if (arr.length <= 1) return -1;
+  var [args, num] = arr[half] < value ? [[half + 1], num + half + 1] : [[0, half], num];
+  return binarySearch(arr.slice(...args), value, num);
 }
 
 
@@ -70,3 +80,18 @@ console.log(binarySearch(['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Ty
 // -1
 console.log(binarySearch(['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler'], 'Tyler'));
 // 6
+console.log('~~~~');
+
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(binarySearch(numbers, 1))  // 0
+console.log(binarySearch(numbers, 2))  // 1
+console.log(binarySearch(numbers, 3))  // 2
+console.log(binarySearch(numbers, 4))  // 3
+console.log(binarySearch(numbers, 5))  // 4
+console.log(binarySearch(numbers, 6))  // 5
+console.log(binarySearch(numbers, 7))  // 6
+console.log(binarySearch(numbers, 8))  // 7
+console.log(binarySearch(numbers, 9))  // 8
+console.log(binarySearch(numbers, 10)) // 9
+
+console.log('===========');
