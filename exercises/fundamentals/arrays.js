@@ -485,173 +485,145 @@
 
 
 
-// // start, del >= 0
-// // if start > arr.length, set to arr.length
-// // if del > arr.length - start, set to arr.length - start
+// start, del >= 0
+// if start > arr.length, set to arr.length
+// if del > arr.length - start, set to arr.length - start
 
-// // function splice(arr, start, deleteCount[, item1[, itemN]]) {
+function splice(arr, start, deleteCount, ...items) {
+  start = Math.min(start, arr.length);
+  deleteCount = Math.min(deleteCount, arr.length - start);
 
+  var removed = remove(arr, start, deleteCount);
+  insert(arr, start, items);
 
-// // function splice(arr, start, del, ...items) {
-// //   var removed = [];
-// //   start = Math.min(start, arr.length);
-// //   del = Math.min(del, arr.length - start);
-// //   var add = items.length;
-// //   var newLen = arr.length - del + add;
+  return removed;
+}
 
+function remove(arr, start, deleteCount) {
+  var removed = [];
 
-// //   for (var i = start; i < start + del; i++) {
-// //     removed.push(arr[i]);
-// //     arr[i] = items.pop() || arr[i + del];
-// //   }
+  for (var i = start; i < start + deleteCount; i++) {
+    removed.push(arr[i]);
+    arr[i] = arr[i + deleteCount];
+  }
 
-// //   items.forEach(item => {
-// //     for (var j = newLen - 1; j >= start; j--) {
-// //       debugger;
-// //       arr[j] = arr[j - 1] || item;
-// //     }
-// //   });
+  arr.length = arr.length - deleteCount;
+  return removed;
+}
 
-// //   arr.length = newLen;
-// //   return removed;
-// // }
+function insert(arr, start, items) {
+  var addCount = items.length;
+  var lastIdx = arr.length + addCount - 1;
 
+  for (var i = 0; i < arr.length - start; i++) {
+    arr[lastIdx - i] = arr[lastIdx - i - addCount];
+  }
 
-// function splice(arr, start, deleteCount, ...items) {
-//   start = Math.min(start, arr.length);
-//   deleteCount = Math.min(deleteCount, arr.length - start);
+  for (var i = 0; i < addCount; i++) {
+    arr[start + i] = items[i];
+  }
+}
 
-//   var removed = remove(arr, start, deleteCount);
-//   insert(arr, start, items);
+function splice(arr, start, del, ...items) {
+  start = Math.min(start, arr.length);
+  del = Math.min(del, arr.length - start);
+  var removed = [];
 
-//   return removed;
-// }
+  for (var i = start; i < arr.length; i++) {
+    i < start + del ? removed.push(arr[i]) : items.push(arr[i]);
+  }
 
-// function remove(arr, start, deleteCount) {
-//   var removed = [];
+  arr.length = start;
 
-//   for (var i = start; i < start + deleteCount; i++) {
-//     removed.push(arr[i]);
-//     arr[i] = arr[i + deleteCount];
-//   }
+  for (var i = 0; i < items.length; i++) {
+    arr.push(items[i]);
+  }
 
-//   arr.length = arr.length - deleteCount;
-//   return removed;
-// }
+  return removed;
+}
 
-// function insert(arr, start, items) {
-//   var addCount = items.length;
-//   var lastIdx = arr.length + addCount - 1;
+function splice(arr, start, deleteCount, ...items) {
+  start = Math.min(start, arr.length);
+  deleteCount = Math.min(deleteCount, arr.length - start);
 
-//   for (var i = 0; i < arr.length - start; i++) {
-//     arr[lastIdx - i] = arr[lastIdx - i - addCount];
-//   }
+  for (var i = start, removed = []; i < arr.length; i++) {
+    i < start + deleteCount ? removed.push(arr[i]) : items.push(arr[i]);
+  }
 
-//   for (var i = 0; i < addCount; i++) {
-//     arr[start + i] = items[i];
-//   }
-// }
-
-// function splice(arr, start, del, ...items) {
-//   start = Math.min(start, arr.length);
-//   del = Math.min(del, arr.length - start);
-//   var removed = [];
-
-//   for (var i = start; i < arr.length; i++) {
-//     i < start + del ? removed.push(arr[i]) : items.push(arr[i]);
-//   }
-
-//   arr.length = start;
-
-//   for (var i = 0; i < items.length; i++) {
-//     arr.push(items[i]);
-//   }
-
-//   return removed;
-// }
-
-// function splice(arr, start, deleteCount, ...items) {
-//   start = Math.min(start, arr.length);
-//   deleteCount = Math.min(deleteCount, arr.length - start);
-
-//   for (var i = start, removed = []; i < arr.length; i++) {
-//     i < start + deleteCount ? removed.push(arr[i]) : items.push(arr[i]);
-//   }
-
-//   arr.length = start;
-//   items.forEach(item => arr.push(item));
-//   return removed;
-// }
+  arr.length = start;
+  items.forEach(item => arr.push(item));
+  return removed;
+}
 
 
-// console.log(splice([1, 2, 3], 1, 2));                   // [2, 3]
-// console.log(splice([1, 2, 3], 1, 3));                   // [2, 3]
-// console.log(splice([1, 2, 3], 1, 0));                   // []
-// console.log(splice([1, 2, 3], 0, 1));                   // [1]
-// console.log(splice([1, 2, 3], 1, 0, 'a'));              // []
-// console.log('~~~~~~~~`');
+console.log(splice([1, 2, 3], 1, 2));                   // [2, 3]
+console.log(splice([1, 2, 3], 1, 3));                   // [2, 3]
+console.log(splice([1, 2, 3], 1, 0));                   // []
+console.log(splice([1, 2, 3], 0, 1));                   // [1]
+console.log(splice([1, 2, 3], 1, 0, 'a'));              // []
+console.log('~~~~~~~~`');
+
+var arr = [1, 2, 3];
+console.log(splice(arr, 1, 1, 'two'));                  // [2]
+console.log(arr);                                       // [1, 'two', 3];
+console.log('~~~~~~~~`');
+
+var arr = [1, 2, 3];
+console.log(splice(arr, 1, 2, 'two', 'three'));         // [2, 3]
+console.log(arr);                                       // [1, "two", "three"]
+console.log('~~~~~~~~`');
+
+var arr = [1, 2, 3];
+console.log(splice(arr, 1, 0));                         // []
+console.log(splice(arr, 1, 0, 'a'));                    // []
+console.log(arr);                                       // [1, 'a', 2, 3]
+console.log('~~~~~~~~`');
+
+var arr = [1, 2, 3];
+console.log(splice(arr, 0, 0, 'a'));                    // []
+console.log(arr);                                       // ['a', 1, 2, 3]
+
+// console.log('*********');
 
 // var arr = [1, 2, 3];
-// console.log(splice(arr, 1, 1, 'two'));                  // [2]
-// console.log(arr);                                       // [1, 'two', 3];
-// console.log('~~~~~~~~`');
+// console.log(splice(arr, 1, 0)); // []
+// console.log(arr);               // [1, 2, 3]
+// console.log('~~~~');
 
-// var arr = [1, 2, 3];
-// console.log(splice(arr, 1, 2, 'two', 'three'));         // [2, 3]
-// console.log(arr);                                       // [1, "two", "three"]
-// console.log('~~~~~~~~`');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 1, 4)); // [2, 3, 4, 5]
+// console.log(arr);               // [1, 6, 7]
+// console.log('~~~~');
 
-// var arr = [1, 2, 3];
-// console.log(splice(arr, 1, 0));                         // []
-// console.log(splice(arr, 1, 0, 'a'));                    // []
-// console.log(arr);                                       // [1, 'a', 2, 3]
-// console.log('~~~~~~~~`');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 6, 6)); // [7]
+// console.log(arr);               // [1, 2, 3, 4, 5, 6]
+// console.log('~~~~');
 
-// var arr = [1, 2, 3];
-// console.log(splice(arr, 0, 0, 'a'));                    // []
-// console.log(arr);                                       // ['a', 1, 2, 3]
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 12, 2)); // []
+// console.log(arr);                // [1, 2, 3, 4, 5, 6, 7]
+// console.log('~~~~');
 
-// // console.log('*********');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 1, 10)); // [2, 3, 4, 5, 6, 7]
+// console.log(arr);                // [1]
+// console.log('~~~~');
 
-// // var arr = [1, 2, 3];
-// // console.log(splice(arr, 1, 0)); // []
-// // console.log(arr);               // [1, 2, 3]
-// // console.log('~~~~');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 2, 5)); // [3, 4, 5, 6, 7]
+// console.log(arr);               // [1, 2]
+// console.log('~~~~');
 
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 1, 4)); // [2, 3, 4, 5]
-// // console.log(arr);               // [1, 6, 7]
-// // console.log('~~~~');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 2, 4)); // [3, 4, 5, 6]
+// console.log(arr);               // [1, 2, 7]
+// console.log('~~~~');
 
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 6, 6)); // [7]
-// // console.log(arr);               // [1, 2, 3, 4, 5, 6]
-// // console.log('~~~~');
-
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 12, 2)); // []
-// // console.log(arr);                // [1, 2, 3, 4, 5, 6, 7]
-// // console.log('~~~~');
-
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 1, 10)); // [2, 3, 4, 5, 6, 7]
-// // console.log(arr);                // [1]
-// // console.log('~~~~');
-
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 2, 5)); // [3, 4, 5, 6, 7]
-// // console.log(arr);               // [1, 2]
-// // console.log('~~~~');
-
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 2, 4)); // [3, 4, 5, 6]
-// // console.log(arr);               // [1, 2, 7]
-// // console.log('~~~~');
-
-// // var arr = [1, 2, 3, 4, 5, 6, 7];
-// // console.log(splice(arr, 2, 3)); // [3, 4, 5]
-// // console.log(arr);               // [1, 2, 6, 7]
-// // console.log('~~~~');
+// var arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(splice(arr, 2, 3)); // [3, 4, 5]
+// console.log(arr);               // [1, 2, 6, 7]
+// console.log('~~~~');
 
 
 
@@ -683,38 +655,38 @@
 /*---------------- 10 -----------------*/console.log('\n--------- 10 --------');
 //======= Array Comparison =======//
 
-function areArraysEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length) return false;
+// function areArraysEqual(arr1, arr2) {
+//   if (arr1.length !== arr2.length) return false;
 
-  arr1.sort();
-  arr2.sort();
+//   arr1.sort();
+//   arr2.sort();
 
-  for (var i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) return false;
-  }
+//   for (var i = 0; i < arr1.length; i++) {
+//     if (arr1[i] !== arr2[i]) return false;
+//   }
 
-  return true;
-}
+//   return true;
+// }
 
 
-function areArraysEqual(arr1, arr2) {
-  return arr1.length === arr2.length &&
-    arr1.slice().sort().every((elem, i) => elem === arr2.slice().sort()[i]);
-}
+// function areArraysEqual(arr1, arr2) {
+//   return arr1.length === arr2.length &&
+//     arr1.slice().sort().every((elem, i) => elem === arr2.slice().sort()[i]);
+// }
 
-console.log(areArraysEqual([1, 2, 3], [1, 2, 3]));              // true
-console.log(areArraysEqual([1, 2, 3], [3, 2, 1]));              // true
-console.log(areArraysEqual(['a', 'b', 'c'], ['b', 'c', 'a']));  // true
-console.log(areArraysEqual(['1', 2, 3], [1, 2, 3]));            // false
-console.log(areArraysEqual([1, 1, 2, 3], [3, 1, 2, 1]));        // true
-console.log(areArraysEqual([1, 2, 3, 4], [1, 1, 2, 3]));        // false
-console.log(areArraysEqual([1, 1, 2, 2], [4, 2, 3, 1]));        // false
-console.log(areArraysEqual([1, 1, 2], [1, 1, 2, 4]));           // false
-console.log(areArraysEqual([1, 2, 2], [1, 1, 2]));              // false
-console.log('======');
+// console.log(areArraysEqual([1, 2, 3], [1, 2, 3]));              // true
+// console.log(areArraysEqual([1, 2, 3], [3, 2, 1]));              // true
+// console.log(areArraysEqual(['a', 'b', 'c'], ['b', 'c', 'a']));  // true
+// console.log(areArraysEqual(['1', 2, 3], [1, 2, 3]));            // false
+// console.log(areArraysEqual([1, 1, 2, 3], [3, 1, 2, 1]));        // true
+// console.log(areArraysEqual([1, 2, 3, 4], [1, 1, 2, 3]));        // false
+// console.log(areArraysEqual([1, 1, 2, 2], [4, 2, 3, 1]));        // false
+// console.log(areArraysEqual([1, 1, 2], [1, 1, 2, 4]));           // false
+// console.log(areArraysEqual([1, 2, 2], [1, 1, 2]));              // false
+// console.log('======');
 
-var a = [2, 3, 1];
-var b = [3, 1, 2];
-console.log(areArraysEqual(a, b));  // true
-console.log(a);  // [2, 3, 1]
-console.log(b);  // [3, 1, 2]
+// var a = [2, 3, 1];
+// var b = [3, 1, 2];
+// console.log(areArraysEqual(a, b));  // true
+// console.log(a);  // [2, 3, 1]
+// console.log(b);  // [3, 1, 2]
