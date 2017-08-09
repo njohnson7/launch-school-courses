@@ -8,6 +8,8 @@
 - is `arr[1]` and `arr[1] = 5` and `obj['a']` considered a method or operator?
   - (square bracket notation)
 - "computed elem operator"?
+- creation/execution phase in global/function context (hoisting)
+- difference b/w Array(4) and Array(4).fill() (undefined's)
 
 
 
