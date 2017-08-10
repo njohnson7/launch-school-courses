@@ -1,6 +1,5 @@
 ----------- LOOK UP -------------
 - assessment study guide
-- method vs. function vs. property
   - why isn't `String.fromCharCode` a function?
 - uncaught vs caught error?
 - # are array indexes also properties?
@@ -18,18 +17,19 @@
   - # practice debugger more!
 - Array methods...?
 - String methods
-- Date object stuff...?
-- # read style guide
-- # 2 videos
-- # JS Fundamentals exercises
 - hoisting details
 - function expressions
 
--prob solv vids
+- prob solv vids
 
 
+==================================================================
 --------- Written Test SG ---------
+==================================================================
+
 - # 5-8min per question! (20q/3hrs)
+
+=====
 - primitive values, types and type conversions
 - variable scopes and hoisting
 - function declarations, expressions and scopes
@@ -37,17 +37,43 @@
 - assignments and comparison
 - pure functions and side effects
 =====
-- return value of an expression,
-- whether there are side effects,
-- whether new objects are created,
-- or whether something is being output.
 
+- *return value* of an <expression>
+- whether there are *side effects* (ex: mutation)
+- whether *new objects* are <created>
+- or whether something is being *output*
 
+=====
+
+- explain *why* something happens:
+  - using precise vocab
+  - pinpoint the exact *causal mechanism* at work
+- explain *how* code works
+
+=====
+
+- explain a <concept>
+- <analyze> code
+- describe <what's happening>
+
+ex:
+  [js]
+          var a = "hello";
+
+          function foo() {
+            console.log(a);
+          }
+
+          foo();
+  [end]
+  - when the function is executed, the variable `a` inside the `foo` function is the same as the variable `a` outside of the function based on JavaScript's lexical scoping rules, therefore line 4 logs hello to the console.
+    - The function also returns `undefined` since there isn't an explicit return statement.
+
+==================================================================
+==================================================================
 
 --------- Maybe -------------
 - how to create snippets in devtools
-xx- var names...
-xx- debugger
 xx- devtools on test for debuger?
 xx-how often to run code? (every line like in ruby?)
   - test things in console like irb?
@@ -55,7 +81,7 @@ advantages to JS over ruby?
 
 single line if else?
 blinking chrome cursor?
-- use for loop for early return. fprEach otherwise...?
+- use for loop for early return. forEach otherwise...?
 
 custom console log?
 let?
