@@ -101,8 +101,6 @@
 
 
 
-
-
 /*---------------- 3 -----------------*/console.log('\n--------- 3 ----------');
 //========== Amount Payable ==========//
 
@@ -157,25 +155,35 @@
 /*---------------- 4 -----------------*/console.log('\n--------- 4 ----------');
 //========== Caller ==========//
 
-function doubler(number, caller) {
-  console.log('This function was called by ' + caller + '.');
-  return number + number;
-}
+// // function doubler(number, caller) {
+// //   console.log('This function was called by ' + caller + '.');
+// //   return number + number;
+// // }
 
-doubler(5, 'Victor');       // 10
-// This function was called by Victor.
+// // doubler(5, 'Victor');       // 10
+// // // This function was called by Victor.
 
-function doubler(number, caller) {
-  console.log('This function was called by ' + caller + '.');
-  return number + number;
-}
-
-doubler(5, 'Victor');       // 10
-// This function was called by Victor.
+// // Can you create a makeDoubler function, which returns a function that's
+// //  functionally equivalent to doubler, but with the caller preset?
 
 
+// function makeDoubler(caller) {
+//   return function(number) {
+//     console.log(`This function was called by ${caller}.`);
+//     return number * 2;
+//   }
+// }
 
+// var makeDoubler = caller => num => {
+//   console.log(`This function was called by ${caller}.`);
+//   return num * 2;
+// }
 
+// var doubler = makeDoubler('Victor');
+// doubler(5);                 // 10
+// // This function was called by Victor.
+
+// console.log(doubler(5));
 
 
 
@@ -183,9 +191,49 @@ doubler(5, 'Victor');       // 10
 /*---------------- 5 -----------------*/console.log('\n--------- 5 ----------');
 //========== What's My Value? ==========//
 
+// var arr = ['Apples', 'Peaches', 'Grapes'];
 
+// arr[3.4] = 'Oranges';
+// console.log(arr.length); // 3
+// console.log(Object.keys(arr).length); // 4
 
+// arr[-2] = 'Watermelon';
+// console.log(arr.length); // 3
+// console.log(Object.keys(arr).length); // 5
 
+// console.log(Object.keys(arr));
+// console.log('----');
+
+// arr = [1, 2];
+// arr[4] = 5;
+// console.log(arr);
+// console.log(arr.length);
+// console.log(Object.keys(arr));
+// console.log(Object.keys(arr).length);
+
+// a = [,];
+// b = Array(1);
+// c = new Array(1);
+// d = [undefined];
+// console.log(a);                     // [undefined × 1]
+// console.log(b);                     // [undefined × 1]
+// console.log(c);                     // [undefined × 1]
+// console.log(d);                     // [undefined]
+
+// console.log(a.length);              // 1
+// console.log(d.length);              // 1
+
+// console.log(Object.keys(a).length); // 0
+// console.log(Object.keys(d).length); // 1
+
+// console.log(0 in a);                // false
+// console.log(0 in d);                // true
+
+// console.log(a[0]);
+// // undefined - because the property '0' is not defined
+
+// console.log(d[0]);
+// // undefined - because the value at '0' is undefined
 
 
 
@@ -195,8 +243,51 @@ doubler(5, 'Victor');       // 10
 /*---------------- 6 -----------------*/console.log('\n--------- 6 ----------');
 //========== Length ==========//
 
+// var languages = ['JavaScript', 'Ruby', 'Python'];
+// console.log(languages);        // ['JavaScript', 'Ruby', 'Python']
+// console.log(languages.length); // 3
 
+// languages.length = 4;
+// console.log(languages);        // ['JavaScript', 'Ruby', 'Python', undefined x 1]
+// console.log(languages.length); // 4
 
+// languages.length = 1;
+// console.log(languages);        // ['JavaScript']
+// console.log(languages.length); // 1
+
+// languages.length = 3;
+// console.log(languages);        // ['JavaScript', undefined x 2]
+// console.log(languages.length); // 3
+
+// languages.length = 1;
+// languages[2] = 'Python';
+// console.log(languages);        // ['JavaScript', undefined x 1, 'Python']
+// console.log(languages[1]);     // undefined
+// console.log(languages.length); // 3
+
+// console.log('=======');
+
+// var arr = [1, 2];
+// arr.length = 4;
+// console.log(arr);   // [1, 2, undefined × 2]
+
+// console.log(arr.indexOf(undefined));    // -1
+// console.log(arr.includes(undefined));   // true
+
+// arr[4] = undefined;
+// console.log(arr);   // [1, 2, undefined × 2, undefined]
+// console.log(arr.indexOf(undefined));    // 4
+// console.log(arr.includes(undefined));   // true
+
+// var arr = Array(1);
+// console.log(arr);   // [undefined × 1]
+// console.log(arr.indexOf(undefined));    // -1
+// console.log(arr.includes(undefined));   // true
+
+// var arr = Array(1);
+// console.log(arr.indexOf(undefined)); // -1
+// arr.push(undefined);
+// console.log(arr.indexOf(undefined)); // 1
 
 
 
@@ -207,8 +298,59 @@ doubler(5, 'Victor');       // 10
 /*---------------- 7 -----------------*/console.log('\n--------- 7 ----------');
 //========== The Red Pill ==========//
 
+function one() {
+  function log(result) {
+    console.log(result);
+  }
+
+  function anotherOne() {
+    var result = '';
+    for (var i = 0; i < arguments.length; i++) {
+      result += String.fromCharCode(arguments[i]);
+    }
+
+    log(result);
+  }
+
+  function anotherAnotherOne() {
+    console.log(String.fromCharCode(87, 101, 108, 99, 111, 109, 101, 32));
+    anotherOne(116, 111, 32);
+  }
+
+  anotherAnotherOne();
+  anotherOne(116, 104, 101, 32);
+  return anotherOne;
+}
+
+one()(77, 97, 116, 114, 105, 120, 33);
 
 
+// - one():
+//   - invokes: anotherAnotherOne():
+//     - logs:    'Welcome '
+//     - invokes: anotherOne(116, 111, 32):
+//       - invokes: log('to '):
+//         - logs:    'to '
+//         - returns: undefined
+//       - returns: undefined
+//     - returns: undefined
+//   - invokes: anotherOne(116, 104, 101, 32);
+//     - invokes: log('the ')
+//       - logs:    'the '
+//       - returns: undefined
+//     - returns: undefined
+//   - returns: anotherOne
 
+// - anotherOne(77, 97, 116, 114, 105, 120, 33);
+//   - invokes: log('Matrix!')
+//     - logs:    'Matrix!'
+//     - returns: undefined
+//   - returns: undefined
 
-
+// - overall results:
+//   - logs:
+//     - 'Welcome '
+//     - 'to '
+//     - 'the '
+//     - 'Matrix!'
+//   - returns: undefined

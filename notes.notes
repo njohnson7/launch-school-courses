@@ -1,5 +1,4 @@
 ----------- LOOK UP -------------
-- JS version in MDN documentation
 - assessment study guide
 - method vs. function vs. property
   - why isn't `String.fromCharCode` a function?
