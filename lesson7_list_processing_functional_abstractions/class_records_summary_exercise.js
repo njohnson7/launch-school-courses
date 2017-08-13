@@ -53,48 +53,84 @@ var studentScores = {
 //   map each exam to obj:
 //     - properties: average, min, max
 
+const EXAM_WEIGHT     = 0.65;
+const EXERCISE_WEIGHT = 0.35;
 
+const generateClassRecordSummary = students => {
+  let studentGrades = generateStudentGrades(students);
+  let examSummaries = generateExamSummaries(students);
 
+  return { studentGrades: studentGrades, exams: examSummaries };
+};
 
+const generateStudentGrades = students => {
+  return Object.keys(students).map(student => {
+    let examScoresAvg     = findAvg(students[student].scores.exams);
+    let exerciseScoresSum = findSum(students[student].scores.exercises)
+    let percentGrade      = findPercentGrade(examScoresAvg, exerciseScoresSum);
+    let letterGrade       = findLetterGrade(percentGrade);
 
-
-function generateClassRecordSummary(students) {
-  var studentGrades = Object.keys(students).map(student => {
-    var exerciseSum   = students[student].scores.exercises.reduce((sum, n) => sum + n, 0);
-    var exams         = students[student].scores.exams;
-    var examsAvg      = findAvg(exams);
-    var weightedScore = Math.round(examsAvg * 0.65 + exerciseSum * 0.35);
-    var grade         = findLetterGrade(weightedScore);
-
-    return `${weightedScore} (${grade})`;
+    return `${percentGrade} (${letterGrade})`;
   });
+};
 
-  var examzz    = Object.keys(students).map(student => students[student].scores.exams);
-  var examStats = examzz[0].map((_, i) => {
-    var examScores = examzz.map(exam => exam[i]);
-    var avg        = findAvg(examScores);
-    var [min, max] = [Math.min(...examScores), Math.max(...examScores)];
+const generateExamSummaries = students => {
+  let examScoresByStudent = extractExamScores(students);
+
+  return examScoresByStudent[0].map((_, studentNum) => {
+    let examScoresByExam = findExamScoresByExam(examScoresByStudent, studentNum);
+    let avg              = findAvg(examScoresByExam);
+    let [min, max]       = findMinMax(examScoresByExam);
 
     return { average: avg, minimum: min, maximum: max };
   });
+};
 
-  return { studentGrades: studentGrades, exams: examStats };
-}
+const extractExamScores = students => {
+  return Object.keys(students).map(student => students[student].scores.exams);
+};
 
-function findAvg(scores) {
-  return scores.reduce((sum, n) => sum + n, 0) / scores.length;
-}
+const findExamScoresByExam = (examScoresByStudent, studentNum) => {
+  return examScoresByStudent.map(exam => exam[studentNum]);
+};
 
-function findLetterGrade(score) {
+const findSum    = scores => scores.reduce((sum, score) => sum + score, 0);
+const findAvg    = scores => findSum(scores) / scores.length;
+const findMinMax = scores => [Math.min(...scores), Math.max(...scores)];
+
+const findPercentGrade = (examScoresAvg, exerciseScoresSum) => {
+  return Math.round(examScoresAvg * EXAM_WEIGHT + exerciseScoresSum * EXERCISE_WEIGHT);
+};
+
+const findLetterGrade = score => {
   if      (score >= 93) return 'A';
   else if (score >= 85) return 'B';
   else if (score >= 77) return 'C';
   else if (score >= 69) return 'D';
   else if (score >= 60) return 'E';
   else                  return 'F';
-}
+};
+
+
+
+
+
 
 console.log(generateClassRecordSummary(studentScores));
+
+
+result = generateClassRecordSummary(studentScores);
+
+console.log(JSON.stringify(result.studentGrades) ===
+            JSON.stringify([ '87 (B)', '73 (D)', '84 (C)', '86 (B)', '56 (F)' ]));
+
+console.log(JSON.stringify(result.exams) === JSON.stringify([
+    { average: 75.6, minimum: 50, maximum: 100 },
+    { average: 86.4, minimum: 70, maximum: 100 },
+    { average: 87.6, minimum: 60, maximum: 100 },
+    { average: 91.8, minimum: 80, maximum: 100 },
+  ]));
+
 
 // returns:
 ({
