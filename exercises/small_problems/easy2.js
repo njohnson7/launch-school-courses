@@ -169,6 +169,10 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 
 
 
+
+
+
+
 // /*---------------- 5 -----------------*/console.log('\n--------- 5 ----------');
 // //============ Right Triangles ===========//
 
