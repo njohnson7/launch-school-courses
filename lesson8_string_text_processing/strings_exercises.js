@@ -207,10 +207,10 @@
 
 // /*---------------- 16 -----------------*/console.log('\n--------- 16 ----------');
 
-var name = prompt('What is your name?');
-var greeting = `Hello ${name.replace('!', '')}.`;
-if (name.endsWith('!')) greeting = `${greeting} why are we screaming?`.toUpperCase();
-console.log(greeting);
+// var name = prompt('What is your name?');
+// var greeting = `Hello ${name.replace('!', '')}.`;
+// if (name.endsWith('!')) greeting = `${greeting} why are we screaming?`.toUpperCase();
+// console.log(greeting);
 
 
 // What is your name? Bob
