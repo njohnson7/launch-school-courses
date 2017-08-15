@@ -17,17 +17,55 @@
   - # practice debugger more!
 - hoisting details
 - function expressions
+- regex book...?
 
 - # lesson 9 - PEDAC
   - # prob solv vids
 
 
+
+
+==================================================================
+--------- Interview SG ---------
+==================================================================
+- basic JavaScript programming and problem solving skills.
+- # 40 min time limit
+
+JavaScript specific topics that you need to study on:
+- Language syntax, types, and flow control
+- Functions, variables, and scopes
+- Arrays and objects
+- Language built-in methods on String and Array
+- Mutability of values and objects
+- Pure functions and side effects
+- Regular expressions (what's covered in our book)
+
+General problem solving topics you're expected to demonstrate in the interview:
+- Be able to build and communicate a clear plan towards solving a given problem
+- Fluent with JavaScript's built-in list processing abstractions and higher-order functions
+- Be able to write code that follows clear and idiomatic abstractions
+- Be able to validate assumptions, debug issues and fix any problems
+- Good code style
+
+General communication and presence:
+- Think, speak, and code deliberately
+- Accuracy in concepts and terminologies
+- Stay calm
+
+Follow process of "General Problem Solving" approach to solving a code challenge:
+- Understand the problem
+- Examples/test cases
+- Data structure and algorithms
+- Verify your algorithm against the examples
+- Start Coding
+
+
+
+
+
 ==================================================================
 --------- Written Test SG ---------
 ==================================================================
-
-- # 5-8min per question! (20q/3hrs)
-
 =====
 - primitive values, types and type conversions
 - variable scopes and hoisting

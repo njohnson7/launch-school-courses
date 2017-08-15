@@ -135,36 +135,66 @@
 // /*---------------- 4 -----------------*/console.log('\n--------- 4 ----------');
 // //============ Fibonacci Number Location by Length ===========//
 
+// // const findFibonacciIndexByLength = n => {
+// //   let [a, b] = [1, 1];
+// //   let i = 1;
+
+// //   while (String(a).length < n) {
+// //     [a, b] = [b, a + b];
+// //     i++;
+// //   }
+
+// //   return i;
+// // }
+
+
+
 // const findFibonacciIndexByLength = n => {
-//   let [a, b] = [1, 1];
-//   let i = 1;
-
-//   while (String(a).length < n) {
-//     [a, b] = [b, a + b];
-//     i++;
-//   }
-
+//   for (var [a, b, i] = [1, 1, 1]; String(a).length < n; [a, b] = [b, a + b], i++);
 //   return i;
-// }
+// };
 
 
-const findFibonacciIndexByLength = n => {
-  for (var [a, b, i] = [1, 1, 1]; String(a).length < n; [a, b, i] = [b, a + b, i + 1]) {}
-  return i;
-}
 
-console.log(findFibonacciIndexByLength(2));     // 7
-console.log(findFibonacciIndexByLength(10));    // 45
-console.log(findFibonacciIndexByLength(16));    // 74
 
-console.log('======');
 
-console.log(findFibonacciIndexByLength(2)  ===  7);
-console.log(findFibonacciIndexByLength(10) === 45);
-console.log(findFibonacciIndexByLength(16) === 74);
+// const findFibonacciIndexByLength = n => {
+//   let fibSequence = fibonacci();
+//   let count = 1;
+//   while (String(fibSequence.next().value).length < n) count++;
+//   return count;
+// };
 
-// GIVEN SOLUTION DOESN'T WORK FOR:
-console.log(findFibonacciIndexByLength(1)  ===  1);
+// const fibonacci = function* () {
+//   let [a, b] = [1, 1];
+//   while (true) {
+//     yield a;
+//     [a, b] = [b, a + b];
+//   }
+// };
+
+
+
+
+// const findFibonacciIndexByLength = (n, a = 1, b = 1) => {
+//   return String(a).length >= n ? 1 : 1 + findFibonacciIndexByLength(n, b, a + b);
+// };
+
+
+
+
+// console.log(findFibonacciIndexByLength(2));     // 7
+// console.log(findFibonacciIndexByLength(10));    // 45
+// console.log(findFibonacciIndexByLength(16));    // 74
+
+// console.log('======');
+
+// console.log(findFibonacciIndexByLength(2)  ===  7);
+// console.log(findFibonacciIndexByLength(10) === 45);
+// console.log(findFibonacciIndexByLength(16) === 74);
+// console.log(findFibonacciIndexByLength(1)  ===  1);
+
+
 
 
 
@@ -175,6 +205,36 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 
 // /*---------------- 5 -----------------*/console.log('\n--------- 5 ----------');
 // //============ Right Triangles ===========//
+
+// const triangle = n => {
+//   [...Array(n).keys()].forEach(i => console.log('*'.repeat(++i).padStart(n)));
+// };
+
+
+// const triangle = (n, i = 1) => {
+//   console.log('*'.repeat(i).padStart(n));
+//   return i >= n ? '' : triangle(n, i + 1);
+// };
+
+
+// triangle(5);
+// //     *
+// //    **
+// //   ***
+// //  ****
+// // *****
+
+// triangle(9);
+// //         *
+// //        **
+// //       ***
+// //      ****
+// //     *****
+// //    ******
+// //   *******
+// //  ********
+// // *********
+
 
 
 
@@ -188,6 +248,19 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 // //============ Madlibs ===========//
 
 
+// let noun = prompt('Enter a noun:');
+// let verb = prompt('Enter a verb:');
+// let adj = prompt('Enter an adjective:');
+// let adverb = prompt('Enter an adverb:');
+
+// console.log(`Do you ${verb} your ${adj} ${noun} ${adverb}? That's hilarious!`);
+
+
+
+
+// let words = ['a noun', 'a verb', 'an adjective', 'an adverb'].map(w => prompt(`Enter ${w}:`));
+// console.log(`Do you ${words[1]} your ${words[2]} ${words[0]} ${words[3]}? That's hilarious!`);
+
 
 
 
@@ -197,6 +270,51 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 
 // /*---------------- 7 -----------------*/console.log('\n--------- 7 ----------');
 // //============ Double Doubles ===========//
+
+// double num:
+  // even length num
+  // left side digits === right side digits
+
+// output:
+  // if double num => itself
+  // else, 2 * num
+
+// const twice = num => {
+//   return /^(\d+)\1$/.test(String(num)) ? num : num * 2;
+// };
+
+
+// const twice = num => /^(\d+)\1$/.test(String(num)) ? num : num * 2;
+
+
+// const twice = num => num + (/^(\d+)\1$/.test(String(num)) ? 0 : num);
+
+
+
+// const twice = num => num + +(!/^(\d+)\1$/.test(String(num)) * num);
+
+
+
+
+// console.log(twice(37));                 // 74
+// console.log(twice(44));                 // 44
+// console.log(twice(334433));             // 668866
+// console.log(twice(444));                // 888
+// console.log(twice(107));                // 214
+// console.log(twice(103103));             // 103103
+// console.log(twice(3333));               // 3333
+// console.log(twice(7676));               // 7676
+
+// console.log('=======');
+
+// console.log(twice(37)     === 74);
+// console.log(twice(44)     === 44);
+// console.log(twice(334433) === 668866);
+// console.log(twice(444)    === 888);
+// console.log(twice(107)    === 214);
+// console.log(twice(103103) === 103103);
+// console.log(twice(3333)   === 3333);
+// console.log(twice(7676)   === 7676);
 
 
 
@@ -208,6 +326,25 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 
 // /*---------------- 8 -----------------*/console.log('\n--------- 8 ----------');
 // //============ Grade book ===========//
+
+// const getGrade = (...nums) => {
+//   return ['F', 'D', 'C', 'B', 'A'][~~(nums.reduce((sum, n) => sum + n, 0) / nums.length / 10 % 5)];
+// };
+
+// console.log(getGrade(95, 90, 93) === "A");
+// console.log(getGrade(80, 89, 87) === "B");
+// console.log(getGrade(60, 90, 74) === "C");
+// console.log(getGrade(50, 50, 95) === "D");
+// console.log(getGrade(58, 50, 70) === "F");
+// console.log(getGrade(58, 50, 70, 30, 55, 73) === "F");
+// console.log(getGrade(0)       === "F");
+// console.log(getGrade()        === "F");
+// console.log(getGrade(93)      === "A");
+// console.log(getGrade(100, 85) === "A");
+// console.log(getGrade(100, 85, 20, 30, 40, 50, 60, 70, 80)     === "F");
+// console.log(getGrade(100, 85, 20, 30, 40, 50, 60, 70, 80, 90) === "D");
+
+
 
 
 
@@ -229,8 +366,14 @@ console.log(findFibonacciIndexByLength(1)  ===  1);
 
 
 
+
+
+
+
 // /*---------------- 10 -----------------*/console.log('\n--------- 10 --------');
 // //============ What Century is That ===========//
+
+
 
 
 

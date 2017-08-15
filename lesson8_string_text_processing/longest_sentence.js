@@ -47,9 +47,9 @@ var longText = 'Four score and seven years ago our fathers brought forth' +
 //   sentences = sentences.map(sentence => ({ sentence: sentence, wordCount: countWords(sentence) }));
 //   let longest = sentences.slice().sort((a, b) => b.wordCount - a.wordCount)[0];
 
-//     console.log(sentence.content);
-//     console.log('');
-//     console.log(`The longest sentence has ${sentence.wordCount} words.`);
+//   console.log(sentence.content);
+//   console.log('');
+//   console.log(`The longest sentence has ${sentence.wordCount} words.`);
 // };
 
 
@@ -60,8 +60,8 @@ const longestSentence = text => {
     .map(sentence => ({ content: sentence, wordCount: sentence.match(/[^ .!?]+/g).length }))
     .slice().sort((a, b) => b.wordCount - a.wordCount)[0];
 
-    console.log(longest.content);
-    console.log(`\nThe longest sentence has ${longest.wordCount} words.`);
+  console.log(longest.content);
+  console.log(`\nThe longest sentence has ${longest.wordCount} words.`);
 };
 
 
