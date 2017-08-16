@@ -110,9 +110,9 @@
 
 
 
-const isPalindrome = str => (
-  str === str.replace(/./g, (c, i) => str.substr(-++i, 1))
-);
+// const isPalindrome = str => (
+//   str === str.replace(/./g, (c, i) => str.substr(-++i, 1))
+// );
 
 
 // console.log(isPalindrome('madam'));           // true
@@ -248,17 +248,16 @@ const isPalindrome = str => (
 
 
 
-// const wordSizes = str => (
-//   (str.match(/\S+/g) || []).map(word => word.length)
-//     .reduce((counts, n) => (counts[n] ? counts[n]++ : counts[n] = 1, counts), {})
-// );
+// // const wordSizes = str => (
+// //   (str.match(/\S+/g) || []).map(word => word.length)
+// //     .reduce((counts, n) => (counts[n] ? counts[n]++ : counts[n] = 1, counts), {})
+// // );
 
 
 // // const wordSizes = str => (
 // //   (str.match(/\S+/g) || []).map(word => word.length)
 // //     .reduce((counts, n) => (counts[n] = counts[n] || 0, counts[n]++, counts), {})
 // // );
-
 
 
 
@@ -280,17 +279,18 @@ const isPalindrome = str => (
 // /*---------------- 10 -----------------*/console.log('\n--------- 10 --------');
 // //============= Letter Counter Part 2 ============///
 
-const wordSizes = str => (
-  (str.replace(/[^a-z ]/gi, '').match(/\S+/g) || []).map(word => word.length)
-    .reduce((counts, n) => (counts[n] ? counts[n]++ : counts[n] = 1, counts), {})
-);
+
+// const wordSizes = str => (
+//   (str.replace(/[^a-z ]/gi, '').match(/\S+/g) || []).map(word => word.length)
+//     .reduce((counts, n) => (counts[n] ? counts[n]++ : counts[n] = 1, counts), {})
+// );
 
 
-console.log(wordSizes('Four score and seven.'));  // { "3": 1, "4": 1, "5": 2 }
-console.log(wordSizes('Hey diddle diddle, the cat and the fiddle!')); // { "3": 5, "6": 3 }
-console.log(wordSizes('What\'s up doc?'));        // { "5": 1, "2": 1, "3": 1 }
-console.log(wordSizes(''));                       // {}
-console.log(wordSizes("it's cool"));              // {'3': 1, '4': 1}
+// console.log(wordSizes('Four score and seven.'));  // { "3": 1, "4": 1, "5": 2 }
+// console.log(wordSizes('Hey diddle diddle, the cat and the fiddle!')); // { "3": 5, "6": 3 }
+// console.log(wordSizes('What\'s up doc?'));        // { "5": 1, "2": 1, "3": 1 }
+// console.log(wordSizes(''));                       // {}
+// console.log(wordSizes("it's cool"));              // {'3': 1, '4': 1}
 
 
 

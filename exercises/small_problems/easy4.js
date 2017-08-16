@@ -350,10 +350,22 @@
 // );
 
 
-const average = (nums, sum = 0, i = 0) => (
-  nums.length ? average(nums.slice(1), sum + nums[0], i + 1) : ~~(sum / i)
-);
+// const average = (nums, sum = 0, i = 0) => (
+//   nums.length ? average(nums.slice(1), sum + nums[0], i + 1) : ~~(sum / i)
+// );
 
+
+
+const average = numbers => {
+  const rec = nums => nums.length ? nums[0] + rec(nums.slice(1)) : 0;
+  return ~~(rec(numbers) / numbers.length);
+};
+
+
+
+// const average = numbers => (
+//   ~~((sum = nums => nums.length ? nums[0] + sum(nums.slice(1)) : 0)(numbers) / numbers.length)
+// );
 
 
 console.log(average([1, 5, 87, 45, 8, 8]));    // 25
