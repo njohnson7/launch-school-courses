@@ -357,12 +357,25 @@
 // /*---------------- 9 -----------------*/console.log('\n--------- 9 ----------');
 // //============ Clean Up the Words ===========//
 
+// // const cleanUp = str => {
+// //   return str.replace(/[^a-z]+/gi, ' ');
+// // };
+
+
+
+// const cleanUp = str => str.replace(/[^a-z]+/gi, ' ');
 
 
 
 
+// console.log(cleanUp('---what\'s my +*& line?'));      // ' what s my line '
+// console.log(cleanUp('-what\'s my +*& line?'));      // ' what s my line '
+// console.log(cleanUp('what\'s my +*& line?'));      // 'what s my line '
 
-
+// console.log(cleanUp('---what\'s my +*& line?') === ' what s my line ');
+// console.log(cleanUp('-what\'s my +*& line?') === ' what s my line ');
+// console.log(cleanUp('what\'s my +*& line?') === 'what s my line ');
+// console.log(cleanUp('what\'s my +*& li_ne?') === 'what s my li ne ');
 
 
 
@@ -373,8 +386,74 @@
 // /*---------------- 10 -----------------*/console.log('\n--------- 10 --------');
 // //============ What Century is That ===========//
 
+/*
+- rules:
+  - suffixes:
+    - st: 1, 21, ...
+    - nd: 2, 22, ...
+    - rd: 3, 23, ...
+    - th: 4-20, 34-40, ...
+  - century num:
+    - 1901 - 2000: 20
+    - 2001 - 2100: 21
+*/
+
+// const century = year => {
+//   let cent = Math.ceil(year / 100);
+//   let tens = cent % 100;
+//   let suffix = 'th';
+
+//   if (tens < 10 || tens > 20) {
+//     let ones = tens % 10;
+//     if (ones === 1) suffix = 'st';
+//     else if (ones === 2) suffix = 'nd';
+//     else if (ones === 3) suffix = 'rd';
+//   }
+
+//   return cent + suffix;
+// };
+
+
+
+// const century = year => {
+//   let cent = Math.ceil(year / 100);
+//   let tens = cent % 100;
+//   let suffix = tens < 11 || tens > 13 ? ['st', 'nd', 'rd'][tens % 10 - 1] || 'th' : 'th';
+//   return cent + suffix;
+// };
+
+
+
+const century = year => {
+  let cent = Math.ceil(year / 100);
+  let suffix = ['th', 'th', 'th'][cent % 100 - 11] ||
+               ['st', 'nd', 'rd'][cent % 10 - 1]   || 'th';
+  return cent + suffix;
+};
 
 
 
 
+console.log(century(2000));        // '20th'
+console.log(century(2001));        // '21st'
+console.log(century(1965));        // '20th'
+console.log(century(256));         // '3rd'
+console.log(century(5));           // '1st'
+console.log(century(10103));       // '102nd'
+console.log(century(1052));        // '11th'
+console.log(century(1127));        // '12th'
+console.log(century(11201));       // '113th'
+console.log(century(3100));       // '113th'
+console.log(century(3101));       // '113th'
 
+console.log('=======');
+
+console.log(century(2000)  === '20th');
+console.log(century(2001)  === '21st');
+console.log(century(1965)  === '20th');
+console.log(century(256)   === '3rd');
+console.log(century(5)     === '1st');
+console.log(century(10103) === '102nd');
+console.log(century(1052)  === '11th');
+console.log(century(1127)  === '12th');
+console.log(century(11201) === '113th');
