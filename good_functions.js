@@ -9,7 +9,7 @@ const eql = (a, b) => {
 const elog = (a, b) => {
   p('a =>', a);     // logs each argument using the `p` function, with a readable notation.
   p('b =>', b);
-  return p(eql(a, b));     // invokes `eql` to determine if the object's are equal, and returns the result.
+  return p(eql(a, b)); // logs and returns the return value of `eql`
 };
 
 // p - combination of `console.log` and Ruby's `Kernel#p`:

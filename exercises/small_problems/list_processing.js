@@ -115,11 +115,45 @@
 // //============= Sum of Sums =============//
 
 
+// // const sumOfSums = nums => (
+// //   nums.reduce((sum, _, i) => sum + nums.slice(0, ++i).reduce((s, n) => s + n))
+// // );
+
+
+// // const sumOfSums = nums => (
+// //   nums.reduce((sum, n, i) => sum + n * (nums.length - i), 0)
+// // );
+
+
+// // const sumOfSums = nums => (
+// //   ''+nums ? nums.reduce((s, n) => s + n) + sumOfSums(nums.slice(0, nums.length - 1)) : 0
+// // );
+
+
+// const sumOfSums = (nums, len = nums.length) => (
+//   len ? nums[0] * len + sumOfSums(nums.slice(1)) : 0
+// );
 
 
 
 
+// p(sumOfSums([3, 5, 2]));       // (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+// p(sumOfSums([1, 5, 7, 3]));    // (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+// p(sumOfSums([4]));             // 4
+// p(sumOfSums([1, 2, 3, 4, 5])); // 35
+// p(sumOfSums([0, 1, 2, 3, 4, 5])); // 35
 
+
+// // p(sumOfSums([3, 5, 2]));
+// // (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+
+// // 3 * nums.length +
+// // 5 * nums.length - 1 +
+// // 2 * nums.length - 2
+
+// // 3 * 3 +
+// // 5 * 2 +
+// // 2 * 1
 
 
 
@@ -130,9 +164,24 @@
 // /*---------------- 5 -----------------*/console.log('\n--------- 5 ----------');
 // //============= Leading Substrings =============//
 
+// const substringsAtStart = str => [...str].map((_, i) => str.slice(0, ++i));
 
 
 
+// // const substringsAtStart = str => (
+// //   str.replace(/./g, (_, i) => `${str.slice(0, ++i)} `).match(/\S+/g)
+// // );
+
+
+// const substringsAtStart = str => (
+//   str ? [...substringsAtStart(str.slice(0, --str.length)), str] : []
+// );
+
+
+
+// elog(substringsAtStart('abc'),   ['a', 'ab', 'abc']);
+// elog(substringsAtStart('a'),     ['a']);
+// elog(substringsAtStart('xyzzy'), ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']);
 
 
 
@@ -148,10 +197,29 @@
 
 
 
+// const substrings = str => (
+//   [].concat(...[...str].map((_, i) => substringsAtStart(str.slice(i))))
+// );
+
+
+// const substrings = str => (
+//   [...str].reduce((res, _, i) => [...res, ...substringsAtStart(str.slice(i))], [])
+// );
+
+
+// const substrings = str => (
+//   str ? [...substringsAtStart(str), ...substrings(str.slice(1))] : []
+// );
 
 
 
 
+// elog(substrings('abcde'),
+// [ 'a', 'ab', 'abc', 'abcd', 'abcde',
+//   'b', 'bc', 'bcd', 'bcde',
+//   'c', 'cd', 'cde',
+//   'd', 'de',
+//   'e' ]);
 
 
 
@@ -164,7 +232,35 @@
 
 
 
+// const palindromes = str => (
+//   substrings(str).filter(s => s[1] && s === [...s].reverse().join(''))
+// );
 
+
+// const palindromes = str => (
+//   substrings(str).filter(s => s[1] && s === s.replace(/./g, (c, i) => s.substr(-++i, 1)))
+// );
+
+
+// const palindromes = str => (
+//   substrings(str).filter(s => /^(.{2,})\1$/.test(s + [...s].reverse().join('')))
+// );
+
+
+// elog(palindromes('abcd'),  []);
+// p();
+
+// elog(palindromes('madam'), ['madam', 'ada']);
+// p();
+
+// elog(palindromes('hello-madam-did-madam-goodbye'),
+//   [ 'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+//     'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+//     '-madam-', 'madam', 'ada', 'oo' ]);
+// p();
+
+// elog(palindromes('knitting cassettes'),
+//   [ 'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt' ]);
 
 
 
@@ -179,12 +275,29 @@
 // //============= Grocery List =============//
 
 
+// // const buyFruit = list => (
+// //   [].concat(...list.map(([fruit, n]) => fruit.repeat(n).match(RegExp(fruit, 'g'))))
+// // );
+
+
+// // const buyFruit = list => (
+// //   list.reduce((res, [fruit, n]) => [...res, ...Array(n).fill(fruit)], [])
+// // );
+
+
+// // const buyFruit = list => (
+// //   list[0] ? [...Array(list[0][1]).fill(list[0][0]), ...buyFruit(list.slice(1))] : []
+// // );
 
 
 
+// const buyFruit = (list, [fruit, n] = list[0] || []) => (
+//   fruit ? [...Array(n).fill(fruit), ...buyFruit(list.slice(1))] : []
+// );
 
 
-
+// elog(buyFruit([['apples', 3], ['orange', 1], ['bananas', 2]]),
+//   ['apples', 'apples', 'apples', 'orange', 'bananas','bananas']);
 
 
 
@@ -195,9 +308,35 @@
 // //============= Inventory Item Transactions =============//
 
 
+// const transactionsFor = (inventoryItem, transactions) => (
+//   transactions.filter(item => item.id === inventoryItem)
+// );
+
+
+const transactionsFor = (itemID, transactions) => (
+  transactions.filter(({ id }) => id === itemID)
+);
 
 
 
+
+
+
+// var transactions = [ {id: 101, movement: 'in', quantity: 5, },
+//                      {id: 105, movement: 'in', quantity: 10, },
+//                      {id: 102, movement: 'out', quantity: 17, },
+//                      {id: 101, movement: 'in', quantity: 12, },
+//                      {id: 103, movement: 'out', quantity: 15, },
+//                      {id: 102, movement: 'out', quantity: 15, },
+//                      {id: 105, movement: 'in', quantity: 25, },
+//                      {id: 101, movement: 'out', quantity: 18, },
+//                      {id: 102, movement: 'in', quantity: 22, },
+//                      {id: 103, movement: 'out', quantity: 15, },];
+
+// elog(transactionsFor(101, transactions),
+//   [ { id: 101, movement: 'in', quantity: 5 },
+//     { id: 101, movement: 'in', quantity: 12 },
+//     { id: 101, movement: 'out', quantity: 18 }, ]);
 
 
 
@@ -211,10 +350,32 @@
 // //============= Inventory Item Availability =============//
 
 
+// const isItemAvailable = (itemID, transactions) => (
+//   transactionsFor(itemID, transactions)
+//     .map(item => item.movement === 'in' ? item.quantity : -item.quantity)
+//     .reduce((sum, n) => sum + n, 0) > 0
+// );
 
 
 
+const isItemAvailable = (itemID, transactions) => (
+  transactionsFor(itemID, transactions)
+    .reduce((sum, { id, movement : move, quantity: n }) =>
+      sum + (move === 'in' ? n : -n), 0) > 0
+);
 
 
+var transactions = [ {id: 101, movement: 'in', quantity: 5, },  //////
+                     {id: 105, movement: 'in', quantity: 10, }, //55555555555
+                     {id: 102, movement: 'out', quantity: 17, },
+                     {id: 101, movement: 'in', quantity: 12, }, //////
+                     {id: 103, movement: 'out', quantity: 15, },
+                     {id: 102, movement: 'out', quantity: 15, },
+                     {id: 105, movement: 'in', quantity: 25, }, //55555555555
+                     {id: 101, movement: 'out', quantity: 18, }, //////
+                     {id: 102, movement: 'in', quantity: 22, },
+                     {id: 103, movement: 'out', quantity: 15, },];
 
-
+elog(isItemAvailable(101, transactions), false);
+p();
+elog(isItemAvailable(105, transactions), true);
