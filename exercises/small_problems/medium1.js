@@ -263,101 +263,117 @@
 
 
 
-// // const minilang = str => {
-// //   let commands = str.match(/\S+/g)
-// //   let register = 0;
-// //   let stack = [];
+// // // const minilang = str => {
+// // //   let commands = str.match(/\S+/g)
+// // //   let register = 0;
+// // //   let stack = [];
 
-// //   // p(commands);
+// // //   // p(commands);
 
-// //   while (commands.length > 0) {
-// //     cmd = commands.shift();
-// //     // p(cmd)
-// //     if (/\d/.test(cmd)) register = +cmd;
-// //     else if (cmd === 'PUSH') stack.push(register);
-// //     else if (cmd === 'POP') register = stack.pop();
-// //     else if (cmd === 'PRINT') console.log(register);
-// //     else if (cmd === 'ADD') register += stack.pop();
-// //     else if (cmd === 'SUB') register -= stack.pop();
-// //     else if (cmd === 'MULT') register *= stack.pop();
-// //     else if (cmd === 'DIV') register /= stack.pop();
-// //     else if (cmd === 'MOD') register %= stack.pop();
+// // //   while (commands.length > 0) {
+// // //     cmd = commands.shift();
+// // //     // p(cmd)
+// // //     if (/\d/.test(cmd)) register = +cmd;
+// // //     else if (cmd === 'PUSH') stack.push(register);
+// // //     else if (cmd === 'POP') register = stack.pop();
+// // //     else if (cmd === 'PRINT') console.log(register);
+// // //     else if (cmd === 'ADD') register += stack.pop();
+// // //     else if (cmd === 'SUB') register -= stack.pop();
+// // //     else if (cmd === 'MULT') register *= stack.pop();
+// // //     else if (cmd === 'DIV') register /= stack.pop();
+// // //     else if (cmd === 'MOD') register %= stack.pop();
 
-// //     register = ~~register;
+// // //     register = ~~register;
 
-// //     // p(' cmd:       %s\n register:  %s\n stack:     %s\n------', cmd, register, JSON.stringify(stack))
-// //     // p(stack);
-// //   }
-// //   // p('~~~~~~~~~~FINAL~~~~~~~')
-// //   // p(' cmd:       %s\n register:  %s\n stack:     %s\n------', cmd, register, JSON.stringify(stack))
+// // //     // p(' cmd:       %s\n register:  %s\n stack:     %s\n------', cmd, register, JSON.stringify(stack))
+// // //     // p(stack);
+// // //   }
+// // //   // p('~~~~~~~~~~FINAL~~~~~~~')
+// // //   // p(' cmd:       %s\n register:  %s\n stack:     %s\n------', cmd, register, JSON.stringify(stack))
 
-// // };
-
-
-
-// // const minilang = str => {
-// //   let commands = str.match(/\S+/g)
-// //   let register = 0;
-// //   let stack = [];
-
-// //   commands.reduce((reg, cmd) => {
-// //     if (/\d/.test(cmd)) reg = +cmd;
-// //     else if (cmd === 'PUSH') stack.push(+reg);
-// //     else if (cmd === 'POP') reg = +(stack.pop());
-// //     else if (cmd === 'PRINT') console.log(reg);
-// //     else if (cmd === 'ADD') reg += +stack.pop();
-// //     else if (cmd === 'SUB') reg -= stack.pop();
-// //     else if (cmd === 'MULT') reg *= stack.pop();
-// //     else if (cmd === 'DIV') reg /= stack.pop();
-// //     else if (cmd === 'MOD') reg %= stack.pop();
-
-// //     // p('reg at end: %s,  |  ~~reg: %s', reg, ~~reg)
-
-// //     return ~~reg;
-// //   }, 0);
-// // };
+// // // };
 
 
-// // const COMMANDS = { POP: '', ADD: '+', SUB: '-', MULT: '*', DIV: '/', MOD: '%' };
+
+// // // const minilang = str => {
+// // //   let commands = str.match(/\S+/g)
+// // //   let register = 0;
+// // //   let stack = [];
+
+// // //   commands.reduce((reg, cmd) => {
+// // //     if (/\d/.test(cmd)) reg = +cmd;
+// // //     else if (cmd === 'PUSH') stack.push(+reg);
+// // //     else if (cmd === 'POP') reg = +(stack.pop());
+// // //     else if (cmd === 'PRINT') console.log(reg);
+// // //     else if (cmd === 'ADD') reg += +stack.pop();
+// // //     else if (cmd === 'SUB') reg -= stack.pop();
+// // //     else if (cmd === 'MULT') reg *= stack.pop();
+// // //     else if (cmd === 'DIV') reg /= stack.pop();
+// // //     else if (cmd === 'MOD') reg %= stack.pop();
+
+// // //     // p('reg at end: %s,  |  ~~reg: %s', reg, ~~reg)
+
+// // //     return ~~reg;
+// // //   }, 0);
+// // // };
 
 
-// // const minilang = (str, stack = []) => {
-// //   str.match(/\S+/g).reduce((reg, cmd) => {
-// //     if      (/\d/.test(cmd))  reg = +cmd;
-// //     else if (cmd === 'PRINT') console.log(reg);
-// //     else if (cmd === 'PUSH')  stack.push(reg);
-// //     else                      eval(`reg ${COMMANDS[cmd]} stack.pop()`);
-// //     return ~~reg;
-// //   }, 0);
-// // };
+// // // const COMMANDS = { POP: '', ADD: '+', SUB: '-', MULT: '*', DIV: '/', MOD: '%' };
 
 
-// // const minilang = (str, stack = [], reg = 0, cmd = (str.match(/\S+/) || [])[0]) => {
-// //   if (!cmd) return;
+// // // const minilang = (str, stack = []) => {
+// // //   str.match(/\S+/g).reduce((reg, cmd) => {
+// // //     if      (/\d/.test(cmd))  reg = +cmd;
+// // //     else if (cmd === 'PRINT') console.log(reg);
+// // //     else if (cmd === 'PUSH')  stack.push(reg);
+// // //     else                      eval(`reg ${COMMANDS[cmd]} stack.pop()`);
+// // //     return ~~reg;
+// // //   }, 0);
+// // // };
 
-// //   if      (/\d/.test(cmd))  reg = w+cmd;
-// //   else if (cmd === 'PRINT') console.log(reg);
-// //   else if (cmd === 'PUSH')  stack.push(reg);
-// //   else                      eval(`reg ${CwOMMANDS[cmd]} stack.pop()`);
 
-// //   // p('******\n', ++cmd.length, '  str-B4>>  ', `"${str}"`, '  str-AFTER>>  ', `"${str.slice(cmd.length + 1)}"`, '\n~~~~~~~~\n\n');
+// // // const minilang = (str, stack = [], reg = 0, cmd = (str.match(/\S+/) || [])[0]) => {
+// // //   if (!cmd) return;
 
-// //   return minilang(str.slice(cmd.length + 1), stack, ~~reg);
-// // };
+// // //   if      (/\d/.test(cmd))  reg = w+cmd;
+// // //   else if (cmd === 'PRINT') console.log(reg);
+// // //   else if (cmd === 'PUSH')  stack.push(reg);
+// // //   else                      eval(`reg ${CwOMMANDS[cmd]} stack.pop()`);
+
+// // //   // p('******\n', ++cmd.length, '  str-B4>>  ', `"${str}"`, '  str-AFTER>>  ', `"${str.slice(cmd.length + 1)}"`, '\n~~~~~~~~\n\n');
+
+// // //   return minilang(str.slice(cmd.length + 1), stack, ~~reg);
+// // // };
+
 
 
 
 // const COMMANDS = { POP: '', ADD: '+', SUB: '-', MULT: '*', DIV: '/', MOD: '%' };
 
 // const minilang = (str, stack = [], reg = 0, cmd = (str.match(/\S+/) || [])[0]) => {
-//   if      (!cmd)            return;
-//   else if (/\d/.test(cmd))  reg = +cmd;
-//   else if (cmd === 'PRINT') console.log(reg);
-//   else if (cmd === 'PUSH')  stack.push(reg);
-//   else                      eval(`reg ${COMMANDS[cmd]}= stack.pop()`);
+//   if      (!cmd)               return;
+//   else if (/\d/.test(cmd))     reg = +cmd;
+//   else if (cmd === 'PRINT')    console.log(reg);
+//   else if (cmd === 'PUSH')     stack.push(reg);
+//   else if (!(cmd in COMMANDS)) throw `InvalidTokenError: ${cmd} is not a token`;
+//   else if (!stack.length)      throw 'EmptyStackError';
+//   else                         eval(`reg ${COMMANDS[cmd]}= stack.pop()`);
 
 //   return minilang(str.slice(++cmd.length), stack, ~~reg);
 // };
+
+
+
+
+
+// // minilang('PRINT 5 ADD 1 SUB 2 POP 1');
+// // p('==================================================')
+// // // // 0
+
+
+// // minilang('PRINT 5 PUSH 6 ADD STAMP');
+// // p('==================================================')
+// // // 0
 
 
 
@@ -403,9 +419,8 @@
 // // (nothing printed; no PRINT commands)
 
 
-// minilang('6 PRINT 3 PRINT 4 ADD PRINT 3 PRINT PRINT');
-// p('==================================================')
-// // (nothing printed; no PRINT commands)
+// // minilang('6 PRINT 3 PRINT 4 ADD PRINT 3 PRINT PRINT');
+// // p('==================================================')
 
 
 
@@ -417,7 +432,28 @@
 // ---------------- 5 -----------------console.log('\n--------- 5 ----------');
 // //============= Word to Digit ============//
 
+// const NUMS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+// const wordToDigit = s => s.replace(RegExp(NUMS.join('|'), 'g'), w => NUMS.indexOf(w));
 
+
+
+
+
+// const NUMS = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9 };
+
+
+// // const wordToDigit = (str, m = p(str.match(/([a-z]+)([^a-z]+|$)/i))) => (
+// //   m ? (NUMS[(m[1])] || m[1]) + m[2] + wordToDigit(p(str.slice(m[0].length))) : str
+// // );
+
+
+// const wordToDigit = (str, m = str.match(/([a-z]+)([^a-z]+)/i)) => (
+//   m ? (NUMS[m[1]] || m[1]) + m[2] + wordToDigit(str.slice(m[0].length)) : ''
+// );
+
+
+// elog(wordToDigit('Please call me at five five five one two three four. Thanks.'),
+// 'Please call me at 5 5 5 1 2 3 4. Thanks.');
 
 
 
@@ -436,10 +472,43 @@
 
 
 
+// // const fibonacci = (n, a = 1, b = 1) => n <= 1 ? a : fibonacci(n - 1, b, a + b);
+
+
+
+// // const fibonacci = (n, a = 1, b = 1) => --n ? fibonacci(n, b, a + b) : a;
+
+
+
+// // const fibonacci = n => (
+// //   n < 3 ? 1 : fibonacci(n - 2) + fibonacci(n - 1)d
+// // );
+
+
+
+// // const fibonacci = n => n < 3 ? 1 : fibonacci(n - 2) + fibonacci(n - 1);
 
 
 
 
+// // const fibonacci = n => --n < 2 ? 1 : fibonacci(n - 1) + fibonacci(n);
+
+
+
+// const fibonacci = n => --n < 2 ? 1 : fibonacci(n) + fibonacci(--n);
+
+
+
+
+
+
+// elog(fibonacci(1) , 1);  // 1, 1, 2, 3, 5, 8, 13, 21, 34
+// elog(fibonacci(2) , 1);
+// elog(fibonacci(3) , 2);
+// elog(fibonacci(4) , 3);
+// elog(fibonacci(5) , 5);
+// elog(fibonacci(12), 144);
+// elog(fibonacci(20), 6765);
 
 
 
@@ -452,11 +521,32 @@
 // //============= Fibonacci Numbers (Procedural) ============//
 
 
+// const fibonacci = n => (
+//   [...Array(n - 2)].reduce(([a, b], _) => [b, a + b], [1, 1])[1]
+// );
 
 
 
+// fibGenerator = function*() {
+//   let [a, b] = [1, 1]
+//   while (true) {
+//     yield a;
+//     [a, b] = [b, a + b];
+//   }
+// };
+
+// const fibonacci = (n, fib = fibGenerator()) => (
+//   [...Array(++n).keys()].reduce(_ => fib.next()).value
+// );
 
 
+
+// elog(fibonacci(20) , 6765);
+// elog(fibonacci(50) , 12586269025);
+// elog(fibonacci(100), 354224848179261915075);
+
+// p(fibonacci(10000));
+// p(fibonacci(10000) > Number.MAX_VALUE);
 
 
 
@@ -471,23 +561,77 @@
 
 
 
+const fibonacci = (n, a = 1, b = 1) => n <= 1 ? a : fibonacci(n - 1, b, a + b);
+
+
+
+const fibonacci = (n, a = 1, b = 1) => --n ? fibonacci(n, b, a + b) : a;
+
+
+
+
+const fibonacci = (n, fibs = [1, 1]) => {
+  if (n <= fibs.length) return fibs[0];
+  return fibonacci(n, [fibs[0] + fibs[1], ...fibs]);
+};
+
+
+const fibonacci = (n, fibs = [1, 1]) => (
+  n <= fibs.length ? fibs[0] : fibonacci(n, [fibs[0] + fibs[1], ...fibs])
+);
+
+
+
+const fibonacci = (n, memo = {}) => {
+  if (n < 3) return 1;
+  if (memo[n]) {
+    return memo[n];
+  } else {
+    memo[n] = fibonacci(n - 1) + fibonacci(n - 2);
+  }
+  return memo[n];
+};
+
+
+
+const fibonacci = (n, memo = {}) => {
+  if (n < 3) return 1;
+  return memo[n] || (memo[n] = fibonacci(n - 1) + fibonacci(n - 2));
+};
+
+
+
+
+const fibonacci = (n, memo = {}) => (
+  n < 3 ? 1 : memo[n] ||
+    (memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo))
+);
+
+
+
+
+const fibonacci = (n, memo = {}) => (
+  n < 3 ? 1 : memo[n] || (memo[n] = fibonacci(--n, memo) + fibonacci(--n, memo))
+);
+
+
+
+const fibonacci = ((n, memo = {}) => fib = n => (
+  n < 3 ? 1 : memo[n] || (memo[n] = fib(--n) + fib(--n))
+))();
 
 
 
 
 
-const cleverSplit = s => s.match(/\[.+?\]|\S+/g);
 
 
-let x = [ {s:'Buy a !car [!red green !white] [cheap or !new]',
-         ans:['Buy', 'a', '!car', '[!red green !white]', '[cheap or !new]']},
 
-          {s:'!Learning !javascript is [a joy]',
-         ans:['!Learning', '!javascript', 'is', '[a joy]']},
 
-          {s:'[Cats and dogs] are !beautiful and [cute]',
-         ans:['[Cats and dogs]', 'are', '!beautiful', 'and', '[cute]']
-  }]
-
-x.forEach(t => elog(cleverSplit(t.s), t.ans));
-      // elog(cleverSplit(t.s),  t.ans));
+elog(fibonacci(1) , 1);      // 1, 1, 2, 3, 5, 8, 13, 21, 34
+elog(fibonacci(2) , 1);
+elog(fibonacci(3) , 2);
+elog(fibonacci(4) , 3);
+elog(fibonacci(5) , 5);
+elog(fibonacci(12), 144);
+elog(fibonacci(20), 6765);
