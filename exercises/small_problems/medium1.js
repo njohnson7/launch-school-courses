@@ -561,67 +561,70 @@
 
 
 
-const fibonacci = (n, a = 1, b = 1) => n <= 1 ? a : fibonacci(n - 1, b, a + b);
+// const fibonacci = (n, a = 1, b = 1) => n <= 1 ? a : fibonacci(n - 1, b, a + b);
 
 
 
-const fibonacci = (n, a = 1, b = 1) => --n ? fibonacci(n, b, a + b) : a;
-
-
-
-
-const fibonacci = (n, fibs = [1, 1]) => {
-  if (n <= fibs.length) return fibs[0];
-  return fibonacci(n, [fibs[0] + fibs[1], ...fibs]);
-};
-
-
-const fibonacci = (n, fibs = [1, 1]) => (
-  n <= fibs.length ? fibs[0] : fibonacci(n, [fibs[0] + fibs[1], ...fibs])
-);
-
-
-
-const fibonacci = (n, memo = {}) => {
-  if (n < 3) return 1;
-  if (memo[n]) {
-    return memo[n];
-  } else {
-    memo[n] = fibonacci(n - 1) + fibonacci(n - 2);
-  }
-  return memo[n];
-};
-
-
-
-const fibonacci = (n, memo = {}) => {
-  if (n < 3) return 1;
-  return memo[n] || (memo[n] = fibonacci(n - 1) + fibonacci(n - 2));
-};
+// const fibonacci = (n, a = 1, b = 1) => --n ? fibonacci(n, b, a + b) : a;
 
 
 
 
-const fibonacci = (n, memo = {}) => (
-  n < 3 ? 1 : memo[n] ||
-    (memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo))
-);
+// const fibonacci = (n, fibs = [1, 1]) => {
+//   if (n <= fibs.length) return fibs[0];
+//   return fibonacci(n, [fibs[0] + fibs[1], ...fibs]);
+// };
+
+
+// const fibonacci = (n, fibs = [1, 1]) => (
+//   n <= fibs.length ? fibs[0] : fibonacci(n, [fibs[0] + fibs[1], ...fibs])
+// );
+
+
+
+// const fibonacci = (n, memo = {}) => {
+//   if (n < 3) return 1;
+//   if (memo[n]) {
+//     return memo[n];
+//   } else {
+//     memo[n] = fibonacci(n - 1) + fibonacci(n - 2);
+//   }
+//   return memo[n];
+// };
+
+
+
+// const fibonacci = (n, memo = {}) => {
+//   if (n < 3) return 1;
+//   return memo[n] || (memo[n] = fibonacci(n - 1) + fibonacci(n - 2));
+// };
 
 
 
 
-const fibonacci = (n, memo = {}) => (
-  n < 3 ? 1 : memo[n] || (memo[n] = fibonacci(--n, memo) + fibonacci(--n, memo))
-);
+// const fibonacci = (n, memo = {}) => (
+//   n < 3 ? 1 : memo[n] ||
+//     (memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo))
+// );
 
 
 
-const fibonacci = ((n, memo = {}) => fib = n => (
-  n < 3 ? 1 : memo[n] || (memo[n] = fib(--n) + fib(--n))
+
+// const fibonacci = (n, memo = {}) => (
+//   n < 3 ? 1 : memo[n] || (memo[n] = fibonacci(--n, memo) + fibonacci(--n, memo))
+// );
+
+
+
+// const fibonacci = ((n, memo = {}) => fib = n => (
+//   n < 3 ? 1 : memo[n] || (memo[n] = fib(--n) + fib(--n))
+// ))();
+
+
+
+const fibonacci = ((n, memo = [1, 1, 1]) => fib = n => (
+  memo[n] || (memo[n] = fib(--n) + fib(--n))
 ))();
-
-
-
 
 
 

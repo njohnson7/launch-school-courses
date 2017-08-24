@@ -300,71 +300,78 @@
 
 
 
-// const bubbleSort = arr => {
-//   let i = 0;
-//   let newI = 0;
+// // const bubbleSort = arr => {
+// //   let i = 0;
+// //   let newI = 0;
 
-//   while (true) {
-//     let startI = newI;
+// //   while (true) {
+// //     let startI = newI;
 
-//     for (i = 0; i < arr.length - 1; i++) {
-//       if (arr[i] > arr[i + 1]) {
-//         [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-//         newI = i;
-//       }
+// //     for (i = 0; i < arr.length - 1; i++) {
+// //       if (arr[i] > arr[i + 1]) {
+// //         [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+// //         newI = i;
+// //       }
 
-//       // i++;
-//     }
+// //       // i++;
+// //     }
 
-//     // break;
-//     if (newI === startI) break;
-//   }
+// //     // break;
+// //     if (newI === startI) break;
+// //   }
+// // };
+
+
+// // const bubbleSort = arr => {
+// //   let n = arr.length;
+
+// //   while (true) {
+// //     let newN = 0;
+
+// //     for (i = 1; i < n; i++) {
+// //       if (arr[i - 1] <= arr[i]) continue;
+// //       [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+// //       newN = i;
+// //     }
+
+// //     if (newN === 0) return arr;
+// //     n = newN;
+// //   }
+// // };
+
+
+
+// // const bubbleSort = (arr, n = arr.length) => {
+// //   do {
+// //     var newN = 0;
+// //     for (i = 1; i < n; i++) {
+// //       if (arr[i - 1] <= arr[i]) continue;
+// //       [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+// //       newN = i;
+// //     }
+// //   } while (n = newN)
+// // };
+
+
+
+// const bubbleSort = (arr, arrCopy = JSON.stringify(arr)) => {
+//   arr.forEach((elem, i) => elem > arr[i + 1] ? [arr[i], arr[i + 1]] = [arr[i + 1], elem] : '')
+//   return JSON.stringify(arr) === arrCopy ? arr : bubbleSort(arr);
 // };
 
 
-// const bubbleSort = arr => {
-//   let n = arr.length;
 
-//   while (true) {
-//     let newN = 0;
+// var arr = [5, 3];
+// bubbleSort(arr);
+// elog(arr, [3, 5]);
+// p();
 
-//     for (i = 1; i < n; i++) {
-//       if (arr[i - 1] <= arr[i]) continue;
-//       [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
-//       newN = i;
-//     }
+// arr = [6, 2, 7, 1, 4]
+// bubbleSort(arr);
+// elog(arr, [1, 2, 4, 6, 7]);
+// p();
 
-//     if (newN === 0) return arr;
-//     n = newN;
-//   }
-// };
-
-
-
-const bubbleSort = (arr, n = arr.length) => {
-  do {
-    var newN = 0;
-    for (i = 1; i < n; i++) {
-      if (arr[i - 1] <= arr[i]) continue;
-      [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
-      newN = i;
-    }
-  } while (n = newN)
-};
-
-
-
-var arr = [5, 3];
-bubbleSort(arr);
-elog(arr, [3, 5]);
-p();
-
-arr = [6, 2, 7, 1, 4]
-bubbleSort(arr);
-elog(arr, [1, 2, 4, 6, 7]);
-p();
-
-arr = ['Sue', 'Pete', 'Alice', 'Tyler', 'Rachel', 'Kim', 'Bonnie'];
-bubbleSort(arr);
-elog(arr, ['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler']);
-p();
+// arr = ['Sue', 'Pete', 'Alice', 'Tyler', 'Rachel', 'Kim', 'Bonnie'];
+// bubbleSort(arr);
+// elog(arr, ['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler']);
+// p();
