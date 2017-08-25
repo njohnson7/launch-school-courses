@@ -20,6 +20,10 @@ const decode = str => str.replace(/(\d+)(.)/g, (_, n, c) => c.repeat(n));
 
 elog(encode('WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB'), '12WB12W3B24WB');
 elog(encode('AABCCCDEEEE'), '2AB3CD4E');
+elog(encode('A'), 'A');
+p();
 
 elog(decode('12WB12W3B24WB'), 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB');
 elog(decode('2AB3CD4E'), 'AABCCCDEEEE');
+elog(decode('A'), 'A');
+elog(decode(''), '');
