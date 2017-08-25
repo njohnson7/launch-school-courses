@@ -70,6 +70,8 @@ console.log(binarySearch([1, 2, 3, 4, 5, 6], 3));    // 2
 console.log(binarySearch([1, 2, 3, 4, 5, 6], 4));    // 3
 console.log(binarySearch([1, 2, 3, 4, 5, 6], 5));    // 4
 console.log(binarySearch([1, 2, 3, 4, 5, 6], 6));    // 5
+console.log(binarySearch([1, 2, 3, 4, 5, 6], 7));    // -1
+console.log(binarySearch([1, 2, 3, 4, 5, 6], 0));    // -1
 console.log('~~~~');
 
 console.log(binarySearch([1, 5, 7, 11, 23, 45, 65, 89, 102], 77)); // -1

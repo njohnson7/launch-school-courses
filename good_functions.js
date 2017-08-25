@@ -39,6 +39,7 @@ const shuffle = origArr => {   // https://stackoverflow.com/a/42965222
 };
 
 
+const sample = arr => arr[~~(Math.random() * arr.length)];
 
 
 // let numz = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
