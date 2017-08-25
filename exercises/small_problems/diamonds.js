@@ -36,11 +36,11 @@
 // };
 
 
-const diamond = n => {
+const diamond = n => (
   [...[...Array(n + 1).keys()], ...[...Array(n).keys()].reverse()]
     .forEach(i => i % 2 && console.log(`${'*'.repeat(i).padStart((n +i + 1 ) / 2)
       .replace(/\*(\*)+\*/, x => `*${' '.repeat(x.length - 2)}*`)}`));
-};
+);
 
 diamond(1);
 // *
