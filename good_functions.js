@@ -7,9 +7,21 @@ const eql = (a, b) => {
 
 // Equality-Logger: logs both objects, and returns true if equal.
 const elog = (a, b) => {
-  p('a  => ', a);     // logs each argument using the `p` function, with a readable notation.
-  p('b  => ', b);
-  return p('|___________', eql(a, b), '___________|')[1]; // logs and returns the return value of `eql`
+  // makes output more readable if empty str:
+  let aMsg = a === '' ? "''" : a;
+  let bMsg = b === '' ? "''" : b;
+
+  // logs each argument using the `p` function, with a readable notation:
+  p('    A=>   ', aMsg);
+  p('    B=>   ', bMsg);
+
+  let result = eql(a, b);
+
+  // formats result in pass/fail notation:
+  let msg = result ? '✅✅______________________✅✅______________________✅✅' : '╳_____________________________________________________________________╳';
+  p(`${msg}`);
+
+  return result;
 };
 
 // p - combination of `console.log` and Ruby's `Kernel#p`:
