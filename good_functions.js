@@ -11,14 +11,19 @@ const elog = (a, b) => {
   let aMsg = a === '' ? "''" : a;
   let bMsg = b === '' ? "''" : b;
 
-  // logs each argument using the `p` function, with a readable notation:
-  p('    A=>   ', aMsg);
-  p('    B=>   ', bMsg);
-
   let result = eql(a, b);
 
+  // logs each argument using the `p` function, with a readable notation:
+  // box drawing chars:   ‖|∥∣|╽ ╾ ╿ ╲║│ ┃ ┄ ┅ ┆ ┇ ┈ ┉ ┊ ┋ ╎  ╏ ╳ ✅
+  if (!result) {
+    p('╳   A=>   ', aMsg);
+    p('╳   B=>   ', bMsg);
+  } else {
+    p('┊✅ A=>   ', aMsg);
+  }
+
   // formats result in pass/fail notation:
-  let msg = result ? '✅✅______________________✅✅______________________✅✅' : '╳_____________________________________________________________________╳';
+  let msg = result ? '┊✅╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍✅✅✅✅✅╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍✅┊' : '╳_____________________________________________________________________╳';
   p(`${msg}`);
 
   return result;

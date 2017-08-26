@@ -121,3 +121,29 @@ single line if else?
 blinking chrome cursor?
 
 
+
+
+
+==================================================================
+--------- Codewars ---------
+==================================================================
+
+Adding big numbers:
+  - "https://www.codewars.com/kata/525f4206b73515bffb000b21/solutions/javascript"
+  [js]
+        function add (a, b) {
+          var res = '', c = 0
+          a = a.split('')
+          b = b.split('')
+          while (a.length || b.length || c) {
+            c += ~~a.pop() + ~~b.pop()
+            res = c % 10 + res
+            c = c > 9
+          }
+          return res
+        }
+
+        elog(add("123", "321"), "444");
+        elog(add("11", "99"),   "110");
+        elog(add("238", "953"), "1191");
+  [end]
