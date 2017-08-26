@@ -58,27 +58,25 @@
 
 
 
-# class Sieve
-#   def initialize(limit)
-#     @limit = limit
-#     @nums = (2..limit).map { |n| [n, true] }.to_h
-#   end
+class Sieve
+  def initialize(limit)
+    @limit = limit
+    @nums = (2..limit).map { |n| [n, true] }.to_h
+  end
 
-#   def primes
-#     @nums.each { |num, prime| mark_multiples(num) if prime }.compact.keys
-#   end
+  def primes
+    @nums.each { |num, prime| mark_multiples(num) if prime }.compact.keys
+  end
 
-#   private
+  private
 
-#   def mark_multiples(num)
-#     (num * 2).step(@limit, num).each { |multiple| @nums[multiple] = nil }
-#   end
-# end
+  def mark_multiples(num)
+    (num * 2).step(@limit, num).each { |multiple| @nums[multiple] = nil }
+  end
+end
 
 
 # as
-
-
 
 # class Sieve
 #   def initialize(limit)
@@ -106,57 +104,6 @@
 
 
 
-
-
-
-# class Sieve
-#   def initialize(limit)
-#     @limit = limit
-#     @nums = (2..limit).map { |n| [n, true] }.to_h
-#   end
-
-#   def primes
-#     @nums.each { |num, prime| mark_multiples(num) if prime }.compact.keys
-#   end
-
-#   private
-
-#   def mark_multiples(num)
-#     (num * 2).step(@limit, num).each { |multiple| @nums[multiple] = nil }
-#   end
-# end
-
-
-
-
-class Sieve
-  def initialize(limit)
-    @limit = limit
-    @nums = (2..limit).map { |n| [n, true] }.to_h
-  end
-
-  def primes
-    @nums.each { |num, prime| mark_multiples(num) if prime }.compact.keys
-  end
-
-  def mark_multiples(num)
-    num.abs2.step(@limit, num).each { |multiple| @nums[multiple] = nil }
-  end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 require 'prime'
 
 def benchmark
@@ -167,7 +114,3 @@ end
 
 benchmark { p Sieve.new(1_000_000).primes == Prime.entries(1_000_000) }
 # true, Seconds: ~1.6
-
-
-
-
