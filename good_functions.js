@@ -77,3 +77,15 @@ const sample = arr => arr[~~(Math.random() * arr.length)];
 // console.log(!eql(shuffle(numz2), numz2));
 // console.log(JSON.stringify(numz2) === JSON.stringify( [0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 19, 4, 2, 1, 9, 3, 11, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]));
 // console.log(eql(numz2, [0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 19, 4, 2, 1, 9, 3, 11, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]));
+
+
+
+
+const Test = { assertEquals: (a, b) => elog(a, b) };
+
+/*
+
+IDEAS:
+  - maybe log the values in elog (and/or p) in JSON format, especially for arrays, b/c it's easier to see without having to click for Chrome to load the contents.
+
+*/
