@@ -610,9 +610,9 @@
 
 
 
-// const fibonacci = (n, memo = {}) => (
-//   n < 3 ? 1 : memo[n] || (memo[n] = fibonacci(--n, memo) + fibonacci(--n, memo))
-// );
+const fibonacci = (n, memo = {}) => (
+  n < 3 ? 1 : memo[n] || (memo[n] = fibonacci(--n, memo) + fibonacci(--n, memo))
+);
 
 
 
