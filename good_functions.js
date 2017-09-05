@@ -410,3 +410,38 @@ const describe = (str, func) => {
 // const escapeRegExp = str => {
 //   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 // };
+// const escapeRegExp = s => s.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+
+
+
+
+
+
+//================================ factors ================================//
+
+// const factors = n => [...Array(~~(n / 2))].map((_, i) => ++i).filter(x => !(n % x));
+
+
+// const factors = n => {
+//   let inc     = n % 2 + 1;
+//   let result  = [1];
+//   let current = n % 2 + 2;
+//   let sqrt    = Math.floor(Math.sqrt(n));
+
+//   for (let i = inc + 1; i <= sqrt; i += inc) {
+//     if (n % i !== 0) continue;
+//     let j = n / i;
+//     result.push(i);
+//     if (j !== i) result.push(j);
+//   }
+
+//   return p(result);
+// }
+
+
+
+
+//======================= replace leading 0's regex =============================//
+
+
+// const removeLeadingZeros = str => `${str}`.replace(/^(-?)0+(?=\d)/, '$1');
