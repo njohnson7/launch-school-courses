@@ -296,3 +296,14 @@ const gcd = (a, b) => b ? gcd(b, a % b) : a;
 LCM/GCD:
   const gcd = (x,y) => x == 0 ? y : gcd(y % x, x)
   const lcm = (x,y) => x * y == 0 ? 0 : x * y / gcd(x,y)
+
+
+Bitwise Operators to convert IP addr to binary and back:
+- "https://www.codewars.com/kata/541a354c39c5efa5fa001372/solutions/javascript"
+  function ipToNum(ip) {
+    return ip.split('.').reduce(function (sum, x) { return sum << 8 | x }, 0) >>> 0;
+  }
+
+  function numToIp(num) {
+    return [num >>> 24, num >> 16 & 255, num >> 8 & 255, num & 255].join('.');
+  }

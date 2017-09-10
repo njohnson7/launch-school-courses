@@ -57,16 +57,21 @@ const elog = (a, b) => {
 
 const p = (...args) => {
   args.length > 0
-       ? console.log(...args) // logs 1+ comma separated arguments - ex: console.log(1, 'a', [])
-       : console.log('');     // logs a blank line if no arguments.
+    ? console.log(...args)  // logs 1+ comma separated arguments - ex: console.log(1, 'a', [])
+    : console.log('');      // logs a blank line if no arguments.
 
   return args.length === 0
-         ? undefined          // returns undefined if no arguments passed.
-         : args.length === 1
-           ? args[0]          // returns single argument's value if one argument.
-           : args;            // returns all args as an array if 2+ arguments.
+    ? undefined             // returns undefined if no arguments passed.
+    : args.length === 1
+      ? args[0]             // returns single argument's value if one argument.
+      : args;               // returns all args as an array if 2+ arguments.
 };
 
+
+// const p = x => {
+//   console.log(x);
+//   return x;
+// };
 
 
 
@@ -315,7 +320,7 @@ const describe = (str, func) => {
 // //================================ stringify ================================//
 
 // // JSON Stringify alias:
-// const jstr      = str => JSON.stringify(str);
+const jstr      = str => JSON.stringify(str);
 // const stringify = str => JSON.stringify(str);
 
 
@@ -445,3 +450,11 @@ const describe = (str, func) => {
 
 
 // const removeLeadingZeros = str => `${str}`.replace(/^(-?)0+(?=\d)/, '$1');
+
+
+
+
+
+//======================= left pad =============================//
+
+// const padZeros = (str, n) => `${'0'.repeat(n)}${str}`.slice(-n);
