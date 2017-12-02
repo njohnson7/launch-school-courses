@@ -1,5 +1,4 @@
 /*
-
 - General:
   - trailing commas
   - comment spacing
@@ -23,7 +22,6 @@
 - maybe change to active voice...?: "Here are some questions that are easier to answer with the object-oriented code:"
   - "The object oriented code makes these [or 'the following'] questions easier to answer:"
 - fix (remove...?) newline spacing in "Objects:" info box
-
 */
 
 var smallCarFuel = 7.8;
