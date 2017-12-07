@@ -44,5 +44,3 @@ function wrap(func) {
 
 wrap(obj.logA);
 wrap(obj.logA.bind(obj));
-
-
