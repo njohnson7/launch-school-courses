@@ -1,8 +1,9 @@
 Study more (and make flash cards):
 - Object Orientation assignment: "https://launchschool.com/lessons/4671d66f/assignments/d60424ee"
-- Gentle Explanation of `this`
+- Lesson 4 quiz
 - maybe:
   - Partial Function Application: "https://launchschool.com/lessons/0b371359/assignments/f2c6f687"
+  - memory allocation and garbage collection
 
 
 --------------------------------------------------------------------------------
@@ -22,3 +23,11 @@ Study more (and make flash cards):
           var ready = startup();
           var systemStatus = // ?
     [end]
+
+
+
+================================================================================
+----------------------------------- FEEDBACK -----------------------------------
+================================================================================
+
+- gentle explanation of `this` is not very well written (hard to get through even after reading a second time and I already understand the topics)
