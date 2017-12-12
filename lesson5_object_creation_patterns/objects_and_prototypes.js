@@ -88,33 +88,34 @@ ___
 //========================  =========================//
 
 
-// // defining constructors
-// function C() {}
-// function D() {}
+// defining constructors
+function C() {}
+function D() {}
 
-// let o = new C();
+let o = new C();
 
-// p(o instanceof C);                            // true
-// // because `Object.getPrototypeOf(o) === C.prototype`:
-// p(Object.getPrototypeOf(o) === C.prototype);  // true
+o instanceof C;                 // true, because:
+o.__proto__ === C.prototype;    // true
 
-// p(o instanceof D);                            // false
-// // because `D.prototype` is nowhere in `o`'s prototype chain
+o instanceof D;                 // false, because:
+// D.prototype is nowhere in o's prototype chain
 
-// p(o instanceof Object);                       // true, because:
-// p(C.prototype instanceof Object);             // true
+o instanceof Object;            // true, because:
+C.prototype instanceof Object;  // true
 
-// C.prototype = {};
-// let o2 = new C();
+C.prototype = {};
+let o2      = new C();
 
-// p(o2 instanceof C);       // true
+o2 instanceof C;        // true
 
-// p(o instanceof C);        // false
-// // because C.prototype is nowhere in `o`'s prototype chain anymore
+o instanceof C;         // false, because:
+// C.prototype is nowhere in o's prototype chain anymore
 
-// D.prototype = new C();    // add C to [[Prototype]] linkage of D
-// let o3 = new D();
-// p(o3 instanceof D);       // true
+D.prototype = new C();  // add C to [[Prototype]] linkage of D
+let o3      = new D();
+o3 instanceof D;        // true
+o3 instanceof C;        // true, because:
+// C.prototype is now in `o3`'s prototype chain
 
 
 //========================  =========================//
@@ -198,3 +199,19 @@ let prot = {};
 let foo  = Object.create(prot);
 
 p(Object.prototype.isPrototypeOf(foo));
+
+
+
+
+
+//============================================================================//
+
+
+
+let foo = {};
+let bar = Object.create(foo);
+
+bar.constructor;
+bar.constructor === {}.constructor;
+bar.__proto__   === foo;
+

@@ -119,19 +119,20 @@ ___
 //============================================================================//
 
 
-// let foo = { a: 1 };
+let foo = { a: 1 };
 
-// let bar = Object.create(foo);
-// bar.a = 1;
-// bar.b = 2;
-// p(Object.getOwnPropertyNames(bar));  // ["a", "b"]
+let bar = Object.create(foo);
+bar.a = 1;
+bar.b = 2;
+Object.getOwnPropertyNames(bar);  // ["a", "b"]
 
-// delete bar.a;
-// p(Object.getOwnPropertyNames(bar));  // ["a"]
+delete bar.a;
+Object.getOwnPropertyNames(bar);  // ["b"]
 
 
 
-// // p(bar.hasOwnProperty('a'));  // false
+
+// p(bar.hasOwnProperty('a'));  // false
 
 
 
@@ -158,19 +159,19 @@ ___
 
 //======================== 3 =========================//
 
-var boo       = {};
-boo['myProp'] = 1;
+// var boo       = {};
+// boo['myProp'] = 1;
 
-var far = Object.create(boo);
+// var far = Object.create(boo);
 
-// lots of code
+// // lots of code
 
-far['myProp']; // 1
+// far['myProp']; // 1
 
-p(Object.getOwnPropertyNames(far));
-p(far.hasOwnProperty('myProp'));
+// p(Object.getOwnPropertyNames(far));
+// p(far.hasOwnProperty('myProp'));
 
-far['myProp'] = 1;
+// far['myProp'] = 1;
 
-p(Object.getOwnPropertyNames(far));
-p(far.hasOwnProperty('myProp'));
+// p(Object.getOwnPropertyNames(far));
+// p(far.hasOwnProperty('myProp'));

@@ -1,14 +1,7 @@
 /*
-- function keyword spacing
-- trailing commas
-
-
+--- trailing commas
+--- function keyword spacing
+--- comment spacing
 
 */
 //============================================================================//
-
-// READ: Object, `hasOwnProperty`, and `Object.getOwnPropertyNames` pages on MDN
-// READ: Object, `hasOwnProperty`, and `Object.getOwnPropertyNames` pages on MDN
-// READ: Object, `hasOwnProperty`, and `Object.getOwnPropertyNames` pages on MDN
-// READ: Object, `hasOwnProperty`, and `Object.getOwnPropertyNames` pages on MDN
-// READ: Object, `hasOwnProperty`, and `Object.getOwnPropertyNames` pages on MDN
