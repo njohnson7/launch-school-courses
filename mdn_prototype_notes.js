@@ -359,3 +359,51 @@ p(Person.prototype === Function.prototype);  // false
 p(Person.__proto__);
 p(Function.prototype);
 p(Person.prototype);
+
+
+
+
+
+
+
+
+//============================================================================//
+
+
+
+
+
+//============================================================================//
+
+
+// function Foo() {}
+
+// Foo.prototype = {};
+
+// let bar = new Foo();
+// p(bar.constructor === Foo);     // false
+// p(bar.constructor === Object);  // true
+
+// Foo.prototype.constructor = Foo;
+
+
+
+
+//============================================================================//
+
+
+
+let foo = { a: 2 };
+let bar = Object.create(foo);
+
+foo.a; // 2
+bar.a; // 2
+
+foo.hasOwnProperty('a');   // true
+bar.hasOwnProperty('a');   // false
+
+bar.a++;
+
+p(foo.a);
+p(bar.a);
+p(bar.hasOwnProperty('a'));
