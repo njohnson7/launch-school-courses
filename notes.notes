@@ -5,10 +5,10 @@ Study more (and make flash cards):
 - Douglas Crockford video
 - # summary of lesson 5!
 - study guide
+  - Partial Function Application: "https://launchschool.com/lessons/0b371359/assignments/f2c6f687"
 
 maybe:
   - Lesson 4 quiz
-    - Partial Function Application: "https://launchschool.com/lessons/0b371359/assignments/f2c6f687"
     - memory allocation and garbage collection
   - `Object.defineProperties` and `Object.freeze`: "https://launchschool.com/lessons/24a4613a/assignments/8db4bc31"
 
@@ -30,4 +30,26 @@ maybe:
 
         var ready = startup();
         var systemStatus = // ?
+[end]
+
+- "Prototype Pattern" vs. "Pseudo-classical" definitions
+
+
+
+---------------------
+[js]
+var Foo = {
+  bar: function(x) {
+    if (x < 10) {
+      return Foo.bar( x * 2 );
+    }
+    return x;
+  },
+  baz: function baz(x) {
+    if (x < 10) {
+      return baz( x * 2 );
+    }
+    return x;
+  }
+};
 [end]

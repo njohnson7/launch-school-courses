@@ -213,3 +213,54 @@ let animal = new Animal;
 animal.say();    // woof!
 
 
+
+
+
+
+
+
+//============================================================================//
+
+
+const Animal = function () {
+  this.foo = 42;
+};
+
+Animal.prototype.move = function () {
+  p('Animal is moving.');
+};
+
+const Dog = function () {
+  p('Dog1 function');
+};
+const Dog2 = function () {
+  p('Dog2 function');
+};
+
+Dog.prototype  = new Animal;
+Dog2.prototype = Object.create(Animal.prototype);
+
+let dog  = new Dog;
+let dog2 = new Dog2;
+
+p(dog);
+p(dog2);
+p();
+
+p(dog.__proto__);
+p(dog.__proto__.__proto__);
+p(dog.__proto__.__proto__.__proto__);
+p(dog.__proto__.__proto__.__proto__.__proto__);
+p();
+
+p(dog2.__proto__);
+p(dog2.__proto__.__proto__);
+p(dog2.__proto__.__proto__.__proto__);
+p(dog2.__proto__.__proto__.__proto__.__proto__);
+p();
+
+let a = new Animal;
+let b = Object.create(Animal.prototype);
+
+p(a);
+p(b);

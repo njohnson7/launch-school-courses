@@ -11,6 +11,13 @@ ___
 - fix: " on an prototype "
 - fix: "then use Object.create()"
 - fix: "without going through the roundabout way that involves "constructors and their prototype properties" at all."
+___
+IMPORTANT: these issues make it hard to know what's expected for the assessment, since the names and descriptions of these patterns seem relatively subjective.
+___
+
+- The difference between the OLOO pattern and the Prototypal Inheritance / Behavior Delegation pattern (as shown in [this assignment](https://launchschool.com/lessons/24a4613a/assignments/7143264c)) is unclear.
+- The difference between the Pseudo-classical pattern and the prototype pattern (as described in [this assignment](https://launchschool.com/lessons/24a4613a/assignments/441a520a)) is also unclear.
+- Are both of these a pair of two different terms for the same pattern, or are they a different pattern?
 */
 //============================================================================//
 

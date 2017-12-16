@@ -239,33 +239,65 @@ ___
 
 // given:
 let ninjaA = (function () {
-  function Ninja() {};
+  function Ninja() {
+    this.name = 'Bob';
+  }
+
+  Ninja.prototype.fight = function () {
+    return 'fights';
+  };
+
   return new Ninja();
 })();
 
-// 5 ways:
+// 5 ways (with different outcomes):
 const Ninja = function () {};
 Ninja.prototype.constructor = ninjaA.constructor;
 let ninja2 = new Ninja;
 p(ninjaA.constructor === ninja2.constructor);  // true
 p(ninjaA.__proto__   === ninja2.__proto__);    // false
+p(ninjaA.name        === ninja2.name);         // false
+p(ninja2.hasOwnProperty('name'));              // false
+p(typeof ninja2.fight === 'function');         // false
+p(ninjaA);
+p(ninja2);
 
 let ninja3 = Object.create(ninjaA.__proto__);
 p(ninjaA.constructor === ninja3.constructor);  // true
 p(ninjaA.__proto__   === ninja3.__proto__);    // true
+p(ninjaA.name        === ninja3.name);         // false
+p(ninja3.hasOwnProperty('name'));              // false
+p(typeof ninja3.fight === 'function');         // true
+p(ninjaA);
+p(ninja3);
 
 let ninja4 = Object.create(ninjaA);
 p(ninjaA.constructor === ninja4.constructor);  // true
 p(ninjaA.__proto__   === ninja4.__proto__);    // false
+p(ninjaA.name        === ninja4.name);         // true
+p(ninja4.hasOwnProperty('name'));              // false
+p(typeof ninja4.fight === 'function');         // true
+p(ninjaA);
+p(ninja4);
 
 let ninja5 = {};
 ninja5.constructor = ninjaA.constructor;
 p(ninjaA.constructor === ninja5.constructor);  // true
 p(ninjaA.__proto__   === ninja5.__proto__);    // false
+p(ninjaA.name        === ninja5.name);         // false
+p(ninja5.hasOwnProperty('name'));              // false
+p(typeof ninja5.fight === 'function');         // false
+p(ninjaA);
+p(ninja5);
 
 let ninja6 = new ninjaA.constructor();
 p(ninjaA.constructor === ninja6.constructor);  // true
 p(ninjaA.__proto__   === ninja6.__proto__);    // true
+p(ninjaA.name        === ninja6.name);         // true
+p(ninja6.hasOwnProperty('name'));              // true
+p(typeof ninja6.fight === 'function');         // true
+p(ninjaA);
+p(ninja6);
 
 
 //================================//
