@@ -202,3 +202,16 @@ p(invoice.amountDue());       // this should return 0
 // foo(42);
 // foo([1, 2, 3]);
 // foo([payment1, payment2]);
+
+
+
+
+
+
+
+    delete(id) {
+      let index = list.indexOf(this.getTodoByID(id));
+      if (index === -1) return 'Invalid index';
+      list.splice(index, 1);
+      return `The todo with the id ${id} has been deleted.`;
+    },

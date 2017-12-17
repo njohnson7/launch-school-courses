@@ -144,7 +144,7 @@ let people = {
     let idx = this.getIdx(person);
     if (~idx) {
       this.collection[idx].first = first;
-      this.collection[idx].last = last;
+      this.collection[idx].last  = last;
     }
   },
 };

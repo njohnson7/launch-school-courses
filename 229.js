@@ -10,3 +10,13 @@ ____nextpage____
 - maybe other issues...
 */
 //============================================================================//
+
+
+//======================== NEW =========================//
+/*
+
+- view link (eye icon) after completing goes to "Courses" page instead of assessment
+- "click [the] Submit My Answers button at the bottom."
+
+
+*/
