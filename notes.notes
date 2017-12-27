@@ -1,1 +1,62 @@
 Study more (and make flash cards):
+
+
+
+
+
+
+
+================================================================================
+---------------------------- FLASH CARDS ---------------------------------------
+================================================================================
+
+//============================================================================//
+- Q: what are some methods to retrieve multiple elements or nodes?
+
+- A:
+Nodes:
+- returns a static (non-live) `NodeList`:    [js]
+    document  .querySelectorAll
+    Element   .querySelectorAll
+    ParentNode.querySelectorAll              [end]
+
+Elements:
+- returns a live `HTMLCollection`:           [js]
+    document.getElementsByTagName
+    Element .getElementsByTagName
+    document.getElementsByClassName
+    Element .getElementsByClassName          [end]
+
+- returns a live `NodeList`:                 [js]
+    document.getElementsByName               [end]
+
+//============================================================================//
+[js]
+document.querySelector('.time').textContent            = '7:45';
+document.querySelector('.time').innerText              = '7:45';
+document.querySelector('.time').innerHTML              = '7:45';
+
+document.querySelector('.time').firstChild.textContent = '7:45';
+document.querySelector('.time').firstChild.nodeValue   = '7:45';
+document.querySelector('.time').firstChild.data        = '7:45';
+[end]
+
+//============================================================================//
+[js]
+ i % 2 == 0 && doSomething()
+
+ i % 2 || doSomething()
+
+// changes every other link starting at 0 index:
+links.forEach((a, i) => i % 2      || (a.style.color = 'green'));
+
+// instead of:
+links.forEach((a, i) => !(i % 2)   && (a.style.color = 'green'));
+// or:
+links.forEach((a, i) => i % 2 == 0 && (a.style.color = 'green'));
+
+
+p(document.querySelectorAll('.toclevel-1 a').forEach((a, i) => i % 2 || (a.style.color = 'green')));
+[end]
+
+//============================================================================//

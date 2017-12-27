@@ -8,18 +8,18 @@
   <body>
     <!-- A short comment -->
     <h1>Newsletter Signup</h1>
-    <p class="intro" id="simple">
-      To receive our weekly emails, enter your email address below.
+    <p class="intro" id="simple" style='font-weight: bold'>
+      To receive our weekly emails, enter your <em style='color: red'>email address</em> below.
       <a href="info.html">Get more info</a>.
     </p>
     <div class="form">
       <form>
         <label>
           Enter your email:
-          <input name="email" placeholder="user.name@domain.test"/>
+          <input name="email" placeholder="user.name@domain.test" value='42'>
         </label>
         <p class="controls">
-          <button id="cancelButton">Cancel</button>
+          <button class='btn btn-lg btn-primary' id="cancelButton">Cancel</button>
           <button type="submit" id="submitButton">Subscribe</button>
         </p>
       </form>
