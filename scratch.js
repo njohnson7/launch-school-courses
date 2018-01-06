@@ -50,6 +50,18 @@
 - fix regex: `[a|p]`
 
 //======================== Creating and Moving DOM Nodes =========================//
+- parens around method names in text
+- "Node"
+- missing semicolons
+- code snippet syntax highlighting
+- double quoted strings
+-----
+- " it's [has] changed "
+- clarify word: "separate"
+- emdash: " separate; changing "
+- clarify: "Remove targetNode from parent.childNodes and insert node at its former position"
+
+//======================== Summary =========================//
 
 */
 //============================================================================//
