@@ -1,4 +1,17 @@
 Study more (and make flash cards):
+- lesson 1 summary
+- lesson 2:
+  - 1: "Asynchronous Execution with setTimeout"
+  - capturing/bubbling: "https://launchschool.com/lessons/8c4d93c8/assignments/7dccdc90"
+  - event loop video:   "https://www.youtube.com/watch?time_continue=3&v=8aGhZQkoFbQ"
+
+Read maybe:
+- capturing/bubbling:
+  - DOM Level 3 Events: "https://www.w3.org/TR/DOM-Level-3-Events/#event-flow"
+  - JS Event order:     "https://www.quirksmode.org/js/events_order.html#link4"
+
+Questions:
+  - `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
 
 
 
@@ -11,6 +24,7 @@ Study more (and make flash cards):
 ================================================================================
 
 //============================================================================//
+
 - Q: what are some methods to retrieve multiple elements or nodes?
 
 - A:
@@ -31,6 +45,7 @@ Elements:
     document.getElementsByName               [end]
 
 //============================================================================//
+
 [js]
 document.querySelector('.time').textContent            = '7:45';
 document.querySelector('.time').innerText              = '7:45';
@@ -42,6 +57,7 @@ document.querySelector('.time').firstChild.data        = '7:45';
 [end]
 
 //============================================================================//
+
 [js]
  i % 2 == 0 && doSomething()
 
@@ -58,5 +74,50 @@ links.forEach((a, i) => i % 2 == 0 && (a.style.color = 'green'));
 
 p(document.querySelectorAll('.toclevel-1 a').forEach((a, i) => i % 2 || (a.style.color = 'green')));
 [end]
+
+//============================================================================//
+
+1. identify the event you need to handle.
+  - user actions, the page lifecycle, and more can fire events.
+2. identify the element that will receive the event.
+  - depending on the event, the object could be a button, an input field, or any other element on the page.
+3. define a function to call when this event occurs.
+  - the function will receive a single argument, an Event object.
+4. register the function as an event listener.
+  - this step brings the first three together into a working system.
+
+//============================================================================//
+
+- Q:
+`addEventListener` takes an optional third boolean argument, _____, that controls whether the listener should handle bubbling or capturing events.
+- when `true`, it will listen for an event in the capturing phase.
+- it defaults to `false`.
+
+- A:
+`useCapture`
+
+ex:
+[js]
+document.addEventListener('click', function (event) {
+  // executed during the target and bubbling phases
+});
+
+document.addEventListener('click', function (event) {
+  // executed during the target and capturing phases
+}, true);
+[end]
+
+(events in the target phase will trigger all listeners on an element in the order they were registered, regardless of the `useCapture` parameter.)
+
+//============================================================================//
+
+- Q:
+BP: you should define event listeners for the _____ phase of events.
+- it doesn't require the `useCapture` argument since this argument defaults to `false`.
+- most code you write will work in this way.
+- event dispatch involves both the capturing and bubbling phases, but the capturing phase isn't often used.
+
+- A:
+bubbling
 
 //============================================================================//

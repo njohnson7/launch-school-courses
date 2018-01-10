@@ -4,20 +4,41 @@
   <title>Runner</title>
   <meta charset='utf-8'>
   <style>body { background: #000; color: #eee; }</style>
+
+  <style>
+    #message {
+  padding: .5em .8em;
+  /*background-color: lightyellow;*/
+  display: inline-block;
+}
+  </style>
+
+  <script>
+    document.addEventListener('click', function (event) {
+      if (event.target.tagName == 'BUTTON') {
+        let message         = document.getElementById('message');
+        message.textContent = `${event.target.textContent} was clicked!`;
+      }
+    });
+  </script>
 </head>
 <body>
 
-    <h1 id="primary_heading">I should have a class of heading</h1>
-    <ul id="list">
-      <li>This list</li>
-      <li>Needs a class</li>
-      <li>Of bulleted</li>
-    </ul>
-    <p>This <a href="#" id="toggle">link</a> needs a click handler on it. The handler will find the div with id of notice and check its class. If it has a class of hidden, change it to a class of visible. Otherwise, change it to hidden.</p>
-    <div id="notice" class="hidden">
-      <p>Oh no! I'm allergic to the light! Hide me, quick! Click the link above!</p>
-    </div>
-    <p id="multiplication">What's 13 times 9?</p>
+<button>One</button>
+<button>Two</button>
+<button>Three</button>
+<button>Four</button>
+
+<div>
+  <p>
+    <button>Five</button>
+    <button>Six</button>
+    <button>Seven</button>
+    <button>Eight</button>
+  </p>
+</div>
+
+<div id="message"></div>
 
 
   <script src='good_functions.js'></script>
