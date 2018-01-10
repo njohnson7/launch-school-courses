@@ -111,8 +111,7 @@
 - `++`
 - double quoted strings
 - "Elements"
-
-
+-----
 - " when the finishes loading."
 - change to "We" for consistency: "You now "
 - move to info box: "Keep in mind that you don't need to use document as the delegator: you can use any parent element of the elements you're watching to delegate events. You can even have more than one delegator element if it makes sense."
@@ -128,14 +127,24 @@
 - double quoted strings
 - `++`
 - change to explicit coercion: `guess`, `guesses` (x3+...)
-
+-----
 - remove comma: "submission, and"
 - separate lines: `var answer, guesses;`
 - make solution to 11 hidden
 
-
-
+//======================== Assignment: Build an Input Box  =========================//
+- function keyword spacing
+-----
+- empty CSS rule: `.text-field.focused .content {}`
+- #2:
+  - wouldn't the third event listener be better if nested inside the first...? (also #3...+?)
+  - `event` arg is unused: `document.addEventListener('click', function(event) {` (x2+...?)
+- #4:
+  - picture shows spaces being entered, but solution doesn't allow spaces
+  - maybe change to `+=`: `contentDiv.textContent = contentDiv.textContent `
+- #5:
+  - `which` is deprecated -- and why use both `which` and `key`...?
+  - change to `slice`: `.substr(0, contentDiv.textContent.length - 1);`
 */
 //============================================================================//
 //============================================================================//
-
