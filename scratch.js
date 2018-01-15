@@ -145,6 +145,77 @@
 - #5:
   - `which` is deprecated -- and why use both `which` and `key`...?
   - change to `slice`: `.substr(0, contentDiv.textContent.length - 1);`
+
+//======================== Summary =========================//
+- "Function"
+- parens after method names
+- capitalize event in...?: `event.preventDefault` (and others)
+
+- " about what and where it happened."
+- or: " and other devices."
+- `which` is deprecated
+- #9, #12: rephrase
+
+//======================== Code Style =========================//
+- "Function"
+- function keyword spacing (TODO: also maybe add to 210 style guide...?)
+
+- " this course slightly from " (addressed in previous feedback)
+- " follow the code style from the Computational Thinking and JavaScript Programming course in your code."
+  - rephrase, such as: "follow the style guide from [ (maybe...?) style guide assignment from later in 210]"
+- " differences for [in] this course "
+- wrap snake and camel case examples in backticks
+- "variable names for ~~primitives and objects~~ [non-function objects] use snake case."
+- change `// functions` to singular
+- contraction: " it is snake case."
+- declarations: "Formatting for Multiple Variable Definitions" (x2)
+- "var statement" -- correct terminology?
+- `// Drop the additional var ~~statements~~ [keywords]`
+
+//======================== Douglas Crockford Lecture: The Metamorphosis of Ajax  =========================//
+
+- "We now ask you "
+- "The video has subtitles and closed captions, so feel free to use them."
+- " later, and "
+- active: "You're also encouraged "
+
+//======================== Read: Introduction to jQuery =========================//
+- " Javascript " (x2+...)
+- function keyword spacing
+- parens after function/method names
+- comment spacing
+- captilaization of comments
+- "Object"
+- missing trailing commas in object literals
+- double quoted strings
+- maybe wrap some "jQuery"s in backticks...? (ex: " directly attached to the jQuery object.")
+-----
+- " Web "
+- " you will "
+- " that you need,"
+- confusing: "At its core, jQuery is a function that wraps a collection of DOM elements and some convenience methods into an object. You can call the function to select the elements you need to process, and manipulate the object or its elements with methods built into the object."
+- confusing: "What is the jQuery function? Internally, it is a function that works with an argument that you pass to it. If the argument is a string or a DOM element, it wraps a collection of jQuery objects and returns them. If the argument is a function, jQuery uses that function as a callback when the document is ready."
+- "AirBNB"
+- fix singular/plural: "We often use the term setter method to refer to methods that set properties for an object. We also use the term getter method to refer to methods that retrieve the current values for a property. "
+- not necessary for `px` (if value is a number, not string): " you must include the measurement units when appropriate."
+- this line is a getter, previous is a setter: `console.log($content.width()); // now 400 (setter)`
+- `css` can also use numeric values: "Note that width() and height() return and use numeric values, not string values like css() does."
+- "For font-size, for example, "
+- wrap in backticks...?: " the return value of jQuery"
+- comment formatting: `console.log($lis.length);   // -> 3`
+- " a bunch "
+
+//======================== Demo: jQuery Overview =========================//
+- video is pretty blurry -- can it be reuploaded in 1080p instead of 720?
+- `/>` closing tags
+- function keyword spacing
+
+- " videos and get "
+- no `.even` class in actual HTML file
+
 */
 //============================================================================//
 //============================================================================//
+
+// array=(a=0,b=1)=>[...Array(39)].map(_=>([a,b]=[b,a+b],a%10))
+t
