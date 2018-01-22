@@ -209,13 +209,104 @@
 - video is pretty blurry -- can it be reuploaded in 1080p instead of 720?
 - `/>` closing tags
 - function keyword spacing
-
+-----
 - " videos and get "
 - no `.even` class in actual HTML file
+- video 6: value of radios is `'checked'`, not `'backend'`
+- order: " setter and getter "
+- " methods for calling jQuery methods "
+- " start working more complex selectors."
 
+//======================== Read: jQuery Events =========================//
+- function keyword spacing
+- parens after function names in text
+- using `$e` for `$(this)` is confusing because `this` isn't an event...
+- ` />`
+- `event` instead of `e` for variable name...?
+-----
+- " with the event name as the first argument and the function to call when that event occurs."
+- "if we click one of them"
+- "write-in "
+- better refactor might be to create a function that sets the text of the paragraph, such as: setFavorite = fruit => $p.text(\`Your favorite fruit is ${fruit}`);
+- " all we need do "
+- rephrase: "It's minor, but it's a useful refactoring that makes it easier to update and reuse. "
+- remove or expand on: "Internally, jQuery uses the bind method and passes in the event name for you. "
+  - might not be accurate looking at line 8281 of jquery321.js
+-----
+- Medium article:
+  - not part of LS publication
+  - some inaccuracies, such as: "we have attached a singular type of event, a click event, to our jQuery object, $p.", "logIt method ", and `this` binding / context
+  - also some grammar and spelling mistakes
+
+//======================== Read: jQuery DOM Traversal =========================//
+- parens after function names in text
+- missing some semicolons
+- comment spacing
+-----
+- "In the last topic, "
+- " There's two "
+- " third of four "
+- " as what are already "
+- wrap: " the categories class "
+- comma: "selector just"
+- " and won't have "
+- rephrase: " And if you needed all the siblings, rather than going out to the parent and looking back in for the siblings, we can simply use siblings() with an optional selector."
+- change to "list items": `// Find all sibling lis and show them`
+
+//======================== Practice Problems: Using jQuery Selectors  =========================//
+- inconsistent use of nested single/double quotes
+-----
+- double quoted: " them with .addClass("highlight") to "
+- "FInd "
+- #6, #7: there are two list items that contain the text "ac ante"
+- " an href that begins with #."
+- backticks: " "off" "
+
+//======================== Practice Problems: jQuery Events =========================//
+- function keyword spacing
+- the writing of the entire assignment is confusing -- not sure what is expected...
+  - what is an "accordion"?
+  - rewrite whole thing...?
+- "Javascript" (x2+...)
+- according to MDN `which` docs: "This feature has been removed from the Web standards. Though some browsers may still support it, it is in the process of being dropped. Avoid using it and update existing code if possible; see the compatibility table at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time." (also applies to other assignments)
+- parens after function names in prose
+- wrap some words in backticks, such as " submit event,"(x2+...) and " the which property " and "click event"
+- fix code style on completed assignment page and video
+  - function keyword spacing
+  - double quotes
+  - camel case
+  - combined var declarations
+  - unnecessary var declaration of `character`
+  - if statement
+-----
+- the anchor doesn't trigger a key press event -- it's the other way around in the assignmnet: "There will also be an anchor that will trigger the key press when it is clicked on."
+- " below that to be used "
+- " accordion, then "
+- " entered in to "
+- " is to be able to "
+- comma: " and if so stop "
+- " since the key that was pressed was not the one we were looking for."
+- " call e.preventDefault(); "
+- " call trigger("click") "
+
+//======================== Assignment: Arithmetic Calculator =========================//
+- inconsistent periods in list
+- videos in this assignment and the last spend way too much time talking about CSS
+-----
+- rephrase: "The basics of the program will be to set the current operator to a variable, a series of conditional statements that perform a different action on the two values based on the current operator, then output the result to a container."
+- inconsistent: "two text inputs" vs. "Two HTML number inputs "
+- "the two numbers to operate with "
+- " store them as variables "
+- backticks: "Create if statements", " NaN ", "1", "11"
+- "Create if statements to check the operator, and perform a different calculation for each "
+- " They are read in as strings, so if you add them together, for example "1" and "1", your result will be "11"."
+- video:
+  - unary plus operator for number conversion
+  - var declarations
+  - double quotes
+  - function keyword spacing
+
+//========================  =========================//
 */
 //============================================================================//
 //============================================================================//
-
-// array=(a=0,b=1)=>[...Array(39)].map(_=>([a,b]=[b,a+b],a%10))
-t

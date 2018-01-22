@@ -477,8 +477,17 @@ const jstr      = str => JSON.stringify(str);
 //============================================================================//
 //======================== walk DOM tree function =========================//
 
-function walk(node, func) {
-  func(node);
-  node.childNodes.forEach(child => walk(child, func));
-}
+// function walk(node, func) {
+//   func(node);
+//   node.childNodes.forEach(child => walk(child, func));
+// }
 
+
+
+//============================================================================//
+//======================== console.dir alias =========================//
+
+function pd(obj) {
+  console.dir(obj);
+  return obj;
+}
