@@ -12,8 +12,9 @@ Read maybe:
   - JS Event order:     "https://www.quirksmode.org/js/events_order.html#link4"
 
 Questions:
-  - `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
-
+- `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
+- what are the default `$` and `$$` functions in firefox/chrome console?
+  - "https://support.mozilla.org/en-US/questions/1051637"
 
 
 

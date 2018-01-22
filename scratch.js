@@ -306,7 +306,63 @@
   - double quotes
   - function keyword spacing
 
-//========================  =========================//
+//======================== Assignment: Removing jQuery =========================//
+- all the assignments/videos/etc authored by Shane are very hard to maintain interest in, often contain inaccurate information, use non-conforming code style, do things in non-idiomatic/best-practice ways, and are often confusing and difficult to understand -- this is in stark contrast to the rest of LS material, so it would be great if they were all redone.
+-----
+- property/method not event: "The window.onload event," (x2+...)
+- double quoted strings in prose and code
+- backticks (x10+...)
+- function keyword spacing
+- snake case
+- there's no need to add IDs to everything...
+- same style issues in completed assignment code and video
+- use `DOMContentReady` instead of `load`
+- in this and previous assignment: convert `result` to string before assigning
+-----
+- "With the DOM methods we've learned, we can see similarities between those and jQuery methods. "
+- not accurate: "The window.onload event, for example, works like the jQuery DOM ready event $(document).ready"
+- " jQuery script include."
+- "Begin with the DOM ready function"
+- "getElementById. "
+- " aliases to "
+- inaccurate: "Most events in jQuery are aliases to JavaScript DOM methods, with the only difference being the addition of "on" in front of the event name. jQuery's load event becomes onload, click becomes onclick, and submit becomes onsubmit."
+- "handlers see its "
+- colon: `// The JavaScript equivalent`
+- use querySelector: `document.getElementById("calculator")`
+- it's already used by chrome/firefox: " the $ variable name is free to be used "
+- jQuery's syntax is much more like querySelectorAll, not getElementById: "Which will allow us to modify our code above to something much more similar to jQuery's syntax."
+  - also add a colon
+- "a jQuery input object,"
+- ".value property"
+- "you'll see more instances of how jQuery is performing its tasks by using JavaScript and presenting you with a nicer interface to use."
+- period/colon: "Here is a video walkthrough of the assignment"
+- video:
+  - "onsubmit event" is not an event
+
+//======================== Assignment: Grocery List =========================//
+- too much focus on CSS in this and other assignments
+-----
+- periods after list items (steps)
+- backticks around element names, function names, var names, event names, numbers, (ex: get method x2+...) etc.
+- `/>`
+- double quoted strings
+- combo var declarations
+- function keyword spacing
+- why use $f.find in this and other assignments when id is only going to be used once on a given page...?
+-----
+- " and quantity"
+- "all of your"
+- you'd vs you could: "you could pass a value of -1 to the get method. To get the second to last, you'd pass -2."
+- colon: "Here is a video walkthrough of the assignment"
+- use `this.reset` instead of $f.get(0).reset(): "To get at the DOM element from a jQuery object, there are ~~two~~ methods. "
+- $f var not really necessary...
+- $ul var not necessary
+- add period and rephrase: " view our grocery list"
+
+//======================== Assignment: DOM Shuffling =========================//
+
+
+
 */
 //============================================================================//
 //============================================================================//
