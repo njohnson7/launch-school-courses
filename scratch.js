@@ -360,9 +360,31 @@
 - add period and rephrase: " view our grocery list"
 
 //======================== Assignment: DOM Shuffling =========================//
+- function keyword spacing
+- double quoted strings
+- var declarations
+-----
+- "Refresh your page as you go; when an element is in the right spot, it will have a light green background, and when wrong it will have a red background."
+
+//======================== Assignment: Team Member Profile Modals =========================//
+- too much focus on css in this and other assignments
+- backticks
+- the whitespace reset file is not even loaded anywhere
+- "you" vs "we"
+- using `e` for event and `$e` for element is confusing
+- the css file linked doesn't include responsive design styles
+-----
+- `margin-left: -200px`
+- "user's"
+- " page they won't"
+- "you can also": "You can also experiment with animating the element in from one of the sides of the screen. You can also"
+- periods after list items in prose
+
+//======================== Assignment: Photo Gallery Slideshow =========================//
 
 
 
 */
 //============================================================================//
 //============================================================================//
+
