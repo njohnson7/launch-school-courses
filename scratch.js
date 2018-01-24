@@ -1,3 +1,5 @@
+/* eslint-disable */
+//============================================================================//
 /*
 //======================== A Hierarchy of Nodes =========================//
 - " fundamental tenet "
@@ -381,10 +383,30 @@
 - periods after list items in prose
 
 //======================== Assignment: Photo Gallery Slideshow =========================//
+- written instructions are kind of confusing without using the video and/or completed page as a guide
+  - in this and other assignments, the instructions could be rewritten to improve readability -- I keep reading the same sentences/paragraphs multiple times without comprehending it or being able to move forward, even after completing the assignment and watching the video. When I read the jQuery or CSS docs, I have no trouble at all, so I'm pretty sure the problem is the writing style of these assignments (other LS assignments, like in course 210, are much better written).
+- backticks
+- mostly the same code style issues as other assignments (run eslint to see (23 errors))
+- inconsistent use of `/>` at end of self closing tags between different assignments
+- completed photo gallery is buggy if you click too fast on the thumbnails
+  - clicking on same thumbnail probably should do nothing
+  - clicking on other thumbnails too fast causes more than one image to be visible at once
+  - sometimes more than one large photo will appear at the same time (vertically stacked)
+  - in the video he says he uses `stop()` to avoid side effects when clicking a lot, but in the completed assignment, there are side effects like the above
 
-
-
+- " of reach "
+- "hammer we "
+- "that was worked on"
+- "On the first thumbnail, we will have a class added that will designate it as the currently visible image in the slideshow."
+- "before animating them"
+- "elements' opacity value"
+- " container so they sit "
+- "slidehsow"
+- "slide and figure"
+- there's only one version in the video, and it doesn't include the forwar/backward controls: "Check out a walkthrough of the basic and extra credit versions of the assignment."
+- the completed assignment also doesn't have the controls
+- "You can see an example that we have completed using placeholder images."
 */
 //============================================================================//
 //============================================================================//
-
+/* eslint-enable */

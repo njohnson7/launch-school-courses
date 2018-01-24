@@ -44,7 +44,7 @@ $(function () {
     $('#accordion').slideToggle();
   });
 
-  $('#clear').click(function (e) {
+  $('#clear').click(function () {
     $(document).off('keypress');
     $('#key').val('');
   });
