@@ -61,3 +61,40 @@ $(function () {
     $(this).addClass('active');
   });
 });
+
+
+$(function() {
+  var $thumbnails = $('#thumbnails img');
+  var $figures = $('#full-size figure');
+
+  $(document).click(function(event) {
+    event.preventDefault();
+
+    var $target = $(event.target);
+    if ($target.is($thumbnails)) makeActive($thumbnails.index($target));
+    if ($target.is('.arrow-left')) previous();
+    if ($target.is('.arrow-right')) next();
+  });
+
+  $(document).keydown(function(event) {
+    if (event.which === 37) previous();
+    if (event.which === 39) next();
+  });
+
+  function previous() {
+    var index = $thumbnails.index($('li.active img'));
+    makeActive(index - 1);
+  }
+
+  function next() {
+    var index = $thumbnails.index($('li.active img'));
+    makeActive(index + 1);
+  }
+
+  function makeActive(index) {
+    index = index % $thumbnails.length;
+    $('figure.active, li.active').removeClass('active');
+    $figures.eq(index).addClass('active');
+    $thumbnails.eq(index).closest('li').addClass('active');
+  }
+});

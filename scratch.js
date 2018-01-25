@@ -393,7 +393,7 @@
   - clicking on other thumbnails too fast causes more than one image to be visible at once
   - sometimes more than one large photo will appear at the same time (vertically stacked)
   - in the video he says he uses `stop()` to avoid side effects when clicking a lot, but in the completed assignment, there are side effects like the above
-
+-----
 - " of reach "
 - "hammer we "
 - "that was worked on"
@@ -406,7 +406,20 @@
 - there's only one version in the video, and it doesn't include the forwar/backward controls: "Check out a walkthrough of the basic and extra credit versions of the assignment."
 - the completed assignment also doesn't have the controls
 - "You can see an example that we have completed using placeholder images."
+
+//======================== Assignment: Refactoring =========================//
+- double quoted strings
+- dots before method names
+- parens after method names
+- periods after list items
+
+- "From making your code more efficient to more intention-revealing, "
+- " more function calls means "
+
+
 */
 //============================================================================//
 //============================================================================//
 /* eslint-enable */
+
+
