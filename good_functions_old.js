@@ -45,6 +45,13 @@ const elog = (a, b) => {
   return result;
 };
 
+//=================== elog alias ==================//
+
+const pe = elog;
+
+//=================================================//
+
+
 
 
 
@@ -68,12 +75,18 @@ const p = (...args) => {
 };
 
 
+
+
 // const p = x => {
 //   console.log(x);
 //   return x;
 // };
 
 
+
+
+// // FIX: TEMPORARY p OVERRIDE...
+// const p = (...args) => console.log(...args);
 
 
 
@@ -128,7 +141,7 @@ const Test = {
   assertEquals:  (a, b)    => elog(a, b),
   assertSimilar: (a, b)    => elog(a, b),
   expect:        (exp)     => p(exp),
-  assertNotEquals: (a, b)  => !eql(a, b),
+  assertNotEquals: (a, b)  => p(!eql(a, b)),
   assertDeepEquals: (a, b) => elog(a, b),
   describe: (str, func)    => func(),
   it:       (str, func)    => {

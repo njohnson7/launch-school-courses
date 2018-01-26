@@ -44,11 +44,13 @@ rules:
 // };
 
 
-const validLuhn = (numStr) => {
-  return !([...numStr.replace(/[^\d]/g, '')]
-    .reverse().reduce((sum, d, i) => sum + (i % 2 ? d * 2 % 9 : +d), 0) % 10);
-};
+// const validLuhn = (numStr) => {
+//   return !([...numStr.replace(/\D/g, '')]
+//     .reverse().reduce((sum, d, i) => sum + (i % 2 ? d * 2 % 9 : +d), 0) % 10);
+// };
 
+const validLuhn = num =>
+  [...num.replace(/\D/g, '')].reverse().reduce((sum, n, i) => sum + (+n && i % 2 ? n * 2 % 9 || 9 : +n), 0) % 10 == 0;
 
 console.log(validLuhn('1111'));   // false
 console.log(validLuhn('8763'));   // true
@@ -59,6 +61,11 @@ console.log(validLuhn('123'));    // 143 => 8 => false
 console.log(validLuhn('125'));    // 145 => 10 => true
 console.log(validLuhn("2323 2005 7766 3554"));    // true
 console.log(validLuhn("2323 2005 7766 3555"));    // false
+console.log(validLuhn("9991"));    // false
+console.log(validLuhn("9999"));    // false
+console.log(validLuhn("9993"));    // true
+console.log(validLuhn("9999999999"));    // true
+console.log(validLuhn("1234567890101468282782512345623274323"));    // true
 
 console.log('=======');
 
@@ -71,3 +78,14 @@ console.log(validLuhn('123') ===  false);
 console.log(validLuhn('125') ===  true);
 console.log(validLuhn("2323 2005 7766 3554") ===  true);
 console.log(validLuhn("2323 2005 7766 3555") ===  false);
+console.log(validLuhn("9991") === false);
+console.log(validLuhn("9999") === false);
+console.log(validLuhn("9993") === true);
+console.log(validLuhn("9999999999") === true);
+console.log(validLuhn("1234567890101468282782512345623274323") === true);
+console.log(validLuhn("12345678901014682827825123456232743231") === false);
+console.log(validLuhn("3000 0000 0000 0400") === true);
+
+
+// ''
+//
