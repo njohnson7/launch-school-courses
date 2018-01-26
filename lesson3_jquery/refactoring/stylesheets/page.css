@@ -4,10 +4,15 @@ body {
 }
 a {
   color: #16997c;
+  text-decoration: none;
+}
+a:hover {
+  color: #2f7;
+  text-decoration: underline;
 }
 main,
 header {
-  background: #bbb;
+  background: #036;
   margin:     0 auto;
   padding:    25px;
   width:      600px;
@@ -23,7 +28,7 @@ header li {
   position: relative;
 }
 header ul ul {
-  background: #f0f0a0;
+  background: #448;
   left:       0;
   position:   absolute;
   top:        100%;
@@ -48,9 +53,20 @@ dd {
   margin: 0;
 }
 input[type='text'] {
-  font:    normal 14px/100% sans-serif;
-  height:  20px;
-  padding: 5px 0 5px 5px;
+  background: #000;
+  border:     none;
+  color:      #33b5e5;
+  font:       normal 14px/100% sans-serif;
+  height:     20px;
+  padding:    5px 0 5px 5px;
+}
+input[type='submit'], .button {
+  border: none;
+}
+input[type='submit']:hover,
+.button:hover {
+  background: #33b5e5;
+  color:      #000;
 }
 .accordion {
   display: none;
@@ -60,8 +76,12 @@ input[type='text'] {
 }
 .clicked {
   background: #181818;
-  color:      #f0f033;
+  color:      #33b5e5;
   padding:    3px;
+}
+.clicked:hover {
+  background: #000;
+  color:      #fff;
 }
 nav ul ul {
   display: none;
@@ -78,5 +98,6 @@ form p.error {
   color: #b00b00;
 }
 #birthstone {
-  font: italic bold 16px Georgia, serif;
+  color: #fff;
+  font:  italic bold 16px Georgia, serif;
 }
