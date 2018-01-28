@@ -5,31 +5,69 @@
   <meta charset='utf-8'>
   <style>
     *, html        { box-sizing: border-box; }
-    body           { background: #000;    color: #eee; font: 16px Helvetica, sans; }
+    body           { background: #000;    color: #33b5e5; font: 16px Helvetica, sans; }
     input          { background: #222;    color: #33b5e5; border: #555 solid 1px; }
     button, select { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
-    main           { background: #111; margin: auto; width: 50%; padding: 10px; }
+
+
+    div { background: red; }
+
+
+    nav{
+        padding-top:50px;
+        position:relative;
+        float:left;
+    }
+
+    nav ul li{
+     float:left;
+    }
+
+    #search-box{
+        position: absolute;
+        right: 0;
+        bottom: 17px;
+        z-index: 10;
+        background: rgba(22, 65, 135, 0.8);
+        border-radius: 10px 10px 0px 0px;
+        padding: 5px 10px;
+        display:none;
+    }
+
+
   </style>
   <script src='jquery-3.2.1.js'></script>
   <script src='good_functions.js'></script>
   <script src='scratch.js'></script>
 </head>
 <body>
-  <main>
-    <form action='#' method='get'>
-      <h2>Add an item</h1>
-      <p id='msg'></p>
-      <fieldset>
-        <label for='name'>Item name</label>
-        <input id='name' name='name'>
-        <label for='quantity'>Quantity</label>
-        <input id='quantity' name='quantity' type='number'>
-      </fieldset>
-      <button type='submit'>Add</button>
-    </form>
 
-    <h1>Groceries</h1>
-    <ul></ul>
-  </main>
+  <button id="hide-slide-up">Hide (slideUp)</button>
+  <button id="show-slide-down">Show (slideDown)</button>
+  <br>
+  <br>
+  <button id="hide-animate-up">Hide (animate)</button>
+  <button id="show-animate-down">Show (animate)</button>
+  <br>
+  <br>
+  <button id="hide-animate-down">Hide (reverse)</button>
+  <button id="show-animate-up">Show (reverse)</button>
+  <br>
+  <br>
+  <div>Hello, world!</div>
+  <br>
+  <br>
+
+  <nav>
+  <ul>
+      <li class="search">click me
+        <div id="search-box">
+          <p>text</p>
+        </div>
+      </li>
+  </ul>
+  </nav>
+
+
 </body>
 </html>
