@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>Dynamic Animations</title>
+  <meta charset='utf-8'>
+  <link href='style.css' rel='stylesheet'>
+  <script src='../../jquery-3.2.1.js'></script>
+  <script src='../../good_functions.js'></script>
+  <script src='script.js'></script>
+</head>
+<body>
+  <main>
+    <div class='canvas'></div>
+    <div class='controls'>
+      <a href='#' class='start'>Start</a>
+      <a href='#' class='stop'>Stop</a>
+    </div>
+    <form class='add'>
+      <h1>Add a shape</h1>
+      <fieldset>
+        <div class='type'>
+          <h2>Type</h2>
+          <label>
+            <input type='radio' name='type' value='square'>Square
+          </label>
+          <label>
+            <input type='radio' name='type' value='circle'>Circle
+          </label>
+          <label>
+            <input type='radio' name='type' value='star'>Star
+          </label>
+        </div>
+        <dl class='coords'>
+          <dt>Starting Point</dt>
+          <dd><input type='number' placeholder='x:' name='start-x'></dd>
+          <dd><input type='number' placeholder='y:' name='start-y'></dd>
+          <dt>Ending Point</dt>
+          <dd><input type='number' placeholder='x:' name='end-x'></dd>
+          <dd><input type='number' placeholder='y:' name='end-y'></dd>
+        </dl>
+      </fieldset>
+      <button type='submit'>Add</button>
+    </form>
+  </main>
+</body>
+</html>

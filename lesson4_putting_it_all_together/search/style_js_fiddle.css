@@ -23,7 +23,6 @@ body {
   background: #151515;
   margin:     0 auto;
   padding:    30px;
-  white-space: nowrap;
   width:      1000px;
 }
 body:after {
