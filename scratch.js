@@ -55,8 +55,31 @@
 - in the video, this function doesn't take any arguments: `startAnimation(1500,250);`
 
 //======================== HTML Data Attributes =========================//
+- backticks (in this and other assignments)
+- dots and parens in function names in prose
+- comment spacing
+- add info that data set with `attr` won't be reflected when retrieved with `data`
+- keyword-spacing
+-----
+- " allows you to specify the attribute name and the value will be returned. "
+- " With this method, you have to be very careful with how and when you use it, since it can be used for two different data sets. "
+- "rather than jQuery, you can, however "
+- "says it should "
+- 'key/value '
+- tense: " would be "
+- clarify: "This differs from jQuery in that the newly added data attributes are stored internally rather than rewritten as HTML data attributes."
+- `'Newman\'s Own';`
+- "you'll most often see multi-word properties and variables either converted to camel case or what is called snake case. "
+- is this really necessary at this point in the course?: "Camel case gets its name from generally having the uppercase letters that signify the start of each new word be taller than the other letters, or forming humps on a camel's back. Snake case gets its name mostly because it's a corresponding animal name that compliments camel case. Snake case uses underscores to separate words rather than uppercase letters."
+- rewrite explanation or delete: "Snake case gets its name mostly because it's a corresponding animal name that compliments camel case. "
 
+//======================== Project: Search Filtering, Part 1: Structure and Styles =========================//
+- period after list items in prose
+- the instructor in the video doesn't appear to know how to use a text editor (ex: he individually edits each game list item -- watching him do this is a waste of time)
 
+//======================== Project: Search Filtering, Part 2: Interactivity =========================//
+- same style issues as other assignments
+- "move to"
 
 //================================================================================//
 //==============================================================================//*/
