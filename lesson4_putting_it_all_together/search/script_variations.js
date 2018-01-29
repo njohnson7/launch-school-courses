@@ -127,3 +127,10 @@ $(function () {
 $(function () {
   $(':checkbox').change(e => $(`.games li:contains(${$(e.target).val()})`).toggle());
 });
+
+
+//============================================================================//
+//======================== 7 =========================//
+
+
+$(_ => $(':checkbox').change(e => $(`.games li:contains(${$(e.target).val()})`).toggle()));
