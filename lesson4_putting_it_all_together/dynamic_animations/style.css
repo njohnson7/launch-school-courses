@@ -1,53 +1,118 @@
 @import url('whitespace-reset.css');
-body {
-  background: #000;
-  color:      #eee;
-  font:       normal 20px Helvetica, Arial, sans-serif;
+body,
+input,
+button {
+  background:      #000;
+  caret-color:     #15f4ee;
+  color:           #eee;
+  font:            normal 20px Helvetica, Arial, sans-serif;
 }
 main {
-  background: #151515;
-  margin:     0 auto;
-  overflow:   hidden;
-  padding:    30px;
-  width:      1000px;
+  background:      #151515;
+  margin:          15px auto;
+  padding:         30px;
+  width:           860px;
 }
-.games {
-  float:        right;
-  padding-left: 50px;
-  width:        80%;
+.canvas {
+  background:      linear-gradient(#444, #000);
+  content:         '';
+  height:          600px;
+  margin:          0 auto;
+  position:        relative;
+  width:           800px;
 }
-h1 {
-  color:         #33b5e5;
-  font:          bold 54px Helvetica, Arial, sans-serif;
-  margin-bottom: 20px;
+.controls {
+  margin:          20px 0;
 }
-li {
-  padding: 5px;
+a {
+  color:           #33b5e5;
+  text-decoration: none;
 }
-.games li {
-  padding: 20px;
+a:hover {
+  color:           #eee;
+  font-weight:     bold;
 }
-.games li:hover {
-  background: #33b5e5;
-  color:      #000;
+a + a {
+  border-left:     2px solid #555;
+  margin-left:     4px;
+  padding-left:    8px;
 }
-.games li:not([style='display: none;']) ~ li {
-  border-top: solid 1px #444;
+.clear:hover {
+  color:           #ff3232;
 }
-.filter {
-  float: left;
-  width: 20%;
+.add {
+  margin-top:      50px;
 }
-.filter ul {
-  padding-top: 98px;
+h1,
+.type dt {
+  font-size:       38px;
+  font-weight:     bold;
+  margin-bottom:   20px;
 }
-.filter label:hover,
-.filter input:hover {
-  background: #000;
-  color:      #33b5e5;
-  cursor:     pointer;
-  padding:    10px 0;
+.type dt {
+  font-size:       26px;
 }
-.filter input {
-  margin-right: 5px;
+.type {
+  margin:          5px 0 20px;
+}
+.type dd {
+  margin:          5px 50px;
+}
+.type input:hover,
+.type label:hover {
+  color:           #33b5e5;
+  cursor:          pointer;
+}
+.type input {
+  margin-right:    5px;
+}
+.type input:checked {
+  box-shadow:      0 0 1em #33b5e5;
+}
+.type input:checked + span {
+  font-weight:     bold;
+}
+.coords {
+  margin-bottom:   25px;
+}
+.coords dt {
+  margin:          25px 0 5px;
+}
+.coords dd {
+  display:         inline-block;
+}
+.coords input {
+  width:           80px;
+}
+input,
+button {
+  background:      #000;
+  border:          none;
+  color:           #eee;
+  font-size:       18px;
+  padding:         7px 10px;
+}
+button {
+  background:      #33b5e5;
+  border:          none;
+  border-radius:   7px;
+  color:           #000;
+  cursor:          pointer;
+}
+button:hover {
+  background:      #fff;
+  color:           #000;
+  font-weight:     bold;
+}
+.shape {
+  background:      #33b5e5;
+  height:          30px;
+  position:        absolute;
+  width:           30px;
+}
+.shape.circle {
+  border-radius:   100%;
+}
+.shape.star {
+  background:      no-repeat center/100% url('star.png');
 }

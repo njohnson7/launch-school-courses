@@ -1,5 +1,9 @@
 /* eslint-disable */
 /*//==============================================================================//
+//======================== Random =========================//
+- Suggestion for rephrasing the paragraph at the beginning of the [Community Forum page](https://launchschool.com/forum):
+  - > Please use the community forum for all non ***~~course related~~ [course-related]*** topics! If you have a ***~~course related~~ [course-related]*** question, use ***~~lesson discussions in the course~~ [one of the "Discussions" forums that are in each lesson of every course]***.
+
 //======================== Introduction =========================//
 - " learned the jQuery library"
 - " get in to"
@@ -60,8 +64,8 @@
 - comment spacing
 - add info that data set with `attr` won't be reflected when retrieved with `data`
 - keyword-spacing
------
-- " allows you to specify the attribute name and the value will be returned. "
+----
+-- " allows you to specify the attribute name and the value will be returned. "
 - " With this method, you have to be very careful with how and when you use it, since it can be used for two different data sets. "
 - "rather than jQuery, you can, however "
 - "says it should "
@@ -82,7 +86,15 @@
 - "move to"
 
 //======================== Project: Dynamic Animations, Part 1: Structure and Styles =========================//
+- period after list items in prose
+- backticks
 
+
+//======================== Project: Dynamic Animations, Part 2: Animations =========================//
+
+
+
+- no https for "append method" link
 
 //================================================================================//
 //==============================================================================//*/
