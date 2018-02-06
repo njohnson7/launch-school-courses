@@ -100,6 +100,7 @@
 - period after list items in prose
 - backticks
 - same code style issues as other assignments (in video and example solution page)
+- example solution page doesn't have "duration" input
 -----
 - " capture the 5 inputs:"
 - no https for "append method" link

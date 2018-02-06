@@ -28,7 +28,6 @@ $(function () {
 
   const createShape = (type, { startX, startY, endX, endY }, speed) => ($('<div>', {
     class: `shape ${type}`,
-    data:  { startX, startY, endX, endY, speed },
     on:    {
       reset() {
         $(this).css({ left: startX, top: startY });
