@@ -23,7 +23,7 @@ $(function () {
     return { startX, startY, endX, endY };
   };
 
-  const randomSpeed = _ => ~~(Math.random() * MAX_SPEED - MIN_SPEED + 1) + MIN_SPEED;
+  const randomSpeed = _ => ~~(Math.random() * (MAX_SPEED - MIN_SPEED + 1)) + MIN_SPEED;
   const getSpeed    = _ => +$('.speed input').val().trim() || randomSpeed();
 
   const createShape = (type, { startX, startY, endX, endY }, speed) => ($('<div>', {
