@@ -88,13 +88,33 @@
 //======================== Project: Dynamic Animations, Part 1: Structure and Styles =========================//
 - period after list items in prose
 - backticks
-
+- same code style issues as other assignments (in video and example solution page)
+- various issues with functionality of example solution
+  - ex: shapes can start or end out of bounds of the canvas
+-----
+- - "Create new shape when form submitted. Its initial position is set to start x and y and CSS class is determined by shape type "
+- "Clicking start will animate all shapes based on stored start and end positions -\n- Clicking stop will stop all current animations -\n- At any point, when you're stuck, you can check the"
+- "In the form, the fields you'll need will be a choice between square, circle, and star shapes, starting x and y coordinates, and ending x and y coordinates. Your three shapes should be the same width and height, 30px by 30px. The square and circle elements can be made with CSS."
 
 //======================== Project: Dynamic Animations, Part 2: Animations =========================//
-
-
-
+- period after list items in prose
+- backticks
+- same code style issues as other assignments (in video and example solution page)
+-----
+- " capture the 5 inputs:"
 - no https for "append method" link
+- " into two parts for you to tackle one at a time."
+- "For this step, write an event handler for the form submission. In the event handler, we want to capture the 5 inputs:"
+- "Start the animation with the ***starting*** and ending points. "
+- not necessary to quote "class" as a property name
+- "you can add an extra field "duration" to the form when you create each shape, so that each shape can have a different animate duration."
+- " pull out code from the event handler callback "
+- "return to it and will make"
+- "should focus on in order "
+- "This will also make it easier to allow for code reuse."
+- "If you are stuck, watch the rest of the solution video below."
+
+//======================== Project: Array and Object Utility Library =========================//
 
 //================================================================================//
 //==============================================================================//*/
