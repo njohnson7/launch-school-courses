@@ -1,4 +1,4 @@
-$(function () {
+$(function (x) {
   const $canvas      = $('.canvas');
   const $form        = $('form');
   const $inputCoords = $('.coords input');

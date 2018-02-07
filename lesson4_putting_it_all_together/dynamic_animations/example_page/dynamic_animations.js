@@ -1,10 +1,10 @@
-$(function() {
+$(function () {
   var $canvas = $("#canvas");
 
   function getFormObject($f) {
     var o = {};
 
-    $f.serializeArray().forEach(function(input) {
+    $f.serializeArray().forEach(function (input) {
       o[input.name] = input.value;
     });
 
@@ -17,7 +17,7 @@ $(function() {
       data: data,
       css: {
         left: +data.start_x,
-        top: +data.start_y
+        top:  +data.start_y,
       }
     });
 
@@ -31,22 +31,22 @@ $(function() {
     resetElement($e, data);
     $e.animate({
       left: +data.end_x,
-      top: +data.end_y
+      top:  +data.end_y,
     }, 1000);
   }
 
   function resetElement($e, data) {
     $e.css({
       left: +data.start_x,
-      top: +data.start_y
+      top:  +data.start_y,
     });
   }
 
   function stopAnimations() {
-    $canvas.find("div").stop();
+    $canvas.find('div').stop();
   }
 
-  $("form").on("submit", function(e) {
+  $("form").on("submit", function (e) {
     e.preventDefault();
 
     var $f = $(e.target),
@@ -58,14 +58,14 @@ $(function() {
     $canvas.append($el);
   });
 
-  $("#animate").on("click", function(e) {
+  $("#animate").on("click", function (e) {
     e.preventDefault();
 
     stopAnimations();
     $canvas.find("div").each(animateElement);
   });
 
-  $("#stop").on("click", function(e) {
+  $("#stop").on("click", function (e) {
     e.preventDefault();
 
     stopAnimations();

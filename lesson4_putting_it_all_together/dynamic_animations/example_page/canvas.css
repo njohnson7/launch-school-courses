@@ -1,53 +1,56 @@
 body {
-  font: normal 14px Helvetica, Arial, sans-serif;
-  background: #780E24;
+  background:      #780e24;
+  font:            normal 14px Helvetica, Arial, sans-serif;
 }
 main {
-  width: 802px;
-  padding: 25px;
-  margin: 0 auto;
-  background: #ffffff;
+  background:      #fff;
+  margin:          0 auto;
+  padding:         25px;
+  width:           802px;
 }
 #canvas {
-  position: relative;
-  width: 100%;
-  height: 600px;
-  border: 1px solid #cccccc;
-  background: linear-gradient(to bottom, #ffffff 0%, #0066cc 100%);
+  background:      linear-gradient(to bottom, #fff 0%, #06c 100%);
+  border:          1px solid #ccc;
+  height:          600px;
+  position:        relative;
+  width:           100%;
 }
-
 #canvas > div {
-  position: absolute;
-  z-index: 1;
-  width: 30px;
-  height: 30px;
-  background: #dde338;
+  background:      #dde338;
+  height:          30px;
+  position:        absolute;
+  width:           30px;
+  z-index:         1;
 }
 #canvas .circle {
-  border-radius: 100%;
+  border-radius:   100%;
 }
 #canvas .star {
-  background: transparent url("star.png");
+  background:      transparent url('star.png');
   background-size: 100% auto;
 }
-
 fieldset {
-  padding: 0;
-  margin: 0;
-  border: none;
+  border:          none;
+  margin:          0;
+  padding:         0;
 }
-
-ul { list-style: none; }
-dl { margin: 0; }
-dt { padding: 0 0 5px 0; }
+ul {
+  list-style:      none;
+}
+dl {
+  margin:          0;
+}
+dt {
+  padding:         0 0 5px 0;
+}
 dd {
-  padding: 0 0 20px 0;
-  margin: 0;
+  margin:          0;
+  padding:         0 0 20px 0;
 }
-input[type="number"] {
-  width: 70px;
-  height: 30px;
-  padding: 5px 0 5px 5px;
-  font: normal 14px/100% sans-serif;
-  box-sizing: border-box;
+input[type='number'] {
+  box-sizing:      border-box;
+  font:            normal 14px/100% sans-serif;
+  height:          30px;
+  padding:         5px 0 5px 5px;
+  width:           70px;
 }
