@@ -116,6 +116,41 @@
 - "If you are stuck, watch the rest of the solution video below."
 
 //======================== Project: Array and Object Utility Library =========================//
+- " the array prototype" (x2+...)
+  - " methods on arrays"
+- backticks (ex: $, true, false, last)
+- same code style issues as previous assignments
+- undeclared variable `u` (x2+...)
+- inconsistent use of newlines in tests js file
+- wrap IIFEs in parens (including invocation parens)
+- why use IIFEs in some of the tests...? (ex: _.first)
+- names of methods (in tests) should be changed so that it's evident whether the method is called directly on `_` (ex: `last`) or is called on the return value of the `_` function (ex: `range`, extend, etc...)
+- logging the error in the `test` function would be helpful
+- no comment titles for `is*` methods
+- fix formatting of all list items (ie, commas, periods, etc...)
+- colons after paragraphs above videos
+- it seems really unnecessary to create certain functions, like `lastIndexOf` which has been in JS since ES5...
+- it's not specified if the methods should all work with both arrays and objects (and other types...)
+
+- "you" and "we": "you have a central place to hold all of these useful methods, we also "
+- "Not only do you have a central place to hold all of these useful methods, we also have the ability to transport them easily between projects. "
+- "underscore character, or _."
+- "`test("without retains the elements that aren't remove"`"
+- tests and prose don't make it clear what the `sample` method is supposed to do
+- `pluck` tests could be combined, since they share the same two lines of code
+  - some of the other tests also could be combined as well, such as `extend`
+- `crazy_object` is accidentally a global variable because there's a semicolon in line above instead of a comma
+  - `crazy_object` is not referenced in the first or second `extend` test
+- rewrite `pick` tests (confusing as is...)
+  - also, they don't test for if extra properties (that exist on the original object but aren't passed as an argument) are included in the returned object
+  - "`test('has returns false when property does not exist',`" only tests for falsiness, not actual `false`
+- " (i.e. _.isElement(ob)"
+- "isElement, return true" (x2+...)
+- should only return true if a basic object (ie, not array or function): "`'isObject returns true if object or function, otherwise false`"
+
+- video:
+  - he incorrectly says the `range` method goes up to 10, when it actually only goes up to 9
+  -
 
 //================================================================================//
 //==============================================================================//*/

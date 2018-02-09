@@ -45,31 +45,19 @@
 // enough that all such attempts are guarded in a try block.
 "use strict";
 
-var arr = [];
-
-var document = window.document;
-
-var getProto = Object.getPrototypeOf;
-
-var slice = arr.slice;
-
-var concat = arr.concat;
-
-var push = arr.push;
-
-var indexOf = arr.indexOf;
-
-var class2type = {};
-
-var toString = class2type.toString;
-
-var hasOwn = class2type.hasOwnProperty;
-
-var fnToString = hasOwn.toString;
-
+var arr                  = [];
+var document             = window.document;
+var getProto             = Object.getPrototypeOf;
+var slice                = arr.slice;
+var concat               = arr.concat;
+var push                 = arr.push;
+var indexOf              = arr.indexOf;
+var class2type           = {};
+var toString             = class2type.toString;
+var hasOwn               = class2type.hasOwnProperty;
+var fnToString           = hasOwn.toString;
 var ObjectFunctionString = fnToString.call(Object);
-
-var support = {};
+var support              = {};
 
 
 
@@ -103,7 +91,7 @@ var
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
 	// Matches dashed string for camelizing
-	rmsPrefix = /^-ms-/,
+	rmsPrefix  = /^-ms-/,
 	rdashAlpha = /-([a-z])/g,
 
 	// Used by jQuery.camelCase as callback to replace()
