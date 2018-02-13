@@ -3,7 +3,7 @@ const _ = this._ = function _(obj) {
   return Object.create(_.prototype).init(obj);
 };
 
-_.swapValues = (a = 0, b) => [a, b] = b == null ? [0, a] : [a, b];
+_.swapValues = (a = 0, b) => b == null ? [0, a] : [a, b];
 
 _.randomNum = function (min, max) {
   [min, max] = _.swapValues(min, max);
@@ -15,17 +15,14 @@ _.range = function (start, end) {
   return [...Array(end - start)].map((_, i) => i + start);
 };
 
-_.is = (type, value) => typeof value == type || typeof value.valueOf() == type;
-'Number String Boolean Function'.split(' ').forEach(type => (
-  _[`is${type}`] = value => _.is(type.toLowerCase(), value)
+'Element Array Function Boolean String Number'.split(' ').forEach(type => (
+  _[`is${type}`] = value => value != null && RegExp(`${type}]$`).test({}.toString.call(value))
 ));
-_.isObject  = value => _.is('object', value) || _.isFunction(value);
-_.isElement = value => EventTarget.prototype.isPrototypeOf(value);
-_.isArray   = Array.isArray;
+_.isObject = value => !!value && typeof value == 'object' || _.isFunction(value);
 
 _.shallowCopy = obj => _.isArray(obj) ? [...obj] : { ...obj };
-_.extend = Object.assign;
-_.extend(_.prototype, {
+
+(_.extend = Object.assign)(_.prototype, {
   init(val = []) {
     this.val = _.shallowCopy(val);
     return this;
@@ -45,11 +42,10 @@ _.extend(_.prototype, {
   lastIndexOf(value) {
     return [].lastIndexOf.call(this.val, value);
   },
-  sample(num = 1) {
-    let result = [];
-    let copy   = [...this.val];
-    while (copy.length && num-- > 0) result.push(...copy.splice(_.randomNum(copy.length), 1));
-    return result.length == 1 ? result[0] : result;
+  sample(n = 1) {
+    let copy   = _.shallowCopy(this.val);
+    let newArr = _.range(n).reduce(arr => [...arr, ...copy.splice(_.randomNum(copy.length), 1)], []);
+    return newArr.length == 1 ? _(newArr).first() : newArr;
   },
   where(obj) {
     let keys = _(obj).keys();
@@ -70,16 +66,19 @@ _.extend(_.prototype, {
   values() {
     return Object.values(this.val);
   },
-  filterByKeys(keys, isGoodKey) {
+  filterByKeys(isGoodKey) {
     return Object.entries(this.val).reduce((newObj, [key, value]) => (
       isGoodKey(key) ? { ...newObj, [key]: value } : newObj
     ), {});
   },
   pick(...keys) {
-    return this.filterByKeys(keys, key => keys.includes(key));
+    return this.filterByKeys(key => keys.includes(key));
   },
   omit(...keys) {
-    return this.filterByKeys(keys, key => !keys.includes(key));
+    return this.filterByKeys(key => !keys.includes(key));
+  },
+  grep(regex) {
+    return this.filter(elem => regex.test(elem));
   },
 });
 
@@ -92,21 +91,7 @@ Object.defineProperty(_.prototype, 'length', {
   },
 });
 
-'Element Array Object Function Boolean String Number'.split(' ').forEach(type => (
-  _.prototype[`is${type}`] = function () {
-    return _[`is${type}`](this.val);
-  }
-));
+_(_(_).keys()).grep(/^is/).forEach(methodName => (_.prototype[methodName] = function () {
+  return _[methodName](this.val);
+}));
 }());
-
-// const a = [1, 2, 3, 4, 5];
-// const o = { a: 1, b: 2, c: 3 };
-
-_()
-$()
-a()
-b()
-1()
-~()
-__()
-$$()

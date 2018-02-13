@@ -35,7 +35,6 @@ function test(message, assertion) {
   try {
     passed = assertion();
   } catch (e) {
-    // p(e);
     passed = false;
   }
 

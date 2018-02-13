@@ -118,7 +118,8 @@
 //======================== Project: Array and Object Utility Library =========================//
 - " the array prototype" (x2+...)
   - " methods on arrays"
-- backticks (ex: $, true, false, last)
+  - " array methods."
+- backticks (ex: $, true, false, last, 1, Array, undefined, Number, Boolean)
 - same code style issues as previous assignments
 - undeclared variable `u` (x2+...)
 - inconsistent use of newlines in tests js file
@@ -127,16 +128,23 @@
 - names of methods (in tests) should be changed so that it's evident whether the method is called directly on `_` (ex: `last`) or is called on the return value of the `_` function (ex: `range`, extend, etc...)
 - logging the error in the `test` function would be helpful
 - no comment titles for `is*` methods
-- fix formatting of all list items (ie, commas, periods, etc...)
+- fix formatting and clarify descriptions (rephrase) of all list items of methods (ex: commas, periods, phrasing, etc...)
 - colons after paragraphs above videos
 - it seems really unnecessary to create certain functions, like `lastIndexOf` which has been in JS since ES5...
 - it's not specified if the methods should all work with both arrays and objects (and other types...)
-
+- "`element`" is a confusing variable name for the argument of `_`
+- many of the method explanations could be improved and clarified, such as `sample` -- which doesn't even specify that the element(s) should be random, and `pluck` (see the `_`.js documentation for ideas)
+- there's no link to the completed assignment
+- fix 's's at the end of various things in lists like return vs returns and start vs ends (ex: " If two arguments are supplied, returns an array of values that start with the first argument and ends with the second value. ")
+- not always an argument in `_(obj).method()` form: "return true if argument"
+-----
 - "you" and "we": "you have a central place to hold all of these useful methods, we also "
 - "Not only do you have a central place to hold all of these useful methods, we also have the ability to transport them easily between projects. "
 - "underscore character, or _."
+- `range` tests ends *before* the second value: "and ends with the second value. "
 - "`test("without retains the elements that aren't remove"`"
 - tests and prose don't make it clear what the `sample` method is supposed to do
+- " removed and the second "
 - `pluck` tests could be combined, since they share the same two lines of code
   - some of the other tests also could be combined as well, such as `extend`
 - `crazy_object` is accidentally a global variable because there's a semicolon in line above instead of a comma
@@ -144,13 +152,17 @@
 - rewrite `pick` tests (confusing as is...)
   - also, they don't test for if extra properties (that exist on the original object but aren't passed as an argument) are included in the returned object
   - "`test('has returns false when property does not exist',`" only tests for falsiness, not actual `false`
-- " (i.e. _.isElement(ob)"
+- "Check out this video [plural] for help with any of the object and collection methods."
+- "non-omited properties"
+- "The rest are covered in this video."
+- "Utility methods."
+- comma after ie and 'j' after `ob`: " (i.e. _.isElement(ob)"
 - "isElement, return true" (x2+...)
 - should only return true if a basic object (ie, not array or function): "`'isObject returns true if object or function, otherwise false`"
-
-- video:
-  - he incorrectly says the `range` method goes up to 10, when it actually only goes up to 9
-  -
+- the `isElement` test doesn't test for false positives from non-element nodes
+- the `isObject` test should test for `null`
+- test also checks for String objects: "isString, return true if argument is a string. "
+- in video, he incorrectly says the `range` method goes up to 10, when it actually only goes up to 9
 
 //================================================================================//
 //==============================================================================//*/
