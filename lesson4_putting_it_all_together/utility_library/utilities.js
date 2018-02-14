@@ -22,7 +22,9 @@ _.isObject = value => !!value && typeof value == 'object' || _.isFunction(value)
 
 _.shallowCopy = obj => _.isArray(obj) ? [...obj] : { ...obj };
 
-(_.extend = Object.assign)(_.prototype, {
+_.extend = Object.assign;
+
+_.extend(_.prototype, {
   init(val = []) {
     this.val = _.shallowCopy(val);
     return this;
