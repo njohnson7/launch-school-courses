@@ -165,6 +165,8 @@
 - in video, he incorrectly says the `range` method goes up to 10, when it actually only goes up to 9
 
 //======================== Project: Guess a Word, Part 1: Structure and Styles =========================//
+- capitalize "guess a word"...?
+
 
 
 //================================================================================//

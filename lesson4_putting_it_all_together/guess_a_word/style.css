@@ -1,0 +1,88 @@
+@import url('whitespace-reset.css');
+body {
+  background:          #000;
+  caret-color:         #15f4ee;
+  color:               #eee;
+  font:                normal 30px Helvetica, Arial, sans-serif;
+}
+main {
+  background:          #151515;
+  margin:              15px auto;
+  padding:             30px;
+  width:               1000px;
+}
+.tree,
+.apples {
+  height:              800px;
+  margin:              0 auto 60px;
+  width:               800px;
+}
+.tree {
+  background:          url('tree.png');
+}
+.apples {
+  background-image:    url('apples.png');
+  background-position: 100% 0;
+  opacity:             .6;
+}
+.word,
+.guesses {
+  height:              50px;
+  margin-bottom:       20px;
+}
+h1 {
+  display:             inline-block;
+  width:               150px;
+}
+.letter {
+  border-bottom:       3px solid #666;
+  content: '';
+  display:             inline-block;
+  height:              40px;
+  margin-right:        15px;
+  text-align:          center;
+  width:               40px;
+}
+.letter span {
+  visibility:          hidden;
+}
+.message {
+  /*display: none;*/
+  margin-bottom: 40px;
+
+}
+.background-red {
+  background: #821d0f;
+  transition: all 2s ease;
+}
+.background-blue {
+  background: #33b5e5;
+  transition: all 2s ease;
+}
+/*.background-black {
+  background: #000;
+  transition: all 0.5s ease;
+}*/
+.game-over {
+  display: none;
+  margin-bottom: 40px;
+}
+.lose,
+.win {
+  display: none;
+  margin-bottom: 20px;
+}
+.lose {
+  color: #821d0f;
+}
+.win {
+  /*color: #33b5e5;*/
+}
+a {
+  color: #33b5e5;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
