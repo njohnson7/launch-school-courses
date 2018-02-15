@@ -165,8 +165,50 @@
 - in video, he incorrectly says the `range` method goes up to 10, when it actually only goes up to 9
 
 //======================== Project: Guess a Word, Part 1: Structure and Styles =========================//
+- watching shane's videos is the most difficult part of the course to get through (even after successfully completing the entire assignment on my own)...
+  - I don't feel like I can rely on anything that he says or does (to be a good way of doing anything)
+  - I don't want to copy what he does because it might be the wrong way to do it (and sometimes I know it is)
+  - it would be great if all the walkthrough videos were redone with a different instructor doing them. I really like all of Kevin, Chris, and Jim's videos -- they are very helpful, interesting, informative, and enjoyable to watch and I feel like I always learn a lot from them (which is the complete opposite of how I feel about Shane's videos)
+-----
+- same style issues as other assignments
+-----
 - capitalize "guess a word"...?
+- "letters to the word"
+- "the apples spritesheet that we will use to display the number of [incorrect] guesses left."
+- " 6 apples shown and ending with one shown"
+- " SVG (scalable vector graphics)"
+- "SVGeneration - just "
+- " the "exportable css" and"
+-----
+- he finally talks about the order of CSS properties after doing probably 30+ videos...
 
+//======================== Project: Guess a Word, Part 2: Core Functions =========================//
+- comment spacing
+- capital letters and periods after list items in markdown
+- backticks ("Game", "words array", etc)
+- quote words (ex: banana) in comments
+- Solutions 1 and 2 missing a semicolon
+- same code style issues as previous assignments, such as:
+  - double quoted strings
+  - wrap IIFEs in parens
+- code style of solution 3 and video is inconsistent with solutions 1 and 2
+
+- "Game constructor "
+- " has to be able to have access"
+- rephrase: "Our function has to be able to have access to the words array defined outside of it, and with each call of the function, the function produces side effect to mutate the array to remove the element it used."
+- remove semicolon from `randomWord` function declaration
+- "array on the global namespace"
+- " It would be better we can have words inside randomWord's function scope as private state so that"
+- it says "Hint 2" but there is only one hint
+- maybe rephrase: "We need to wrap the above code in an IIFE so the function scope protects private variables defined inside. To keep the private states around, we'll need to return a functon (or an object with methods in it) to create an closure."
+- " an closure"
+- rephrase: " You can read here and here to get a refresher on this topic."
+- the first closure link has some bugs/errors (ex: the example with `makeHelpCallback` doesn't actually work because it doesn't run after DOMContentLoaded)
+- the second closure link is broken
+- " another alternative solution, used in the solution video:"
+- solution 3 is unecessarily very confusing, indirect, and wasteful of resources (like the `without` function) and has poorly named variables (like `el` instead of `word`)
+- "There're "
+- "you could try to use both the pseudoclassical pattern or the OLOO pattern when it comes to the game object creation."
 
 
 //================================================================================//
