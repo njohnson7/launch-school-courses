@@ -192,7 +192,8 @@
   - double quoted strings
   - wrap IIFEs in parens
 - code style of solution 3 and video is inconsistent with solutions 1 and 2
-
+- remove the video
+-----
 - "Game constructor "
 - " has to be able to have access"
 - rephrase: "Our function has to be able to have access to the words array defined outside of it, and with each call of the function, the function produces side effect to mutate the array to remove the element it used."
@@ -209,7 +210,19 @@
 - solution 3 is unecessarily very confusing, indirect, and wasteful of resources (like the `without` function) and has poorly named variables (like `el` instead of `word`)
 - "There're "
 - "you could try to use both the pseudoclassical pattern or the OLOO pattern when it comes to the game object creation."
+-----
+- Note: this feedback is directed solely towards any content created by Shane Riley -- everything else in LS is great
+- The quality of the walkthrough videos in this course keeps getting worse and worse. I would highly suggest removing them from the course entirely, as that would be a major improvement. I couldn't even make it through the video in this assignment because I was getting so frustrated with the instructor's ignorance of basic things, like having no idea how the `$_` variable works in the Chrome console, and wasting time being confused by it without even realizing where he is going wrong.
+- The videos are so bad that it takes me longer to force myself to make it through them than it does to do the actual assignment multiple times. I think I might not have even disliked the actual topics (HTML and CSS) of course 201 as much as I thought -- it's just that the instructor (Shane) makes anything that he teaches seem like the least enjoyable activity possible.
+- he says that empty arrays don't have a length property...
 
+//======================== Project: Guess a Word, Part 3: Event Handling and Game Play =========================//
+- backticks
+- list item formatting
+
+- "97 (a) through 122 (z). "
+- " for a game, 6, the game is over. "
+- "When new game is clicked, "
 
 //================================================================================//
 //==============================================================================//*/

@@ -42,24 +42,23 @@ h1 {
   height:              40px;
   margin-right:        15px;
   text-align:          center;
+  vertical-align:      top;
   width:               40px;
-
-  vertical-align:  top;
 }
 .letter span {
   text-transform:      uppercase;
 }
 .word .letter span {
-  display: none;
+  display:             none;
 }
-.win,
-.lose {
+body.win,
+body.lose {
   transition:          all 3s ease;
 }
-.win {
+body.win {
   background-color:    #33b5e5;
 }
-.lose {
+body.lose {
   background-color:    #a31400;
 }
 .game-over {
@@ -69,8 +68,8 @@ h1 {
 .msg {
   margin-bottom:       20px;
 }
-.msg.lose {
-  color:               #a31400;
+.letter span.lose {
+  color:               #8e1605;
 }
 a {
   color:               #33b5e5;

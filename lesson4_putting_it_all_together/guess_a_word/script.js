@@ -43,21 +43,30 @@ $(function () {
   const $word     = $('.word');
   const $guesses  = $('.guesses');
   const $gameOver = $('.game-over');
+  const $newGame = $('a');
 
   const randomWord = (function () {
-    let words = ['consider', 'minute', 'accord', 'evident', 'practice', 'intend', 'cat'];
+    const getRandomSetOfWords = _ => ([
+      ['ivy', 'espionage', 'kayak', 'dwarves', 'bagpipes'],
+      ['blizzard', 'witchcraft', 'banjo', 'icebox', 'cycle'],
+    ][(~~(Math.random() * 2))]);
+
+    let words = getRandomSetOfWords();
     return _ => words.splice(~~(Math.random() * words.length), 1)[0];
   }());
 
   const Game = {
     MAX_WRONG_COUNT: 6,
     init() {
+      this.reset();
       this.word = randomWord();
-      if (!this.word) this.outOfWords();
+      if (!this.word) {
+        this.outOfWords();
+        return;
+      }
 
       this.guessedLetters = [];
       this.wrongCount     = 0;
-      this.reset();
       this.addLettersToPage();
       return this;
     },
@@ -70,34 +79,39 @@ $(function () {
     outOfWords() {
       alert('all out of words!');
       $body.hide(500);
+      $document.off();
     },
-    createLetterDiv(letter) {
+    createLetter(letter) {
       return $('<div>', {
         class: 'letter',
         html:  `<span>${letter}</span>`,
       });
     },
     addLettersToPage() {
-      [...this.word].forEach(letter => this.createLetterDiv(letter).appendTo($word));
+      [...this.word].forEach(letter => this.createLetter(letter).appendTo($word));
     },
-    isBadLetter(letter) {
+    skipGuess(letter) {
       return !/^[a-z]$/.test(letter)
         || this.guessedLetters.includes(letter)
         || $gameOver.is(':visible');
     },
     addGuessedLetter(letter) {
       this.guessedLetters.push(letter);
-      this.createLetterDiv(letter).appendTo($guesses);
+      this.createLetter(letter).appendTo($guesses);
+    },
+    showGameOver(msg) {
+      $gameOver.show().find('p').text(msg);
     },
     win() {
-      $gameOver.show().find('p').text('you win!');
+      this.showGameOver('You win!');
       $body.addClass('win');
-      $('a').trigger('focus');
+      $newGame.trigger('focus');
     },
     lose() {
-      $gameOver.show().find('p').text('you lose!');
+      this.showGameOver("Sorry, you're out of guesses!");
+      $word.find('span:hidden').addClass('lose').show(600);
       $body.addClass('lose');
-      $('a').trigger('focus');
+      $newGame.trigger('focus');
       $apples.hide();
     },
     removeApple() {
@@ -121,20 +135,22 @@ $(function () {
       if (this.wrongCount == this.MAX_WRONG_COUNT) this.lose();
       else this.removeApple();
     },
+    processGuess(letter) {
+      if (this.skipGuess(letter)) return;
+      this.addGuessedLetter(letter);
+      if (this.isCorrectLetter(letter)) this.correct(letter);
+      else this.incorrect(letter);
+    },
   };
 
   let game;
-  $('a').click(function (e) {
+  $newGame.click(function (e) {
     e.preventDefault();
     game = Object.create(Game).init();
   }).click();
 
   $document.keypress(function (e) {
     let letter = e.key.toLowerCase();
-    if (game.isBadLetter(letter)) return;
-
-    game.addGuessedLetter(letter);
-    if (game.isCorrectLetter(letter)) game.correct(letter);
-    else game.incorrect(letter);
+    game.processGuess(letter);
   });
 });
