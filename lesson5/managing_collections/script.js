@@ -1,75 +1,34 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(function () {
-  const renderDate = _ => {
-    let date = new Date;
-    $('<time>', {
-      dateTime: date.toISOString(),
-      text:     date.toUTCString(),
-    }).appendTo('#order_date');
-  };
+  const ITEM_TEMPLATE = $('#inventory_item').remove().html();
+  const $inventory    = $('#inventory');
+  let items           = [];
 
-  const $inventory     = $('#inventory');
-  const $inventoryItem = $('#inventory_item');
-
-  const addItem = (function () {
-    let id = 1;
+  const addItem = (function (id = 1) {
     return function () {
-      let $tr = $($inventoryItem.html().replace(/ID/g, id));
-      $tr.appendTo($inventory);
-      id++;
+      $(ITEM_TEMPLATE.replace(/ID/g, id)).data({ id }).appendTo($inventory);
+      items.push({ id: id++, name: '', stock: '', quant: 1 });
     };
   }());
 
+  const updateItem = function () {
+    let $tr                  = $(this).closest('tr');
+    let [name, stock, quant] = $tr.find('input:not(:hidden)').map((_, input) => $(input).val());
+    Object.assign(items.find(({ id }) => id == $tr.data('id')), { name, stock, quant: +quant });
+  };
+
   const deleteItem = function (e) {
     e.preventDefault();
-    $(this).closest('tr').remove();
+    let $tr = $(this).closest('tr');
+    items.splice(items.findIndex(({ id }) => id == $tr.data('id')), 1);
+    $tr.remove();
   };
 
   $('#add_item').click(addItem);
+  $inventory.on('blur',  'input',   updateItem);
   $inventory.on('click', '.delete', deleteItem);
 
-  renderDate();
-});
-
-
-
-// const toCsvText = a => a.map(String).join`\n`;
-
-toCsvText = a => a.join`\n`
-
-Test.describe("Basic tests",() => {
-  Test.assertEquals(toCsvText([
-                                [ 0, 1, 2, 3, 45 ],
-                                [ 10,11,12,13,14 ],
-                                [ 20,21,22,23,24 ],
-                                [ 30,31,32,33,34 ]
-                               ] ), '0,1,2,3,45\n10,11,12,13,14\n20,21,22,23,24\n30,31,32,33,34');
-
-  Test.assertEquals(toCsvText([
-                                [ -25, 21, 2, -33, 48 ],
-                                [ 30,31,-32,33,-34 ]
-                               ] ), '-25,21,2,-33,48\n30,31,-32,33,-34');
-
-  Test.assertEquals(toCsvText([
-                                [ 5,55,5,5,55 ],
-                                [ 6,6,66,23,24 ],
-                                [ 666,31,66,33,7 ]
-                               ] ), '5,55,5,5,55\n6,6,66,23,24\n666,31,66,33,7');
-
+  (function renderDate(date = new Date) {
+    let $date = $('<time>', { dateTime: date.toISOString(), text: date.toUTCString() });
+    $date.appendTo('#order_date');
+  }());
 });

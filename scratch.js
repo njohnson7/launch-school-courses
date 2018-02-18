@@ -12,10 +12,11 @@
 
 //======================== Assignment: Managing Collections in JavaScript =========================//
 - backticks
+- code style
 
-
-
-****- check if this is method used: toGMTString() is deprecated...
+- rephrase: "the row of inputs for an item are not on the page, and that we've prepared a template (the <script type="text/template" id="inventory_item"> element) that we can use to add them dynamically on the page later."
+- returns `false` from `forEach` for some reason...
+- `quantity` is a number to start with, but a string if updated
 
 //================================================================================//
 //==============================================================================//*/
