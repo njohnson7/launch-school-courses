@@ -28,7 +28,6 @@ $(function () {
   $inventory.on('click', '.delete', deleteItem);
 
   (function renderDate(date = new Date) {
-    let $date = $('<time>', { dateTime: date.toISOString(), text: date.toUTCString() });
-    $date.appendTo('#order_date');
+    $('<time>', { dateTime: date.toISOString(), text: date.toUTCString() }).appendTo('#order_date');
   }());
 });
