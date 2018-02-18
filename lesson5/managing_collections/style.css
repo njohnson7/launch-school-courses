@@ -1,0 +1,98 @@
+@import url('whitespace-reset.css');
+body {
+  background:      #000;
+  caret-color:     #33b5e5;
+  color:           #eee;
+  font:            normal 16px Helvetica, Arial, sans-serif;
+}
+main {
+  background:      #151515;
+  margin:          0 auto;
+  padding:         30px 20px;
+  width:           650px;
+}
+h1 {
+  font-size:       28px;
+  margin:          0 0 25px 0;
+}
+h2 {
+  font-size:       22px;
+  margin:          0 0 20px 0;
+}
+dt {
+  font-weight:     bold;
+  padding:         0 0 5px 0;
+}
+dd {
+  padding:         0 0 15px 0;
+}
+input[type='text'],
+input[type='number'] {
+  border:          1px solid #000;
+  border-radius:   4px;
+  box-shadow:      inset 0 0 5px rgba(0, 0, 0, .2);
+  box-sizing:      border-box;
+  font:            normal 14px Helvetica, Arial, sans-serif;
+  height:          36px;
+  margin:          0 0 5px 0;
+  padding:         3px 5px;
+  width:           100%;
+}
+input[type='number'] {
+  width:           50px;
+}
+input[maxlength='2'] {
+  width:           40px;
+}
+input[maxlength='5'] {
+  width:           70px;
+}
+input[maxlength='8'] {
+  width:           90px;
+}
+#city {
+  width:           150px;
+}
+button,
+input[type='submit'] {
+  background:      linear-gradient(#33b5e5, #156481);
+  border:          none;
+  border-radius:   6px;
+  color:           #000;
+  cursor:          pointer;
+  font:            normal 13px Helvetica, Arial, sans-serif;
+  margin:          0 0 20px 0;
+  padding:         12px 20px;
+  text-shadow:     1px 1px 1px #666;
+  text-transform:  uppercase;
+}
+button:hover,
+input[type='submit']:hover {
+  color: #eee;
+}
+table {
+  border-collapse: collapse;
+  border-spacing:  0;
+  margin:          0 0 25px 0;
+  width:           100%;
+}
+dl.partial {
+  display:         inline-block;
+  padding:         0 15px 0 0;
+  vertical-align:  top;
+}
+input,
+select,
+textarea {
+  background:      #222;
+  border-radius:   4px;
+  color:           #eee;
+  padding:         5px;
+}
+a {
+  color: #33b5e5;
+  text-decoration: none;
+}
+a:hover {
+  color: #eee;
+}
