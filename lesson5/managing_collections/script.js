@@ -14,15 +14,16 @@ $(function () {
   }());
 
   const updateItem = function () {
-    let item   = items.find(({ id }) => id == getParentTr(this).data('id'));
+    let id     = getParentTr(this).data('id');
+    let item   = items.find(item => item.id == id);
     let name   = getItemName(this);
     item[name] = name == 'quantity' ? +this.value : this.value;
   };
 
   const deleteItem = function (e) {
     e.preventDefault();
-    let $tr = getParentTr(this).detach();
-    let idx = items.findIndex(({ id }) => id == $tr.data('id'));
+    let id  = getParentTr(this).detach().data('id');
+    let idx = items.findIndex(item => item.id == id);
     items.splice(idx, 1);
   };
 
