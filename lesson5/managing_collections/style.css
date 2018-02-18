@@ -7,7 +7,6 @@ body {
 }
 main {
   background:      #151515;
-  border: none;
   margin:          0 auto;
   padding:         30px 20px;
   width:           650px;
@@ -69,7 +68,7 @@ input[type='submit'] {
 }
 button:hover,
 input[type='submit']:hover {
-  color: #eee;
+  color:           #eee;
 }
 table {
   border-collapse: collapse;
@@ -91,9 +90,9 @@ textarea {
   padding:         5px;
 }
 a {
-  color: #33b5e5;
+  color:           #33b5e5;
   text-decoration: none;
 }
 a:hover {
-  color: #eee;
+  color:           #eee;
 }
