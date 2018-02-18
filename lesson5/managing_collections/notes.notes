@@ -1,0 +1,17 @@
+Maybe TODO:
+
+
+Done:
+- instead of updating all the fields on `blur`, just update the single relevant field
+- rename `$tr`
+- extract `find tr` to a function
+- figure out how to remove `$tr` while retaining access to the `id` in its `data`
+- organize code with IIFEs
+
+Old Code:
+[js]
+
+let [name, stock, quant] = $tr.find('input:not(:hidden)').map((_, input) => $(input).val());
+Object.assign(item, { name, stock, quant: +quant });
+
+[end]
