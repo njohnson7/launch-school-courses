@@ -1,5 +1,5 @@
 Maybe TODO:
-
+- instead of using `data` to get `id` from `$tr`, just get it from the input's `name`
 
 Done:
 - instead of updating all the fields on `blur`, just update the single relevant field
