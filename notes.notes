@@ -10,6 +10,7 @@ Read maybe:
 - capturing/bubbling:
   - DOM Level 3 Events: "https://www.w3.org/TR/DOM-Level-3-Events/#event-flow"
   - JS Event order:     "https://www.quirksmode.org/js/events_order.html#link4"
+- all of jQuery learning site
 
 Questions:
 - `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)

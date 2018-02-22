@@ -79,6 +79,21 @@
 - cache `$('#inventory')`
 
 //======================== AJAX Requests =========================//
+- the new ES6 lesson isn't on the course outline page: https://launchschool.com/curriculum/courses/d78a8efe
+-----
+- backticks
+- the jQuery ajax guide seems outdated (ex: `always` and `done` properties, (and maybe JSONP...?))
+-----
+- " Ajax is used much more often in modern websites "
+- "work with cross-browser"
+
+//======================== Project: Photo Gallery - Introduction and Server Setup =========================//
+- code style
+- ` />`
+
+- 'NPM'
+- ' is located run'
+- ' files - the'
 
 //================================================================================//
 //==============================================================================//*/
