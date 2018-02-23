@@ -90,10 +90,27 @@
 //======================== Project: Photo Gallery - Introduction and Server Setup =========================//
 - code style
 - ` />`
-
+- all the HTML in `index.html` is aligned wrong (in index.html)
+- jQuery and handlebars files aren't in `javascripts` folder (in index_v2.html)
+- `index.html` missing `doctype` declaration
+-----
+- ' Gallery - Introduction'
 - 'NPM'
 - ' is located run'
 - ' files - the'
+- 'hidden every one'
+- ' 3 Handlebars templates'
+- 'in the end that '
+- 'you'll use to dynamically render with server data, and insert into the document.'
+- 'herewith'
+-----
+- no need for array in `comments.js`...: '`.split('').slice(2).join('')`'
+
+//======================== Project: Photo Gallery, Part 1 - Fetch Data and Render on Page Load =========================//
+
+
+- ' Part 1 - Fetch'
 
 //================================================================================//
 //==============================================================================//*/
+

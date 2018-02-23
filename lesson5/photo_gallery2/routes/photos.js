@@ -1,10 +1,10 @@
 var express = require('express');
-var router = express.Router();
-var fs = require("fs");
-var path = require("path");
-var _ = require("underscore");
+var router  = express.Router();
+var fs      = require('fs');
+var path    = require('path');
+var _       = require('underscore');
 
-var photos = JSON.parse(fs.readFileSync(path.resolve(path.dirname(__dirname), "data/photos.json"), "utf8"));
+var photos = JSON.parse(fs.readFileSync(path.resolve(path.dirname(__dirname), 'data/photos.json'), 'utf8'));
 
 function updateProperty(idx, param) {
   var photo = _.findWhere(photos, { id: idx });
@@ -13,22 +13,22 @@ function updateProperty(idx, param) {
   return photo[param];
 }
 
-router.get('/photos', function(req, res, next) {
+router.get('/photos', function (req, res, next) {
   res.json(photos);
 });
 
-router.post("/photos/like", function(req, res) {
-  var photo_id = +req.body.photo_id,
-      likes = updateProperty(photo_id, "likes");
+router.post('/photos/like', function (req, res) {
+  var photo_id = +req.body.photo_id;
+  var likes    = updateProperty(photo_id, 'likes');
 
-  res.json({ "total": likes });
+  res.json({ 'total': likes });
 });
 
-router.post("/photos/favorite", function(req, res) {
-  var photo_id = +req.body.photo_id,
-      favorites = updateProperty(photo_id, "favorites");
+router.post('/photos/favorite', function (req, res) {
+  var photo_id  = +req.body.photo_id;
+  var favorites = updateProperty(photo_id, 'favorites');
 
-  res.json({ "total": favorites });
+  res.json({ 'total': favorites });
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 @import url('whitespace-reset.css');
 body {
-  background:          #181818;
-  color:               #333;
+  background:          #121212;
+  color:               #eee;
   font:                normal 16px Helvetica, Arial, sans-serif;
 }
 h1 {
@@ -17,16 +17,16 @@ h3 {
   padding:             0 0 25px 0;
 }
 main {
-  background:          #fff;
+  background:          #000;
   margin:              0 auto;
   padding:             20px;
   width:               980px;
 }
 .button {
-  background:          #c5eafa;
+  background:          #006c94;
   border:              none;
   border-radius:       10px;
-  color:               #2a8bb8;
+  color:               #fff;
   cursor:              pointer;
   display:             inline-block;
   font:                normal 16px Helvetica, Arial, sans-serif;
@@ -35,7 +35,7 @@ main {
   -webkit-appearance:  none;
 }
 a.favorite {
-  background:          #b70e85;
+  background:          #971a72;
   color:               #fff;
 }
 #slideshow {
@@ -67,7 +67,7 @@ a.favorite {
 #slides figcaption {
   background:          rgba(0, 0, 0, .7);
   bottom:              0;
-  color:               #fff;
+  color:               #eee;
   left:                0;
   line-height:         140%;
   padding:             15px;
@@ -127,7 +127,7 @@ section header {
   padding:             15px 0 0 0;
 }
 #comments li + li {
-  border-top:          1px solid #cecece;
+  border-top:          1px solid #444;
   margin-top:          20px;
   padding-top:         20px;
 }
@@ -145,15 +145,17 @@ form dd {
 }
 input[type='text'],
 input[type='email'] {
-  border:              1px solid #cecece;
+  background:          #222;
+  border:              1px solid #444;
   border-radius:       4px;
-  color:               #333;
+  color:               #eee;
   font:                normal 14px Helvetica, Arial, sans-serif;
   height:              30px;
   padding:             5px;
   width:               250px;
 }
 textarea {
-  border:              1px solid #cecece;
+  background:          #222;
+  border:              1px solid #444;
   border-radius:       4px;
 }
