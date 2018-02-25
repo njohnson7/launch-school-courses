@@ -21,14 +21,14 @@ router.post('/photos/like', function (req, res) {
   var photo_id = +req.body.photo_id;
   var likes    = updateProperty(photo_id, 'likes');
 
-  res.json({ 'total': likes });
+  res.json({ total: likes });
 });
 
 router.post('/photos/favorite', function (req, res) {
   var photo_id  = +req.body.photo_id;
   var favorites = updateProperty(photo_id, 'favorites');
 
-  res.json({ 'total': favorites });
+  res.json({ total: favorites });
 });
 
 module.exports = router;
