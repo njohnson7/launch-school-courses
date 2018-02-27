@@ -11,6 +11,8 @@ Read maybe:
   - DOM Level 3 Events: "https://www.w3.org/TR/DOM-Level-3-Events/#event-flow"
   - JS Event order:     "https://www.quirksmode.org/js/events_order.html#link4"
 - all of jQuery learning site
+- Mozilla ajax: "https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"
+- Eloquent JS: "https://eloquentjavascript.net/3rd_edition/"
 
 Questions:
 - `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
