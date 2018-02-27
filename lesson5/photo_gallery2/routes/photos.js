@@ -21,7 +21,7 @@ router.post('/photos/like', function (req, res) {
   var photo_id = +req.body.photo_id;
   var likes    = updateProperty(photo_id, 'likes');
 
-  res.json({ total: likes });
+  res.json({ total: likes });          // TODO: remove `return`...?
 });
 
 router.post('/photos/favorite', function (req, res) {
