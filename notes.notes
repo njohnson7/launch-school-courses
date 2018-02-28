@@ -5,6 +5,8 @@ Study more (and make flash cards):
   - capturing/bubbling: "https://launchschool.com/lessons/8c4d93c8/assignments/7dccdc90"
     - check for updates
   - event loop video:   "https://www.youtube.com/watch?time_continue=3&v=8aGhZQkoFbQ"
+maybe:
+- APIs book -- REST and CRUD chapter: "https://launchschool.com/books/working_with_apis/read/rest_and_crud"
 
 Read maybe:
 - capturing/bubbling:
@@ -13,11 +15,14 @@ Read maybe:
 - all of jQuery learning site
 - Mozilla ajax: "https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"
 - Eloquent JS: "https://eloquentjavascript.net/3rd_edition/"
+- REST dissertation: "https://www.ics.uci.edu/%7Efielding/pubs/dissertation/rest_arch_style.htm"
+- OAuth Bible: "https://github.com/Kong/mashape-oauth/blob/master/FLOWS.md"
 
 Questions:
 - `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
 - what are the default `$` and `$$` functions in firefox/chrome console?
   - "https://support.mozilla.org/en-US/questions/1051637"
+- API book: "HTML forms must be loaded before they can be submitted. APIs don't have forms, so this initial GET request is unnecessary. "
 
 Todo:
 - refactor photo gallery (lesson3)
