@@ -9,19 +9,61 @@
     input          { background: #222;    color: #33b5e5; border: #555 solid 1px; caret-color: #15f4ee; }
     button, select { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
   </style>
-  <script src='lib/jquery.js'></script>
-  <script src='lib/handlebars.js'></script>
+  <!-- <script src='lib/jquery.js'></script> -->
+  <!-- <script src='lib/handlebars.js'></script> -->
   <script src='lib/good_functions.js'></script>
 </head>
 <body>
 
 
+<h1>Existing Page</h1>
+<div id='store'></div>
 
-<!--=================================================================================--><script>
+
+<!--====================================================================================--><script>
 
 
 
-//===================================================================================//</script>
+document.addEventListener('DOMContentLoaded', function () {
+  const store   = document.getElementById('store');
+  const subPage = document.createElement('div');
+  document.body.append(subPage);
+
+  store.addEventListener('click', function (e) {
+    e.preventDefault();
+    let link = e.target;
+    if (link.tagName != 'A') return;
+
+    let id  = link.href.match(/\d+$/)[0];
+    let url = `https://ls-230-web-store-demo.herokuapp.com/products/${id}`;
+
+
+    let prodXhr = new XMLHttpRequest;
+
+    prodXhr.onload = function (e) {
+      p(this.response)
+    };
+
+    prodXhr.open('GET', url);
+    prodXhr.send();
+
+  });
+
+
+  let xhr = new XMLHttpRequest;
+  xhr.onload = function (e) {
+    store.innerHTML = this.response;
+  };
+
+  xhr.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products');
+  xhr.setRequestHeader('Accept', 'application/json; charset=utf-8');
+  xhr.send();
+});
+
+
+
+//======================================================================================//</script>
 <script src='scratch.js'></script>
+
 </body>
 </html>
