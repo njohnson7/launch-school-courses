@@ -12,6 +12,9 @@ Study more (and make flash cards):
 maybe:
 - APIs book -- REST and CRUD chapter: "https://launchschool.com/books/working_with_apis/read/rest_and_crud"
 - APIs book -- HTTP Response Headers chapter: "https://launchschool.com/books/working_with_apis/read/http_response_headers#accesscontrolalloworigin"
+- Fetch:
+  - "https://devdocs.io/dom/fetch_api/using_fetch"
+  - "https://developers.google.com/web/updates/2015/03/introduction-to-fetch"
 
 
 Read maybe:

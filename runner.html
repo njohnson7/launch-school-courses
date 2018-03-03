@@ -5,9 +5,11 @@
   <meta charset='utf-8'>
   <style>
     *, html        { box-sizing: border-box; }
-    body           { background: #000;    color: #33b5e5; font: 16px Helvetica, sans; }
-    input          { background: #222;    color: #33b5e5; border: #555 solid 1px; caret-color: #15f4ee; }
-    button, select { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
   </style>
   <!-- <script src='lib/jquery.js'></script> -->
   <!-- <script src='lib/handlebars.js'></script> -->
@@ -16,54 +18,74 @@
 <body>
 
 
-<h1>Existing Page</h1>
-<div id='store'></div>
+<form id="form">
+  <p><label>Title: <input type="text" name="title"></label></p>
+  <p><label>Author: <input type="text" name="author"></label></p>
+  <p><button type="submit">Submit</button></p>
+</form>
+
 
 
 <!--====================================================================================--><script>
 
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://example.test/path');
+// let data = 'this is a test';
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+// let data = 'title=Effective%20JavaScript&author=David%20Herman';
+
+// req.onload = function () {
+//   if (this.status == 201) p(`this book was added: ${this.responseText}`);
+// };
+
+// req.send(data);
+
+//----------------------------------------------------------------------------/
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  const store   = document.getElementById('store');
-  const subPage = document.createElement('div');
-  document.body.append(subPage);
+let form = document.querySelector('#form');
 
-  store.addEventListener('click', function (e) {
-    e.preventDefault();
-    let link = e.target;
-    if (link.tagName != 'A') return;
+// const getValues = form => (
+//   [...form.elements]
+//     .filter(elem => elem.nodeName != 'BUTTON')
+//     .reduce((obj, { name, value })=> ({ ...obj, [name]: value }), {})
+// );
 
-    let id  = link.href.match(/\d+$/)[0];
-    let url = `https://ls-230-web-store-demo.herokuapp.com/products/${id}`;
+const getFields   = form => [...form.elements].filter(elem => elem.nodeName != 'BUTTON');
+const fieldsToObj = fields => fields.reduce((obj, { name, value })=> ({ ...obj, [name]: value }), {});
+const fieldsToUrl = fields => (
+  fields.map(({ name, value }) => [name, value].map(encodeURIComponent).join('=')).join('&')
+);
 
-
-    let prodXhr = new XMLHttpRequest;
-
-    prodXhr.onload = function (e) {
-      p(this.response)
-    };
-
-    prodXhr.open('GET', url);
-    prodXhr.send();
-
-  });
+const toUrlEncoded = obj => (
+  Object.entries(obj)
+    .reduce((str, { name, value }) => str += `${encodeURIComponent(name)}=${encodeURIComponent(value)}`, '')
+);
 
 
-  let xhr = new XMLHttpRequest;
-  xhr.onload = function (e) {
-    store.innerHTML = this.response;
-  };
+form.onsubmit = function (e) {
+  e.preventDefault();
+  let data = getValues(form);
+  p(data);
 
-  xhr.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products');
-  xhr.setRequestHeader('Accept', 'application/json; charset=utf-8');
-  xhr.send();
-});
+  let req = new XMLHttpRequest;
+  req.onload = e => p(e.target);
+  req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+  req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  req.send(data);
+
+};
 
 
 
 //======================================================================================//</script>
-<script src='scratch.js'></script>
-
+<!-- <script src='scratch.js'></script> -->
 </body>
 </html>

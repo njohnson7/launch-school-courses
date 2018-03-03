@@ -59,9 +59,7 @@
 //======================== Data Serialization =========================//
 - parens after function names in prose
 - 'name/value ... Name-value' (x2+... in this and other assignments)
-
-___
-
+-----
 - 'can be used both as'
 - 'URL encoding also works with POST requests, but you must include a Content-Type header with a value of application/x-www-form-urlencoded when you do use it with POST.'
 - 'It's a subset of JavaScript'
@@ -72,21 +70,88 @@ understand; strings,
 - ' the Content-Type header has a value of application/json; charset=utf-8. This is required if you want to use JSON as the request serialization format. The server will not parse the request correctly if this header has the wrong value.'
 
 //======================== Example: Loading HTML via XHR =========================//
+- I think the course could be organized better: we spent so much time learning (mainly theory -- not practice) all the pure DOM and JS ways of interacting with web pages at the beginning of the course, and then moved on to using jQuery (for almost all the projects) before we even got much of a chance to get used to the DOM without the help of jQuery.
+  - This whole time, I had been thinking that it must be pretty horrible to build web apps without jQuery, but after finally getting a chance to practice using them more in this lesson and the last, it's been a really enjoyable experience.
+  - The heavy use of jQuery in most of this course made things really boring and uninteresting for me, because it does all of the work for you, and it restricts you to its conventions, instead of allowing you to branch out and learn a lot more by building things (like convenience functions) on your own.
+  - I think it would be better to spend less time on jQuery, and also delay it until further back in the course.
+  - That way it will have a bigger impact because it will give students a more personal understanding of the problems it solves, instead of just being told that jQuery is the best so just use it without question in any circumstance.
+  - In other words, it would be much more interesting to learn about jQuery after spending more time manually doing the things it does for us.
+  - This lesson has been the most enjoyable and interesting one by far in this course -- the APIs book was great, and so far the assignments are too! -- maybe the other lessons can be revamped, using this lesson as a guide.
+-----
+- code style
+-----
+- 'insert it in the div'
+- use `this` or `event.target` instead of `request`: '`store.innerHTML = request.response;`'
+- 'the DOM for initial page loads,'
+- 'DOMContentLoaded handler request'
+- 'the "page" is the right side of the CodePen dialog'
+- 'dialog).'
+- inconsistent style of error codes in assignments and APIs book (ex: ' 404 (Page Not Found) error')
+- inconsistent use of `event` vs. `e` as callback param name in this vs. other assignments
+- 'The form submits a POST request to http://s.codepen.io/products/1 and receives a 404 response'
+- nested CSS selectors are used in the Codepen code
+
+//======================== Example: Submitting a Form via XHR =========================//
 - code style
 
 
- insert it in the div
-- use `this` or `event.target` instead of `request`: '`store.innerHTML = request.response;`'
- the DOM for initial page loads,
-DOMContentLoaded handler request
- the "page" is the right side of the CodePen dialog
-dialog).
+`// Or if there was no data to send`
+ to "POST",``
+ send().
+name/value
+`Content-Length: 18`
+The language (i.e., JavaScript)
+The language (i.e., JavaScript) varies the specifics, but the basic structure and values will be the same.
+Note that all parameter values are strings.
 
 
+
+
+
+
+
+
+
+
+the _____ API provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses.
+- it also provides a global `fetch()` method that provides an easy, logical way to fetch resources asynchronously across the network.
+
+
+~~~~~
+- it provides a better alternative to `XMLHttpRequest`, in that it can be easily used by other technologies such as Service Workers.
+- it also provides a single logical place to define other HTTP-related concepts such as CORS and extensions to HTTP.
+
+
+`Fetch`
 
 
 
 //================================================================================//
 //==============================================================================//*/
 
+var request = new XMLHttpRequest();
+request.open('POST', 'http://example.test/path');
 
+var data = 'this is a test';
+
+request.send(data);
+
+// Or if there was no data to send
+// request.send();
+
+//============================================================================//
+
+var request = new XMLHttpRequest();
+request.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+
+request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+var data = 'title=Effective%20JavaScript&author=David%20Herman';
+
+request.addEventListener('load', function() {
+  if (request.status === 201) {
+    console.log('This book was added to the catalog: ' + request.responseText);
+  }
+});
+
+request.send(data);
