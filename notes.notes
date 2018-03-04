@@ -26,6 +26,7 @@ Read maybe:
 - # Eloquent JS: # "https://eloquentjavascript.net/3rd_edition/"
 - REST dissertation: "https://www.ics.uci.edu/%7Efielding/pubs/dissertation/rest_arch_style.htm"
 - OAuth Bible: "https://github.com/Kong/mashape-oauth/blob/master/FLOWS.md"
+- HTTP Authentication: "https://devdocs.io/http/authentication"
 
 
 Questions:
@@ -39,9 +40,12 @@ Todo:
 - refactor photo gallery (lesson3)
 - refactor photo gallery v2 (lesson5)
 
+POST /books HTTP/1.1
+Host: ls-230-book-catalog.herokuapp.com
+Content-Type: application/json
+Content-Length: 36
 
-
-
+{"title":"cool book","author":"bob"}
 
 ================================================================================
 ---------------------------- FLASH CARDS ---------------------------------------
@@ -155,3 +159,47 @@ document.querySelector('form').onsubmit = function (e) {
   req.send(new FormData(this));
 };
 [end]
+
+//============================================================================//
+[js]
+
+Object.defineProperty(Object.prototype, 'p', {
+  get() {
+    console.log(this.valueOf());
+    return this.valueOf();
+  },
+});
+
+[1, 2, 3].p                          // [1, 2, 3]
+  .map(x => x * 2).p                 // [2, 4, 6]
+  .filter(x => x > 2).p              // [4, 6]
+  .reduce((sum, n) => sum + n, 0).p  // 10
+
+'abc'.p                   // abc
+  .toUpperCase().p        // ABC
+  .replace(/C/, '123').p  // AB123
+
+[end]
+//============================================================================//
+======================== tap: #=========================# [js]
+
+Object.prototype.tap = function tap(fn = p) {
+  fn(this);
+  return this;
+};
+
+[1, 2, 3].tap(p)               // [1, 2, 3]
+  .map(n => n * 3).tap(p)      // [3, 6, 9]
+  .filter(x => x > 3).tap(p);  // [6, 9]
+
+//=================================================//
+const pInfo = e => e.target
+  .tap(p)
+  .tap(t => t.status.p)
+  .tap(t => t.statusText.p);
+
+req.onloadend = pInfo;
+
+
+/*=======================================================*/[end]
+

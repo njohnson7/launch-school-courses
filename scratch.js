@@ -109,8 +109,31 @@ understand; strings,
 - 'The "You must be logged in to do that" message'
 
 //======================== Example: Loading JSON via XHR =========================//
+- code style
+- comment spacing
+-----
+- 'In a previous assignment, we used the following code to load some JSON data from GitHub:
+The valid values for responseType are: text, json, arraybuffer, blob, and document.
+try/catch'
+- highlight changed code in solution 2
 
-In a previous assignment, we used the following code to load some JSON data from GitHub:
+//======================== Example: Sending JSON via XHR =========================//
+- code style
+-----
+- first example doesn't work because missing `application/x-www-form-urlencoded` header
+- '`Content-Length: 19`'
+- there are lots of other bugs with the Web Store API documentation:
+  - it says the parameters are `formData` and content-type is `application/x-www-form-urlencoded`, but the server only accepts json
+  - none of the requests actually work when you click try it out and execute
+  - the error message says "Must pass credentials in Authentication header.", but the header is actually "Authorization"
+  - no where does it say that the value of this header is supposed to be "token AUTH_TOKEN"
+  - almost all the code in the generated curl request is wrong
+  - error at the bottom right: schemaValidationMessages  0 level "error" message "Can't read from file /v1/swagger_doc"
+  - the body is a URL encoded string instead of json
+
+//======================== Cross-Domain XMLHttpRequests with CORS =========================//
+
+
 
 //================================================================================//
 //==============================================================================//*/
