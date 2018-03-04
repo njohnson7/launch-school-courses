@@ -181,7 +181,7 @@ Object.defineProperty(Object.prototype, 'p', {
 
 [end]
 //============================================================================//
-======================== tap: #=========================# [js]
+================================== tap: #===================================#[js]
 
 Object.prototype.tap = function tap(fn = p) {
   fn(this);
@@ -192,14 +192,62 @@ Object.prototype.tap = function tap(fn = p) {
   .map(n => n * 3).tap(p)      // [3, 6, 9]
   .filter(x => x > 3).tap(p);  // [6, 9]
 
-//=================================================//
-const pInfo = e => e.target
-  .tap(p)
-  .tap(t => t.status.p)
-  .tap(t => t.statusText.p);
+//------------------------//
 
-req.onloadend = pInfo;
+const pReq = e => (e.target
+  .tap(req => ppLine('request', req))
+  .tap(req => ppLine('status', `${req.status} -- ${req.statusText}`))
+  .tap(req => ppLine('response', req.response))
+);
+req.onloadend = pReq;
 
 
 /*=======================================================*/[end]
+//============================================================================//
+========================== custom `makeRequest` function #==================#[js]
 
+const makeRequest = function ({
+  url,
+  method   = 'GET',
+  headers  = {},
+  data     = null,
+  handlers = { loadend: pReq },
+} = {}) {
+  if (url == null) return 'must include url'.p;
+  let xhr = new XMLHttpRequest;
+  xhr.open(method, url);
+  Object.entries(handlers).forEach(([event, fn]) => xhr.addEventListener(event, fn));
+  Object.entries(headers).forEach(header => xhr.setRequestHeader(...header));
+  xhr.send(data);
+  return xhr;
+};
+
+// ex:
+makeRequest({
+  url:      'http://ls-230-web-store-demo.herokuapp.com/v1/products',
+  method:   'POST',
+  headers:  {
+    'Content-Type':  'json',
+    'Authorization': 'token AUTH_TOKEN',
+  },
+  data:     jstr({ name: 'coolest pen', sku: 'coolpen245', price: 9000 }),
+  handlers: {
+    loadend:          pReq,
+    load:             e => e.target.responseURL.p,
+    readystatechange: e => e.p,
+  },
+});
+
+// ex2:
+makeRequest({ url: 'https://ls-230-web-store-demo.herokuapp.com/products' });
+
+// ex3:
+let req = makeRequest({
+  url:     'http://ls-230-book-catalog.herokuapp.com/books',
+  method:  'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  data:    'title=Programming%20Ruby&author=Dave%20Thomas',
+});
+
+/*=======================================================*/[end]
+//============================================================================//

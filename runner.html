@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang='en-US'>
 <head>
-  <title>loading sending json via XHR</title>
+  <title>runner</title>
   <meta charset='utf-8'>
   <style>
     *, html        { box-sizing: border-box; }
@@ -13,76 +13,13 @@
   </style>
   <!-- <script src='lib/jquery.js'></script> -->
   <!-- <script src='lib/handlebars.js'></script> -->
-  <script src='../lib/good_functions.js'></script>
+  <script src='lib/good_functions.js'></script>
 </head>
 <body>
 
 
 <!--====================================================================================--><script>
 
-//======================== Loading JSON via XHR =========================//
-
-// let req = new XMLHttpRequest;
-// req.open('GET', 'https://api.github.com/repos/rails/rails');
-// req.responseType = 'json';
-// req.onload       = e => e.target.response.p;
-// req.send();
-
-
-//----------------------------------------------------------------------------//
-
-
-// let req = new XMLHttpRequest;
-// req.open('GET', 'https://api.github.com/repos/rails/rails');
-// req.open('GET', 'a');
-// req.responseType = 'json';
-// req.onload = function (e) {
-//   this.status.p;
-//   this.response.open_issues.p;
-// };
-// req.onerror = _ => 'The request could not be completed!'.p;
-// req.send();
-
-
-
-//============================================================================//
-//======================== Sending JSON via XHR =========================//
-
-// let req = new XMLHttpRequest;
-// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
-// req.onloadend = e => e.target.tap().tap(t => t.status.p).tap(t => t.statusText.p);
-// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-// let data = 'title=Programming%20Ruby&author=Dave%20Thomas';
-// req.send(data);
-
-//----------------------------------------------------------------------------//
-
-// let req = new XMLHttpRequest;
-// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
-// req.setRequestHeader('Content-Type', 'application/json');
-// req.onloadend = pInfo;
-// let data = jstr({ title: 'cool book', author: 'bob' });
-// req.send(data);
-
-//----------------------------------------------------------------------------//
-/*
-POST /books HTTP/1.1
-Host: ls-230-book-catalog.herokuapp.com
-Content-Type: application/json
-Content-Length: 36
-
-{"title":"cool book","author":"bob"}
-*/
-
-//----------------------------------------------------------------------------//
-
-let req = new XMLHttpRequest;
-req.open('POST', 'http://ls-230-web-store-demo.herokuapp.com/v1/products');
-req.setRequestHeader('Content-Type',  'json');
-req.setRequestHeader('Authorization', 'token AUTH_TOKEN');
-req.onloadend = pInfo;
-let data = jstr({ name: 'coolest pen', sku: 'coolpen242', price: 9000 });
-req.send(data);
 
 
 //======================================================================================//</script>

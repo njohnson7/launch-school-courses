@@ -76,14 +76,25 @@ Content-Length: 36
 
 //----------------------------------------------------------------------------//
 
-let req = new XMLHttpRequest;
-req.open('POST', 'http://ls-230-web-store-demo.herokuapp.com/v1/products');
-req.setRequestHeader('Content-Type',  'json');
-req.setRequestHeader('Authorization', 'token AUTH_TOKEN');
-req.onloadend = pInfo;
-let data = jstr({ name: 'coolest pen', sku: 'coolpen242', price: 9000 });
-req.send(data);
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-web-store-demo.herokuapp.com/v1/products');
+// req.setRequestHeader('Content-Type',  'json');
+// req.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+// req.onloadend = pInfo;
+// let data = jstr({ name: 'coolest pen', sku: 'coolpen242', price: 9000 });
+// req.send(data);
 
+//----------------------------------------------------------------------------//
+
+makeRequest({
+  url:     'http://ls-230-web-store-demo.herokuapp.com/v1/products',
+  method:  'POST',
+  headers: {
+    'Content-Type':  'json',
+    'Authorization': 'token AUTH_TOKEN',
+  },
+  data: jstr({ name: 'coolest pen', sku: 'coolpen247', price: 9000 }),
+});
 
 //======================================================================================//</script>
 </body>
