@@ -93,65 +93,24 @@ understand; strings,
 
 //======================== Example: Submitting a Form via XHR =========================//
 - code style
+-----
+- '`// Or if there was no data to send`'
+- ' to "POST",``'
+- ' send().'
+- 'name/value'
+- '`Content-Length: 18`'
+- 'The language (i.e., JavaScript)'
+- 'The language (i.e., JavaScript) varies the specifics, but the basic structure and values will be the same.'
+- 'Note that all parameter values are strings.'
+- 'a HTTP'
+- ' see the message You must be logged in to do that. when'
+- move `event.preventDefault();` to top of event handler (x2)
+- move `addEventListener` to before `send` (x2)
+- 'The "You must be logged in to do that" message'
 
+//======================== Example: Loading JSON via XHR =========================//
 
-`// Or if there was no data to send`
- to "POST",``
- send().
-name/value
-`Content-Length: 18`
-The language (i.e., JavaScript)
-The language (i.e., JavaScript) varies the specifics, but the basic structure and values will be the same.
-Note that all parameter values are strings.
-
-
-
-
-
-
-
-
-
-
-the _____ API provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses.
-- it also provides a global `fetch()` method that provides an easy, logical way to fetch resources asynchronously across the network.
-
-
-~~~~~
-- it provides a better alternative to `XMLHttpRequest`, in that it can be easily used by other technologies such as Service Workers.
-- it also provides a single logical place to define other HTTP-related concepts such as CORS and extensions to HTTP.
-
-
-`Fetch`
-
-
+In a previous assignment, we used the following code to load some JSON data from GitHub:
 
 //================================================================================//
 //==============================================================================//*/
-
-var request = new XMLHttpRequest();
-request.open('POST', 'http://example.test/path');
-
-var data = 'this is a test';
-
-request.send(data);
-
-// Or if there was no data to send
-// request.send();
-
-//============================================================================//
-
-var request = new XMLHttpRequest();
-request.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
-
-request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-var data = 'title=Effective%20JavaScript&author=David%20Herman';
-
-request.addEventListener('load', function() {
-  if (request.status === 201) {
-    console.log('This book was added to the catalog: ' + request.responseText);
-  }
-});
-
-request.send(data);

@@ -145,3 +145,13 @@ BP: you should define event listeners for the _____ phase of events.
 bubbling
 
 //============================================================================//
+
+- Q: how to send `FormData` with an XHR?
+- A: [js]
+document.querySelector('form').onsubmit = function (e) {
+  e.preventDefault();
+  let req = new XMLHttpRequest;
+  req.open('POST', 'http://bookz.herokuapp.com/books');
+  req.send(new FormData(this));
+};
+[end]

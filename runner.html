@@ -18,74 +18,11 @@
 <body>
 
 
-<form id="form">
-  <p><label>Title: <input type="text" name="title"></label></p>
-  <p><label>Author: <input type="text" name="author"></label></p>
-  <p><button type="submit">Submit</button></p>
-</form>
-
-
-
 <!--====================================================================================--><script>
-
-// let req = new XMLHttpRequest;
-// req.open('POST', 'http://example.test/path');
-// let data = 'this is a test';
-// req.send(data);
-
-//----------------------------------------------------------------------------//
-
-// let req = new XMLHttpRequest;
-// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
-// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-// let data = 'title=Effective%20JavaScript&author=David%20Herman';
-
-// req.onload = function () {
-//   if (this.status == 201) p(`this book was added: ${this.responseText}`);
-// };
-
-// req.send(data);
-
-//----------------------------------------------------------------------------/
-
-
-let form = document.querySelector('#form');
-
-// const getValues = form => (
-//   [...form.elements]
-//     .filter(elem => elem.nodeName != 'BUTTON')
-//     .reduce((obj, { name, value })=> ({ ...obj, [name]: value }), {})
-// );
-
-const getFields   = form => [...form.elements].filter(elem => elem.nodeName != 'BUTTON');
-const fieldsToObj = fields => fields.reduce((obj, { name, value })=> ({ ...obj, [name]: value }), {});
-const fieldsToUrl = fields => (
-  fields.map(({ name, value }) => [name, value].map(encodeURIComponent).join('=')).join('&')
-);
-
-const toUrlEncoded = obj => (
-  Object.entries(obj)
-    .reduce((str, { name, value }) => str += `${encodeURIComponent(name)}=${encodeURIComponent(value)}`, '')
-);
-
-
-form.onsubmit = function (e) {
-  e.preventDefault();
-  let data = getValues(form);
-  p(data);
-
-  let req = new XMLHttpRequest;
-  req.onload = e => p(e.target);
-  req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
-  req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  req.send(data);
-
-};
 
 
 
 //======================================================================================//</script>
-<!-- <script src='scratch.js'></script> -->
+<script src='scratch.js'></script>
 </body>
 </html>

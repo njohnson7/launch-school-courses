@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>Submitting a Form via XHR</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+
+
+<form id='form'>
+  <p><label>Title:  <input type='text' name='title'></label></p>
+  <p><label>Author: <input type='text' name='author'></label></p>
+  <p><button type='submit'>Submit</button></p>
+</form>
+
+<form id='form2' enctype='multipart/form-data'>
+  <p><label>Title:  <input type='text' name='title'></label></p>
+  <p><label>Author: <input type='text' name='author'></label></p>
+  <p><button type='submit'>Submit</button></p>
+</form>
+
+
+<!--====================================================================================--><script>
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://example.test/path');
+// let data = 'this is a test';
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+// let data = 'title=Effective%20JavaScript&author=David%20Herman';
+
+// req.onload = function () {
+//   if (this.status == 201) p(`this book was added: ${this.responseText}`);
+// };
+
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+const PP_STYLE = 'color: #33b5e5; background: #000; padding: 3px;';
+const ppLine = (name, value) => p(`%c${name}:`.padEnd(12), PP_STYLE, value);
+const logReqInfo = e => {
+  let request = e.target;
+  ppLine('request',  request);
+  ppLine('status',   `${request.status} ${request.statusText}`);
+  ppLine('response', request.response);
+  p();
+};
+//----------------------------------------------------------------------------//
+
+const getFields   = form => [...form.elements].filter(elem => elem.nodeName != 'BUTTON');
+const fieldsToObj = fields => fields.reduce((obj, { name, value })=> ({ ...obj, [name]: value }), {});
+const fieldsToUrl = fields => (
+  fields.map(({ name, value }) => [name, value].map(encodeURIComponent).join('=')).join('&')
+);
+
+
+document.querySelector('#form').onsubmit = function (e) {
+  e.preventDefault();
+  let data = fieldsToUrl(getFields(this));
+  ppLine('data', data);
+
+  let req    = new XMLHttpRequest;
+  req.onload = logReqInfo;
+  req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+  req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  req.send(data);
+};
+
+
+document.querySelector('#form2').onsubmit = function (e) {
+  e.preventDefault();
+  let data = new FormData(this);
+  pt([...data]);
+
+  let req    = new XMLHttpRequest;
+  req.onload = logReqInfo;
+  req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+  req.send(data);
+};
+
+
+
+
+
+
+//======================================================================================//</script>
+<script src='scratch.js'></script>
+</body>
+</html>
