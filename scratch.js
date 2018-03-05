@@ -132,7 +132,21 @@ try/catch'
   - the body is a URL encoded string instead of json
 
 //======================== Cross-Domain XMLHttpRequests with CORS =========================//
+- code style
+- parens after function names
+-----
+- 'our discussion here, ... say about it here.'
+- 'policy; it prevents'
+- 'All this script does is send an XHR GET request'
+- 'All this script does is send ... and log'
+- 'when it receives it.'
+- 'the method getAreasOfContents()'
 
+//======================== Project: Search Autocomplete, Part 1 - Introduction and Setup =========================//
+
+
+
+Part 1 - Introduction
 
 
 //================================================================================//

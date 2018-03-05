@@ -15,6 +15,7 @@ maybe:
 - Fetch:
   - "https://devdocs.io/dom/fetch_api/using_fetch"
   - "https://developers.google.com/web/updates/2015/03/introduction-to-fetch"
+- security (ex: cross-domain requests, XSS, CSRF)
 
 
 Read maybe:

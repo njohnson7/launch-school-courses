@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <title>Document</title>
+  <style>body { background: #000; color: #eee; font: 18px Helvetica, Arial, sans; }</style>
+</head>
+<body>
+  <script type='text/javascript'>
+
+function getAreasOfContinents() {
+  var xhr = new XMLHttpRequest;
+  xhr.addEventListener('load', function () {
+    console.log('Areas of continents received!')
+    console.log(xhr.response);
+  });
+
+  xhr.responseType = 'json';
+  xhr.open('GET', 'http://localhost:4567/areas_of_continents');
+  xhr.send();
+}
+
+getAreasOfContinents();
+
+//----------------------------------------------------------------------------//
+
+// const getAreasOfContinents = function () {
+//   makeRequest({
+//     url:          'http://localhost:4567/areas_of_continents',
+//     responseType: 'json',
+//     handlers:     {
+//       load() {
+//         'Areas of continents received!'.p;
+//         xhr.response.p;
+//       },
+//     },
+//   });
+// };
+
+  </script>
+</body>
+</html>
