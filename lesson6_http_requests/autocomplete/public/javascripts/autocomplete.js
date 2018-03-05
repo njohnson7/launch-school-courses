@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 const p  = val => (console.log(val), val);
 const pd = val => (console.dir(val), val);
 Object.defineProperty(Object.prototype, 'p', {
@@ -17,6 +8,13 @@ Object.defineProperty(Object.prototype, 'p', {
 });
 
 //============================================================================//
+
+
+
+
+
+
+
 
 
 
@@ -41,14 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const clear = elem => (elem.innerHTML = '');
 
-  // const VALID_KEYS = /^[a-zÅ '(),.-]$/i;
   const app        = document.querySelector('.app');
   const input      = app.querySelector('input');
   const ul         = app.querySelector('ul');
   const overlay    = app.querySelector('.autocomplete-overlay');
 
   input.oninput = function (e) {
-    // if (!VALID_KEYS.test(e.key)) return e.key.p;
     clear(ul);
     clear(overlay);
 
@@ -64,8 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let originalText = '';
 
   input.onkeydown = function (e) {
-    p(e.key);
-
     let firstLi  = ul.firstElementChild;
     let selected = ul.querySelector('.selected');
 
@@ -115,7 +109,3 @@ document.addEventListener('DOMContentLoaded', function () {
     clear(overlay);
   };
 });
-
-
-
-// RegExp([...new Set([...c.map(x => x.name).join('')])].sort().join(''));
