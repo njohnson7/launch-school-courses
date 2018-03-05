@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
 
+  let originalText = '';
+
   input.onkeydown = function (e) {
     p(e.key);
 
@@ -72,15 +74,18 @@ document.addEventListener('DOMContentLoaded', function () {
       this.value = (selected || firstLi).innerText;
       clear(ul);
       clear(overlay);
+
     } else if (e.key == 'Enter') {
       if (selected) this.value = selected.innerText;
       clear(ul);
       clear(overlay);
+
     } else if ((e.key == 'ArrowDown' || e.key == 'ArrowUp') && firstLi) {
       e.preventDefault();
       if (!selected) {
         let target = e.key == 'ArrowDown' ? firstLi : ul.lastElementChild;
         target.classList.add('selected');
+        originalText = this.value;
       } else {
         let lis = [...ul.children];
         let idx = lis.indexOf(selected);
@@ -90,11 +95,24 @@ document.addEventListener('DOMContentLoaded', function () {
         if (idx < 0) idx += lis.length;
         lis[idx].classList.add('selected');
       }
-
       selected = ul.querySelector('.selected');
       clear(overlay);
       this.value = selected.innerText;
+
+    } else if (e.key == 'Escape') {
+      clear(ul);
+      clear(overlay);
+      this.value = originalText;
+      originalText = '';
     }
+  };
+
+  ul.onclick = function (e) {
+    if (e.target.nodeName != 'LI') return;
+    input.value = e.target.innerText;
+    input.focus();
+    clear(ul);
+    clear(overlay);
   };
 });
 
