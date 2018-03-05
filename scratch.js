@@ -143,11 +143,34 @@ try/catch'
 - 'the method getAreasOfContents()'
 
 //======================== Project: Search Autocomplete, Part 1 - Introduction and Setup =========================//
+- code style
+  - use of single vs. double quotes in ruby files is inconsistent
+  - some files don't end with a newline
+  - extra newlines in some places
+-----
+- "Part 1 - Introduction"
+- "Check this link"
+- "Your focus for the server is on"
+- "It is possible and likely, that"
+- "as front-end developer"
+- "that as front-end developer that you'll"
+- "exposes you this"
+- "scratch (the ground up)"
+- "server is in Sinatra"
+- "the work you've done"
+
+//======================== Project: Search Autocomplete, Part 2 - Setting up the UI =========================//
 
 
 
-Part 1 - Introduction
+Part 2 - Setting
+`href='/stylesheets/normalize.css' ... href='stylesheets/autocomplete.css'`
+ erb template
+ javascript
+ index.erb references the javascript file /javascripts/autocomplete.js, let's add a file autocomplete.js to /public/javascripts.
 
 
 //================================================================================//
 //==============================================================================//*/
+
+
