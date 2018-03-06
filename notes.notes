@@ -7,16 +7,12 @@ Study more (and make flash cards):
   - event loop video:   "https://www.youtube.com/watch?time_continue=3&v=8aGhZQkoFbQ"
 - DOM:
   - `e.target` vs. `e.currentTarget `
-- lesson 6: refactor Autocomplete
 
 ------
 maybe:
 - APIs book -- REST and CRUD chapter: "https://launchschool.com/books/working_with_apis/read/rest_and_crud"
 - APIs book -- HTTP Response Headers chapter: "https://launchschool.com/books/working_with_apis/read/http_response_headers#accesscontrolalloworigin"
-- Fetch:
-  - "https://devdocs.io/dom/fetch_api/using_fetch"
-  - "https://developers.google.com/web/updates/2015/03/introduction-to-fetch"
-- security (ex: cross-domain requests, XSS, CSRF)
+
 
 
 Read maybe:
@@ -29,6 +25,13 @@ Read maybe:
 - REST dissertation: "https://www.ics.uci.edu/%7Efielding/pubs/dissertation/rest_arch_style.htm"
 - OAuth Bible: "https://github.com/Kong/mashape-oauth/blob/master/FLOWS.md"
 - HTTP Authentication: "https://devdocs.io/http/authentication"
+- Fetch:
+  - "https://devdocs.io/dom/fetch_api/using_fetch"
+  - "https://developers.google.com/web/updates/2015/03/introduction-to-fetch"
+- security (ex: cross-domain requests, XSS, CSRF)
+- ECMAScript terms: "https://www.ecma-international.org/ecma-262/7.0/#sec-terms-and-definitions"
+- Promises
+
 
 
 Questions:
@@ -38,16 +41,15 @@ Questions:
 - API book: "HTML forms must be loaded before they can be submitted. APIs don't have forms, so this initial GET request is unnecessary. "
 
 
+
 Todo:
 - refactor photo gallery (lesson3)
 - refactor photo gallery v2 (lesson5)
+- lesson 6: refactor Autocomplete (add promises...?)
 
-POST /books HTTP/1.1
-Host: ls-230-book-catalog.herokuapp.com
-Content-Type: application/json
-Content-Length: 36
 
-{"title":"cool book","author":"bob"}
+
+
 
 ================================================================================
 ---------------------------- FLASH CARDS ---------------------------------------
