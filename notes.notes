@@ -7,6 +7,7 @@ Study more (and make flash cards):
   - event loop video:   "https://www.youtube.com/watch?time_continue=3&v=8aGhZQkoFbQ"
 - DOM:
   - `e.target` vs. `e.currentTarget `
+- lesson 6: refactor Autocomplete
 
 ------
 maybe:

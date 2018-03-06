@@ -18,94 +18,38 @@ Object.defineProperty(Object.prototype, 'p', {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  const getMatches = function (query, callback) {
-    let req = new XMLHttpRequest;
-    req.open('GET', `/countries?matching=${query}`);
-    req.responseType = 'json';
-    req.onload = function () {
-      callback(this.response);
-    };
-    req.send();
-  };
+const Autocomplete = {
+  wrapInput() {
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('autocomplete-wrapper');
+    this.input.parentNode.appendChild(wrapper);
+    wrapper.appendChild(this.input);
+  },
+  createUI() {
+    let listUI = document.createElement('ul');
+    listUI.classList.add('autocomplete-ui');
+    this.input.parentNode.appendChild(listUI);
+    this.listUI = listUI;
 
-  const renderLi = function (name, id) {
-    let li       = document.createElement('li');
-    li.innerHTML = name;
-    li.id        = id;
-    li.className = 'autocomplete-ui-choice';
-    ul.appendChild(li);
-  };
+    let overlay = document.createElement('div');
+    overlay.classList.add('autocomplete-overlay');
+    overlay.style.width = this.input.clientWidth + 'px';
 
-  const clear = elem => (elem.innerHTML = '');
+    this.input.parentNode.appendChild(overlay);
+    this.overlay = overlay;
+  },
+  init() {
+    this.input   = document.querySelector('input');
+    this.url     = '/countries?matching=';
+    this.listUI  = null;
+    this.overlay = null;
+    this.wrapInput();
+    this.createUI();
+  },
+};
 
-  const app        = document.querySelector('.app');
-  const input      = app.querySelector('input');
-  const ul         = app.querySelector('ul');
-  const overlay    = app.querySelector('.autocomplete-overlay');
+// document.addEventListener('DOMContentLoaded', function () {
+//   Autocomplete.init();
+// });
 
-  input.oninput = function (e) {
-    clear(ul);
-    clear(overlay);
-
-    let query = this.value;
-    getMatches(query, function (matches) {
-      matches.forEach(({ name, id }, i) => {
-        renderLi(name, id);
-        if (i == 0) overlay.innerHTML = query + name.slice(query.length);
-      });
-    });
-  };
-
-  let originalText = '';
-
-  input.onkeydown = function (e) {
-    let firstLi  = ul.firstElementChild;
-    let selected = ul.querySelector('.selected');
-
-    if (e.key == 'Tab' && firstLi) {
-      e.preventDefault();
-      this.value = (selected || firstLi).innerText;
-      clear(ul);
-      clear(overlay);
-
-    } else if (e.key == 'Enter') {
-      if (selected) this.value = selected.innerText;
-      clear(ul);
-      clear(overlay);
-
-    } else if ((e.key == 'ArrowDown' || e.key == 'ArrowUp') && firstLi) {
-      e.preventDefault();
-      if (!selected) {
-        let target = e.key == 'ArrowDown' ? firstLi : ul.lastElementChild;
-        target.classList.add('selected');
-        originalText = this.value;
-      } else {
-        let lis = [...ul.children];
-        let idx = lis.indexOf(selected);
-        selected.classList.remove('selected');
-        idx += e.key == 'ArrowDown' ? 1 : -1;
-        idx %= lis.length;
-        if (idx < 0) idx += lis.length;
-        lis[idx].classList.add('selected');
-      }
-      selected = ul.querySelector('.selected');
-      clear(overlay);
-      this.value = selected.innerText;
-
-    } else if (e.key == 'Escape') {
-      clear(ul);
-      clear(overlay);
-      this.value = originalText;
-      originalText = '';
-    }
-  };
-
-  ul.onclick = function (e) {
-    if (e.target.nodeName != 'LI') return;
-    input.value = e.target.innerText;
-    input.focus();
-    clear(ul);
-    clear(overlay);
-  };
-});
+document.addEventListener('DOMContentLoaded', Autocomplete.init.bind(Autocomplete));
