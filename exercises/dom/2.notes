@@ -1,0 +1,63 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[html]
+
+<div id="1">
+  <h1 id="2">Hello, <em id="3">World</em></h1>
+  <p id="4">
+    Welcome to wonderland. This is an
+    <span id="5">awesome</span> place.
+  </p>
+  <a href="#" id="6"><strong id="7">Enter</strong></a>
+  <div id="8"><p id="9"><a href="#" id="10">Go back</a></p></div>
+</div>
+
+[end]
+
+html: 2, 22
+  head
+  body: 1, 21
+    div: 9, 12
+      empty
+      h1: 2, 1
+        text
+        em: 1, 0
+          text
+      empty
+      p: 3, 1
+        text
+        span: 1, 0
+          text
+        text
+      empty
+      a: 1, 1
+        strong: 1, 0
+          text
+      empty
+      div: 1, 2
+        p: 1, 1
+          a: 1, 0
+            text
+      empty
+
+
+
+
