@@ -59,42 +59,27 @@
 
 <!--====================================================================================--><script>
 
-const ELEM_TO_STOP_AT = document.getElementById(1).parentNode.parentNode;
+const FINAL_ELEM = document.getElementById(1).parentNode.parentNode;
+const isFinalElem = elem => elem == FINAL_ELEM;
 
-const getAncestors = (elem) => {
-  parent = elem.parentNode;
-  return parent == ELEM_TO_STOP_AT ? [] : [parent, ...getAncestors(parent)];
-};
+const getAncestors = ({ parentNode: parent }) => (
+  isFinalElem(parent) ? [] : [parent, ...getAncestors(parent)];
+);
 
 const getTagName          = elem => elem.tagName;
 const getChildrenTagNames = elem => [...elem.children].map(getTagName);
 
-const domTreeTracer = (id) => {
+const domTreeTracer = id => {
   let elem = document.getElementById(id);
   return getAncestors(elem).map(getChildrenTagNames);
 };
+
 
 elog(domTreeTracer(1),  [['ARTICLE', 'SCRIPT']]);
 elog(domTreeTracer(2),  [['HEADER', 'MAIN', 'FOOTER'], ['ARTICLE', 'SCRIPT']]);
 elog(domTreeTracer(3),  [['SPAN'], ['HEADER', 'MAIN', 'FOOTER'], ['ARTICLE', 'SCRIPT']]);
 elog(domTreeTracer(22), [['A'], ['STRONG'], ['SPAN', 'SPAN'], ['P', 'P'], ['SECTION', 'SECTION'], ['HEADER', 'MAIN', 'FOOTER'], ['ARTICLE', 'SCRIPT']]);
 elog(domTreeTracer(24), [['P'], ['HEADER', 'MAIN', 'FOOTER'], ['ARTICLE', 'SCRIPT']]);
-
-
-// const findAncestors = (elem) => {
-//   let finalAncestor = document.getElementById(1).parentNode;
-//   let ancestors     = [];
-
-//   do {
-//    elem = elem.parentNode;
-//    ancestors.push(elem);
-//   } while (elem != finalAncestor);
-
-//   return ancestors;
-// };
-
-
-// const getTagNames = elems => [...elems].map(elem => elem.tagName);
 
 
 //============================================================================//
