@@ -83,6 +83,7 @@
     - if parent `id` == start, stop
 */
 
+
 const getElemById = document.getElementById.bind(document);
 const getTagNames = elems => elems.map(elem => elem.tagName);
 
@@ -99,26 +100,26 @@ const sliceTree = (startId, endId) => {
 
 //============================================================================//
 
-pe(sliceTree(18, 19), ['STRONG', 'A']);
-pe(sliceTree(19, 19), ['A']);
-pe(sliceTree(1,   4), ['ARTICLE', 'HEADER', 'SPAN', 'A']);
-pe(sliceTree(1,  76), undefined);        // `76` not in DOM
-pe(sliceTree(2,   5), undefined);        // no path -- `2` and `5` are siblings...?
-pe(sliceTree(5,   4), undefined);        // no path -- reverse order
-pe(sliceTree(1,  23), ['ARTICLE', 'FOOTER']);
-pe(sliceTree(1,  22), ['ARTICLE', 'MAIN', 'SECTION', 'P', 'SPAN', 'STRONG', 'A']);
-pe(sliceTree(11, 19), ['SECTION', 'P', 'SPAN', 'STRONG', 'A']);
-pe(sliceTree(5, 5),   ['MAIN']);
-pe(sliceTree(5, 6),   ['MAIN', 'SECTION']);
-pe(sliceTree(3, 5),   undefined);
-pe(sliceTree(10, 12), undefined);
-pe(sliceTree(24, 23), undefined);
-pe(sliceTree(16, 23), undefined);
-pe(sliceTree(16, 24), undefined);
-pe(sliceTree(16, 25), undefined);
-pe(sliceTree(),       undefined);
-pe(sliceTree(1),      undefined);
-pe(sliceTree(0, 1),   undefined);
+// pe(sliceTree(18, 19), ['STRONG', 'A']);
+// pe(sliceTree(19, 19), ['A']);
+// pe(sliceTree(1,   4), ['ARTICLE', 'HEADER', 'SPAN', 'A']);
+// pe(sliceTree(1,  76), undefined);        // `76` not in DOM
+// pe(sliceTree(2,   5), undefined);        // no path -- `2` and `5` are siblings...?
+// pe(sliceTree(5,   4), undefined);        // no path -- reverse order
+// pe(sliceTree(1,  23), ['ARTICLE', 'FOOTER']);
+// pe(sliceTree(1,  22), ['ARTICLE', 'MAIN', 'SECTION', 'P', 'SPAN', 'STRONG', 'A']);
+// pe(sliceTree(11, 19), ['SECTION', 'P', 'SPAN', 'STRONG', 'A']);
+// pe(sliceTree(5, 5),   ['MAIN']);
+// pe(sliceTree(5, 6),   ['MAIN', 'SECTION']);
+// pe(sliceTree(3, 5),   undefined);
+// pe(sliceTree(10, 12), undefined);
+// pe(sliceTree(24, 23), undefined);
+// pe(sliceTree(16, 23), undefined);
+// pe(sliceTree(16, 24), undefined);
+// pe(sliceTree(16, 25), undefined);
+// pe(sliceTree(),       undefined);
+// pe(sliceTree(1),      undefined);
+// pe(sliceTree(0, 1),   undefined);
 
 
   // if (!startElem || !endElem) return;
