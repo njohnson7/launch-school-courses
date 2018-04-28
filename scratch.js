@@ -26,11 +26,26 @@ ___
 
 
 - "only positive integers will be provided as arguments " -- (`0` is shown in the image)
-Following are
-are some sample output
-`<title>Tracing the DOM Tree</title>`
-Node.children property
+- "Following are"
+- "are some sample output"
+- "`<title>Tracing the DOM Tree</title>`"
+- "Node.children property"
 - not necessary -- `parents` is already an array: "`var parentsArray = Array.prototype.slice.call(parents);`"
+
+//======================== 6: Node Swap =========================//
+- refactor `isInvalidSwap`
+- refactor `isFirstNodeParentOfSecond`
+- don't both nodes have to be siblings to be swapped (at least if going by examples)?
+- refactor whole solution -- lots of repetitive/unnecessary code
+- semicolon and also unecessary to pass these explicit values to `return`:
+  - "`return undefined`"
+  - "return true`"
+- it's not specified anywhere in the requirements or test cases that `nodeSwap` should return `true`
+
+swapped in to
+(see further exploration)
+The .replaceChild method
+
 
 
 //================================================================================//
