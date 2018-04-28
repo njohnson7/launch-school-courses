@@ -63,7 +63,7 @@ const FINAL_ELEM = document.getElementById(1).parentNode.parentNode;
 const isFinalElem = elem => elem == FINAL_ELEM;
 
 const getAncestors = ({ parentNode: parent }) => (
-  isFinalElem(parent) ? [] : [parent, ...getAncestors(parent)];
+  isFinalElem(parent) ? [] : [parent, ...getAncestors(parent)]
 );
 
 const getTagName          = elem => elem.tagName;

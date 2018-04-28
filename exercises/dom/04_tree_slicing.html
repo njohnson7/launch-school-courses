@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>4 - Tree Slicing</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../../lib/good_functions.js'></script>
+</head>
+
+<body>
+  <article id='1'>1
+    <header id='2'>2
+      <span id='3'>3
+        <a href='#' id='4'>4</a>
+      </span>
+    </header>
+    <main id='5'>5
+      <section id='6'>6
+        <p id='7'>7
+          <span id='8'>8
+            <strong id='9'>9
+              <a href='#' id='10'>10</a>
+            </strong>
+          </span>
+        </p>
+      </section>
+      <section id='11'>11
+        <p id='12'>12
+          <span id='13'>13
+            <strong id='14'>14
+              <a href='#' id='15'>15</a>
+            </strong>
+          </span>
+        </p>
+        <p id='16'>16
+          <span id='17'>17
+            <strong id='18'>18
+              <a href='#' id='19'>19</a>
+            </strong>
+          </span>
+          <span id='20'>20
+            <strong id='21'>21
+              <a href='#' id='22'>22</a>
+            </strong>
+          </span>
+        </p>
+      </section>
+    </main>
+    <footer id='23'>23
+      <p id='24'>24</p>
+    </footer>
+  </article>
+
+<!--====================================================================================--><script>
+
+/*
+-I:
+  - start index: the parent node's `id` attribute
+  - end index:   the innermost child node's `id` attribute
+-O:
+  - array of `tagNames`
+-R:
+  - end index is inclusive -- `(start..end)`
+  - end index doesn't have to be `id` of innermost child node...?
+  - only consider element nodes
+  - only child elements of `<body>` are sliceable
+  - return `undefined` if either:
+    - `id` of start or end index isn't in DOM, or
+    - there's no path connecting the elems at start/end indexes
+
+    - each subsequent elem must be a child of preceding elem
+-A:
+  - guard clause
+  - find end elem
+  - get `id` of its parent, then:
+    - if parent `id` == start, stop
+*/
+
+const getElemById = document.getElementById.bind(document);
+const getTagNames = elems => elems.map(elem => elem.tagName);
+
+const getElems = (elem, startId) => (
+  elem && elem.id >= startId ? [...getElems(elem.parentElement, startId), elem] : []
+);
+
+const sliceTree = (startId, endId) => {
+  let [startElem, endElem] = [startId, endId].map(getElemById);
+  let slicedElems = getElems(endElem, startId);
+  if (slicedElems[0] === startElem) return getTagNames(slicedElems);
+};
+
+
+//============================================================================//
+
+pe(sliceTree(18, 19), ['STRONG', 'A']);
+pe(sliceTree(19, 19), ['A']);
+pe(sliceTree(1,   4), ['ARTICLE', 'HEADER', 'SPAN', 'A']);
+pe(sliceTree(1,  76), undefined);        // `76` not in DOM
+pe(sliceTree(2,   5), undefined);        // no path -- `2` and `5` are siblings...?
+pe(sliceTree(5,   4), undefined);        // no path -- reverse order
+pe(sliceTree(1,  23), ['ARTICLE', 'FOOTER']);
+pe(sliceTree(1,  22), ['ARTICLE', 'MAIN', 'SECTION', 'P', 'SPAN', 'STRONG', 'A']);
+pe(sliceTree(11, 19), ['SECTION', 'P', 'SPAN', 'STRONG', 'A']);
+pe(sliceTree(5, 5),   ['MAIN']);
+pe(sliceTree(5, 6),   ['MAIN', 'SECTION']);
+pe(sliceTree(3, 5),   undefined);
+pe(sliceTree(10, 12), undefined);
+pe(sliceTree(24, 23), undefined);
+pe(sliceTree(16, 23), undefined);
+pe(sliceTree(16, 24), undefined);
+pe(sliceTree(16, 25), undefined);
+pe(sliceTree(),       undefined);
+pe(sliceTree(1),      undefined);
+pe(sliceTree(0, 1),   undefined);
+
+
+  // if (!startElem || !endElem) return;
+
+
+//======================================================================================//</script>
+</body>
+</html>
