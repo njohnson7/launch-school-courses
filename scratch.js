@@ -86,6 +86,12 @@ for an example
 
 Further exploration
 
+//======================== 3: A Custom Delete Confirmation Prompt =========================//
+- list item periods
+- fix first code snippet
+
+from a JavaScript collection(array) of
+css based
 
 //================================================================================//
 //==============================================================================//*/
