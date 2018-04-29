@@ -74,13 +74,15 @@ I'm not sure why mines slightly off too though... (see comments in submitted sol
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 
-//======================== Exotic Animals =========================//
+//======================== 1: Exotic Animals =========================//
 - periods after list items
-
 
 animal containing
 Choose any pets/animals of your choice
 for an example
+
+//======================== 2: Programming Languages Info =========================//
+
 
 //================================================================================//
 //==============================================================================//*/
