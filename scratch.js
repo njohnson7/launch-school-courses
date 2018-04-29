@@ -22,15 +22,15 @@ ___
 - "the end index which is the inner most child node's id attribute. " ... "The end index doesn't have to be the id of the "inner most" child node as some of the examples suggest."
 - "`sliceTree(2, 5)`"
 
+
 //======================== 5: Coloring =========================//
-
-
 - "only positive integers will be provided as arguments " -- (`0` is shown in the image)
 - "Following are"
 - "are some sample output"
 - "`<title>Tracing the DOM Tree</title>`"
 - "Node.children property"
 - not necessary -- `parents` is already an array: "`var parentsArray = Array.prototype.slice.call(parents);`"
+
 
 //======================== 6: Node Swap =========================//
 - refactor `isInvalidSwap`
@@ -42,11 +42,22 @@ ___
   - "return true`"
 - it's not specified anywhere in the requirements or test cases that `nodeSwap` should return `true`
 
-swapped in to
-(see further exploration)
-The .replaceChild method
+___
+
+- "swapped in to"
+- "(see further exploration)"
+- "The .replaceChild method"
 
 
+//======================== 7: Nodes to Array =========================//
+- trailing commas in arrays
+- spacing in arrays
+
+
+
+as it's content
+would be: ["BODY", [["div", []]]].
+ set the value of the children array
 
 //================================================================================//
 //==============================================================================//*/

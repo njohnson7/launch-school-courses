@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>7 - Nodes to Array</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../../lib/good_functions.js'></script>
+</head>
+<body>
+
+<!--=================================== EX 1 ===========================================-->
+
+<!--
+  <header id="1"></header>
+  <main id="2"></main>
+  <footer id="3"></footer>
+
+ -->
+<!--=================================== EX 2 ===========================================-->
+<!--
+
+  <header id="1"></header>
+  <main id="2">
+    <div></div>
+    <div></div>
+  </main>
+  <footer id="3"></footer>
+ -->
+
+<!--=================================== EX 3 ===========================================-->
+
+
+
+  <div id="1">
+    <div id="4"></div>
+    <div id="5">
+      <div id="6"></div>
+    </div>
+  </div>
+  <div id="2"></div>
+  <div id="3">
+    <div id="7"></div>
+    <div id="8"></div>
+    <div id="9"></div>
+  </div>
+
+
+<!--==================================================================================--><script>/*
+-I: ...
+-O:
+  - a nested array containing each DOM elem
+-R:
+  - start with 'BODY', then get its children
+    - repeat this recursively for each child until reaching last child
+  - each generation should be nested one level deeper in the array
+  - if an elem has no children, just use an empty array
+    - ex: `['BODY', []]`
+-A:
+  -
+//=============================================================================================//*/
+
+
+//====================================== EX 1 =======================================//
+
+//   <body>
+//     <header id='1'></header>
+//     <main id='2'></main>
+//     <footer id='3'></footer>
+//   </body>
+
+// p(nodesToArr());
+
+const EX1 =
+  ['BODY', [
+    ['HEADER', []],
+    ['MAIN',   []],
+    ['FOOTER', []],
+    ['SCRIPT', []],
+  ]];
+
+
+//====================================== EX 2 =======================================//
+
+//   <body>
+//     <header id='1'></header>
+//     <main id='2'>
+//       <div></div>
+//       <div></div>
+//     </main>
+//     <footer id='3'></footer>
+//   </body>
+
+// p(nodesToArr());
+
+const EX2 =
+  ['BODY', [
+    ['HEADER', []],
+    ['MAIN', [
+      ['DIV', []],
+      ['DIV', []],
+    ]],
+    ['FOOTER', []],
+    ['SCRIPT', []],
+  ]];
+
+// <body>
+//   <div id='1'>
+//     <div id='4'></div>
+//     <div id='5'>
+//       <div id='6'></div>
+//     </div>
+//   </div>
+//   <div id='2'></div>
+//   <div id='3'>
+//     <div id='7'></div>
+//     <div id='8'></div>
+//     <div id='9'></div>
+//   </div>
+// </body>
+
+// p(nodesToArr());
+
+
+//====================================== EX 3 =======================================//
+
+const EX3 =
+  ['BODY', [
+    ['DIV', [
+      ['DIV', []],
+      ['DIV', [
+        ['DIV', []],
+      ]],
+    ]],
+    ['DIV', []],
+    ['DIV', [
+      ['DIV', []],
+      ['DIV', []],
+      ['DIV', []],
+    ]],
+    ['SCRIPT', []],
+  ]];
+
+
+
+//===================================== solutions ====================================//
+
+//======================== #1 =========================//
+
+// const getGen = elem => [elem.tagName, [...elem.children]];
+
+// const nodesToArr = (elem = document.body) => {
+//   let arr = getGen(elem);
+//   arr[1] = arr[1].map(nodesToArr);
+//   return arr;
+// };
+
+
+
+//======================== #2 =========================//
+
+// const nodesToArr = (elem = document.body) => [elem.tagName, [...elem.children].map(nodesToArr)];
+
+
+
+//======================== #3 =========================//
+
+// const nodesToArr = ({ tagName, children } = document.body) => [
+//   tagName,
+//   [...children].map(nodesToArr),
+// ];
+
+
+
+//======================== #4 =========================//
+
+const nodesToArr = ({ tagName: t, children: c } = document.body) => [t, [...c].map(nodesToArr)];
+
+
+
+
+//==================================== test cases =====================================//
+
+pe(nodesToArr(), EX1);
+pe(nodesToArr(), EX2);
+pe(nodesToArr(), EX3);
+
+
+
+//======================================================================================//</script>
+</body>
+</html>
