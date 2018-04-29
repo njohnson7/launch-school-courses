@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>5 - A Car Shop With Filtering</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+
+    fieldset {
+      border: none;
+    }
+    dl, dt, dd {
+      display: inline-block;
+    }
+    dd {
+      margin: 15px;
+    }
+    figure {
+     width: 200px;
+     height: 400px;
+     margin: 10px;
+     display: inline-block;
+    }
+    img {
+      max-width: 100%;
+    }
+    h2 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 16px;
+    }
+  </style>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <h1>Buy Used Cars</h1>
+  <form id='filter'>
+    <fieldset>
+      <dl>
+        <dt>Make</dt>
+        <dd><select name='make'>
+          <option>asd</option>
+          <option>bbb</option>
+          <option>xxxxx</option>
+        </select></dd>
+        <dt>Model</dt>
+        <dd><select name='model'></select></dd>
+        <dt>Price</dt>
+        <dd><select name='price'></select></dd>
+        <dt>Year</dt>
+        <dd><select name='year'></select></dd>
+      </dl>
+      <button>Filter</button>
+    </fieldset>
+  </form>
+  <section id='cars'>
+    <figure>
+      <img src='images/honda-accord-2005.jpg'>
+      <figcaption>
+        <h2>Honda Accord</h2>
+        <p>Year: 2005</p>
+        <p>Price: $7000</p>
+        <a href='#'>Buy</a>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src='images/honda-accord-2005.jpg'>
+      <figcaption>
+        <h2>Honda Accord</h2>
+        <p>Year: 2005</p>
+        <p>Price: $7000</p>
+        <a href='#'>Buy</a>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src='images/honda-accord-2005.jpg'>
+      <figcaption>
+        <h2>Honda Accord</h2>
+        <p>Year: 2005</p>
+        <p>Price: $7000</p>
+        <a href='#'>Buy</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <template id='carTemplate'>
+    <figure>
+      <img src='#{image}'>
+      <figcaption>
+        <h2>#{make} #{model}</h2>
+        <p>Year: #{year}</p>
+        <p>Price: $#{price}</p>
+        <a href='#'>Buy</a>
+      </figcaption>
+    </figure>
+  </template>
+
+
+<!--==================================================================================--><script>
+const entries    = Object.entries.bind(Object);
+const createElem = document.createElement.bind(document);
+const append     = (parent, ...children) => children.forEach(parent.appendChild, parent);
+
+const CARS = [
+  { make: 'Honda',  model: 'Accord',   year: 2005, price: 7000,  image: 'images/honda-accord-2005.jpg' },
+  { make: 'Honda',  model: 'Accord',   year: 2008, price: 11000, image: 'images/honda-accord-2008.jpg' },
+  { make: 'Toyota', model: 'Camry',    year: 2009, price: 12500, image: 'images/toyota-camry-2009.jpg' },
+  { make: 'Toyota', model: 'Corrolla', year: 2016, price: 15000, image: 'images/toyota-corrolla-2016.jpg' },
+  { make: 'Suzuki', model: 'Swift',    year: 2014, price: 9000,  image: 'images/suzuki-swift-2014.jpg' },
+  { make: 'Audi',   model: 'A4',       year: 2013, price: 25000, image: 'images/audi-a4-2013.jpg' },
+  { make: 'Audi',   model: 'A4',       year: 2013, price: 26000, image: 'images/audi-a4-2013.jpg' },
+];
+const CAR_TEMPLATE = qs('#carTemplate').innerHTML;
+const sectionCars = qs('#cars');
+
+const interpolateProps = (str, [key, value]) => str.replace(`#{${key}}`, value);
+
+const ELEMENT_REGEX = /(^<)(.+)(>)([\s\S]*)(?=<\/.+>$)/;
+
+const strToElem = str => {
+  let [ , , parentTag, , childrenHtml] = str.trim().match(ELEMENT_REGEX);
+  let parentElem = createElem(parentTag);
+  parentElem.innerHTML = childrenHtml;
+  return parentElem;
+};
+
+const createCarElem = carObj => strToElem(entries(carObj).reduce(interpolateProps, CAR_TEMPLATE));
+
+
+
+append(sectionCars, ...CARS.map(createCarElem));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+//============================================================================//
+
+
+  let carHtml = CAR_TEMPLATE;
+  Object.entries(carObj).forEach(([key, value]) => {
+    carHtml = carHtml.replace(`#{${key}}`, value);
+  });
+  return carHtml;
+
+
+  const createCarElem = carObj => {
+  return Object.entries(carObj).reduce((carStr, [key, value]) => {
+    return carStr.replace(`#{${key}}`, value);
+  }, CAR_TEMPLATE);
+};
+
+const createCarElem = carObj => (
+  Object.entries(carObj).reduce((carStr, [key, value]) => (
+    carStr.replace(`#{${key}}`, value);
+  ), CAR_TEMPLATE);
+);
+
+*/
+//======================================================================================//</script>
+</body>
+</html>
