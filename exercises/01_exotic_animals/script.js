@@ -39,13 +39,12 @@
 
 
 let timeout;
-// let interval;
 
 const isNotImg   = elem => elem.tagName != 'IMG';
 const getCaption = img => img.nextElementSibling;
 
 const fadeIn = elem => {
-  // clearInterval(interval);
+  elem.style.display = 'block';
   let interval = setInterval(_ => {
     elem.style.opacity == 1
       ? clearInterval(interval)
@@ -54,12 +53,11 @@ const fadeIn = elem => {
 };
 
 const fadeOut = elem => {
-  // clearInterval(interval);
   let interval = setInterval(_ => {
     elem.style.opacity == 0
-      ? clearInterval(interval)
+      ? Promise.resolve(clearInterval(interval)).then(_ => elem.style.display = 'none')
       : elem.style.opacity = +elem.style.opacity - .1;
-  }, 50);
+  }, 25);
 };
 
 const showCaption = img => {
@@ -78,7 +76,6 @@ document.addEventListener('mouseover', e => {
 });
 
 document.addEventListener('mouseout', e => {
-  p(e.target)
   let img = e.target;
   if (isNotImg(img)) return;
 
