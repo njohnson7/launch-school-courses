@@ -1,14 +1,4 @@
 /*//==============================================================================//
-//======================== Exotic Animals =========================//
-- periods after list items
-
-
-animal containing
-Choose any pets/animals of your choice
-for an example
-
-
-
 //======================== 4: Tree Slicing =========================//
 - HTML element alignment is off
 - inconsisitent use of backticks in text
@@ -63,12 +53,34 @@ ___
 //======================== 8: Array to Nodes =========================//
 - example2 input and output snippets are labelled backwards
 
+
 //======================== 9: Work Back =========================//
-
-
-
-that will result to the
+- "that will result to the"
 - 'Footer' should be in quotes: 'parentNode.tagName); = FOOTER'
+
+
+//======================== 10: HTML Imaging =========================//
+The reference solution doesn't take into account text nodes:
+
+```
+reference solution: (23) [document, <!DOCTYPE html>, html, head, text, title, text, text, style, text, text, text, body, text, header#header, text, h1.emphasis.light, text, text, p, text, text, text]
+my solution:        (19) [document, <!DOCTYPE html>, html, head, text, title, text, text, style, text, text, body, text, header#header, h1.emphasis.light, text, p, text, text]
+javascript:         (19) [document, <!DOCTYPE html>, html, head, text, title, text, text, style, text, text, text, body, text, header#header, h1.emphasis.light, text, p, text]
+```
+
+I'm not sure why mines slightly off too though... (see comments in submitted solutions for details)
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+
+//======================== Exotic Animals =========================//
+- periods after list items
+
+
+animal containing
+Choose any pets/animals of your choice
+for an example
 
 //================================================================================//
 //==============================================================================//*/
