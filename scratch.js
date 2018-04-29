@@ -53,11 +53,15 @@ ___
 - trailing commas in arrays
 - spacing in arrays
 
+___
+
+- "as it's content"
+- "would be: ["BODY", [["div", []]]]."
+- " set the value of the children array"
 
 
-as it's content
-would be: ["BODY", [["div", []]]].
- set the value of the children array
+//======================== 8: Array to Nodes =========================//
+- example2 input and output snippets are labelled backwards
 
 //================================================================================//
 //==============================================================================//*/
