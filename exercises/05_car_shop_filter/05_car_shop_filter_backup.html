@@ -10,15 +10,33 @@
     button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
     a              { color: #33b5e5; text-decoration: none; }
     a:hover        { text-decoration: underline; }
-    fieldset       { border: none; }
-    dl, dt, dd     { display: inline-block; }
-    dd             { margin: 15px; }
-    figure         { width: 200px; height: 400px; margin: 10px; display: inline-block; }
-    img            { max-width: 100%; }
-    h2             { font-size: 18px; }
-    p              { font-size: 16px; }
-  </style>
 
+    fieldset {
+      border: none;
+    }
+    dl, dt, dd {
+      display: inline-block;
+    }
+    dd {
+      margin: 15px;
+    }
+    figure {
+     width: 200px;
+     height: 400px;
+     margin: 10px;
+     display: inline-block;
+    }
+    img {
+      max-width: 100%;
+    }
+    h2 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 16px;
+    }
+  </style>
+  <script src='../../lib/good_fns_lite.js'></script>
 </head>
 <body>
   <h1>Buy Used Cars</h1>
@@ -76,8 +94,6 @@
 const getKeys    = Object.keys.bind(Object);
 const getEntries = Object.entries.bind(Object);
 const createElem = document.createElement.bind(document);
-const qs         = document.querySelector.bind(document);
-const qsa        = document.querySelectorAll.bind(document);
 const append     = (parent, ...children) => children.forEach(parent.appendChild, parent);
 const setDisplay = value => (elem => elem.style.display = value);
 const hide       = setDisplay('none');
@@ -117,9 +133,18 @@ const createCarElem = (function () {
   };
 }());
 
-let carObjs  = [...CARS];
-let carElems = carObjs.map(createCarElem);
-append(carsParent, ...carElems);
+// const renderCar = carObj => append(carsParent, createCarElem(carObj));
+
+// const renderCars = _ => {
+  let carObjs  = [...CARS];
+  let carElems = carObjs.map(createCarElem);
+  append(carsParent, ...carElems);
+  // return carObjs;
+// };
+
+// let carObjs = renderCars(carsParent);
+
+//----------------------------------------------------------------------------//
 
 const getOptionSets = carObjs => {
   let sets = getKeys(carObjs[0]).reduce((sets, key) => ({ ...sets, [key]: new Set }), {});
@@ -135,31 +160,116 @@ const createOptionElem = val => {
   return optionElem;
 };
 
-qsa('#filter select').forEach(selectBox => {
+const selectBoxes = qsa('#filter select');
+
+selectBoxes.forEach(selectBox => {
   let options = optionSets[selectBox.name];
   append(selectBox, ...[...options].map(createOptionElem));
 });
+
+//----------------------------------------------------------------------------//
 
 const matchesCriteria = function (carObj) {
   return this.every(([name, val]) => val == 'Any' || val == carObj[name]);
 };
 
-const getId = carObj => carObj.id;
+// const getCarElems = _ => carsParent.children();
 
 const filterCars = (e, { target: form } = e) => {
   e.preventDefault();
-  let [...options] = new FormData(form);
-  let filteredIds  = carObjs.filter(matchesCriteria, options).map(getId);
+  let [...options]    = new FormData(form);
+  let filteredCarObjs = carObjs.filter(matchesCriteria, options);
+
+
+  let filteredCarObjIds = filteredCarObjs.map(carObj => carObj.id);
+
+
 
   carElems.forEach(carElem => {
     let id = +carElem.dataset.id;
-    filteredIds.includes(id) ? show(carElem) : hide(carElem);
+    filteredCarObjIds.includes(id) ? show(carElem) : hide(carElem);
   });
+
+
+  // // let carElems = getCarElems();
+
+  // let carElemIds = carElems.map(carElem => +carElem.dataset.id);
+  // filteredCarObjs.forEach(carObj => {
+  //   if (!carElemIds.includes(carObj.id)) renderCar(carObj);
+  // });
+
+  // carElemIds.forEach(id => {
+  //   // if (carE)
+  // });
+
+  // renderCars(filteredCarObjs);
+
+
+  // p(...filteredCarObjs)
 };
 
 qs('#filter').onsubmit = filterCars;
 
+
+
+
+  // p(form);
+  // options.p
+  // p(...filteredCarObjs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//============================================================================//
+
+
+//   let carHtml = CAR_TEMPLATE;
+//   Object.entries(carObj).forEach(([key, value]) => {
+//     carHtml = carHtml.replace(`#{${key}}`, value);
+//   });
+//   return carHtml;
+
+
+//   const createCarElem = carObj => {
+//   return Object.entries(carObj).reduce((carStr, [key, value]) => {
+//     return carStr.replace(`#{${key}}`, value);
+//   }, CAR_TEMPLATE);
+// };
+
+// const createCarElem = carObj => (
+//   Object.entries(carObj).reduce((carStr, [key, value]) => (
+//     carStr.replace(`#{${key}}`, value);
+//   ), CAR_TEMPLATE);
+// );
+
+//============================================================================//
+
+
+// const matchesCriteria = (car, options) => {
+//   return options.every(([name, val]) => val == 'Any' || val == car[name]);
+// };
+// qs('#filter').onsubmit = (e, { target: form } = e) => {
+//   e.preventDefault();
+//   let [...options] = new FormData(form);
+//   let filteredCars = CARS.filter(car => {
+//     return matchesCriteria(car, options);
+//   });
+// };
+
+
+
+
+
 //======================================================================================//</script>
 </body>
 </html>
-<!-- <script src='../../lib/good_fns_lite.js'></script> -->
