@@ -77,31 +77,33 @@ I'm not sure why mines slightly off too though... (see comments in submitted sol
 //======================== 1 - Exotic Animals =========================//
 - periods after list items
 
-animal containing
-Choose any pets/animals of your choice
-for an example
+___
+
+- "animal containing"
+- "Choose any pets/animals of your choice"
+- "for an example"
 
 //======================== 2 - Programming Languages Info =========================//
-
-
-Further exploration
+- "Further exploration"
 
 //======================== 3 - A Custom Delete Confirmation Prompt =========================//
 - list item periods
 - fix first code snippet
 
-from a JavaScript collection(array) of
-css based
+___
+
+- "from a JavaScript collection(array) of"
+- "css based"
 
 //======================== 5 - A Car Shop With Filtering =========================//
-by make model, price and year of manufacture.
-the following for each car
-the same price, mode,
-`price: 7000},`
+- "by make model, price and year of manufacture."
+- "the following for each car"
+- "the same price, mode,"
+- "`price: 7000},`"
 
 
 //======================== 6 - Adding Smart Select to Car Shop =========================//
-all the rest of select boxes
+- "all the rest of select boxes"
 
 //======================== 7 - A JavaScript Stopwatch =========================//
 - inconsistent use of periods at end of sentences
@@ -112,8 +114,10 @@ all the rest of select boxes
 - code style
 - solution has errors, like being able to input more than one `-`, which leads to `NaN` results
 
-calcuated
-shown. e.g.
+___
+
+- "calcuated"
+- "shown. e.g."
 
 //======================== 9 - A JavaScript WYSIWYG Editor =========================//
 - listed controls aren't in same order as shown in solution
