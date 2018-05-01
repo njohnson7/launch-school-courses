@@ -117,7 +117,7 @@ shown. e.g.
 
 //======================== 9 - A JavaScript WYSIWYG Editor =========================//
 - listed controls aren't in same order as shown in solution
-
+- refactor solution -- a lot of repetitive code
 
 //================================================================================//
 //==============================================================================//*/
