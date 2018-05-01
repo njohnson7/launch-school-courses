@@ -69,9 +69,7 @@
   </template>
 
 <!--================================ JavaScript ======================================--><script>
-
 //=================================== helpers/utilities ======================//
-
 const getObjId     = obj => +obj.id;
 const getElemId    = elem => +elem.dataset.id;
 const getKeys      = Object.keys.bind(Object);
@@ -86,7 +84,6 @@ const show         = setDisplay('inline-block');
 const casecmp      = (str1, str2) => str1.toLowerCase() == str2.toLowerCase();
 const isElem       = (elem, tagName) => casecmp(elem.tagName, tagName);
 const getUniqElems = arr => [...new Set(arr)];
-
 
 //=============================== set up cars ================================//
 const CARS = [

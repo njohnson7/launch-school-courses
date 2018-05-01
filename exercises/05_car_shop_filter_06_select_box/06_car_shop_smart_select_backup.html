@@ -18,6 +18,7 @@
     h2             { font-size: 18px; }
     p              { font-size: 16px; }
   </style>
+  <script src='../../lib/good_fns_lite.js'></script>
 </head>
 <body>
   <h1>Buy Used Cars</h1>
@@ -49,7 +50,7 @@
           </select>
         </dd>
       </dl>
-      <button id='reset' type='reset' name='reset'>Reset</button>
+      <button>Filter</button>
     </fieldset>
   </form>
 
@@ -71,22 +72,17 @@
 <!--================================ JavaScript ======================================--><script>
 
 //=================================== helpers/utilities ======================//
-
-const getObjId     = obj => +obj.id;
-const getElemId    = elem => +elem.dataset.id;
-const getKeys      = Object.keys.bind(Object);
-const getEntries   = Object.entries.bind(Object);
-const createElem   = document.createElement.bind(document);
-const qs           = document.querySelector.bind(document);
-const qsa          = document.querySelectorAll.bind(document);
-const append       = (parent, ...children) => children.forEach(parent.appendChild, parent);
-const setDisplay   = value => (elem => elem.style.display = value);
-const hide         = setDisplay('none');
-const show         = setDisplay('inline-block');
-const casecmp      = (str1, str2) => str1.toLowerCase() == str2.toLowerCase();
-const isElem       = (elem, tagName) => casecmp(elem.tagName, tagName);
-const getUniqElems = arr => [...new Set(arr)];
-
+const getObjId   = obj => +obj.id;
+const getElemId  = elem => +elem.dataset.id;
+const getKeys    = Object.keys.bind(Object);
+const getEntries = Object.entries.bind(Object);
+const createElem = document.createElement.bind(document);
+const qs         = document.querySelector.bind(document);
+const qsa        = document.querySelectorAll.bind(document);
+const append     = (parent, ...children) => children.forEach(parent.appendChild, parent);
+const setDisplay = value => (elem => elem.style.display = value);
+const hide       = setDisplay('none');
+const show       = setDisplay('inline-block');
 
 //=============================== set up cars ================================//
 const CARS = [
@@ -145,7 +141,7 @@ const createOptionElem = val => {
 };
 
 const formFilter  = qs('#filter');
-const selectBoxes = [...qsa.call(formFilter, 'select')];
+const selectBoxes = [selectBoxMake, selectBoxModel] = qsa.call(formFilter, 'select');
 
 const renderOptions = function (selectBox) {
   let optionSets = this;
@@ -170,32 +166,51 @@ const showOnlyFiltered = function (carElem) {
   filteredIds.includes(id) ? show(carElem) : hide(carElem);
 };
 
-const optionElems = [].concat(...selectBoxes.map(selectBox => [].concat(...selectBox.options)));
+// onchange
 
-const filterCars = (e, { currentTarget: form, target: selectBox } = e) => {
-  if (!isElem(selectBox, 'select')) return;
-  let options = [...new FormData(form)];
+const filterCars = (e, { target: form } = e) => {
+  e.preventDefault();
+  let options     = [...new FormData(form)];
 
-  let filteredCarObjs = carObjs.filter(matchesCriteria, options);
-  let filteredIds     = filteredCarObjs.map(getObjId);
 
+  p(options)
+
+
+  let filteredIds = carObjs.filter(matchesCriteria, options).map(getObjId);
   carElems.forEach(showOnlyFiltered, filteredIds);
-
-  let validOptions = ['make', 'model', 'price', 'year'].reduce((opts, name) => {
-    return { ...opts, [name]: ['Any', ...getUniqElems(filteredCarObjs.map(carObj => ''+carObj[name]))] };
-  }, {});
-
-  selectBoxes.forEach(selectB => {
-    [...selectB.options].forEach(optionElem => {
-      validOptions[selectB.name].includes(optionElem.value) ? show(optionElem) : hide(optionElem);
-    });
-  });
 };
 
-const resetFilters = e => [...carElems, ...optionElems].forEach(show);
+formFilter.onsubmit = filterCars;
+selectBoxes.onchange = filterCars;
 
-formFilter.onchange = filterCars;
-formFilter.onreset  = resetFilters;
+
+
+//============================================================================//
+const getMake = model => carObjs.find(carObj => carObj.model == model).make;
+const filterModels = e => {
+  let make         = selectBoxMake.value;
+  let optionModels = [...selectBoxModel.children];
+
+  if (make == 'Any') {
+    optionModels.forEach(show);
+    return;
+  }
+
+  optionModels.forEach(optionModel => {
+    let model = optionModel.value;
+    model == 'Any' || getMake(model) == make ? show(optionModel) : hide(optionModel);
+   });
+
+  selectBoxModel.value = 'Any';
+};
+// selectBoxMake.onchange = filterModels;
+//============================================================================//
+
+
+
+
+
+
 
 //======================================================================================//</script>
 </body>

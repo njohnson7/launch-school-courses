@@ -94,17 +94,14 @@ from a JavaScript collection(array) of
 css based
 
 //======================== 5 - A Car Shop With Filtering =========================//
-
-
 by make model, price and year of manufacture.
 the following for each car
-
 the same price, mode,
 `price: 7000},`
 
 
 //======================== 6 - Adding Smart Select to Car Shop =========================//
-
+all the rest of select boxes
 
 //================================================================================//
 //==============================================================================//*/
