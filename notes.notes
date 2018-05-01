@@ -12,7 +12,6 @@ Study more (and make flash cards):
 maybe:
 - APIs book -- REST and CRUD chapter: "https://launchschool.com/books/working_with_apis/read/rest_and_crud"
 - APIs book -- HTTP Response Headers chapter: "https://launchschool.com/books/working_with_apis/read/http_response_headers#accesscontrolalloworigin"
-- furtgh
 
 
 Read maybe:
@@ -46,7 +45,6 @@ Todo:
 - refactor photo gallery (lesson3)
 - refactor photo gallery v2 (lesson5)
 - lesson 6: refactor Autocomplete (add promises...?)
-- "Adding Smart Select to Car Shop" exercise: further exploration
 
 
 

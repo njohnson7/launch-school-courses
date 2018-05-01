@@ -103,5 +103,10 @@ the same price, mode,
 //======================== 6 - Adding Smart Select to Car Shop =========================//
 all the rest of select boxes
 
+//======================== 7 - A JavaScript Stopwatch =========================//
+- inconsistent use of periods at end of sentences
+- inconsistent use of capital letters to start sentences
+
+
 //================================================================================//
 //==============================================================================//*/

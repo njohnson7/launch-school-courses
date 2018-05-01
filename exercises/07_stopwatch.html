@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>7 - Stopwatch</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+    main { text-align: left; font-size: 48px; padding-top: 200px;}
+    button { font-size: 24px; width: 80px;}
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+  <main>
+    <div id='stopwatch_E'>
+      <span id='hours_E'>00</span>:<!--
+   --><span id='mins_E'>00</span>:<!--
+   --><span id='secs_E'>00</span>:<!--
+   --><span id='centisecs_E'>00</span>
+    </div>
+    <div id='controls_E'>
+      <button id='toggle_E' type='button'>Start</button>
+      <button id='reset_E' type='button'>Reset</button>
+    </div>
+  </main>
+
+<!--==================================================================================--><script>
+
+const divmod    = (x, y) => [Math.floor(x / y), x % y];
+const padZero   = x => (''+x).padStart(2, '0');
+const isStarted = _ => toggle_E.innerText == 'Stop';
+
+const format = cs => {
+  let secs, mins, hours;
+  [secs, cs]    = divmod(cs, 100);
+  [mins, secs]  = divmod(secs, 60);
+  [hours, mins] = divmod(mins, 60);
+  return [hours, mins, secs, cs].map(padZero);
+};
+
+const render = cs => {
+  let formattedTime = format(cs);
+  hands_E.forEach((hand_E, i) => hand_E.innerText = formattedTime[i]);
+};
+
+const stop = _ => {
+  toggle_E.innerText = 'Start';
+  clearInterval(interval);
+};
+
+const start = _ => {
+  toggle_E.innerText = 'Stop';
+  interval = setInterval(_ => {
+    totalCs++;
+    render(totalCs);
+  }, 10);
+};
+
+const toggle = _ => isStarted() ? stop() : start();
+
+const reset = _ => {
+  stop();
+  totalCs = 0;
+  render(totalCs);
+};
+
+toggle_E.onclick = toggle;
+reset_E.onclick  = reset;
+
+let hands_E = [...stopwatch_E.children];
+let totalCs = 0;
+let interval;
+
+//============================================================================//
+//========================= test ==========================//
+let t = ['01', '34', '29', '95'];
+let c = 566995;
+pe(format(c), t);
+
+//======================================================================================//</script>
+</body>
+</html>
