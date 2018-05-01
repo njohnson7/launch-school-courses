@@ -107,6 +107,13 @@ all the rest of select boxes
 - inconsistent use of periods at end of sentences
 - inconsistent use of capital letters to start sentences
 
+//======================== 8 - A JavaScript Calculator =========================//
+- periods
+- code style
+- solution has errors, like being able to input more than one `-`, which leads to `NaN` results
+
+calcuated
+shown. e.g.
 
 //================================================================================//
 //==============================================================================//*/
