@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang='en-US'>
 <head>
-  <title>2 - Form Validation, Part 2: Character Blocking Input</title>
+  <title>3 - Automatic Tab Forwarding</title>
   <meta charset='utf-8'>
   <style>
     *, html        { box-sizing: border-box; }
@@ -98,13 +98,18 @@ const validate = field => {
   if (fieldIsValid) {
     if (form.checkValidity()) formError.classList.remove('active');
     if (field.name == 'cc') {
-      let ccNum = [...field.parentElement.querySelectorAll('input')].map(inp => inp.value).join('');
-      p(ccNum)
+      let ccNum = ccs.map(cc => cc.value).join('');
       if (ccNum.length > 0 && ccNum.length < 16) {
-        field.dataset.patternMismatch = true;
-        setInvalid(field);
+        let idx = ccs.indexOf(field);
+        ccs.slice(idx + 1).forEach(cc => {
+          cc.dataset.patternMismatch = true;
+          setInvalid(cc);
+        });
       } else {
-        clearInvalid(field);
+        ccs.forEach(cc => {
+          clearInvalid(cc);
+          cc.dataset.patternMismatch = false;
+        });
       }
     }
     return;
@@ -118,7 +123,6 @@ const clearInvalid = field => {
   let error = getErrorElem(field);
   error.classList.remove('active');
   error.innerText = '';
-  field.dataset.patternMismatch = false;
 };
 
 const handleField = (e, fn) => {
@@ -151,6 +155,15 @@ form.addEventListener('keypress', e => handleField(e, blockKeys));
 form.onsubmit = handleSubmit;
 
 let fields = [...form.querySelectorAll('input')];
+
+let ccs = [...form.querySelectorAll('.cc')];
+ccs.slice(0, -1).forEach(cc => {
+  cc.oninput = e => {
+    if (cc.value.length != 4) return;
+    let nextCc = cc.nextElementSibling;
+    nextCc.focus();
+  };
+});
 
 //=====================================================================================//</script>
 </body>

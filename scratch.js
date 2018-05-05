@@ -144,11 +144,15 @@ Please Enter
 - the patterns for first name and last name are different from each other
 - the patterns in the solution don't match the requirements
 - how can first or last name be invalid when invalid characters are blocked?
+- solution: code style / refactor
 
 the pattern a-zA-Z\s'
 for First Name and last name.
 Please Enter
 
+//======================== 3 - Automatic Tab Forwarding =========================//
+- solution: code style / refactor
+- no Discussion
 
 //================================================================================//
 //==============================================================================//*/
