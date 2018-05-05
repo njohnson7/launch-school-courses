@@ -123,5 +123,20 @@ ___
 - listed controls aren't in same order as shown in solution
 - refactor solution -- a lot of repetitive code
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+//======================== 1 - Form Validation, Part 1 =========================//
+- list item periods
+- email is also required: "First Name, Last Name, and Password are required fields and Phone is optional. "
+- solution code style
+
+text-field
+ red colored
+the field. e.g "Password
+a required field".
+ are corrected"
+ built in
+`$('form')[0]`
+
 //================================================================================//
 //==============================================================================//*/
