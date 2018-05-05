@@ -137,6 +137,18 @@ a required field".
  are corrected"
  built in
 `$('form')[0]`
+Please Enter
+
+
+//======================== 2 - Form Validation, Part 2: Character Blocking Input =========================//
+- the patterns for first name and last name are different from each other
+- the patterns in the solution don't match the requirements
+- how can first or last name be invalid when invalid characters are blocked?
+
+the pattern a-zA-Z\s'
+for First Name and last name.
+Please Enter
+
 
 //================================================================================//
 //==============================================================================//*/
