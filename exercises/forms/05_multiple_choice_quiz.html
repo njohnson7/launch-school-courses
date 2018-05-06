@@ -86,6 +86,9 @@ const buildHtml = (template, obj) => (
 const buildQuestion   = question => buildHtml(QUESTION_TEMPLATE, question);
 const renderQuestions = _ => (questionsList.innerHTML = QUESTIONS.map(buildQuestion).join(''));
 
+const getUserAnswer = id => form[`q${id}`].value;
+const getResult     = id => results.find(result => result.parentElement.id == `q${id}`);
+
 const markCorrect = result => {
   result.innerText = 'Correct Answer';
   result.classList.add('correct');
@@ -96,9 +99,6 @@ const markIncorrect = (result, userAnswer, answer) => {
   result.innerText = `${explanation}. The correct answer is: "${answer}".`;
   result.classList.add('incorrect');
 };
-
-const getUserAnswer = id => form[`q${id}`].value;
-const getResult     = id => results.find(result => result.parentElement.id == `q${id}`);
 
 const showResult = ({ id }) => {
   let userAnswer = getUserAnswer(id);
