@@ -74,8 +74,8 @@ const simpleSub = (template, obj, parentObj) => (
 );
 
 const nestedSub = (template, obj) => (
-  template.replace(TOKEN_EACH, (_, prop, nestedTemp) => (
-    obj[prop].map(item => simpleSub(nestedTemp, item, obj)).join('')
+  template.replace(TOKEN_EACH, (_, prop, nestedTemplate) => (
+    obj[prop].map(item => simpleSub(nestedTemplate, item, obj)).join('')
   ))
 );
 
