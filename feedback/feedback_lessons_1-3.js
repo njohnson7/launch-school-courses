@@ -11,6 +11,7 @@
 //======================== Node properties =========================//
 - double quoted strings
 - inconsistent use of semicolons in code snippets
+- backticks
 -----
 - " though; to find "
 - `= <p class="intro" id="simple">‚Äö√Ñ¬∂</p>`
@@ -18,6 +19,8 @@
 - no whitespace shown for value of text node `t`
 - contradictory: "Elements don't have any textual content, so the nodeValue for Elements is null. We can use a different property when we need the text within an Element: textContent. ... textContent represents all the textual content of an Element."
 - wrong amount of spaces in return value of `> document.querySelector("p").textContent` (and more)
+- "of all the nodes inside Element"
+- " joins the nodeValue"
 
 //======================== Determining the Type of a Node =========================//
 - inconsistent captialization of "Node"
@@ -86,7 +89,7 @@
 - "focusses"
 - accurate/rephrase...?: " they are merely interfaces: a collection of behaviors that do nothing until you override the behavior."
 
-//======================== Capturing and Bubbling =========================//
+//======================== Capturing and Bubbling [old] =========================//
 - function keyword spacing
 - use of template literals without explanation (on this and previous assignment, and maybe future assignments)
 - "Boolean"
@@ -98,6 +101,36 @@
 - `display` function should be declared before regular code (x2+...)
 - rephrase: " , though; in fact, it triggers it but once."
 - comma: " d2 and "
+
+//======================== Capturing and Bubbling (1) [new] =========================//
+- not much explanation about the target phase
+-----
+- "added; in this case"
+- "Innermost and Outermost Element"
+- "The two event listeners have the same behavior for; they display"
+- "on the other hand, are two and that's why the two alert boxes"
+- "'click' event"
+- "The event gets dispatched to each element twice, once during the capturing phase and once during the bubbling phase"
+- "checks if there any listeners"
+- "the third optional, argument, for the"
+- "addEventLister"
+- "the "click event""
+- "`var divs = document.querySelectorAll('.pick');`"
+- "`for(i = 0;`"
+
+//======================== Capturing and Bubbling (2) [new] =========================//
+- unnecessary use of quotes around a lot of words, like "click", "keypress", bubbling", "capturing"
+- list item periods
+-----
+- Practice Problem 1: doesn't specify the event phase
+- Practice Problem 2: "This problem demonstrates that the [click] event object passes through the capturing before the bubbling phase." -- it doesn't really demonstrate this because the result (the alerts) would appear to be identical either way
+- Practice Problem 3: should be the target phase, not the "bubbling" phase
+-----
+- "short clip"
+- "i.e."
+- "the [click] event object"
+- "alerts the code keyboard key"
+- "this practice problem surfaces"
 
 //======================== Preventing Propagation and Default Behaviors =========================//
 - function keyword spacing

@@ -184,6 +184,35 @@ ___
 - "the universe and everything?"
 - "You didn not"
 
+
+//==============================================================================//
+//==============================================================================//
+//==============================================================================//
+//======================== Quiz 1 =========================//
+- list item periods
+
+___
+
+- "Check all statements that describe what the DOM is?"
+- "create a DOM"
+- "when browser creates the"
+- "When you view the source; you see"
+- "as it was written and used as the input to create"
+- "All codes represent"
+- "Choice B represent an"
+- "null"
+- "Element nodes don't have values."
+- "nodeValue. The two methods"
+- "the use of the non-strict equality (==) coerced"
+- "code results to an"
+- "Walking the node"
+- "Choice A is not a valid command"
+- "Choice B and C works also"
+- "test"/>"
+- "calling cloneNode on the element with a class of .intro has a child"
+
+
+
 //================================================================================//
 //==============================================================================//*/
 
