@@ -159,6 +159,115 @@ Please Enter
 
  e.g.
 
+//======================== 5 - Multiple Choice Quiz =========================//
+- list item periods
+- inconsistent use of quotes for integer property names in `answerKey`
+- trailing commas in objects
+- the title of the page in the solution is "Sign Up" instead of "Multiple Choice Quiz"
+- solution: code style / refactor -- ex:
+  - `showResult` method is empty...
+  - `score` -- unused property
+  - `one()`
+  - `$(form)`
+  - `self`
+  - `reset()`
+
+ correct, wrong or
+the universe and everything?
+You didn not
 
 //================================================================================//
 //==============================================================================//*/
+
+
+const QUESTIONS = [{
+  id:          1,
+  description: "Who is the author of <cite>The Hitchhiker's Guide to the Galaxy</cite>?",
+  options:     ['Dan Simmons', 'Douglas Adams', 'Stephen Fry', 'Robert A. Heinlein'],
+}, {
+  id:          2,
+  description: 'Which of the following numbers is the answer to Life, the universe, and everything?',
+  options:     ['66', '13', '111', '42'],
+}, {
+  id:          3,
+  description: 'What is Pan Galactic Gargle Blaster?',
+  options:     ['A drink', 'A machine', 'A creature', 'None of the above'],
+}, {
+  id:          4,
+  description: 'Which star system does Ford Prefect belong to?',
+  options:     ['Aldebaran', 'Algol', 'Betelgeuse', 'Alpha Centauri'],
+}];
+const ANSWER_KEY = { 1: 'Douglas Adams', 2: '42', 3: 'A drink', 4: 'Betelgeuse' };
+
+const qs  = document.querySelector.bind(document);
+const qsa = selector => [...document.querySelectorAll(selector)];
+
+const QUESTION_TEMPLATE = qs('#questionTemplate').innerHTML.trim();
+const TOKEN             = /#\{(.+?)\}/g;
+const TOKEN_EACH        = /#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/;
+
+const simpleSub = (template, obj, parentObj) => (
+  template.replace(TOKEN, (_, prop) => (
+    prop == '.' ? obj : prop.startsWith('../') ? parentObj[prop.slice(3)] : obj[prop]
+  ))
+);
+
+const nestedSub = (template, obj) => (
+  template.replace(TOKEN_EACH, (_, prop, nestedTemp) => (
+    obj[prop].map(item => simpleSub(nestedTemp, item, obj)).join('')
+  ))
+);
+
+const buildHtml = (template, obj) => (
+  template.includes('#{each_S') ? buildHtml(nestedSub(template, obj), obj) : simpleSub(template, obj)
+);
+
+const buildQuestion   = question => buildHtml(QUESTION_TEMPLATE, question);
+const renderQuestions = _ => (questionsList.innerHTML = QUESTIONS.map(buildQuestion).join(''));
+
+const markCorrect = result => {
+  result.innerText = 'Correct Answer';
+  result.classList.add('correct');
+};
+
+const markIncorrect = (result, userAnswer, answer) => {
+  let explanation = userAnswer ? 'Wrong Answer' : 'You did not answer this question';
+  result.innerText = `${explanation}. The correct answer is: "${answer}".`;
+  result.classList.add('incorrect');
+};
+
+const getUserAnswer = id => form[`q${id}`].value;
+const getResult     = id => results.find(result => result.parentElement.id == `q${id}`);
+
+const showResult = ({ id }) => {
+  let userAnswer = getUserAnswer(id);
+  let result     = getResult(id);
+  let answer     = ANSWER_KEY[id];
+  userAnswer == answer ? markCorrect(result) : markIncorrect(result, userAnswer, answer);
+};
+
+const handleSubmit = e => {
+  e.preventDefault();
+  toggleDisabled();
+  QUESTIONS.forEach(showResult);
+};
+
+const toggleDisabled = _ => {
+  form.submit.disabled = !form.submit.disabled;
+  form.reset.disabled  = !form.reset.disabled;
+};
+
+const resetResult = result => ([result.className, result.innerText] = ['result', '']);
+
+const resetForm = _ => {
+  toggleDisabled();
+  results.forEach(resetResult);
+};
+
+let form          = qs('form');
+let questionsList = qs('#questionsList');
+renderQuestions();
+let results       = qsa('.result');
+
+form.onsubmit = handleSubmit;
+form.onreset  = resetForm;
