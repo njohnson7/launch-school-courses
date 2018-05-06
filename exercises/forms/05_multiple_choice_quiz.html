@@ -80,7 +80,7 @@ const nestedSub = (template, obj) => (
 );
 
 const buildHtml = (template, obj) => (
-  template.includes('#{each_S') ? buildHtml(nestedSub(template, obj), obj) : simpleSub(template, obj)
+  TOKEN_EACH.test(template) ? buildHtml(nestedSub(template, obj), obj) : simpleSub(template, obj)
 );
 
 const buildQuestion   = question => buildHtml(QUESTION_TEMPLATE, question);
@@ -95,7 +95,7 @@ const markCorrect = result => {
 };
 
 const markIncorrect = (result, userAnswer, answer) => {
-  let explanation = userAnswer ? 'Wrong Answer' : 'You did not answer this question';
+  let explanation  = userAnswer ? 'Wrong Answer' : 'You did not answer this question';
   result.innerText = `${explanation}. The correct answer is: "${answer}".`;
   result.classList.add('incorrect');
 };
@@ -132,7 +132,6 @@ let results       = qsa('.result');
 
 form.onsubmit = handleSubmit;
 form.onreset  = resetForm;
-
 
 //=====================================================================================//</script>
 </body>
