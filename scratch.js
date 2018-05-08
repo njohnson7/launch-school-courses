@@ -212,6 +212,70 @@ ___
 - "calling cloneNode on the element with a class of .intro has a child"
 
 
+//======================== Quiz 2 =========================//
+- code style
+- some code snippets are missing semicolons
+- question 1 choice A should be correct
+
+___
+
+- "inside and event"
+- "and, this"
+- "argument of addEventListener method."
+- "`// do something with record ... // do something with `data``"
+- "Functions" (x2+...)
+- "setTimeOut"
+- "is loaded already, it's"
+- "it's node can"
+- "like there are more than one"
+- "It's also likely to assume"
+- "the css"
+
+
+//======================== Quiz 3 =========================//
+...... check screenshots .....
+
+
+//======================== Quiz 4 =========================//
+- missing periods
+- code style -- ex:
+  - "`var context= {`"
+
+
+//======================== Quiz 5 =========================//
+- some missing periods after choices
+- some missing semicolons in code snippets
+
+___
+
+- ", the server responds with a the number"
+- "It's counterpart"
+- "using the XMLHttpRequest.setRequestHeader must"
+- "following code, select t"
+- "instead of responseType"
+- "a cross-origin request?"
+- "assigning id's to"
+- "and it's scope is not"
+
+
+//.................. feedback ...............//
+Question 8 Option B is marked as correct, but it actually is not correct. Trying to access the `responseText` property on a request that has a `responseType` of `json` raises an `InvalidStateError`, as specified on [MDN](https://devdocs.io/dom/xmlhttprequest/responsetext):
+
+> Exceptions
+
+> InvalidStateError
+
+> The `XMLHttpRequest.responseType` is not set to either the empty string or `"text"`. Since the responseText property is only valid for text content, any other value is an error condition.
+
+Actual error in Chrome:
+
+```
+VM736:1 Uncaught DOMException: Failed to read the 'responseText' property from 'XMLHttpRequest': The value is only accessible if the object's 'responseType' is '' or 'text' (was 'json').
+    at <anonymous>:1:9
+```
+
+Option C is the only correct answer.
+//.................. /feedback ...............//
 
 //================================================================================//
 //==============================================================================//*/

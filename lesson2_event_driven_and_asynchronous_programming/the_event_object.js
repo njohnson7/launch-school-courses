@@ -14,6 +14,15 @@
 - wrong indentation: `tbody.appendChild(tr);`
 - missing semicolon: `document.body.scrollTop = document.body.scrollHeight`
 - " red X moves "
+
+
+//======================== NEW FEEDBACK =========================//
+
+- "has the event listener attached to"
+- "back-tick(` `)"
+- "`var name = 'Jason'; ... // Hello Jim!`"
+- "allow us to use JavaScript expression"
+
 */
 //============================================================================//
 //============================================================================//
