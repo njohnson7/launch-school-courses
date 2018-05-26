@@ -304,13 +304,39 @@ arugment
 
 
 //======================== 4 - Buggy Code =========================//
-
+- `img` tag is missing closing angle bracket `>`
 
 
 image that nothing
 a click on a link which intiaites visiting
 intiaites
 
+
+//======================== 5 - Context Menus =========================//
+
+ (i.e., alert("sub")).
+
+//======================== 6 - Selection Filters =========================//
+- missing some semicolons
+
+(i.e., "Classifications")
+Bear, Turtle , Whale,
+`<option value="Tturtle">`
+`setOptions(animals,  ['Animals',`
+setOptions method
+in any of the two
+classfications
+ purpose; they
+['Vertebrate]
+
+
+//======================== 7 - Article Highlighter =========================//
+- missing some semicolons
+
+
+
+browers
+elements of the nav,
 
 
 //================================================================================//
