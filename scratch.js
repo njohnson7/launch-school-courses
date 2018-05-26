@@ -277,6 +277,42 @@ VM736:1 Uncaught DOMException: Failed to read the 'responseText' property from '
 Option C is the only correct answer.
 //.................. /feedback ...............//
 
+
+//============================ EVENTS EXERCISES ============================//
+//======================== 1 - Randomizer =========================//
+- solution outputs `1` even when no callbacks are passed
+
+
+function, randomizer that
+secods
+
+//======================== 2 - Reverse Engineer =========================//
+
+
+element#containter
+checking if event.target element
+- the `contains` method also returns true if its argument is the element itself, not just a child element: "checking if event.target element is a child of the element with an id of "container""
+as child,
+
+
+//======================== 3 - Bold Element + Custom =========================//
+- the Further Exploration instructions are confusing in regards to the purpose of the `CustomEvent`
+
+argumet
+arugment
+
+
+
+//======================== 4 - Buggy Code =========================//
+
+
+
+image that nothing
+a click on a link which intiaites visiting
+intiaites
+
+
+
 //================================================================================//
 //==============================================================================//*/
 
