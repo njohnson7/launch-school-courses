@@ -339,6 +339,22 @@ browers
 elements of the nav,
 
 
+//======================== 8 - Delegate Event Function =========================//
+- list item periods
+- double quoted string(s?)
+
+function takes three (4) arguments
+and, callback
+- "Delegate Event Function" ... "`<title>Event Delegation Function</title>`"
+each scenario independently of the other.
+`// Possible elements for used with`
+- there's only one callback listed: "`// Possible callbacks`"
+`// callbacks for used with`
+- there's no `nav` in the HTML: "`var element1 = document.querySelector('nav');`"
+element with text
+- "The solution [only] has a few lines"
+an parent
+
 //================================================================================//
 //==============================================================================//*/
 
