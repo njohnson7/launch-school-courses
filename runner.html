@@ -16,39 +16,9 @@
 <!--====================================================================================--><script>;
 
 
-/*======================== 1 =========================*/
-let Post = Backbone.Model.extend({
-  urlRoot: 'https://jsonplaceholder.typicode.com/posts',
-})
 
 
-/*======================== 2 =========================*/
-let post1 = new Post({ id: 1 })
-// post1.attributes.p
-
-
-/*======================== 3 =========================*/
-// post1.fetch().then(p)
-
-// post1.fetch({
-//   success(model) {
-//     p(model.toJSON())
-//   }
-// })
-
-
-/*======================== 4 =========================*/
-let User = Backbone.Model.extend({
-  urlRoot: 'https://jsonplaceholder.typicode.com/users',
-})
-
-post1.fetch()
-  .then(_ => new User({ id: post1.get('userId') }))
-  .then(user => user.fetch())
-  .then(pa)
-
-
-//======================================================================================//</script>
+/*======================================================================================*/;</script>
 <!-- <script src='scratch.js'></script> -->
 </body>
 </html>
