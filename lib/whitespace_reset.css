@@ -14,7 +14,7 @@ html { box-sizing: border-box; }
 *,*:before,*:after { box-sizing: inherit; }
 h1,h2,h3,h4,h5,h6 { font-weight: normal; }
 body { background: #000; color: #eee; font: 18px Helvetica, Arial, sans; }
-input { background: #222; color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+input,textarea { background: #222; color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
 button,select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
 a { color: #33b5e5; text-decoration: none; }
 a:hover { text-decoration: underline; }
