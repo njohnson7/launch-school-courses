@@ -15,63 +15,9 @@
 
 <!--====================================================================================--><script>;
 
-const PostModel = Backbone.Model.extend({
-  initialize() {
-    p(this.collection)
-    if (!this.get('id')) this.set('id', this.collection.nextId())
-  },
-})
-
-const Posts = Backbone.Collection.extend({
-  model:  PostModel,
-  url:    'http://jsonplaceholder.typicode.com/posts',
-  lastId: 0,
-  setLastId() {
-    if (this.isEmpty()) return
-    this.lastId = this.last().id
-  },
-  nextId() {
-    return ++this.lastId
-  },
-  initialize() {
-    this.on('sync', this.setLastId)
-  },
-})
-
-let blogRoll = new Posts()
-
-let usersData = [{ id: 1, name: 'Leanne Graham' }, { id: 2, name: 'Ervin Howell' }, { id: 3, name: 'Clementine Bauch' }]
-
-const User  = Backbone.Model.extend({})
-const Users = Backbone.Collection.extend({ model: User })
-let blogAuthors = new Users(usersData)
-// blogAuthors.reset(usersData)
-
-let firstPost
-blogRoll.fetch({
-  reset: true,
-  success(collection) {
-    collection.p
-    firstPost = collection.get(1).p
-  },
-})
-
-blogRoll.set({
-  id:     1,
-  userId: 1,
-  title:  'gg',
-  body:   'o wat',
-})
-
-
-
-
-
-
 
 
 
 /*======================================================================================*/;</script>
-<!-- <script src='scratch.js'></script> -->
 </body>
 </html>
