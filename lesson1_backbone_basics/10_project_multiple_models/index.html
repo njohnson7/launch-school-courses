@@ -56,162 +56,64 @@
 <!--====================================================================================--><script>;
 const itemsJson = [{ name: 'Bananas', quantity: 3 }, { name: 'Apples', quantity: 4 }]
 
-let sorters = {
-  byName:     (a, b) => a.name.localeCompare(b.name),
-  byQuantity: (a, b) => a.quantity - b.quantity,
-}
 
-const createTemplates = _ => $('[type="text/x-handlebars"]').get().reduce((templates, templ) => ({
-  [templ.id]: Handlebars.compile($(templ).remove().html()), ...templates
-}), {})
 
-const templates = createTemplates()
-Handlebars.registerPartial('item', templates.item)
+const formToJson = form => (
+  [...new FormData(form)].reduce((obj, [name, val]) => ({ ...obj, [name]: val }), {})
+)
 
-const setLocalStorage = _ => window.localStorage.items = jstr(items.map(item => item.toJSON()))
+Handlebars.registerPartial('item', $('#item').remove().html())
 
 const Item = Backbone.Model.extend({
-  render() {
-    let itemHtml = templates.item(this.toJSON())
-    $(tbody).append(itemHtml)
-  },
-  delete() {
-    let idx = items.indexOf(this)
-    items.splice(idx, 1)
-    let itemRow = $(`[data-id=${this.get('id')}]`).closest('tr')
-    itemRow.remove()
-    setLocalStorage()
-  },
   initialize() {
-    this.set('id', +this.cid.slice(1))
-    items.push(this)
-    this.render()
-    setLocalStorage()
+    this.set('id', this.collection.getNextId())
+    this.set('quantity', ~~this.get('quantity'))
   },
 })
 
-const tbody = $('tbody').get(0)
-let items = []
-let startingJson = window.localStorage.items ? jpar(window.localStorage.items) : itemsJson
-;[...startingJson].sort(sorters.byName).forEach(item => new Item(item))
+const Items = Backbone.Collection.extend({
+  model:    Item,
+  template: Handlebars.compile($('#items').remove().html()),
+  lastId:   0,
+  $body:    $('tbody'),
+  render() {
+    let html = this.template({ items: this.models })
+    this.$body.html(html)
+  },
+  getNextId() {
+    return ++this.lastId;
+  },
+  sortItems(prop) {
+    this.comparator = prop
+    this.sort()
+  },
+  initialize(items) {
+    this.on('add change remove sort reset', this.render)
+    this.set(itemsJson)
+    this.sortItems('name')
+  },
+})
 
-let form = $('form')[0]
-form.onsubmit = ev => {
+let items = new Items()
+
+$('form').submit(ev => {
   ev.preventDefault()
-  let item = new Item({ name: form.name.value, quantity: form.quantity.value })
+  let form = ev.target
+  items.add(formToJson(form))
   form.reset()
-}
-
-$(tbody).on('click', 'td a', function (ev) {
-  let id   = this.dataset.id
-  let item = items.find(item => item.get('id') == id)
-  item.delete()
 })
 
-const deleteAll = _ => [...items].forEach(item => item.delete())
-let $deleteAll = $('a:contains("Delete all")')
-$deleteAll.click(deleteAll)
+$(document).on('click', 'a', ev => {
+  ev.preventDefault()
+  ev.target.innerText == 'Delete all' ? items.reset() : items.remove(ev.target.dataset.id)
+})
 
-$('th').click(function (ev) {
-  let column = this.dataset.prop.replace(/^./, m => m.toUpperCase())
-  let itemzz = items.map(item => item.toJSON())
-  itemzz.sort(sorters[`by${column}`])
-  deleteAll()
-  itemzz.forEach(item => new Item(item))
+$('th').click(ev => {
+  items.sortItems(ev.target.dataset.prop)
 })
 
 
 
-/*==================================== LS ===========================================*/
-/*~~~~~~~~~~~~~~~~~~~~~*/ function LS_version() { /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*-----------------------------------------------------------------------------------*/
-
-var ItemModel = Backbone.Model.extend({
-  idAttribute: "id"
-});
-
-var Items = {
-  $body:      $("tbody"),
-  collection: [],
-  create: function(item_data) {
-    item_data.id = this.collection.length + 1;
-    var item = new ItemModel(item_data);
-
-    this.collection.push(item);
-
-    return item;
-  },
-  render: function() {
-    Items.$body.html(template({
-      items: this.collection
-    }));
-  },
-  seedCollection: function() {
-    items_json.forEach(this.create.bind(this));
-    this.sortBy("name");
-  },
-  remove: function(e) {
-    e.preventDefault();
-    var $e = $(e.currentTarget),
-        model = _(this.collection).findWhere({ id: +$e.attr("data-id") });
-
-    this.collection = _(this.collection).without(model);
-    this.render();
-  },
-  empty: function() {
-    this.collection = [];
-    this.render();
-  },
-  sortBy: function(prop) {
-    this.collection = _(this.collection).sortBy(function(m) {
-      return m.attributes[prop];
-    });
-    this.render();
-  },
-  bind: function() {
-    this.$body.on("click", "a", this.remove.bind(this));
-  },
-  init: function() {
-    this.seedCollection();
-    this.render();
-    this.bind();
-  }
-};
-
-var template = Handlebars.compile($("#items").html());
-
-Handlebars.registerPartial("item", $("#item").html());
-
-$("form").on("submit", function(e) {
-  e.preventDefault();
-  var inputs = $(this).serializeArray(),
-      attrs = {},
-      item;
-
-  inputs.forEach(function(input) {
-    attrs[input.name] = input.value;
-  });
-
-  item = Items.create(attrs);
-  Items.$body.append(Handlebars.partials.item(item.toJSON()));
-  this.reset();
-});
-
-$("th").on("click", function() {
-  var prop = $(this).attr("data-prop");
-  Items.sortBy(prop);
-});
-
-$("p a").on("click", function(e) {
-  e.preventDefault();
-  Items.empty();
-});
-
-Items.init();
-
-/*=================================== /LS ===========================================*/
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ } /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*-----------------------------------------------------------------------------------*/
 
 /*======================================================================================*/;</script>
 </body>
