@@ -1,0 +1,118 @@
+html,
+body {
+  background:      #000;
+  color:           #eee;
+  font:            normal 18px Helvetica, Arial, sans-serif;
+  margin:          0;
+}
+main {
+  background:      #181818;
+  margin:          0 auto;
+  padding:         25px;
+  width:           600px;
+}
+h1 {
+  font-family:     Georgia;
+}
+footer h3 {
+  display:         inline-block;
+  padding-right:   10px;
+}
+footer ul {
+  display:         inline-block;
+  padding:         0;
+}
+footer li {
+  display:         inline-block;
+}
+footer li + li:before {
+  content:         ', ';
+}
+fieldset {
+  border:          none;
+  margin:          0;
+  padding:         0;
+}
+dt {
+  padding:         0 0 5px 0;
+}
+dd {
+  margin:          0 0 20px 0;
+}
+label {
+  font-weight:     bold;
+}
+input[type='text'] {
+  background:      #000;
+  border-radius:   6px;
+  box-sizing:      border-box;
+  color:           #eee;
+  font:            normal 16px Helvetica, Arial, sans-serif;
+  height:          28px;
+  padding:         5px;
+  width:           100%;
+}
+input[name='quantity'] {
+  width:           50px;
+}
+input[type='submit'] {
+  background:      #000;
+  border:          none;
+  border-radius:   6px;
+  color:           #33b5e5;
+  cursor:          pointer;
+  font:            normal 16px Helvetica, Arial, sans-serif;
+  padding:         12px 20px;
+}
+input[type='submit']:hover {
+  background:      #33b5e5;
+  color:           #000;
+}
+table {
+  border-spacing:  0;
+  color:           #eee;
+  width:           100%;
+}
+th {
+  cursor:          pointer;
+  padding:         0 5px;
+  text-align:      left;
+}
+td {
+  padding:         5px;
+}
+td a {
+  background:      #000;
+  border-radius:   100%;
+  color:           #33b5e5;
+  display:         block;
+  height:          24px;
+  overflow:        hidden;
+  position:        relative;
+  text-decoration: none;
+  text-indent:     -8685px;
+  width:           24px;
+}
+td a:after {
+  content:         'X';
+  left:            8px;
+  position:        absolute;
+  text-indent:     0;
+  top:             4px;
+}
+tbody tr:nth-of-type(even) td {
+  background:      #000;
+}
+p {
+  text-align:      right;
+}
+p a {
+  color:           #33b5e5;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+input {
+  border:          1px solid #33b5e5;
+}
