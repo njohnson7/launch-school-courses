@@ -21,7 +21,6 @@ const ListItemView = Backbone.View.extend({
   template: Handlebars.templates.listItem,
   render() {
     this.$el.html(this.template(this.model.toJSON()))
-    return this.el
+    return this.el.p
   },
 })
-

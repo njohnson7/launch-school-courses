@@ -3,7 +3,8 @@
 <head>
   <title>16 - Views Exercises</title>
   <meta charset='utf-8'>
-  <link  href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <link   href='stylesheets/whitespace_reset.css' rel='stylesheet'>
+  <link   href='stylesheets/app.css'              rel='stylesheet'>
   <script src='../../lib/good_fns_lite.js'></script>
   <script src='../../lib/jquery.js'></script>
   <script src='../../lib/underscore.js'></script>
@@ -12,34 +13,11 @@
   <script src='javascripts/templatesCompiled.js'></script>
 </head>
 <body>
-  <h1>Favorite Colors</h1>
-  <ul id='favorites'></ul>
-
-<script src='javascripts/models/listItem.js'></script>
-<script src='javascripts/collections/list.js'></script>
-<script src='javascripts/views/listItem.js'></script>
-<script src='javascripts/views/list.js'></script>
-<!--====================================================================================--><script>;
-
-
-Handlebars.templates.p
-
-item = new ListItem({ name: 'Bob', colors: [1, 2, 3] })
-item.pj
-
-view = new ListItemView({ model: item })
-view.p
-p(view.model)
-// view.toJSON().p
-
-view.render().p
-
-
-
-list = new List()
-list.add(item)
-list.pj
-
-/*======================================================================================*/;</script>
+  <script src='javascripts/models/listItem.js'></script>
+  <script src='javascripts/collections/list.js'></script>
+  <script src='javascripts/views/listItem.js'></script>
+  <script src='javascripts/views/list.js'></script>
+  <script src='javascripts/views/app.js'></script>
+  <script src='javascripts/app.js'></script>
 </body>
 </html>
