@@ -1,0 +1,22 @@
+{
+  "name": "1_bower",
+  "homepage": "https://github.com/njohnson7/launch_school_5260",
+  "authors": [
+    "Nick Johnson <njohnson7@users.noreply.github.com>"
+  ],
+  "description": "bower practice",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "backbone": "^1.3.3"
+  }
+}
