@@ -19,14 +19,8 @@
           <th data-prop='quantity' colspan='2'>Quantity</th>
         </tr>
       </thead>
-      <tbody></tbody>
-      <tfoot>
-        <tr>
-          <th>Total</th>
-          <td id='total'></td>
-          <td></td>
-        </tr>
-      </tfoot>
+      <tbody>
+      </tbody>
     </table>
     <p><a href='#'>Delete all</a></p>
 
@@ -64,20 +58,27 @@ const itemsJson = [{ name: 'Bananas', quantity: 3 }, { name: 'Apples', quantity:
 
 
 
+const formToJson = form => (
+  [...new FormData(form)].reduce((obj, [name, val]) => ({ ...obj, [name]: val }), {})
+)
 
+Handlebars.registerPartial('item', $('#item').remove().html())
 
 const Item = Backbone.Model.extend({
   initialize() {
-    this.set('id',       this.collection.getNextId())
+    this.set('id', this.collection.getNextId())
     this.set('quantity', ~~this.get('quantity'))
   },
 })
 
 const Items = Backbone.Collection.extend({
   model:    Item,
+  template: Handlebars.compile($('#items').remove().html()),
   lastId:   0,
-  getTotal() {
-    return this.reduce((sum, item) => sum + item.toJSON().quantity, 0)
+  $body:    $('tbody'),
+  render() {
+    let html = this.template({ items: this.models })
+    this.$body.html(html)
   },
   getNextId() {
     return ++this.lastId;
@@ -87,61 +88,31 @@ const Items = Backbone.Collection.extend({
     this.sort()
   },
   initialize(items) {
+    this.on('add change remove sort reset', this.render)
     this.set(itemsJson)
     this.sortItems('name')
   },
 })
 
-const ItemsView = Backbone.View.extend({
-  el:       'tbody',
-  template: Handlebars.compile($('#items').remove().html()),
-  render() {
-    let html = this.template({ items: this.collection.models })
-    this.$el.html(html)
-    $('#total').text(this.collection.getTotal())
-    return this
-  },
-  initialize() {
-    Handlebars.registerPartial('item', $('#item').remove().html())
-    this.listenTo(this.collection, 'add remove sort reset', this.render)
-    this.render()
-  },
+let items = new Items()
+
+$('form').submit(ev => {
+  ev.preventDefault()
+  let form = ev.target
+  items.add(formToJson(form))
+  form.reset()
 })
 
-const app = {
-  form: qs('form'),
-  formToJson() {
-    let fields = [...new FormData(this.form)]
-    return fields.reduce((obj, [name, val]) => ({ ...obj, [name]: val }), {})
-  },
-  addItem(ev) {
-    ev.preventDefault()
-    this.items.add(this.formToJson())
-    this.form.reset()
-  },
-  delete(ev) {
-    ev.preventDefault()
-    let deleteBtn = ev.target
-    deleteBtn.innerText == 'Delete all'
-      ? this.items.reset()
-      : this.items.remove(deleteBtn.dataset.id)
-  },
-  sortItemsByProp(ev) {
-    this.items.sortItems(ev.target.dataset.prop)
-  },
-  bindEvents() {
-    this.form.onsubmit = this.addItem.bind(this)
-    $('th').click(this.sortItemsByProp.bind(this))
-    $(document).on('click', 'a', this.delete.bind(this))
-  },
-  init() {
-    this.items     = new Items()
-    this.itemsView = new ItemsView({ collection: this.items })
-    this.bindEvents()
-  },
-}
+$(document).on('click', 'a', ev => {
+  ev.preventDefault()
+  ev.target.innerText == 'Delete all' ? items.reset() : items.remove(ev.target.dataset.id)
+})
 
-app.init()
+$('th').click(ev => {
+  items.sortItems(ev.target.dataset.prop)
+})
+
+
 
 
 /*======================================================================================*/;</script>
