@@ -10,28 +10,24 @@
 
 
 
+const $articles = $('article')
+const $a        = $('a')
 
-
-
-
-  $(window).on("popstate", function(e) {
-    var state = e.originalEvent.state;
-    e.p
-    // switchPage(state === null ? "#page_1" : state.idx);
-  });
-
-
-let $articles = $('article')
-let $a        = $('a')
+const switchPage = id => {
+  $a.removeClass('active')
+  $a.find(a => a.href == id).addClass('active')
+  $articles.hide().filter(id).show()
+}
 
 $a.click(function (ev) {
   ev.preventDefault()
-
-  $a.removeClass('active')
   let $clickedA = $(this)
-  $clickedA.addClass('active')
-
-  let id = $clickedA.attr('href')
-  $articles.hide().filter(id).show()
+  let id        = $clickedA.attr('href')
+  switchPage(id)
   history.pushState({ id }, $clickedA.text(), id)
+})
+
+$(window).on(`popstate`, function (ev) {
+  let state = ev.originalEvent.state
+  switchPage(state ? state.id : '#page_1')
 })
