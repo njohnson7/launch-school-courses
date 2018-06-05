@@ -3,30 +3,52 @@
 <head>
   <title>Music Collection</title>
   <meta charset='utf-8'>
-  <!-- <link href='stylesheets/page.css' rel='stylesheet'> -->
+  <link   href='stylesheets/app.css' rel='stylesheet'>
   <script src='javascripts/good_fns_lite.js'></script>
   <script src='javascripts/vendor/all.js'></script>
 </head>
 <body>
-  <h1>Albums</h1>
-  <ul id='albums'></ul>
+  <main>
+    <h1>Albums</h1>
+    <ul id='albums'></ul>
+  </main>
 
-<script data-name='albums' type='text/x-handlebars'>
-  {{#each albums}}
-    <li>
-      <a href='{{tracksUrl}}'>
-        <img src='{{cover}}'>
-        <h2>{{title}}</h2>
-        <h3>{{artist}}</h3>
-        <p>Released: {{date}}</p>
-      </a>
-    </li>
-  {{/each}}
-</script>
+  <div id='overlay'></div>
+
+  <script data-name='albums' type='text/x-handlebars'>
+    {{#each albums}}
+      <li>
+        <a href='{{tracksUrl}}'>
+          <img src='{{cover}}'>
+          <h2>{{title}}</h2>
+          <h3>{{artist}}</h3>
+          <p>Released: {{date}}</p>
+        </a>
+      </li>
+    {{/each}}
+  </script>
+
+  <script data-name='tracks' type='text/x-handlebars'>
+    {{#with album}}
+      <a class='close' href='#'>Close</a>
+      <img src='{{cover}}'>
+      <h2>{{title}}</h2>
+      <h3>{{artist}}</h3>
+      <p>Released: {{date}}</p>
+    {{/with}}
+    <ol>
+      {{#each tracks}}
+        <li>{{title}}<small>{{length}}</small></li>
+      {{/each}}
+    </ol>
+  </script>
 
 <script src='javascripts/models/Album.js'></script>
+<script src='javascripts/models/Track.js'></script>
 <script src='javascripts/collections/Albums.js'></script>
+<script src='javascripts/collections/Tracks.js'></script>
 <script src='javascripts/views/Albums.js'></script>
+<script src='javascripts/views/Tracks.js'></script>
 <script src='javascripts/app.js'></script>
 </body>
 </html>

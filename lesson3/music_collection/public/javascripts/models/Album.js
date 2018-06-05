@@ -15,7 +15,7 @@
 
 const Album = Backbone.Model.extend({
   parse(attrs) {
-    attrs.tracksUrl = `/album/${attrs.title}`
+    attrs.tracksUrl = `/albums/${attrs.title}`
     return attrs
   },
 })
