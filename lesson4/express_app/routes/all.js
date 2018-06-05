@@ -1,26 +1,13 @@
 const express = require('express')
 const router  = express.Router()
-const _       = require('underscore')
+const fs      = require('fs')
+const path    = require('path')
 
-module.exports = function (app) {
-  const setActiveNavTo = title => {
-    let activeItem = _(app.locals.links).findWhere({ active: true })
-    if (activeItem) activeItem.active = false
-    _(app.locals.links).findWhere({ title }).active = true
-  }
-
-  // GET home page
-  router.get('/', function (req, res, next) {
-    let title = 'Home'
-    setActiveNavTo(title)
-    res.render('index', { title })
+router.get('/', (req, res, next) => {
+  let products = fs.readFileSync(path.resolve(path.dirname(__dirname), 'public/products.json'), 'utf8')
+  res.render('index', {
+    products: JSON.parse(products),
   })
+})
 
-  router.get('/about', function (req, res, next) {
-    let title = 'About'
-    setActiveNavTo(title)
-    res.render('about', { title })
-  })
-
-  return router
-}
+module.exports = router

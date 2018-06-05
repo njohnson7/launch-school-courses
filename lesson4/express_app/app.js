@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser')
 const logger       = require('morgan')
 
 const app  = express()
-app.locals = require('./locals')
 
-const routes = require('./routes/all')(app)
+const routes = require('./routes/all')
+
+app.locals.basedir = path.join(__dirname, 'views')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
