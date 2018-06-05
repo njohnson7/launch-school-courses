@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const path   = require('path')
+const Albums = require(path.resolve(path.dirname(__dirname), 'modules/albums'))
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const getAlbums = _ => JSON.parse(fs.readFileSync(filePath, 'utf8')).data
 
-module.exports = router;
+module.exports = router => {
+  router.get('/', (req, res, next) => {
+    res.render('index', {
+      albums: Albums.get(),
+    })
+  })
+}

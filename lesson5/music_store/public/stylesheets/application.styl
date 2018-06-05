@@ -1,0 +1,58 @@
+@import 'whitespace-reset.css'
+@import 'mixins'
+
+body
+  background: colors.bg
+  color:      colors.text
+  font:       normal 18px Lato, sans-serif
+
+h1
+  font-size: 2em
+  padding:   0 0 25px 0
+
+form
+  dt
+    padding: 0 0 5px 0
+  dd
+    padding: 0 0 20px 0
+  input[type='text'],
+  input[type='date'],
+  input[type='url']
+    background: colors.bg
+    color: colors.text
+    border:        1px solid colors.border
+    border-radius: 6px
+    box-sizing:    border-box
+    font-size: 1rem
+    height:        30px
+    padding:       5px 8px
+    width:         100%
+
+main
+  background: colors.main
+  margin:     0 auto
+  padding:    25px 40x
+  width:      800px
+
+ul
+  margin:  0 0 0 -20px
+  padding: 0 0 40px 0
+  li
+    box-sizing:     border-box
+    display:        inline-block
+    padding:        0 0 25px 20px
+    vertical-align: top
+    width:          20%
+    img
+      display: block
+      margin:  0 0 10px 0
+      width:   100%
+    h2, h3, p
+      padding: 0 0 5px 0
+    h2
+      font-size: 1.5em
+    h3
+      font-size: 1.25em
+
+a.button, input[type='submit']
+  button()

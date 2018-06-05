@@ -1,7 +1,11 @@
+include /_mixins
+
 doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato')
+    +stylesheet_link_tag('application')
   body
-    block content
+    main
+      block content
