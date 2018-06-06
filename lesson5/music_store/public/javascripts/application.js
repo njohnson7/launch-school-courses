@@ -1,5 +1,5 @@
 const App = {
-  templates: JST,
+  templates:  JST,
   $el:        $('main'),
   renderAlbums() {
     this.albums.forEach(this.renderAlbumView)
@@ -13,3 +13,5 @@ const App = {
     this.renderAlbums()
   },
 }
+
+Handlebars.registerHelper('formatPrice', price => (+price).toFixed(2))
