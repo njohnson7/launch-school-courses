@@ -17,9 +17,6 @@ module.exports = router => {
     })
     .put((req, res) => {
       let albums       = Albums.get()
-
-      console.log(req.body)
-
       let currentAlbum = _(albums).findWhere({ id: +req.body.id })
       _.extend(currentAlbum, req.body)
       Albums.set(albums)
