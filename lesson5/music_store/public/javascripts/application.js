@@ -2,8 +2,9 @@ const App = {
   templates:  JST,
   $el:        $('main'),
   indexView() {
-    this.indexView = new IndexView()
+    this.index = new IndexView()
     this.renderAlbums()
+    this.bindEvents()
   },
   renderAlbums() {
     this.albums.forEach(this.renderAlbumView)
@@ -18,11 +19,7 @@ const App = {
   },
   bindEvents() {
     _.extend(this, Backbone.Events)
-    this.listenTo(this.indexView,  'add_album', this.newAlbum)
-  },
-  init() {
-    this.indexView()
-    this.bindEvents()
+    this.listenTo(this.index, 'add_album', this.newAlbum)
   },
 }
 

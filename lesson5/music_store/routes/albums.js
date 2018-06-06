@@ -29,6 +29,8 @@ module.exports = router => {
     })
 
   router.get('/albums/new', (req, res) => {
-    res.render('new')
+    res.render('new', {
+      albums: Albums.get(),
+    })
   })
 }
