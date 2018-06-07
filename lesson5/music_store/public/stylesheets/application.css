@@ -29,8 +29,9 @@ form input[type='url'] {
 }
 main {
   background: #191919;
+  clear: both;
   margin: 0 auto;
-  padding: 25px 40x;
+  padding: 25px 40px;
   width: 800px;
 }
 #index ul {
@@ -90,4 +91,77 @@ input[type='submit']:active {
   box-shadow: 1px 1px 0 1px #14799e;
   left: 2px;
   top: 2px;
+}
+header {
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 800px;
+}
+#cart {
+  float: right;
+  padding: 15px 0 0 0;
+  position: relative;
+  text-align: right;
+  width: 50%;
+}
+#cart label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 2px 3px;
+}
+#cart input {
+  display: none;
+}
+#cart input:checked + #items {
+  display: block;
+}
+#cart #items {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  padding: 5px 10px;
+  color: #000;
+  background: #33b5e5;
+}
+#cart #items li {
+  padding: 5px 0;
+  font-size: 12px;
+  text-align: left;
+}
+#cart #items small {
+  font-size: 11px;
+  float: right;
+  margin: 0 0 0 10px;
+}
+#cart #items a {
+  float: left;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px 0 0;
+  overflow: hidden;
+  text-indent: 8685px;
+  transform: rotate(45deg);
+}
+#cart #items a:before,
+#cart #items a:after {
+  position: absolute;
+  content: '';
+  background: #0018ff;
+}
+#cart #items a:before {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+  width: 2px;
+}
+#cart #items a:after {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 2px;
+  margin-top: -1px;
 }

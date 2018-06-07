@@ -9,13 +9,16 @@ html
     +javascript_include_tag('vendor/all')
     +javascript_include_tag('handlebars_templates')
   body
+    header
+      #cart
+
     main
       block content
 
     +javascript_include_tag('application')
     +javascript_include_tag('models/Album')
-    +javascript_include_tag('collections/Albums')
-    +javascript_include_tag('views/Album', 'views/NewAlbum', 'views/Index')
+    +javascript_include_tag('collections/Albums', 'collections/CartItems')
+    +javascript_include_tag('views/Album', 'views/NewAlbum', 'views/Index', 'views/Cart')
     script.
       App.albums = new Albums(!{JSON.stringify(albums)})
     +javascript_include_tag('router')
