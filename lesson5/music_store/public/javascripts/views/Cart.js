@@ -6,8 +6,8 @@ const CartView = Backbone.View.extend({
   },
   destroy(ev) {
     ev.preventDefault()
-    let $elem = $(ev.target)
-    // this
+    this.collection.trigger('destroy', ev.target.dataset.id)
+    this.render()
   },
   render() {
     this.$el.html(this.template({
