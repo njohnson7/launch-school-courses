@@ -21,4 +21,3 @@ const CartView = Backbone.View.extend({
     this.listenTo(this.collection, 'cart_updated', this.render)
   },
 })
-

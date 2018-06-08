@@ -1,4 +1,4 @@
-const AlbumView = Backbone.View.extend({
+const AlbumView = Backbone.View.extend({aaaaaaaaadasdf51920idjk90as0d90awdja2jjd
   tagName:  'li',
   template: App.templates.album,
   events: {
@@ -19,3 +19,4 @@ const AlbumView = Backbone.View.extend({
     this.model.view = this
   },
 })
+a
