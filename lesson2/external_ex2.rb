@@ -1,4 +1,4 @@
 msg = ARGV.first
 
-`git add -A`
-`git commit -m '#{msg}'`
+puts `git add -A`
+puts `git commit -m '#{msg}'`
