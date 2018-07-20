@@ -157,7 +157,31 @@ def verify_password password
   puts gets.chomp == password ? 'Welcome to the inside!' : 'Authentication failed.'
 end
 
-password   = nil
-password ||= set_password
-verify_password password
+# password   = nil
+# password ||= set_password
+# verify_password password
+
+
+
+
+#----- 8: number guessing game -----#
+def guess_number(max_number, max_attempts, winning_number = [*1..max_number].sample, attempts = 0)
+  return if attempts >= max_attempts
+
+  input = nil
+  until input&.match? /\A\d+\z/
+    print 'Make a guess: '
+    input = gets.chomp
+  end
+
+  guess = input.to_i
+  if guess == winning_number
+    puts 'Yes! You win.'
+  else
+    puts "Nope. Too #{guess < winning_number ? 'small' : 'big'}."
+    guess_number max_number, max_attempts, winning_number, attempts + 1
+  end
+end
+
+guess_number(10, 3)
 
