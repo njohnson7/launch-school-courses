@@ -1,0 +1,139 @@
+@import url('whitespace-reset.css');
+
+html, body {
+  font: normal 28px Helvetica, Arial, sans-serif;
+}
+
+main {
+  border: 2px solid #000;
+  margin: 8px;
+  height: 1172px;
+  padding: 10px 15px;
+  width: 680px;
+}
+
+h1 {
+  font-size: 56px;
+  font-weight: bold;
+}
+
+header {
+  border-bottom: 30px solid #000;
+  padding-bottom: 5px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+section:first-of-type {
+  border-bottom: 15px solid #000;
+  margin-top: 10px;
+  padding-bottom: 3px;
+}
+
+section:first-of-type dl {
+  margin-top: 10px;
+}
+
+section:first-of-type dt, section:first-of-type dd {
+  border-top: 1px solid #000;
+  padding-top: 5px;
+}
+
+dl:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+dt, dd {
+  border-top: 1px solid #000;
+  padding: 2px 0;
+  width: 323px;
+}
+
+dt {
+  clear: both;
+  float: left;
+}
+
+dd {
+  float: right;
+  text-align: right;
+}
+
+section:nth-of-type(2) {
+  margin-top: 11px;
+}
+section:nth-of-type(2) h2 {
+  float: right;
+  padding: 0 1px 1px 0;
+}
+
+sup {
+  display: inline-block;
+  font-size: 23px;
+  font-weight: bold;
+  vertical-align: 3px;
+}
+
+dl .indent {
+  margin-left: 28px;
+  width: 295px;
+}
+
+section:last-of-type {
+  border-top: 19px solid #000;
+}
+
+footer {
+  border-top: 1px solid #000;
+  padding-top: 14px;
+}
+
+h3 {
+  float: right;
+  font-size: 25.2px;
+  margin-bottom: 13px;
+  text-align: left;
+  width: 629.5px;
+}
+
+footer sup {
+  float: left;
+  font-size: 25.1px;
+  font-weight: normal;
+  margin-left: -0.5px;
+}
+
+span {
+  color: transparent;
+  font-size: 7px;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 22.4px;
+  text-align: left;
+  width: 646px;
+}
+
+td {
+  padding-top: 3px;
+}
+
+td, th {
+  padding-left: 0;
+}
+
+thead > tr th {
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+}
+
+
+th.indent {
+  padding-left: 33.8px;
+}

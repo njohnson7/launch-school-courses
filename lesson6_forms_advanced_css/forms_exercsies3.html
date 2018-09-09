@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <title></title>
+  <meta charset='utf-8'>
+  <style>
+    body { background: #000; color: #eee; }
+    html { box-sizing: border-box; }
+    *, *:before, *:after { box-sizing: inherit; }
+  </style>
+</head>
+<body>
+  <form action='#' method='get'>
+    <fieldset>
+      <legend>Categories</legend>
+      <ul>
+        <li>
+          <label>
+            <input type='radio' name='category' value='core'>Core
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='radio' name='category' value='plugins'>Plugins and Libraries
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='radio' name='category' value='conventions'>Conventions
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='radio' name='category' value='reviews'>Reviews
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='radio' name='category' value='opinion'>Opinion
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='radio' name='category' value='people'>People
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <legend>Tags</legend>
+      <ul>
+        <li>
+          <label>
+            <input type='checkbox' name='html'>HTML
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='css'>CSS
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='javascript'>JavaScript
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='ruby'>Ruby
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='rails'>Rails
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='python'>Python
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type='checkbox' name='django'>Django
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+    <button type='submit'>Filter</button>
+  </form>
+</body>
+</html>

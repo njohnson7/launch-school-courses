@@ -1,0 +1,15 @@
+- didn't use a figure element (it seems like insufficient information to tell if it is semantically appropriate here, since all the words are in latin.)
+- added a <title>
+- used margin more than padding
+- used a clearfix class instead of `overflow: hidden;`
+- sorted declarations in rules in alphabetical order by property
+- increased the default line height
+- set all elements to `border-box`
+- used `img-article` class for `img_article.jpg` as selector, instead of `figure`
+- didn't style `img_masthead.jpg`
+- combined width and margin declarations into one rule with selector of `header, main, footer`
+- used slightly different margin/padding measurements
+
+
+- entity vs copyright symbol?
+

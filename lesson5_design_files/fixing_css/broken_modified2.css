@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font: normal 16px Arial, sans-serif;
+  color: #222;
+  background: #484848;
+}
+
+.button {
+  padding: 7px 20px;
+  font: normal .87em Helvetica, Arial, sans-serif;
+  color: #995252;
+  border: none;
+  border-radius: 6px;
+  background: #b3f6ff;
+}
+
+body > header {
+  width: 980px;
+  padding: 15px 25px;
+  margin: 0 auto 25px auto;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+header li {
+  display: inline-block;
+  width: 20%;
+  background: #b3f6ff;
+  font-size: 1rem;
+}
+header a {
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #995252;
+  display: block;
+}
+header a:hover {
+  text-decoration: underline;
+}
+
+main {
+  /* overflow: hidden; */
+  margin: 0 auto 25px auto;
+  width: 980px;
+  padding: 15px 25px;
+  background: #ffffff;
+  box-sizing: border-box;
+  /* position: relative; */
+  /* z-index: -1; */
+  height: 778px;
+}
+main header {
+  position: relative;
+  left: -25px;
+  height: 60px;
+  padding: 0 0 0 25px;
+  color: #f0f0f0;
+  background: #b00b00;
+  box-shadow: -1px 0 3px rgba(0, 0, 0, .2);
+}
+main header:before {
+  position: absolute;
+  top: 4px;
+  bottom: 0;
+  left: -75px;
+  z-index: 1;
+  width: 15px;
+  content: "";
+  border: 30px solid #b00b00;
+  border-left-color: #484848
+}
+main h1 {
+  padding: 10px 0 0 0;
+  margin: 0;
+  font: italic bold 2em Georgia, Palatino, serif;
+}
+main time {
+  position: absolute;
+  top: 12px;
+  left: -40px;
+  z-index: 1;
+  width: 30px;
+  text-align: center;
+  line-height: 140%;
+}
+
+.two_third {
+  float: left;
+  width: 66.66%;
+  padding: 0 20px 0 0;
+  box-sizing: border-box;
+}
+
+.one_third {
+  float: right;
+  width: 33.33%;
+  box-sizing: border-box;
+}
+
+.one_third fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.one_third input[type="search"] {
+  height: 28px;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+}
+
+footer {
+  padding: 10px 25px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: #f0f0f0;
+  background: #b00b00;
+  clear: both;
+}
+footer p { margin: 0; }

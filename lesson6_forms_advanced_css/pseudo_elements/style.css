@@ -1,0 +1,115 @@
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  color: #333333;
+  font: normal 18px Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+h1 {
+  font-size: 24px;
+  margin-top: 0;
+}
+h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+#column {
+  margin: 0 130px 0 160px;
+}
+
+header {
+  background: #2c3e50;
+  float: left;
+  font-size: 14px;
+  height: 100vh;
+  margin-left: -160px;
+  padding: 15px;
+  width: 160px;
+}
+header a {
+  color: #ecf0f1;
+  text-decoration: none;
+}
+header li {
+  padding-bottom: 15px;
+}
+header li a:before {
+  background: transparent url('icons_nav.png') 0 0 no-repeat;
+  color: transparent;
+  content: '*';
+  display: inline-block;
+  height: 26px;
+  margin-right: 5px;
+  vertical-align: middle;
+  width: 27px;
+}
+header li + li a:before {
+  background-position: 0 -26px;
+  height: 20px;
+}
+header li:last-child a:before {
+  background-position: 0 -46px;
+  height: 16px;
+}
+header li a:hover:before {
+  background-position: 100% 0px;
+}
+header li + li a:hover:before {
+  background-position: 100% -26px;
+}
+header li:last-child a:hover:before {
+  background-position: 100% -46px;
+}
+
+main {
+  float: left;
+  padding: 25px;
+  width: 100%;
+}
+
+footer {
+  background: #e74c3c;
+  float: right;
+  font-size: 12px;
+  height: 100vh;
+  margin-right: -130px;
+  padding: 15px;
+  width: 130px;
+}
+footer li {
+  padding-bottom: 10px;
+}
+footer a {
+  background: #fff;
+  color: #2980b9;
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+}
+footer a:before {
+  background: transparent url('icons_social.png') 0 0 no-repeat;
+  background-size: 24px;
+  color: transparent;
+  content: '*';
+  display: inline-block;
+  height: 24px;
+  margin-right: 5px;
+  vertical-align: middle;
+  width: 24px;
+}
+footer li:nth-of-type(2) a:before {
+  background-position: 0 50%;
+}
+footer li:last-of-type a:before {
+  background-position: 0 100%;
+}
+footer a:hover:before {
+  background-color: #00bf8f;
+}
