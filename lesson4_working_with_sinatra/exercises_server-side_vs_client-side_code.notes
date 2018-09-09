@@ -1,0 +1,23 @@
+Gemfile:
+  - server-side
+  - executed by Bundler gem to install libraries needed to run program
+    - *Bundler* => Ruby dependency management system
+
+Ruby Files (`.rb):
+  - server-side
+  - core of a Sinatra app
+  - code runs on server while handling incoming requests
+
+Stylesheets (`.css):
+  - client-side
+  - code is interpreted by web browser (client) as instructions for how to display web page
+
+JavaScript Files (`.js):
+  - client-side
+  - code is evaluated by JS interpreter w/i browser to add behavior to web page
+
+View Templates (`.erb):
+  - server-side
+  - # b/c they must be processed by a program on server before being sent to client
+    - sometimes called <server-side templates> to differentiate them from client-side templates (used by JS)
+  - Ruby code inside is evaluated on server to generate response to send to client

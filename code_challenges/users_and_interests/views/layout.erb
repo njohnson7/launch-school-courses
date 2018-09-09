@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title %></title>
+</head>
+
+<body>
+  <%= yield %>
+  <br>
+  <p>There are <%= @users.size %> users with a total of <%= count_interests %> interests.</p>
+  <p><a href='/'>Home</a></p>
+</body>
+</html>

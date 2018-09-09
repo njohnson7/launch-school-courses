@@ -1,0 +1,15 @@
+<h1><%= @name %></h1>
+<p><strong>Email:</strong> <a href='mailto:<%= @user[:email] %>'><%= @user[:email] %></a></p>
+<p><strong>Interests:</strong> <%= @user[:interests].join(', ') %></p>
+
+<br>
+<br>
+
+<h4>Other Users</h4>
+<ul>
+<% @names.reject { |name| name == @name }.each do |name| %>
+    <li>
+      <a href='<%= name %>'><%= name %></a>
+    </li>
+  <% end %>
+</ul>

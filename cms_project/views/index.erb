@@ -1,0 +1,36 @@
+<h3>Documents</h3>
+<ul>
+  <% @files.sort.each do |file| %>
+    <li>
+      <a href='/<%= file %>'><%= file %></a>
+      <% if VALID_EXTENSIONS.include?(File.extname(file)) %>
+        <form class='inline' action='/<%= file %>/edit' method='get'>
+          <button type='submit'>edit</button>
+        </form>
+      <% end %>
+      <form class='inline' action='/<%= file %>/delete' method='post'>
+        <button type='submit'>delete</button>
+      </form>
+      <form class='inline' action='/<%= file %>/duplicate' method='post'>
+        <button type='submit'>duplicate</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+<p><a href='/new'>New Document</a></p>
+
+<% if session[:username] %>
+  <form action='/users/signout' method='post'>
+    <p class='user-status'>
+      Signed in as <%= session[:username] %>.
+      <button type='submit'>Sign Out</button>
+    </p>
+  </form>
+
+<% else %>
+  <p class='user-status'>
+    <a href='/users/signin'>Sign In</a> /
+    <a href='/users/signup'>Sign Up</a>
+  </p>
+<% end %>
