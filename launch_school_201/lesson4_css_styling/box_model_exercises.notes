@@ -1,0 +1,110 @@
+------------------ 1 -------------------
+
+// - inline: a, em, img, span
+- block: blockquote, form, p, ul
+- inline: DEPENDS ON BROWSER!
+- inline-block: depends on browser!
+
+
+
+
+
+
+------------------ 2 -------------------
+
+- b, c, f
+
+
+
+
+
+
+------------------ 3 -------------------
+
+- horizontal: 500 + 8 + 40 + 30 = 578px
+- vertical:   300 + 8 + 20 + 30 = 358px
+
+
+
+
+
+
+
+------------------ 4 -------------------
+
+- horizontal: 500 + 8 + 40 + 30 = 578px
+- vertical:   300 + 8 + 20 + 30 = 358px
+
+
+
+
+
+
+------------------ 5 -------------------
+
+- horizontal: content + 40px padding + 8px border = content + 48px
+- vertical:   line height
+
+
+
+
+
+
+------------------ 6 -------------------
+
+- horizontal: 500 + 30 = 530px
+- vertical:   300 + 30 = 330px
+
+
+
+
+
+------------------ 7 -------------------
+
+[html]
+<!doctype html>
+<html lang="en-US">
+<head>
+  <title>Question 7</title>
+  <style>
+    section {
+      border: 1px solid red;
+      height: 400px;
+      margin: 0;
+      padding: 20px;
+      width: 400px;
+    }
+
+    article {
+      border: 1px solid blue;
+      box-sizing: border-box;
+      /*display: inline-block;*/
+      float: left;
+      height: 100%;
+      padding: 10px;
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <article>...</article><article>...</article>
+  </section>
+</body>
+</html>
+[end]
+
+- section total width:  400 + 40 + 2 + 0 == 442px
+- section total height: 400 + 40 + 2 + 0 == 442px
+
+- article total width:   50% (221) + 20 + 2 + 0 == 243px * 2 == 486px
+- article total height: 100% (442) + 20 + 2 + 0 == 464px
+
+- it would not fit because the total width of an article is 243px, so side by side the total width of both would be 486px.
+  - the total width of its parent container, <section>, is 442px, so the second article would be rendered on the following line.
+- to fix this, you could add a box-sizing property with a value of border-box to the article selector, so then the total width would only be 221px, or 50% of the <section>, and therefore two of them would fit exactly into the section, seeing as there's no whitespace between them in the HTML.
+  - you would also need to add a display of inline-block, or a float of left so that the articles won't each be displayed on their own line, as block elements are by default.
+
+
+- article total width:   50% (200) + 20 + 2 + 0 == 222px * 2 == 444px
+- article total height: 100% (400) + 20 + 2 + 0 == 422px

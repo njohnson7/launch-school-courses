@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+
+<head>
+  <title>Floats and Page Layout</title>
+  <meta charset='utf-8'>
+  <style>
+    body {
+      background: #000;
+    }
+
+    #columns {
+      background: #333;
+      margin: 0 auto;
+      padding: 20px;
+      width: 840px;
+      overflow: hidden;
+    }
+
+    /* instead of: */
+    #columns:after {
+      display: block;
+      clear: both;
+      content: '';
+    }
+
+    #primary, #secondary {
+      background: #33b5e5;
+    }
+
+    #primary {
+      float: left;
+      width: 575px;
+    }
+
+    #secondary {
+      float: right;
+      width: 245px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='columns'>
+    <div id='primary'>
+      <h1>Main Content</h1>
+    </div>
+
+    <div id='secondary'>
+      <h3>Sidebar Content</h3>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+================================================================
+--- Lesson 2 - Improving HTML/CSS Video ---
+================================================================
+
+- header:
+  - instead of #header --->
+  - direct child:
+        body > header {
+          padding: 1rem 2.5rem;
+          background: #FF2D00;
+        }
+    - or role selector:
+          header[role=banner] {
+            padding: 1rem 2.5rem;
+            background: #FF2D00;
+          }
+
+
+
+=============================================================================
+
+
+
+- review how devtools works:
+  - "https://launchschool.com/lessons/72c8ad7b/assignments/9ad264cf"
+
+
+
+
+--------- Company Splash Page Project ---------
+
+Decipher the Design Files:
+  1. determine what HTML elems are needed to recreate the design
+
+
+
+
+
+=============================================================================
+---------------------------------- TODO -------------------------------------
+=============================================================================
+
+- 'Further Reading' section on all assignments
+- install HTML linter for Sublime?
+- visual formatting model / visual display model
+- vertical-align on inline-block elems
+- watch flexbox talk
+  - and flexbox info...?: "https://launchschool.com/lessons/4933c521/assignments/232bf105"
+- # physical pixel vs. CSS pixel ---> problem for assessment?
+- Shaye HOwe positioning
+- do shay howe tutorial again?
+- w3c proper style on assessment
+- chrome devtools screencasts...?: "https://developers.google.com/web/tools/chrome-devtools/?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3"
+
+Maybe Todo:
+- more flashcards about frames: "https://launchschool.com/lessons/b80a876c/assignments/d3382604"
+- form docs and guide on MDN:
+  - "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form"
+  - "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms"
+- types of input: "https://launchschool.com/lessons/b80a876c/assignments/829021b6"
+- code review: contact form
+- study responsive design more...
+
+Take Notes / Flashcards:
+- assignemnt 6, lesson 13 - sprite sheets:
+  - "https://launchschool.com/lessons/b80a876c/assignments/13c30b4e"
+    - and practice on the battery sprite sheet!
+
+
+
+
+
+
+
+=============================================================================
+------------------------------- Form Layouts --------------------------------
+=============================================================================
+Video:
+- 2 main types of form layouts:
+  1. <label> positioned directly above corresponding input (vertically) (top-to-bottom)
+  2. <label> positioned horizontally (usually left side)
+
+- <dl> is better than <div>....
+
+
+
+
+
+
+----------------------- SCRATCH ------------------------------
+
+
+
+[html]
+
+
+
+
+[end][css]
+
+
+
+[end]
+
+
+
+
+
+[ruby]
+
+def dd(target, context)
+  puts format("%.8f\%", (target.fdiv(context) * 100)) + ";"
+end
+
+
+[end]
+

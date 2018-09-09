@@ -1,0 +1,22 @@
+I noticed some discrepancies between the three different given solutions for this project (`psd`, `png`, and `html` page):
+
+These were the colors in `psd` file for the `button`:
+- `#2e67b2`: normal
+- `#6095cb`: `:hover`
+
+These were the colors in the `html` page for the `button`:
+- `#0066cc`: normal
+- `#5f95cc`: `:hover`
+
+This was the color in example `png` image solution for the `button`:
+- `#0861ce`: normal
+
+These were the left border colors (of the middle boxes):
+- `#cdcccb`: `psd`
+- `#ececec`: `png`
+- `#cbcbcb`: `html`
+
+- The `submit` `button` font is bold in the `psd` and `png`, but not in the `html` file.
+- Some of the other colors (besides just for the `button`) are slightly different in all three solutions, such as the color of the `input` border.
+- The `label`, `input`, and `h2` fonts appear to be a heavier weight in the `png` than in the `html` or `psd`.
+- I'm not sure if this was intentional, but in the example solution, the social media account `input`s are not all exactly the same width, and neither are the `password` `input`s.

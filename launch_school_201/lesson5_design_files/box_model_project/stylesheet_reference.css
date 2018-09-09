@@ -1,0 +1,259 @@
+* {
+  box-sizing: border-box;
+}
+
+.cf::before, .cf::after {
+  display: block;
+  content: "";
+}
+
+.cf::after {
+  clear: both;
+}
+
+body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  color: #545459;
+  background: #fff;
+}
+
+.container {
+  border: 2px solid #999;
+  width: 1000px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/**** INLINE ****/
+
+section h1, section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ce4a4a;
+  margin: 20px 0;
+}
+
+section p {
+  line-height: 35px;
+  margin-bottom: 25px;
+}
+
+section .border {
+  width: 650px;
+  border: 2px dashed #555;
+  padding: 30px;
+  margin: 45px;
+}
+
+section p.bold {
+  font-weight: bold;
+}
+
+section a {
+  text-decoration: none;
+  color: #333;
+}
+
+section .inline-margin a {
+  margin: 30px;
+}
+
+section .inline-padding a {
+  padding: 30px;
+  background: green;
+  color: #fff;
+}
+
+section .inline-float a {
+  text-align: center;
+  float: left;
+  width: 120px;
+  padding: 25px;
+  margin: 15px;
+  background: green;
+  color: #fff;
+  border: 3px solid darkgreen;
+}
+
+/**** BLOCK ****/
+
+
+.block .wrapper {
+  margin-bottom: 35px;
+}
+
+.block .box-1 {
+  background: dodgerblue;
+  color: #fff;
+}
+
+.block .box-2 {
+  background: green;
+  color: #fff;
+  height: 60px;
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid green;
+}
+
+.block .box-3 {
+  background: tomato;
+  color: #fff;
+  width: 90px;
+}
+
+.block .fl-1 {
+  background: dodgerblue;
+  color: #fff;
+  float: left;
+  border: 1px solid red;
+}
+
+.block .fl-2 {
+  background: tomato;
+  color: #fff;
+  float: right;
+  border: 1px solid red;
+}
+
+.block .fl-3 {
+  width: 400px;
+  height: 70px;
+  color: #fff;
+  line-height: 70px;
+  text-align: center;
+  float: left;
+  background: tomato;
+}
+
+.block .fl-4 {
+  width: 500px;
+  float: right;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  background: dodgerblue;
+  color: #fff;
+}
+
+.block a.bl-a {
+  display: block;
+  color: #fff;
+  text-align: center;
+  background: dodgerblue;
+  padding: 10px;
+  margin: 10px;
+}
+
+.in-bl::after {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 30px;
+  border-bottom: 2px dashed #545459;
+}
+
+.in-bl .nav {
+  text-align: center;
+}
+
+.in-bl .nav a {
+  display: inline-block;
+  width: 180px;
+  color: #fff;
+  background: dodgerblue;
+  border: 1px solid #1b95e0;
+  padding: 20px 30px;
+  margin: 20px 8px 25px 8px;
+}
+
+.pos-fl h1 {
+  text-align: center;
+  margin: 30px 0 25px 0;
+}
+
+.pos-fl .flbx-1 {
+  width: 450px;
+  height: 100px;
+  float: left;
+  line-height: 100px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  background: tomato;
+}
+
+.pos-fl .flbx-2 {
+  width: 505px;
+  height: 100px;
+  float: left;
+  line-height: 100px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  background: dodgerblue;
+}
+
+.pos-fl .flbx-3 {
+  clear: both;
+  width: 955px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  background: seagreen;
+  margin-bottom: 35px;
+}
+
+.pos ul {
+  list-style-type: disc;
+  margin: 0 0 45px 40px;
+}
+
+.pos ul li {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.pos-fixed div {
+  text-align: center;
+  color: #fff;
+  background: dodgerblue;
+  width: 225px;
+  padding: 25px 35px;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 50px;
+  left: 35px;
+}
+
+.pos-relative .rel-box {
+  width: 325px;
+  text-align: center;
+  color: #fff;
+  background: tomato;
+  padding: 25px 35px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  position: relative;
+  right: 90px;
+  bottom: -45px;
+}
+
+.pos-absolute {
+  position: relative;
+}
+
+.pos-absolute .abs-box1 {
+  width: 200px;
+  text-align: center;
+  color: #fff;
+  background: green;
+  padding: 25px 35px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  position: absolute;
+  top: -30px;
+  left: 230px;
+}

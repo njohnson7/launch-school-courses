@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <title>Forms Exercises</title>
+  <meta charset='utf-8'>
+  <style>
+    body {
+      background: #000;
+      color: #eee;
+    }
+
+    dl label {
+      color: #33b5e5;
+    }
+
+    .movies {
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<form action='#' method='post'>
+  <fieldset>
+    <dl>
+      <dt><label for='name'>Your Name</label></dt>
+      <dd><input type='text' id='name' name='name' required></dd>
+
+      <dt><label for='email'>Email</label></dt>
+      <dd><input type='email' id='email' name='email' required></dd>
+
+      <dt><label for='phone'>Phone Number</label></dt>
+      <dd><input type='tel' id='phone' name='phone' placeholder='###-###-####' required></dd>
+
+      <dt><label for='message'>Message</label></dt>
+      <dd>
+        <textarea id='message' name='message' cols='80' rows='6' required>Type your message here.</textarea>
+      </dd>
+    </dl>
+
+    <button type='submit'>Send Message</button>
+    <button type='reset'>Clear</button>
+  </fieldset>
+</form>
+
+
+
+<br><br><br><br><br><br><br>
+
+
+
+<form action='#' method='get'>
+  <fieldset>
+    <label for='query'>Search for</label>
+    <input type='search' name='query' id='query' required>
+
+    <label for='tv'>
+      <input type='radio' name='category' id='tv' required>TV
+    </label>
+    <label for='movies'>
+      <input type='radio' name='category' id='movies' required>Movies
+    </label>
+    <label for='music'>
+      <input type='radio' name='category' id='music' required>Music
+    </label>
+
+    <button type='button'>Search</button>
+  </fieldset>
+</form>
+
+
+
+<br><br><br><br><br><br><br>
+
+
+
+<form action='#' method='post'>
+  <fieldset class='movies'>
+    <dl>
+      <dt><label for='movie'>Movie</label></dt>
+      <dd>
+        <select name='movie' id='movie' size='4'>
+          <option>Looper</option>
+          <option>Frozen</option>
+          <option>Tommy Boy</option>
+          <option selected>Alien</option>
+        </select>
+      </dd>
+
+      <dt><label for='rating'>Rating</label></dt>
+      <dd><input type='range' min='1' max='5'></dd>
+    </dl>
+
+    <div>
+      <label>
+        <input type='checkbox' name='favorite' checked>Add to my favorites</input>
+      </label>
+    </div>
+
+    <button type='submit'>Rate Movie</button>
+  </fieldset>
+</form>
+
+</body>
+</html>

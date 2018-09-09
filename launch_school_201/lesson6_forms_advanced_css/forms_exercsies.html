@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <title></title>
+  <meta charset='utf-8'>
+  <style>
+    body { background: #000; color: #eee; }
+    html { box-sizing: border-box; }
+    *, *:before, *:after { box-sizing: inherit; }
+  </style>
+</head>
+<body>
+  <form action='#' method='post'>
+    <fieldset>
+      <dl>
+        <dt><label for='first_name'>First Name</label></dt>
+        <dd><input type='text' id='first_name' name='first_name'></dd>
+
+        <dt><label for='last_name'>Last Name</label></dt>
+        <dd><input type='text' id='last_name' name='last_name'></dd>
+
+        <dt><label for='email'>Email</label></dt>
+        <dd><input type='email' id='email' name='email' autocomplete='off' autocapitalize='none' autocorrect='off'></dd>
+
+        <dt><label for='phone'>Phone Number</label></dt>
+        <dd><input type='tel' id='phone' name='phone'></dd>
+
+        <dt><label for='phone_type'>Phone Type</label></dt>
+        <dd>
+          <select id='phone_type' name='phone_type'>
+            <option value='home' selected>Home</option>
+            <option value='business'>Business</option>
+            <option value='mobile'>Mobile</option>
+          </select>
+        </dd>
+      </dl>
+      <button type='submit'>Submit</button>
+    </fieldset>
+  </form>
+</body>
+</html>

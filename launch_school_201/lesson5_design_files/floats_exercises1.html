@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+
+<head>
+  <title>Floats and Page Layout</title>
+  <meta charset='utf-8'>
+  <style>
+    body {
+      background: #000;
+      color: #eee;
+    }
+
+    section, footer {
+      box-sizing: border-box;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      background: #333;
+      overflow: hidden;
+    }
+
+    header {
+      background: #666;
+      box-sizing: border-box;
+      float: left;
+      /*overflow: hidden;*/
+      width: 15%;
+    }
+
+    article {
+      background: #33b5e5;
+      color: #000;
+      box-sizing: border-box;
+      float: left;
+      padding: 0 30px 0 0;
+      width: 70%;
+    }
+
+    aside {
+      background: #3b2b64;
+      box-sizing: border-box;
+      float: right;
+      width: 15%;
+    }
+
+    footer {
+      background: #00727A;
+      clear: both;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+  <section>
+
+    <header>
+      <p>Pellentesque dui nulla, interdum eget dignissim quis, mattis et lorem. Phasellus lobortis ante vel dui auctor, ac interdum metus porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque laoreet eros arcu, sed rutrum nunc molestie sed. Nunc sit amet condimentum urna. Etiam aliquam diam ligula, non consectetur urna vehicula vel. Sed a posuere tortor. Suspendisse accumsan magna at vehicula faucibus. Donec lobortis dignissim ipsum id cursus. Nam luctus lobortis lorem, vitae tincidunt odio consectetur in. Maecenas in posuere sapien. Donec sagittis sit amet lacus ut eleifend. Vivamus dapibus, ipsum eu sagittis lacinia, arcu lorem egestas ex, sed interdum lorem felis convallis metus. Cras quis lacus ut ante lacinia fermentum. Integer id rutrum dui, eget pharetra dolor. Sed nibh nibh, pharetra id commodo non, tincidunt in ex.</p>
+      <p>Morbi ultricies nec augue ut consequat. Aliquam lobortis lectus id tortor eleifend vulputate. Nunc ut pulvinar ante, sed bibendum urna. Nulla ut accumsan diam. Duis et feugiat est, id imperdiet urna. Donec iaculis elit tortor, vitae placerat lorem convallis molestie. In metus tortor, dictum in purus non, fermentum varius magna. Nam ultricies eget erat nec iaculis. Pellentesque tempor porta urna quis tempor. Nulla non turpis faucibus mi fringilla ultrices a vel ipsum. Nulla facilisi. Ut egestas neque elit, a pulvinar felis elementum sed. Proin porta finibus lacus, ac posuere ipsum venenatis ac. In nec gravida erat. Sed in turpis non ante efficitur iaculis at eget ipsum. Suspendisse a finibus magna.</p>
+    </header>
+
+    <article>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel facilisis mauris. Curabitur feugiat eget mi vitae fringilla. Praesent ligula risus, ornare vitae nisl a, molestie ultrices leo. Integer fermentum, sapien tempor tincidunt ullamcorper, odio risus aliquet enim, non placerat tellus enim vel felis. Donec non viverra est. Nullam faucibus ornare tincidunt. Pellentesque vitae ipsum vel ipsum porta laoreet sed quis nunc. Ut ut ligula euismod, tempus augue sit amet, euismod sapien.</p>
+      <p>Pellentesque dui nulla, interdum eget dignissim quis, mattis et lorem. Phasellus lobortis ante vel dui auctor, ac interdum metus porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque laoreet eros arcu, sed rutrum nunc molestie sed. Nunc sit amet condimentum urna. Etiam aliquam diam ligula, non consectetur urna vehicula vel. Sed a posuere tortor. Suspendisse accumsan magna at vehicula faucibus. Donec lobortis dignissim ipsum id cursus. Nam luctus lobortis lorem, vitae tincidunt odio consectetur in. Maecenas in posuere sapien. Donec sagittis sit amet lacus ut eleifend. Vivamus dapibus, ipsum eu sagittis lacinia, arcu lorem egestas ex, sed interdum lorem felis convallis metus. Cras quis lacus ut ante lacinia fermentum. Integer id rutrum dui, eget pharetra dolor. Sed nibh nibh, pharetra id commodo non, tincidunt in ex.</p>
+      <p>Morbi ultricies nec augue ut consequat. Aliquam lobortis lectus id tortor eleifend vulputate. Nunc ut pulvinar ante, sed bibendum urna. Nulla ut accumsan diam. Duis et feugiat est, id imperdiet urna. Donec iaculis elit tortor, vitae placerat lorem convallis molestie. In metus tortor, dictum in purus non, fermentum varius magna. Nam ultricies eget erat nec iaculis. Pellentesque tempor porta urna quis tempor. Nulla non turpis faucibus mi fringilla ultrices a vel ipsum. Nulla facilisi. Ut egestas neque elit, a pulvinar felis elementum sed. Proin porta finibus lacus, ac posuere ipsum venenatis ac. In nec gravida erat. Sed in turpis non ante efficitur iaculis at eget ipsum. Suspendisse a finibus magna.</p>
+      <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin viverra, nunc id accumsan pretium, tellus massa malesuada orci, in placerat felis enim nec diam. Morbi ac ipsum nec orci vulputate tempor a sit amet est. Maecenas et enim nunc. Pellentesque id vehicula justo. Nulla scelerisque, lacus id placerat tristique, sapien augue scelerisque nisi, et tempus sem mauris ut erat. Nulla sodales mi quis nisi commodo, vitae dictum nulla efficitur. Nam rhoncus lobortis sapien, et dignissim diam imperdiet id. Aenean faucibus dui et luctus aliquet. Nam efficitur at risus ac placerat. Curabitur lobortis odio ac cursus tincidunt. Praesent in posuere neque, at lobortis diam. Aenean ultrices blandit ipsum, id tristique justo feugiat ac. Proin sit amet ullamcorper dui. Nulla vel purus a mauris consectetur elementum eget nec nisl. Vivamus nulla leo, ultrices in viverra sed, blandit eget dolor.</p>
+    </article>
+
+    <aside>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elit enim, convallis ut nisi eget, finibus condimentum arcu. Ut ut eleifend diam. Sed vehicula placerat erat, eget scelerisque sapien feugiat at. Donec luctus in dolor quis maximus. Phasellus ac dignissim purus. Nam dignissim rhoncus tristique. Fusce velit nunc, dapibus quis odio vitae, ultricies viverra tellus. Nunc suscipit consectetur fermentum.</p>
+      <p>Mauris sollicitudin efficitur sollicitudin. Nunc mollis, ante sit amet suscipit lobortis, tortor magna tincidunt nisi, quis placerat nibh neque sit amet turpis. Nulla non tristique metus. Maecenas vitae porttitor enim. Vivamus orci erat, mollis non luctus nec, maximus non ante. Nulla nec aliquet neque. Maecenas venenatis dui eu nibh dictum, vitae suscipit felis laoreet. Quisque nec leo tempor, iaculis erat ac, rhoncus ex. Proin in pharetra ante. Quisque quis risus dictum, volutpat dui vel, pellentesque massa. Donec est nisi, bibendum a lectus ac, consequat elementum erat. Integer ullamcorper ipsum non ullamcorper aliquam. Maecenas pulvinar nisi sit amet lobortis ullamcorper. Proin nec ornare augue. Quisque lobortis lorem a interdum congue.</p>
+    </aside>
+
+  </section>
+
+  <footer>
+    <p>Maecenas ac bibendum massa. Proin eget fringilla sem. Donec venenatis tortor ante, in tincidunt mauris sagittis a. Nunc luctus orci in orci luctus, at efficitur urna maximus. Ut sem diam, congue et sagittis sit amet, vulputate eget ipsum. Cras porta neque lorem, vel condimentum arcu pharetra non. Donec eget erat et nisi ullamcorper volutpat. Sed mattis lobortis ipsum, a aliquam massa viverra id. Sed lacinia ipsum ac lorem pellentesque, sed pellentesque felis tempor. Suspendisse felis libero, tincidunt quis pretium id, sagittis quis nisl.</p>
+  </footer>
+
+</body>
+</html>
