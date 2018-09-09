@@ -1,0 +1,63 @@
+Study more (and make flash cards):
+- Object Orientation assignment: "https://launchschool.com/lessons/4671d66f/assignments/d60424ee"
+- 'Constructors, Prototypes, and the Prototype Chain' assignment: "https://launchschool.com/lessons/24a4613a/assignments/5de6e5a0"
+- read: "https://john-dugan.com/object-oriented-javascript-pattern-comparison/"
+- # summary of lesson 5!
+- study guide
+  - Partial Function Application: "https://launchschool.com/lessons/0b371359/assignments/f2c6f687"
+
+maybe:
+  - Lesson 4 quiz
+    - memory allocation and garbage collection
+  - `Object.defineProperties` and `Object.freeze`: "https://launchschool.com/lessons/24a4613a/assignments/8db4bc31"
+
+
+--------------------------------------------------------------------------------
+
+LS closure definition:
+  - Functions close over or enclose the context at their definition point, so we call them closures. They always have access to that context, regardless of when and where the program invokes the function. Here's some code that uses a closure to increment and log a number with each call:
+
+
+- technical definition of a "variable"
+- evaluation context vs. execution context
+- is it really impossible to access a variable declared inside of a closure from outside it?
+    ex:
+[js]
+        function startup() {
+          var status = 'ready';
+          return function () {
+            p('The system is ready.');
+          };
+        }
+
+        var ready = startup();
+        var systemStatus = // ?
+[end]
+
+- "Prototype Pattern" vs. "Pseudo-classical" definitions
+
+
+
+---------------------
+[js]
+var Foo = {
+  bar: function(x) {
+    if (x < 10) {
+      return Foo.bar( x * 2 );
+    }
+    return x;
+  },
+  baz: function baz(x) {
+    if (x < 10) {
+      return baz( x * 2 );
+    }
+    return x;
+  }
+};
+[end]
+
+========================================
+
+- assessment feedback
+  - actual assessment and instructions
+- assessment "view" button feedback
