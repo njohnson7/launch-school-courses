@@ -1,0 +1,309 @@
+----------- LOOK UP -------------
+- assessment study guide
+  - why isn't `String.fromCharCode` a function?
+- uncaught vs caught error?
+- # are array indexes also properties?
+- is `arr[1]` and `arr[1] = 5` and `obj['a']` considered a method or operator?
+  - (square bracket notation)
+- "computed elem operator"?
+- creation/execution phase in global/function context (hoisting)
+- difference b/w Array(4) and Array(4).fill() (undefined's)
+
+
+
+----------- STUDY MORE -----------
+- chrome devtools video and articles:
+  - "https://launchschool.com/lessons/56df7843/assignments/0c65c1ca"
+  - # practice debugger more!
+- hoisting details
+- function expressions
+- regex book...?
+
+- # lesson 9 - PEDAC
+  - # prob solv vids
+    - # esp. range shorthand notation!
+
+
+
+
+==================================================================
+--------- Interview SG ---------
+==================================================================
+- basic JavaScript programming and problem solving skills.
+- # 40 min time limit
+
+JavaScript specific topics that you need to study on:
+- Language syntax, types, and flow control
+- Functions, variables, and scopes
+- Arrays and objects
+- Language built-in methods on String and Array
+- Mutability of values and objects
+- Pure functions and side effects
+- Regular expressions (what's covered in our book)
+
+General problem solving topics you're expected to demonstrate in the interview:
+- Be able to build and communicate a clear plan towards solving a given problem
+- Fluent with JavaScript's built-in list processing abstractions and higher-order functions
+- Be able to write code that follows clear and idiomatic abstractions
+- Be able to validate assumptions, debug issues and fix any problems
+- Good code style
+
+General communication and presence:
+- Think, speak, and code deliberately
+- Accuracy in concepts and terminologies
+- Stay calm
+
+Follow process of "General Problem Solving" approach to solving a code challenge:
+- Understand the problem
+- Examples/test cases
+- Data structure and algorithms
+- Verify your algorithm against the examples
+- Start Coding
+
+
+
+
+
+==================================================================
+--------- Written Test SG ---------
+==================================================================
+=====
+- primitive values, types and type conversions
+- variable scopes and hoisting
+- function declarations, expressions and scopes
+- object properties and mutation
+- assignments and comparison
+- pure functions and side effects
+=====
+
+- *return value* of an <expression>
+- whether there are *side effects* (ex: mutation)
+- whether *new objects* are <created>
+- or whether something is being *output*
+
+=====
+
+- explain *why* something happens:
+  - using precise vocab
+  - pinpoint the exact *causal mechanism* at work
+- explain *how* code works
+
+=====
+
+- explain a <concept>
+- <analyze> code
+- describe <what's happening>
+
+ex:
+  [js]
+          var a = "hello";
+
+          function foo() {
+            console.log(a);
+          }
+
+          foo();
+  [end]
+  - when the function is executed, the variable `a` inside the `foo` function is the same as the variable `a` outside of the function based on JavaScript's lexical scoping rules, therefore line 4 logs hello to the console.
+    - The function also returns `undefined` since there isn't an explicit return statement.
+
+==================================================================
+==================================================================
+
+--------- Maybe -------------
+- how to create snippets in devtools
+xx- devtools on test for debuger?
+xx-how often to run code? (every line like in ruby?)
+  - test things in console like irb?
+advantages to JS over ruby?
+
+single line if else?
+blinking chrome cursor?
+
+
+
+
+
+==================================================================
+--------- Codewars ---------
+==================================================================
+
+Adding big numbers:
+  - "https://www.codewars.com/kata/525f4206b73515bffb000b21/solutions/javascript"
+  [js]
+        function add (a, b) {
+          var res = '', c = 0
+          a = a.split('')
+          b = b.split('')
+          while (a.length || b.length || c) {
+            c += ~~a.pop() + ~~b.pop()
+            res = c % 10 + res
+            c = c > 9
+          }
+          return res
+        }
+
+        elog(add("123", "321"), "444");
+        elog(add("11", "99"),   "110");
+        elog(add("238", "953"), "1191");
+  [end]
+
+
+// using i-- as both condition and thing to do:
+ `for ( let i=angle; i--; puzzle=rotateRight(puzzle), clues=shiftRight(clues) );`
+
+
+ return value of for loop?
+   - ex: for (let i = 3; i--; ) p(i), 7 ;
+
+
+
+
+RPS:
+  - "https://www.codewars.com/kata/5672a98bdbdd995fad00000f/solutions/javascript":
+    const rps = (p1, p2) => {
+      if(p1 === p2) {
+        return 'Draw!'
+      };
+      return `Player ${/rockscissors|scissorspaper|paperrock/.test(p1+p2)? 1 : 2} won!`;
+  }
+
+
+
+
+Sort Odd:
+ - "https://www.codewars.com/kata/578aa45ee9fd15ff4600090d/solutions/javascript"
+    function sortArray(array) {
+      var odd = array.filter(elem => elem % 2 !== 0).sort((a, b) => a - b);
+      return array.map(elem => elem % 2 === 0 ? elem : odd.shift());
+    }
+
+
+Count characters in a string to obj:
+- "https://www.codewars.com/kata/52efefcbcdf57161d4000091/solutions/javascript"
+  function count (string) {
+    return string.split('').reduce(function(counts,char){
+      counts[char] = (counts[char]||0) + 1;
+      return counts;
+    },{});
+  }
+
+
+
+Pangram:
+  "https://www.codewars.com/kata/545cedaa9943f7fe7b000048/solutions/javascript"
+  function isPangram(string){
+    return (string.match(/([a-z])(?!.*\1)/ig) || []).length === 26;
+  }
+  ---or:
+  function isPangram(string){
+    return 'abcdefghijklmnopqrstuvwxyz'
+      .split('')
+      .every((x) => string.toLowerCase().includes(x));
+  }
+
+
+
+Substring instance count:
+  - "https://www.codewars.com/kata/5168b125faced29f66000005/solutions/javascript"
+  function solution(fullText, searchText){
+    return fullText.split(searchText).length - 1;
+  }
+
+
+
+
+
+
+
+~~~~~~
+
+IndexOf shortcut:
+  "https://www.codewars.com/kata/57277a31e5e51450a4000010/solutions/javascript"
+  function firstToLast(str, c) {
+    return str.lastIndexOf(c) - Math.max(0, str.indexOf(c));
+  }
+
+
+isFinite:
+  "https://www.codewars.com/kata/55a75e2d0803fea18f00009d/solutions/javascript"
+  function slope([ x1, y1, x2, y2 ]) {
+    let slope = (y2 - y1) / (x2 - x1);
+    return Number.isFinite(slope) ? `${slope}` : 'undefined';
+  }
+
+
+
+Calc w/o eval:
+  - "https://www.codewars.com/kata/5296455e4fe0cdf2e000059f/solutions/javascript/all/best_practice"
+  function calculate(num1, operation, num2) {
+    var ops = {
+      '+': function(x, y) { return x + y; },
+      '-': function(x, y) { return x - y; },
+      '*': function(x, y) { return x * y; },
+      '/': function(x, y) { return y === 0 ? null : x / y; }
+    };
+    return (ops[operation] || function() { return null; })(num1, num2);
+  }
+
+
+
+
+
+Power of 2:
+  https://www.codewars.com/kata/534d0a229345375d520006a0/solutions/javascript
+  function isPowerOfTwo(n) {
+    return !(n & (n - 1));
+  }
+
+
+Using reduce to return in the middle of an iteration:
+- "https://www.codewars.com/kata/54589f3b52756d34d6000158/solutions/javascript"
+
+  "'filter' creates a new array + iterates through the total array.
+  the 'reduce' solution stops when needed and returns a boolean.
+  1|ReplyView SolutionSpoiler"
+  Array.prototype.all = function (p) {
+    // TODO: Implement this function
+    return this.reduce((prev, curr) => prev && p(curr), true);
+  };
+
+  Array.prototype.none = function (p) {
+    // TODO: Implement this function
+    return ! this.reduce((prev, curr) => prev || p(curr), false);
+  };
+
+  Array.prototype.any = function (p) {
+    // TODO: Implement this function
+    return ! this.reduce((prev, curr) => prev && ! p(curr), true);
+  };
+
+
+
+// easier way to calculate exponential decay:
+  // let needsRating = 100 * (Math.pow(1 - 0.15, months))
+
+Replace vowels except at begin/end of string:
+https://www.codewars.com/kata/570cbe88f616a8f4f50011ac/solutions/javascript
+  function shortForm(str) {
+  return str.replace(/\B[aeiou]\B/gi,'')
+}
+
+
+GCD:
+const gcd = (a, b) => b ? gcd(b, a % b) : a;
+
+LCM/GCD:
+  const gcd = (x,y) => x == 0 ? y : gcd(y % x, x)
+  const lcm = (x,y) => x * y == 0 ? 0 : x * y / gcd(x,y)
+
+
+Bitwise Operators to convert IP addr to binary and back:
+- "https://www.codewars.com/kata/541a354c39c5efa5fa001372/solutions/javascript"
+  function ipToNum(ip) {
+    return ip.split('.').reduce(function (sum, x) { return sum << 8 | x }, 0) >>> 0;
+  }
+
+  function numToIp(num) {
+    return [num >>> 24, num >> 16 & 255, num >> 8 & 255, num & 255].join('.');
+  }
