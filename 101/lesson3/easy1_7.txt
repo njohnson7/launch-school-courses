@@ -1,0 +1,5 @@
+# easy 1_7.txt
+
+Kernel#eval evaluates the expression(s) in a string, so eval(how_deep) will
+return 42, because add_eight is called 5 times, which will add (8 * 5) to the
+value of the number variable, 2.

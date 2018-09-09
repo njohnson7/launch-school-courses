@@ -1,0 +1,20 @@
+# easy1_1.txt
+What would you expect the code below to print out?
+
+numbers = [1, 2, 2, 3]
+numbers.uniq
+
+puts numbers
+
+
+I would expect this code to print out:
+
+1
+2
+2
+3
+
+because although number.uniq will return [1, 2, 3], it is a non-destructive
+method, so it will return a new array, instead of modifying the original numbers
+array. The puts method automatically calls .to_s on its argument, so that's why
+each element gets printed out on its own line.
