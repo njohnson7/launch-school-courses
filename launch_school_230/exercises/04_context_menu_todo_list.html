@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>4 - Context Menu for Todo List </title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 200, .5);
+      width: 100vw;
+      height: 100vh;
+      opacity: 0;
+      z-index: 10;
+    }
+    #prompt {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      background: #333;
+    }
+    .title, .delete {
+      display: inline-block;
+    }
+    .delete {
+      background: black;
+      margin-left: 15px;
+      color: red;
+    }
+
+    #menu {
+      display: none;
+      width: 200px;
+      background: #333;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 10;
+    }
+    #menu li:hover {
+      background: #33b5e5;
+    }
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+
+<!--==================================================================================--><script>
+let todoItems = [{id: 1, title: 'Homework'}, {id: 2, title: 'Shopping'}, {id: 3, title: 'Calling Mom'}, {id: 4, title: 'Coffee with John'}];
+
+const fadeIn = (elem, speed = 0) => {
+  show(elem);
+  let interval = setInterval(_ => {
+    elem.style.opacity == 1
+      ? clearInterval(interval)
+      : elem.style.opacity = +elem.style.opacity + .1;
+  }, speed);
+};
+
+const fadeOut = (elem, speed = 0) => {
+  let interval = setInterval(_ => {
+    elem.style.opacity == 0
+      ? Promise.resolve(clearInterval(interval)).then(_ => hide(elem))
+      : elem.style.opacity = +elem.style.opacity - .1;
+  }, speed);
+};
+
+const createElem = tag => document.createElement(tag);
+const append = (parent, ...children) => children.forEach(parent.appendChild, parent);
+const setText = (elem, text) => elem.innerText = text;
+const setDisplay = value => (elem => elem.style.display = value);
+const hide = setDisplay('none');
+const show = setDisplay('block');
+
+const h1 = createElem('h1');
+setText(h1, 'Todos');
+
+const ul = createElem('ul');
+
+const modal = createElem('div');
+modal.id = 'modal';
+
+const prompt = createElem('div');
+prompt.id = 'prompt';
+prompt.innerHTML = '<p>Are you sure?</p>'
+const yes = createElem('button');
+setText(yes, 'yes');
+const no = createElem('button');
+setText(no, 'no');
+
+append(prompt, yes, no)
+append(modal, prompt);
+append(document.body, h1, ul, modal);
+
+const createTodoElem = ({ id, title }) => {
+  let todoElem = createElem('li');
+  todoElem.className = 'todo';
+  todoElem.dataset.id = id;
+  todoElem.innerHTML = `<p class='title'>${title}`;
+  return todoElem;
+};
+append(ul, ...todoItems.map(createTodoElem));
+
+let currentTodo;
+ul.onclick = e => {
+  if (e.target.className != 'delete') return;
+  let todoElem = e.target.parentNode;
+  fadeIn(modal, 15);
+  // currentTodo = todoElem;
+};
+
+modal.onclick = e => {
+  if (e.target == yes) currentTodo.remove();
+  if (e.target != prompt) fadeOut(modal);
+};
+//=================================================//
+
+const createMenuItem = name => {
+  let item = createElem('li');
+  item.className = name.toLowerCase().split(' ')[0];
+  setText(item, name);
+  return item;
+};
+
+const menu = createElem('ul');
+menu.id = 'menu';
+append(menu, ...['Show Details', 'Edit Todo', 'Delete Todo'].map(createMenuItem));
+append(ul, menu);
+
+const getTodoElem = eTarget => eTarget.className == 'todo' ? eTarget : getTodoElem(eTarget.parentNode);
+
+ul.oncontextmenu = (e, { target, clientX: left, clientY: top } = e) => {
+  e.preventDefault();
+
+  menu.style.left = `${left}px`;
+  menu.style.top  = `${top}px`;
+  fadeIn(menu, 15);
+  currentTodo = getTodoElem(target);
+};
+document.body.onclick = e => fadeOut(menu);
+
+//======================================================================================//</script>
+</body>
+</html>

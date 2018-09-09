@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>8 - Delegate Event Function</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <main>
+    <section>
+      <h1>Header</h1>
+      <p>Content</p>
+    </section>
+    <aside>
+      <h2>Sub Side Notes</h2>
+      <p>Note 1</p>
+      <p>Note 2</p>
+    </aside>
+  </main>
+  <aside>
+    <p>Side Note</p>
+  </aside>
+
+<!--==================================================================================--><script>;
+
+
+// const delegateEvent = (parent, selector, eventType, callback) => {
+//   if (!parent) return
+
+//   parent.addEventListener(eventType, e => {
+//     let selectedElems = [...parent.querySelectorAll(selector)]
+//     if (selectedElems.includes(e.target)) callback(e)
+//   })
+
+//   return true
+// }
+
+
+
+const delegateEvent = (parent, selector, evType, fn) => {
+  const delegate = ev => [...parent.querySelectorAll(selector)].includes(ev.target) && fn(ev)
+  if (parent) return !parent.addEventListener(evType, delegate)
+}
+
+
+
+// Possible elements for use with the scenarios
+let element1 = document.querySelector('nav')
+let element2 = document.querySelector('main h1')
+let element3 = document.querySelector('main')
+
+// Possible callback for used with the scenarios
+const callback = e => p(`Target: ${e.target.tagName}\nCurrent Target: ${e.currentTarget.tagName}`)
+
+p(delegateEvent(element1, 'p',       'click', callback))    // undefined
+// p(delegateEvent(element2, 'p',       'click', callback))    // true
+// p(delegateEvent(element2, 'h1',      'click', callback))    // true
+// p(delegateEvent(element3, 'h1',      'click', callback))    // true
+// p(delegateEvent(element3, 'aside p', 'click', callback))    // true
+
+// p(delegateEvent(element2, 'p', 'click', callback))             // true
+// let newP       = document.createElement('P')
+// let newContent = document.createTextNode('New Paragraph')
+// newP.appendChild(newContent)
+// element2.appendChild(newP)
+
+//=====================================================================================//</script>
+</body>
+</html>

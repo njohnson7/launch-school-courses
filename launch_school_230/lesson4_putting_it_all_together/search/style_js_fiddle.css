@@ -1,0 +1,72 @@
+/* Tantek Celik's Whitepsace Reset --- Author: Tantek Celik, Shane Riley --- Version: (CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0 --- Description: Resets default styling of common browsers to a common base */
+ul,ol { list-style: none; }
+h1,h2,h3,h4,h5,h6,pre,code { font-size: 1em; }
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,
+fieldset,input,dl,dt,dd,figure,figcaption { margin: 0; padding: 0; }
+a img,:link img,:visited img,fieldset { border: none; }
+address { font-style: normal; }
+header,section,article,nav,footer,hgroup,details,summary,figure,main { display: block; }
+mark { color: inherit; background: transparent; }
+abbr { border: none; }
+summary::-webkit-details-marker { display: none; }
+html { box-sizing: border-box; }
+*,*:before,*:after { box-sizing: inherit; }
+h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+
+/*---------------------------------- Styles ----------------------------------*/
+html {
+  background: #000;
+  color:      #eee;
+  font:       normal 20px Helvetica, Arial, sans-serif;
+}
+body {
+  background: #151515;
+  margin:     0 auto;
+  padding:    30px;
+  width:      1000px;
+}
+body:after {
+  clear:   both;
+  content: '';
+  display: block;
+}
+.games {
+  float:        right;
+  padding-left: 50px;
+  width:        80%;
+}
+h1 {
+  color:         #33b5e5;
+  font:          bold 54px Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+}
+li {
+  padding: 5px;
+}
+.games li {
+  padding: 20px;
+}
+.games li:hover {
+  background: #33b5e5;
+  color:      #000;
+}
+.games li:not([style='display: none;']) ~ li {
+  border-top: solid 1px #444;
+}
+.filter {
+  float: left;
+  width: 20%;
+}
+.filter ul {
+  padding-top: 98px;
+}
+.filter label:hover,
+.filter input:hover {
+  background: #000;
+  color:      #33b5e5;
+  cursor:     pointer;
+  padding:    10px 0;
+}
+.filter input {
+  margin-right: 5px;
+}

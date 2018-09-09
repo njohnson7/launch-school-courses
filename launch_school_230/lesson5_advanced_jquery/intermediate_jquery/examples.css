@@ -1,0 +1,55 @@
+html,
+body {
+  background:      #000;
+  color:           #eee;
+}
+main {
+  background:      #111;
+  margin:          0 auto;
+  padding:         25px;
+  width:           600px;
+}
+.highlight {
+  background:      #ff9;
+  color:           #993;
+}
+input {
+  background:      #333;
+  border:          1px solid #cecece;
+  color:           #33b5e5;
+}
+.focused {
+  box-shadow:      0 0 5px #f00;
+  outline:         none;
+}
+#check_mouse_button {
+  background:      #3a2726;
+  color:           #b00b00;
+  padding:         10px;
+}
+.parent {
+  background:      #afa;
+}
+.child {
+  outline:         1px solid #00a;
+}
+#pinboard {
+  background:      #000;
+  border:          2px solid #666;
+  height:          500px;
+  position:        relative;
+  width:           500px;
+}
+#pinboard p {
+  background:      #111;
+  border:          2px solid #06c;
+  left:            260px;
+  margin-left:     40px;
+  padding:         10px;
+  position:        absolute;
+  top:             120px;
+}
+a {
+  color:           #33b5e5;
+  text-decoration: none;
+}

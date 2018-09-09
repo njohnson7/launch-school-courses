@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>HTML Templating with JavaScript</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #33b5e5; font: 16px Helvetica, sans; }
+    input          { background: #222;    color: #33b5e5; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
+  </style>
+  <script src='../lib/jquery.js'></script>
+  <script src='../lib/handlebars.js'></script>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+
+  <ul></ul>
+
+  <script id='productTemplate' type='text/x-handlebars'>
+    <li>
+      <h3>{{name}}</h3>
+      <dl>
+        <dt>Quantity:</dt>
+        <dd>{{quantity}}</dd>
+        <dt>Price:</dt>
+        <dd>
+          ${{price}}
+          {{#if onSale}}
+            <strong>SALE!</strong>
+          {{/if}}
+        </dd>
+      </dl>
+    </li>
+  </script>
+
+  <script id='productsList' type='text/x-handlebars'>
+    {{#each products}}
+      {{> productTemplate}}
+    {{/each}}
+  </script>
+
+  <script id='passing' type='text/x-handlebars'>
+    {{#each students}}
+      <p>{{name}} has {{studyStatus year}}</p>
+      <p>{{this}}</p>
+    {{/each}}
+  </script>
+
+  <br><br><br>
+
+  <script id='passing2' type='text/x-handlebars'>
+    {{#studyStatusBlock students}}
+      <p>{{name}} has {{year}}</p>
+    {{/studyStatusBlock}}
+  </script>
+
+  <script id='partial' type='text/x-handlebars'>
+    {{> partial site='abc'}}
+    {{> partial site='omgmasgmasmg'}}
+  </script>
+
+
+
+  <script>
+
+let products = [{
+  name:     'Banana',
+  quantity: 14,
+  price:    0.79,
+  onSale:   true,
+}, {
+  name:     'Apple',
+  quantity: 3,
+  price:    0.55,
+}];
+
+let $list           = $('ul');
+let productTemplate = Handlebars.compile($('#productTemplate').html());
+let productsList    = Handlebars.compile($('#productsList').html());
+
+// Handlebars.registerPartial('productTemplate', $('#productTemplate').html());
+Handlebars.registerPartial('productTemplate', productTemplate);
+
+$list.html(productsList({ products }));
+
+let soup = { name: 'Soup', quantity: 1, price: 1.29 };
+$list.append(productTemplate(soup));
+
+
+
+//============================================================================//
+
+
+let context = {
+  students: [
+    { name: 'Bob',  year: 2013 },
+    { name: 'Fred', year: 2016 },
+  ],
+};
+
+Handlebars.registerHelper('studyStatus', function (year) {
+  return year < 2015 ? 'passed' : 'not passed';
+});
+
+// let passingTemplate = Handlebars.compile($('#passing').html());
+
+// $(document.body).append(passingTemplate(context));
+
+
+//============================================================================//
+
+
+Handlebars.registerHelper('studyStatusBlock', function (data, options) {
+  let result = '';
+
+  data.forEach(function (student, i) {
+    data[i].year = student.year < 2015 ? 'passed' : 'not passed';
+    p(options);
+    p(options.fn(student));
+    p(student)
+
+    result += options.fn(student);
+  });
+
+  p(data);
+
+  return p(result);
+});
+
+let passingTemplate2 = Handlebars.compile($('#passing2').html());
+
+$(document.body).append(passingTemplate2(context));
+
+
+
+
+
+//============================================================================//
+
+
+Handlebars.registerPartial('partial', '<p>{{name}} is {{adjective}}. this is: {{site}}</p>');
+
+let partialTemp = Handlebars.compile($('#partial').html());
+$(document.body).append(partialTemp({ name: 'Bob', adjective: 'cool' }));
+
+  </script>
+</body>
+</html>

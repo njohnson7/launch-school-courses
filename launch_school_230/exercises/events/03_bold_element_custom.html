@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>5 - Context Menus</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <section>Hello World</section>
+  <p>Greetings!</p>
+
+<!--==================================================================================--><script>
+
+const makeBold = (elem, fn) =>
+  (elem.style.fontWeight = 'bold') && typeof fn == 'function' && fn(elem)
+
+
+// let bolded = new CustomEvent('bolded')
+// const makeBold = elem => (elem.style.fontWeight = 'bold') && fn(elem)
+
+
+
+let domElement = document.querySelector('p')
+makeBold(domElement, elem => {
+  if (elem.tagName === 'SECTION') elem.classList.add('highlight')
+})
+p(domElement.classList.contains('highlight'))    // false
+p(domElement.style.fontWeight)                   // "bold"
+
+
+domElement = document.querySelector('section')
+makeBold(domElement, elem => {
+  if (elem.tagName === 'SECTION') elem.classList.add('highlight')
+})
+p(domElement.classList.contains('highlight'))    // true
+p(domElement.style.fontWeight)                   // "bold"
+
+//=====================================================================================//</script>
+</body>
+</html>

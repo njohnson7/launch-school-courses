@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>Web Store</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+    #store { border: 1px dashed #33b5e5; padding: 10px; }
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+  <h1>Existing Page</h1>
+  <div id='store'></div>
+
+
+<!--====================================================================================--><script>
+
+
+const HOST  = 'https://ls-230-web-store-demo.herokuapp.com';
+const store = document.getElementById('store');
+
+const parseHtml  = html => html.replace(/<(a href|form action)="/g, `$&${HOST}`);
+const renderHtml = e    => store.innerHTML = parseHtml(e.target.response);
+
+const makeRequest = function (httpMethod, url) {
+  let xhr    = new XMLHttpRequest;
+  xhr.onload = renderHtml;
+  xhr.open(httpMethod, url);
+  xhr.send();
+};
+
+store.addEventListener('click', function (e) {
+  if (e.target.tagName != 'A') return;
+  e.preventDefault();
+  makeRequest('GET', e.target.href);
+});
+
+store.addEventListener('submit', function (e) {
+  e.preventDefault();
+  makeRequest('POST', e.target.action);
+});
+
+makeRequest('GET', `${HOST}/products`);
+
+
+
+//================================= OLD CODE ==================================//
+// if (e.target.tagName == 'FORM') makeRequest('POST', e.target.action);
+
+
+//============================================================================//
+
+
+// event handler info:
+
+  // p('submit');
+  // p(e.target);
+  // p(e.currentTarget);
+  // p(this);
+
+
+//======================================================================================//</script>
+</body>
+</html>

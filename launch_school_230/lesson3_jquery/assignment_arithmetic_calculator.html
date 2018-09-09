@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>runner</title>
+  <meta charset='utf-8'>
+  <style>
+    body           { background: #000;    color: #eee; }
+    input          { background: #222;    color: #33b5e5; border: #555 solid 1px; }
+    button, select { background: #33b5e5; color: #000;    border: #555 solid 1px; }
+  </style>
+  <script src='../jquery-3.2.1.js'></script>
+  <script src='../good_functions.js'></script>
+  <script>
+
+/*
+- two numbers
+- operator
+  - select box: + - * /
+- "equal" button to perform calculation
+*/
+
+// $(function () {
+//   function calculate(num1, num2, op) {
+//     switch (op) {
+//       case '+': return num1 + num2;
+//       case '-': return num1 - num2;
+//       case '*': return num1 * num2;
+//       case '/': return num1 / num2;
+//     }
+//   }
+
+//   let calc = {
+//     '+': (a, b) => a + b,
+//     '-': (a, b) => a - b,
+//     '*': (a, b) => a * b,
+//     '/': (a, b) => a / b,
+//   };
+
+//   $('form').submit(function (e) {
+//     e.preventDefault();
+//     let num1 = ~~$('#num1').val();
+//     let num2 = ~~$('#num2').val();
+//     // let [num1, num2] = [...$('[type=number').map(function () { return ~~$(this).val() })];
+//     let op = $('#op').val();
+//     // $('#result').text(eval(num1 + op + num2));
+//     // $('#result').text(calculate(num1, num2, op));
+//     $('#result').text(calc[op](num1, num2));
+//   });
+// });
+
+
+//============================================================================//
+
+
+// $(function () {
+//   const add      = (a, b) => a + b;
+//   const subtract = (a, b) => a - b;
+//   const multiply = (a, b) => a * b;
+//   const divide   = (a, b) => a / b;
+
+//   const OPERATIONS = {
+//     '+': add,
+//     '-': subtract,
+//     '*': multiply,
+//     '/': divide,
+//   };
+
+//   $('form').submit(function (e) {
+//     e.preventDefault();
+//     let [num1, num2] = $('[type=number').map((_, num) => ~~num.value);
+//     let op           = $('#op').val();
+//     $('#result').text(OPERATIONS[op](num1, num2));
+//   });
+// });
+
+
+
+
+//============================================================================//
+
+
+
+$(function () {
+  $('form').submit(function (e) {
+    e.preventDefault();
+    $('#result').text(eval([...$(':input')].map(x => x.value).join``));
+  });
+});
+
+  </script>
+</head>
+<body>
+  <h1 id='result'>0</h1>
+
+  <form action='#' method='get'>
+    <input id='num1' type='number' value='0'>
+    <select id='op'>
+      <option>+</option>
+      <option>-</option>
+      <option>*</option>
+      <option>/</option>
+    </select>
+    <input id='num2' type='number' value='0'>
+    <button type='submit'>=</button>
+  </form>
+</body>
+</html>

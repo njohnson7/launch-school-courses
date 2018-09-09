@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>6 - Selection Filters</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <form id="selection-filters" method="post" action="#">
+    <select id="animal-classifications">
+      <option value="Classifications" selected>Classifications</option>
+      <option value="Vertebrate">Vertebrate</option>
+      <option value="Warm-blooded">Warm-blooded</option>
+      <option value="Cold-blooded">Cold-blooded</option>
+      <option value="Mammal">Mammal</option>
+      <option value="Bird">Bird</option>
+    </select>
+    <select id="animals">
+      <option value="Animals" selected>Animals</option>
+      <option value="Bear">Bear</option>
+      <option value="Turtle">Turtle</option>
+      <option value="Whale">Whale</option>
+      <option value="Salmon">Salmon</option>
+      <option value="Ostrich">Ostrich</option>
+    </select>
+    <button id="clear">Clear</button>
+  </form>
+
+<!--==================================================================================--><script>;
+
+
+
+// let filters = [
+//   { Bear: ['Vertebrate', 'Warm-blooded', 'Mammal'], Turtle: ['Vertebrate', 'Cold-blooded'], Whale: ['Vertebrate', 'Warm-blooded', 'Mammal'], Salmon: ['Vertebrate', 'Cold-blooded'], Ostrich: ['Vertebrate', 'Warm-blooded', 'Bird'] },
+//   { Vertebrate: ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'], 'Warm-blooded': ['Bear', 'Whale', 'Ostrich'], 'Cold-blooded': ['Salmon', 'Turtle'], Mammal: ['Bear', 'Whale'], Bird: ['Ostrich'] },
+// ]
+
+// const makeDisplaySetter = value => (elem => elem.style.display = value)
+// const show              = makeDisplaySetter('block')
+// const hide              = makeDisplaySetter('none')
+
+// const form    = document.querySelector('form')
+// const selects = [...form.querySelectorAll('select')]
+// const options = [].concat(...selects.map(select => [...select.options]))
+
+// const filterOpts = ({ target: currentSelect }) => {
+//   let idx            = selects.findIndex(select => select != currentSelect)
+//   let validOptValues = filters[idx][currentSelect.value]
+//   let optsToFilter   = [...selects[idx].options]
+//   let filteredOpts   = optsToFilter.filter(opt => validOptValues.includes(opt.value))
+//   optsToFilter.forEach(hide)
+//   filteredOpts.forEach(show)
+//   filteredOpts[0].selected = true
+// }
+
+// const resetForm = e => {
+//   e.preventDefault()
+//   options.forEach(show)
+//   form.reset()
+// }
+
+// form.onchange      = filterOpts
+// form.clear.onclick = resetForm
+
+
+
+
+var classifications = {
+  'Vertebrate': ['Bear', 'Turtle' , 'Whale', 'Salmon', 'Ostrich'],
+  'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
+  'Cold-blooded': ['Salmon', 'Turtle'],
+  'Mammal': ['Bear', 'Whale'],
+  'Bird': ['Ostrich'],
+};
+
+var animals = {
+  'Bear': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+  'Turtle': ['Vertebrate', 'Cold-blooded'],
+  'Whale':  ['Vertebrate', 'Warm-blooded', 'Mammal'],
+  'Salmon': ['Vertebrate', 'Cold-blooded'],
+  'Ostrich':  ['Vertebrate', 'Warm-blooded', 'Bird'],
+};
+
+var classificationsSelect = document.getElementById('animal-classifications');
+var animalsSelect         = document.getElementById('animals');
+
+function updateSelect(select, optionsObj, otherSelect) {
+  var selectedOption = select.selectedOptions[0].text;
+  var newOptions     = optionsObj[selectedOption];
+  otherSelect.length = newOptions.length;
+
+  for (var i = 0; i < newOptions.length; i++) {
+    otherSelect.item(i).text = newOptions[i];
+  }
+}
+
+classificationsSelect.addEventListener('change', function(event) {
+  updateSelect(classificationsSelect, classifications, animalsSelect);
+})
+
+animalsSelect.addEventListener('change', function(event) {
+  updateSelect(animalsSelect, animals, classificationsSelect);
+})
+
+
+
+//=====================================================================================//</script>
+</body>
+</html>

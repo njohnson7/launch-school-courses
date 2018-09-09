@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>6 - Node Swap</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../../lib/good_functions.js'></script>
+</head>
+
+<body>
+  <div>
+    <div id='1'>
+      <div id='4'></div>
+      <div id='5'>
+        <div id='6'></div>
+      </div>
+    </div>
+    <div id='2'></div>
+    <div id='3'>
+      <div id='7'></div>
+      <div id='8'></div>
+      <div id='9'></div>
+      <div id='10'></div>
+    </div>
+  </div>
+
+<!--==================================================================================--><script>/*
+-I: 2 element `id`s
+-R:
+  - always 2 args
+  - nodes always have ids
+  - swap the positions of the 2 elems
+  - return `undefined` if:
+    - `id` doesn't exist,
+    - the nodes are parent-child
+-D:
+-A:
+
+the _____ interface represents a fragment of a document that can contain nodes and parts of text nodes.
+- a __1__ can be created using the `createRange` method of the `Document` object.
+- __1__ objects can also be retrieved by using the `getRangeAt` method of the `Selection` object or the `caretRangeFromPoint` method of the `Document` object.
+
+//=============================================================================================//*/
+
+const getNodeById = document.getElementById.bind(document);
+const byNumber    = (a, b) => a - b;
+const getNodes    = ids => ids.sort(byNumber).map(getNodeById);
+const areRelated  = (node1, node2) => node1.contains(node2) || node2.contains(node1);
+const isValidSwap = (node1, node2) => node1 && node2 && !areRelated(node1, node2);
+
+const swap = (node1, node2) => {
+  let node2NextSibling = node2.nextElementSibling;
+  node1.insertAdjacentElement('beforebegin', node2);
+
+  node2NextSibling
+    ? node2NextSibling.insertAdjacentElement('beforebegin', node1)
+    : node1.parentNode.appendChild(node1);
+};
+
+const nodeSwap = (...ids) => {
+  let nodes = getNodes(ids);
+  if (!isValidSwap(...nodes)) return;
+  swap(...nodes);
+};
+
+
+//======================== bad =========================//
+// // `id` doesn't exist
+p(nodeSwap(1, 20));
+
+// // parent-child
+p(nodeSwap(1, 4));
+p(nodeSwap(9, 3));
+// p();
+
+//======================== good =========================//
+// one swap
+// p(nodeSwap(1, 2));       // 2, 1, 3
+
+// multiple swaps
+p(nodeSwap(3, 1));       // 3, 2, 1
+p(nodeSwap(7, 9));       // 9, 8, 7, 10
+
+//======================================================================================//</script>
+</body>
+</html>

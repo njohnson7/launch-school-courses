@@ -1,0 +1,56 @@
+body {
+  background:      #780e24;
+  font:            normal 14px Helvetica, Arial, sans-serif;
+}
+main {
+  background:      #fff;
+  margin:          0 auto;
+  padding:         25px;
+  width:           802px;
+}
+#canvas {
+  background:      linear-gradient(to bottom, #fff 0%, #06c 100%);
+  border:          1px solid #ccc;
+  height:          600px;
+  position:        relative;
+  width:           100%;
+}
+#canvas > div {
+  background:      #dde338;
+  height:          30px;
+  position:        absolute;
+  width:           30px;
+  z-index:         1;
+}
+#canvas .circle {
+  border-radius:   100%;
+}
+#canvas .star {
+  background:      transparent url('star.png');
+  background-size: 100% auto;
+}
+fieldset {
+  border:          none;
+  margin:          0;
+  padding:         0;
+}
+ul {
+  list-style:      none;
+}
+dl {
+  margin:          0;
+}
+dt {
+  padding:         0 0 5px 0;
+}
+dd {
+  margin:          0;
+  padding:         0 0 20px 0;
+}
+input[type='number'] {
+  box-sizing:      border-box;
+  font:            normal 14px/100% sans-serif;
+  height:          30px;
+  padding:         5px 0 5px 5px;
+  width:           70px;
+}

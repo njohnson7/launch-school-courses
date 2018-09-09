@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>3 - A Custom Delete Confirmation Prompt</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+/*
+    #modal {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 200, .5);
+      width: 100vw;
+      height: 100vh;
+    }*/
+
+    #prompt {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      background: #333;
+      /*position: fixed;*/
+    }
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+
+<!--==================================================================================--><script>
+let todoItems = [{id: 1, title: 'Homework'}, {id: 2, title: 'Shopping'}, {id: 3, title: 'Calling Mom'}, {id: 4, title: 'Coffee with John'}];
+
+const createElem = tag => document.createElement(tag);
+const append = (parent, ...children) => children.forEach(parent.appendChild, parent);
+const setText = (elem, text) => elem.innerText = text;
+const setDisplay = value => (elem => elem.style.display = value);
+const hide = setDisplay('none');
+const show = setDisplay('block');
+
+const h1 = createElem('h1');
+setText(h1, 'Todos');
+
+const ul = createElem('ul');
+
+const prompt = createElem('div');
+prompt.id = 'prompt';
+prompt.innerHTML = `
+  <p>Are you sure?</p>
+  <button id='yes'>yes</button>
+  <button id='no'>no</button>
+`;
+
+// const modal = createElem('div');
+// modal.id = 'modal';
+
+// const prompt = createElem('div');
+// const yes = createElem('button');
+// setText(yes, 'yes');
+// setText(no, 'no');
+// const no = createElem('button');
+
+// appendChildren(modal, prompt);
+
+
+append(document.body, h1, ul, prompt);
+
+const createTodoElem = ({ id, title }) => {
+  let todoElem = createElem('li');
+  todoElem.dataset.id = id;
+  todoElem.innerText  = title;
+  setText(todoElem, title);
+  return todoElem;
+};
+
+append(ul, ...todoItems.map(createTodoElem));
+
+ul.onclick = e => {
+  if (e.target.tagName != 'LI') return;
+  createElem('div');
+  e.target.remove();
+};
+
+//======================================================================================//</script>
+</body>
+</html>

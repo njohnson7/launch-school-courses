@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>4 - Buggy Code</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+  <style>
+    img {
+      display:    block;
+      width:      15%;
+      margin-top: 10px;
+      cursor:     auto;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://www.launchschool.com">
+    Home
+    <img src="https://d24f1whwu8r3u4.cloudfront.net/assets/launch-logo-b6d01bd15ee9da31457ee3c315845718823aa8a741858be598ab35042a312348.svg">
+  </a>
+
+<!--==================================================================================--><script>
+
+// document.querySelector('img').addEventListener('click', function (event) {
+//   event.preventDefault();
+// }, false);
+
+document.querySelector('img').onclick = _ => false
+
+
+//=====================================================================================//</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+#comic {
+  background: transparent url('xkcd.gif') 0 0 no-repeat;
+  height:     312px;
+  margin:     0 auto;
+  overflow:   hidden;
+  position:   relative;
+  width:      705px;
+}
+[id^='panel'] {
+  float:  left;
+  height: 282px;
+  width:  215px;
+}
+#panel_2 {
+  width: 179px;
+}
+#panel_3 {
+  margin-right: 8px;
+  width:        130px;
+}
+#panel_4 {
+  width: 173px;
+}
+[id^='blind'] {
+  background: #fff;
+  position:   absolute;
+}
+#blind_1 {
+  height: 76px;
+  left:   3px;
+  top:    6px;
+  width:  123px;
+}
+#blind_2 {
+  height: 65px;
+  left:   33px;
+  top:    57px;
+  width:  178px;
+}
+#blind_3 {
+  height: 94px;
+  left:   224px;
+  top:    7px;
+  width:  139px;
+}
+#blind_4 {
+  height: 46px;
+  left:   290px;
+  top:    77px;
+  width:  96px;
+}
+#blind_5 {
+  height: 137px;
+  left:   402px;
+  top:    8px;
+  width:  102px;
+}
+#blind_6 {
+  height: 81px;
+  left:   441px;
+  top:    67px;
+  width:  76px;
+}
+#blind_7 {
+  height: 79px;
+  left:   535px;
+  top:    6px;
+  width:  139px;
+}
+#blind_8 {
+  height: 30px;
+  left:   609px;
+  top:    51px;
+  width:  49px;
+}
+#blind_9 {
+  height: 42px;
+  left:   561px;
+  top:    79px;
+  width:  137px;
+}
+html {
+  background: #000;
+}
+.restart {
+  margin: 20px auto;
+  width:  705px;
+}
+#restart {
+  cursor: pointer;
+}
+#restart:hover {
+  background: #33b5e5;
+}

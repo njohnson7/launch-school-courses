@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>Grocery List</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 16px Helvetica, sans; }
+    input          { background: #222;    color: #33b5e5; border: #555 solid 1px; }
+    button, select { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
+    main { background: #111; margin: auto; width: 50%; padding: 10px;}
+    fieldset { border: none; padding: 0 0 20px; }
+    label { display: block; }
+    label:nth-of-type(2) { padding-top: 10px; }
+    button { display: block; width: 100%; }
+    h1 { color: #33b5e5; padding-top: 10px; text-align: center; }
+    ul { text-align: left }
+    li { border-bottom: 1px solid #333; padding: 2px;}
+    li:last-of-type { border-bottom: none; }
+    #msg { background: #C05C43; color: #000; }
+    @media print {
+      form { display: none; }
+    }
+  </style>
+  <script src='../jquery-3.2.1.js'></script>
+  <script src='../good_functions.js'></script>
+  <script src='assignment_grocery_list.js'></script>
+</head>
+<body>
+  <main>
+    <form action='#' method='get'>
+      <h2>Add an item</h1>
+      <p id='msg'></p>
+      <fieldset>
+        <label for='name'>Item name</label>
+        <input id='name' name='name'>
+        <label for='quantity'>Quantity</label>
+        <input id='quantity' name='quantity' type='number'>
+      </fieldset>
+      <button type='submit'>Add</button>
+    </form>
+
+    <h1>Groceries</h1>
+    <ul></ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>1 - Randomizer</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+
+<!--==================================================================================--><script>
+
+const getRandomNum = (min, max) => ~~(Math.random() * (max - min + 1) + min)
+
+const randomizer = (...callbacks) => {
+  const logCurrentSecond = _ => {
+    if (currentSecond >= maxSeconds) {
+      clearInterval(interval)
+      return
+    }
+    currentSecond++
+    console.log(currentSecond)
+  }
+
+  const setCallbackTimeout = callback => {
+    let milliseconds = getRandomNum(0, maxSeconds * 1000)
+    setTimeout(callback, milliseconds)
+  }
+
+  let maxSeconds    = callbacks.length * 2
+  let currentSecond = 0
+  let interval      = setInterval(logCurrentSecond, 1000)
+
+  callbacks.forEach(setCallbackTimeout)
+}
+
+//=================================================//
+
+function callback1() {
+  console.log('callback1')
+}
+function callback2() {
+  console.log('callback2')
+}
+function callback3() {
+  console.log('callback3')
+}
+randomizer(callback1, callback2, callback3)
+// randomizer()
+// Output:
+// 1
+// 2
+// "callback2"
+// "callback3"
+// 3
+// 4
+// 5
+// "callback1"
+// 6
+
+//=====================================================================================//</script>
+</body>
+</html>
