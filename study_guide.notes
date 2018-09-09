@@ -1,0 +1,1206 @@
+SQL:
+  - DDL, DML, DCL
+  - INNER/LEFT/RIGHT JOIN
+  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
+  - GROUP BY, ORDER BY, WHERE, HAVING
+
+PostgreSQL:
+  - sequence
+  - auto-incrementing column
+  - DEFAULT value
+  - keys:  primary, foreign, natural, surrogate
+  - CHECK constraints
+  - foreign key constraints
+
+DB Diagrams:
+  - cardinality, modality
+  - crow's foot notation
+
+
+
+
+
+
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+------------------ SQL -------------------------------------------------------
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+
+
+
+- SQL is a special purpose, declarative language used to manipulate the structure and values of datasets stored in a relational DB
+  - made up of statements terminated by a semicolon
+
+
+
+- Relational databases are called relational because they persist data in a set of relations, or, as they are more commonly called, tables.
+- A relationship is a connection between entity instances, or rows of data, usually resulting from a relationship between what those rows of data represent.
+
+
+
+
+
+---============================================================================
+---============================================================================
+Name and define the three sublanguages of SQL.:
+---============================================================================
+---============================================================================
+
+- DDL: (*Data Definition Language*)
+  - allows a user to create/modify/delete the schema stored w/i a DB
+  - DDL statements create/modify/delete the structure of or rules that govern the data that is held w/i a DB
+      - and also read...? (ie, `DESCRIBE`)
+
+  - *schema* => a DB's schema is the structure of a table....?
+    - everything displayed by the `\d` command
+        ex: a column's name, type, and any options # (ex: properties/keys/constraints)
+
+
+  - controls: # relation structure and rules
+  - SQL Constructs: `ALTER, CREATE, DROP, ADD, DESCRIBE`
+
+
+  - Data Definition Statements are commands that relate to the structure of the database.
+    - manipulates data definitions
+    - essential for setting up and maintaining the structure of a DB
+    - `CREATE TABLE` defines the type of information stored in a database table by describing the data and its attributes
+    - `ALTER TABLE` modifies the characteristics and attributes of a table
+    - `CREATE SEQUENCE` statements modify the characterists and attributes of a DB by adding a sequence object to the DB structure
+      - it does not actually manipulate any data, only data definitions
+      - (some consider it part of DML b/c the sequence object it creates is a bit of data that is used to keep track of a sequence of autmatically generated values, so it can be thought of as part of the data instead of a characteristic of the data)
+
+
+
+  - responsible for describing how data is structured
+  - used to create/modify/delete DBs and tables
+  -
+
+
+
+
+
+
+
+- DML: (*Data Manipulation Language*)
+  - responsible for creating, reading, updating, and deleting the actual data w/i a DB
+    - retrieve/modify data stored w/i a DB
+  - CRUD operations (create, read, update, delete data)
+
+  - DB's *data* => the actual content of the tables
+      ex: `SELECT * FROM table_name`
+
+
+  - controls: # values stored w/i relations
+  - SQL Constructs: `INSERT, SELECT, UPDATE, DELETE`
+
+
+  - Data Manipulation Statements => used for accessing and manipulating the data of the database.
+
+
+
+
+
+-  even though the output looks different, # both the data and schema perspectives are views into the same table.
+
+
+
+
+
+- DCL: (*Data Control Language*)
+  - responsible for controlling the # rights and access roles # granted to individual users interacting w/ a DB or table
+    - controls access to a DB
+
+  - in the course, the DBs we worked with utilized a DB user that has complete control of and access to a DB, its schema, and its data
+  - if this isn't the case, usually you will be granted read-only access and can only use SELECT statements
+
+
+  - controls: # who can do what
+  - SQL constructs: `GRANT, REVOKE`
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Explain the difference between INNER, LEFT OUTER, and RIGHT OUTER joins.:
+---============================================================================
+---============================================================================
+
+
+- a JOIN is a way to combine the rows/columns of two or more tables
+
+- (JOINs are usually faster than subqueries)
+
+
+- *INNER JOINs*:
+  - returns a result set containing elements common to both tables
+    - ie, the intersection where they match on the joined column.
+  - most common type of JOIN
+  - ...connects 2 tables together where the condition is true in the ON clause...
+  - INNER JOIN tells the DB that it needs to find a matching row in both tables in order to return data from either one
+    - rows that don't have a matching value in either one of the tables are not included in the results
+  - use INNER JOIN when you know when all the values will be there and there won't be any opportunity for a missing value
+    - when this isn't the case, use OUTER JOIN to make sure that you always get # all # of the values from one table or the other
+
+
+
+- *LEFT OUTER JOINs*:
+  - join all the rows in the left table, but only the rows in the right table that satisfy the condition specified in the ON clause, otherwise the columns in the right table will be filled with NULL or undefined values for any left table row that doesn't satisfy the condition
+    - it will always include all rows from the left table, even if there are no matching rows in the other table
+  - LEFT OUTER JOIN tells DB that we want to get back the data from # all # of the rows in the left table (the first table)
+    - so there will be # at least one # row for every row in left table, regardless of if there was a matching value in the right table
+    - always get all the values in the left table
+    - only get  values from right table if there's a matching row
+      - otherwise filled w/ NULL values in right columns
+
+
+
+- *RIGHT OUTER JOINs*:
+  - join all the rows in the right table, but only rows in the left table where ON clause evals to true
+  - similar to a LEFT join, except all the rows in the right table are included instead
+  - LEFT OUTER JOIN is much more common
+    - usualyl when you write a query, you start w/ the table that you want all the values for
+      - so you use LEFT OUTER JOIN to connect other tables to the rows of that first (left) table, but you don't want to exclude rows from the original table that don't have matching values in the other table(s)
+
+
+
+
+#####
+
+- PostgreSQL allows relationships between both the schema and data of different tables through the use of FOREIGN KEYS and an operation called a JOIN
+- *JOINs* => clauses in SQL statements that link 2 tables based on 1+ fields
+  - reduce redundancy in DB:
+    - A table doesn't have to contain all the fields related to its rows, and table data can be used in multiple places
+
+- it's best to always use the most explicit name for JOINs b/c it improves the understanding for other humans that are working on the same code you are
+
+#####
+
+
+
+
+
+#.............#
+
+- one reason JOINs are useful is b/c after converting an existing single table to a 1:M rel, If we had an application that was expecting query results to be returned with this structure, we would be able to craft new queries using JOINs so that our application's code wouldn't need to change even though the database schema did.
+
+
+- CROSS JOIN => returns the cartesian product
+  - takes each row from 1st table and matches it up to each row in 2nd table, and returns every possible combo of rows from those 2 tables
+  - no ON clause
+  - not commonly used b/c not many use cases
+  - CROSS JOIN is generally best suited to generating test data rather than production queries.
+
+
+- different ways to write out JOINs:
+  - CROSS JOIN
+      ex: SELECT * FROM users, comments;
+  - INNER JOIN
+      ex: SELECT * FROM users, comments WHERE comments.user_id = users.id
+  - regular JOIN syntax is better:
+    - it's more explicit about what kind of JOIN is being used
+    - easier to change (ie, from LEFT to RIGHT)
+    - how the table is being joined is in the join clause (ON clause), instead of conditions
+      - it's less obvious whihc WHERE condition is being used for JOIN vs. which is being used to filter the data being returned
+    - best to be explicit!
+      -
+
+#.............#
+
+
+
+
+---============================================================================
+---============================================================================
+Write SQL statements using INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN.:
+---============================================================================
+---============================================================================
+
+[sql]
+
+  CREATE TABLE people (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    age integer NOT NULL CHECK (age > 0)
+  );
+
+  INSERT INTO people (name, age) VALUES
+    ('Bob', 22), ('Fred', 66), ('Eric', 55), ('Nancy', 44),
+    ('Steve', 22), ('Fiona', 77), ('Feltzheimer', 99);
+
+  UPDATE people SET age = 33 WHERE id = 1;
+
+  DELETE FROM people WHERE id = 2;
+
+  ALTER TABLE people ADD COLUMN gender char(1);
+
+  UPDATE people SET gender = 'm';
+
+  UPDATE people SET gender = 'f' WHERE id = 4 OR id = 6;
+
+  UPDATE people SET name = 'Bobina', gender = 'f' WHERE id = 1;
+
+  ALTER TABLE people ALTER COLUMN name TYPE varchar(100);
+
+  ALTER TABLE people DROP COLUMN gender;
+
+  ALTER TABLE people RENAME COLUMN name TO first_name;
+
+  ALTER TABLE people RENAME TO ppl;
+
+  DROP TABLE people;
+
+  DROP TABLE IF EXISTS people;
+
+[/sql]
+
+
+- SELECT:
+  - the most used command, and has the most clauses
+  - command for retrieving data in a table
+  - a wild card character, `*`, is an indicator to the SELECT command to return all the columns it finds in a given table(s).
+  - the FROM clause tells the SELECT statement which DB table will be used.
+  - the WHERE clause adds selection criteria, so that only certain rows are selected based on the specified condition(s)
+
+- *UPDATE* / *DELETE*:
+  - WHERE clause provides criteria for updating/deleting specific records
+    - not providing a WHERE clause to the query will apply action to all records
+  - # always back up your DB and test your UPDATE and DELETE queries on dummy data first.
+
+- *ALTER*
+  - Before jumping in to alter your table, take extra time to think about how the change will affect your data.
+      ex: Deleting a column means all data in that column will be lost forever.
+  - <ALTER TABLE> statement is for altering a # table schema only
+    - use <UPDATE> to change its # data
+  - use an ADD COLUMN clause in an ALTER TABLE statement to add a column that wasn't specified in the original schema
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Understand how to use GROUP BY, ORDER BY, WHERE, and HAVING.:
+---============================================================================
+---============================================================================
+
+[sql]
+
+SELECT * FROM people WHERE age > 44;
+
+SELECT * FROM people WHERE age > 44 AND gender = 'm';
+
+SELECT * FROM people ORDER BY age DESC;
+
+SELECT * FROM people ORDER BY age DESC LIMIT 3;
+
+SELECT * FROM people ORDER BY age ASC;
+
+SELECT * FROM people WHERE age > 44 AND gender = 'm';
+
+SELECT * FROM people WHERE name LIKE '%o%';
+
+SELECT gender, count(id) FROM people
+GROUP BY gender;
+
+SELECT string_agg(name, ', '), count(id) FROM people
+GROUP BY gender
+HAVING count(id) > 2;
+
+[/sql]
+
+- *ORDER BY*: for sorting
+  - orders our result table based on any column(s) we specify.
+  - The default ordering for an ORDER BY clause is ascending
+
+- *WHERE*
+  - the WHERE clause allows for  #  multiple conditions  #  using `AND` and `OR`
+  - logical operators are often used in WHERE clauses (AND, OR, IS NULL, NOT IN, etc)
+
+
+- *GROUP BY*
+  - [sql]       SELECT description, sum(paid_out)
+                  FROM transactions GROUP BY description;            [end]
+    - records are grouped by the specified field, `description`
+    - then the `sum()` function computes the total `paid_out` value per group
+
+
+
+
+
+
+==============================================================================
+              #     How PostgreSQL Executes a SELECT Query     #
+==============================================================================
+
+1. <rows> are <collected> into a <virtual derived table>
+  - a new temporary table is created using the data from all tables in the `FROM` and `JOIN` clauses
+
+2. <rows> are <filtered> using `WHERE` <conditions>
+  - all the conditions in the WHERE clause are evaluated for each row
+      ---> rows that don't meet these requirements are removed
+
+3. <rows> are <divided> into <groups> specified by `GROUP BY` clause
+  - both GROUP BY and aggregate functions perform grouping
+
+4. <groups> are <filtered> using `HAVING` conditions
+  - HAVING conditions are similar to WHERE conditions
+    - except they are applied to the values that are used to create groups, instead of individual rows
+    - so a column appearing in a HAVING clause should almost always appear in the GROUP BY clause and/or aggregate function
+
+5. <compute values to return> using <select list>
+  - each element in the select list is evaluated, including any functions
+  - the resulting values are associated with either:
+    a. name of the column they are from
+    b. name of the last function evaluated
+    c. name specified by `AS`
+
+6. <sort> results
+  - result set is sorted as specified in an `ORDER BY` clause
+    - w/o this clause, the order is based on the result of how the DB executed the query and the rows' order in the original tables
+    - it's best to always specify an explicit order if your app relies on rows being returned in a specific order
+
+7. <limit> results
+  - if `LIMIT` or `OFFSET` clauses are included in the query, these are used to adjust which rows in the result set are returned
+
+=============================================================================
+
+
+
+
+
+
+
+
+
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+------------------ PostgreSQL ------------------------------------------------
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+
+
+
+---============================================================================
+---============================================================================
+Describe what a sequence is and what they are used for.:
+---============================================================================
+---============================================================================
+
+- *sequence* => #  a special type of relation that generates a series of numbers
+  - it will remember the last number it generated, so it will generate numbers in a predetermined sequence automatically
+
+  - the sequence's value is used as the id column's default value.
+  - The next value of a sequence is accessed using `nextval`, and can be done in any SQL statement
+      ex: `SELECT nextval('cats_id_seq');`
+    - Once a number is returned by nextval for a standard sequence, it will not be returned again, regardless of whether the values was stored in a row or not, like in the above example
+      - if we INSERT into a table again, the number returned above will be skipped
+      - if we manually insert an id, the sequence value will not be incremented
+
+    - a serial column alone does not enforce unqieness!
+      - #  write an example...!
+
+
+ex: `UPDATE colors SET id = nextval('colors_id_seq') WHERE name = 'orange';`
+
+
+
+  - often created to be used as the primary key column of a table.
+
+- It can be created by:
+  - automatically:  specifying the *pseudotype* `serial` in the data type of a column
+    - also will add `TYPE` of `integer` to column
+    - also will add a `NOT NULL` constraint to the column
+    - also will add a DEFAULT value of `nextval('seq_name'::regclass)` to the column
+
+  - manually:  `CREATE SEQUENCE seq_name`
+    - then you have to add the above modifiers yourself
+
+- It is usually used in this form:
+  [sql]
+         CREATE TABLE people (id serial PRIMARY KEY)
+  [/sql]
+    - this will create a sequence with the name `people_id_seq`
+    - it will have a `start_value` of 1 by default, and will automatically increment every time a row is inserted or attempted to be inserted into the table
+    - this also adds a PRIMARY KEY constraint to the column
+
+
+- `setval()` is a function that sets the current value of a sequence.
+  - Remember, that we are using sequences to set and increment the default value of certain table ids when a value isn't supplied.
+  - In the above data we set our ids manually.
+  - But if we want the option to auto generate ids later on, we'll have to make sure the sequence values match the current id values.
+  - This is why we use `setval()` in the above list of commands.
+
+- `nextval()` increments the current value of a seq
+
+
+- `CREATE SEQUENCE` statements modify the characterists and attributes of a DB by adding a sequence object to the DB structure
+  - it does not actually manipulate any data, only data definitions
+  - (some consider it part of DML b/c the sequence object it creates is a bit of data that is used to keep track of a sequence of autmatically generated values, so it can be thought of as part of the data instead of a characteristic of the data)
+
+- sequences are relations, and thus can queried using SELECT and placed in the FROM clause:
+    ex:
+       - `SELECT start_value FROM films_id_seq;`
+       - `SELECT * FROM films_id_seq;`
+
+
+
+# see natural key section for more info...!
+
+
+
+
+---============================================================================
+---============================================================================
+Create an auto-incrementing column.:
+---============================================================================
+---============================================================================
+
+- specifying the *pseudotype* `serial` in the data type of a column is a way to create identifier columns for a PSQL DB to auto increment ids and set their type as integer
+  - (similar to using `AUTO_INCREMENT` in other RDBMSs)
+  - automatically # creates a sequence
+  - includes `NOT NULL`
+
+
+- serial is a shortcut for creating columns with a default auto-incrementing value
+
+
+[sql]
+
+---- manually ----
+
+CREATE SEQUENCE cats_id_seq;
+
+CREATE TABLE cats (
+  id integer NOT NULL DEFAULT nextval('cats_id_seq'),
+  name text
+);
+
+
+
+---- shortcut using serial pseudotype ----
+
+CREATE TABLE cats (
+  id serial,
+  name text
+);
+
+
+
+-- the correct way to insert data into a column that has the nextval function:
+
+INSERT INTO cats (name) VALUES ('Fluffy');
+
+[/sql]
+
+- each time a new record is inserted (or attempted to be inserted...?), the `nextval()` function increments the last id by 1, and that value is set as the default value of the current record's id
+  - b/c the id column has the nextval property, we should not include it when inserting values, and let PSQL automatically generate a value
+
+
+
+
+
+
+
+# see natural key section for more info...!
+
+
+
+
+
+---============================================================================
+---============================================================================
+Define a default value for a column.:
+---============================================================================
+---============================================================================
+
+[sql]
+
+---- new table ----
+
+CREATE TABLE cats (
+  id serial PRIMARY KEY,
+  name text DEFAULT 'Fluffy',
+  age integer
+);
+
+INSERT INTO cats (age) VALUES (5);
+
+
+
+---- existing table ----
+
+ALTER TABLE cats ALTER COLUMN age SET DEFAULT 1;
+
+INSERT INTO cats (name) VALUES ('Caaaat');
+
+
+
+
+---- example from lesson 2 -----
+ALTER TABLE employees ALTER COLUMN vacation_remaining SET DEFAULT 0;
+
+[/sql]
+
+- the column `name` has an <extra property> `DEFAULT` w/ a <value> of "Fluffy"
+
+- PSQL will use the default value listed if no value is set when a new record is inserted
+
+- if the `NULL` property of a column is set to `NOT`, and has no default value, then the column cannot be skipped when inserting a record
+  - # The NOT NULL constraint prevents a column from allowing a null value (i.e. this column must contain data).
+
+
+#...............#
+
+- The design of relational databases, and truthfully their power, comes from the work involved in defining a common set of attributes (the values of which are stored in columns). It follows that the more specific and exact the design of the schema is, the "neater" and more consistent the data will be.
+
+#...............#
+
+
+
+# it IS possible to define a default value for a column that will be considered invalid by a constraint!
+  - but the default value cannot be inserted into the table
+
+
+
+#////////  add examples of what ahppens when you try to alter a table's schema and the table already has values that violate a new constraint/type/etc...
+
+
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Be able to describe what a primary, foreign, natural, and surrogate keys are.:
+---============================================================================
+---============================================================================
+
+
+- #  keys are useful b/c it is entirely possible to have identical rows of data that represent different real-world entities appear in the same table.
+  - so stop using values to identify rows that have not been carefully selected to be unique across the entire dataset
+
+- #  A key uniquely identifies a single row in a database table
+
+
+
+- *primary key*:
+  - *PK* => a value that is used to uniquely identify a <record> (row of data) of a table
+    - b/c of this we can use a row's PK value to reference that row from other tables
+  - maximum of 1 PK column per table
+  - all values in the PK column must be unique throughout that table
+    - PSQL doesn't allow duplicate values to be added to PK column
+  - the PK is a type of <index> that is optimized by SQL
+
+  - PKS are used b/c each *record* (row of data) must be uniquely identifiable for the DB to be able to keep track of all its records
+  - PKS are given performance benefits in PSQL b/c they're frequently used to look up data, esp. in multi-table lookups
+
+  ex: `id serial PRIMARY KEY`
+    - <terminology> -- 2 options:
+      - #  id column is the Primary Key of this table
+      - #  the Primary Key constraint has been applied to the id column
+
+  - primary key constraint automatically sets a `NOT NULL` constraint
+
+  - standard conventions:
+    - every table should have a primary key column with the name of `id`
+      - (technically any column can be the PK)
+    - the id column should automatically be set to a unique value upon new row insertion
+    - it is usually a positive integer, generated by means of an auto-incrementing sequence, such as `serial`, but it can also be another data type, such as a UUID, which can provide specific benefits
+
+
+  - by specifying PRIMARY KEY, PSQL will create an index on that column that enforces it holding unique NOT NULL values
+
+  - difference b/w using PRIMARY KEY and manually specifying NOT NULL UNIQUE:
+    - using PK, the fact that a certain column can be relied on to identfiy specific rows is baked into the table's schema
+
+  - PK constraint is listed under `Indexes` in `\d` and usaully named: `table_name_pkey`
+
+
+- technically it isn't required to decalre a PK column in every table, but it is best practice
+
+
+
+- *foreign key*:
+   - # Foreign keys are how a RDBMS sets up relationships between rows of data, either in the same table or across tables.
+  - a foreign key column holds values that reference a primary key
+    - usually the PK is in another table, but can also be another column in the same table
+    - # FK columns contain the value of the referenced row's PK
+  - it's often used to specify a relationship between two tables
+    ex: when JOINing tables, it is used in the ON clause to compare with the primary key of another table
+  - a foreign key constraint does # not # automatically add a `NOT NULL` constraint by default
+  - foreign keys are usually used in a table that has a one to many relationship w/ another table
+    - the FK is on the many side, and the PK is on the one side
+
+  - a foreign key constraint ensures the <referential integrity> w/i a DB
+    - it makes sure that every foreign key value in a table references an existing primary key in the table it is related to
+      - it will not allow deletion of a primary key from one table that is referenced by another table, nor addition of a foreign key that doesn't reference an exisitng primary key
+
+
+
+###################
+
+  - a foreign key can refer to 2 different, but related, things:
+    1. *foreign key column* => a <column> that represents a relationship b/w 2 rows by pointing to a specific row in another table using its primary key
+    2. *foreign key constraint* => a <constraint> that enforces certain rules about what values are permitted in these foreign key relationships
+
+
+  - create a <FK column> by creating a column of the same type as the PK column it will point to (ex: integer)
+
+
+  - 2 syntaxes for creating a <FK constraint>:
+
+    1. add a `REFERENCES` clause to the description of a column in a CREATE TABLE statement:
+        [sql]
+                CREATE TABLE orders (
+                  id serial PRIMARY KEY,
+                  product_id integer REFERENCES products (id),
+                  quantity integer NOT NULL
+                );
+        [end]
+
+    2. add the foreign key constraint separately, just like any other constraint:
+        [sql]
+                ALTER TABLE orders ADD CONSTRAINT orders_product_id_fkey
+                  FOREIGN KEY (product_id) REFERENCES products(id);
+        [end]
+
+
+    - One of the main benefits of using the foreign key constraints provided by a relational database is to preserve the *referential integrity* of the data in the database.
+      - The database does this by ensuring that every value in a foreign key column exists in the primary key column of the referenced table
+        -  Attempts to insert rows that violate the table's constraints will be rejected.
+
+    - FK columns allow NULL values by default, so it's often necessary to use a NOT NULL constraint together w/ a FK constraint
+
+##################
+
+
+
+=------------=
+
+ex:
+  [sql]
+        CREATE TABLE people (
+          id serial PRIMARY KEY,
+          name text
+        );
+
+        CREATE TABLE phones (
+          id serial PRIMARY KEY,
+          imei_number integer UNIQUE NOT NULL,
+          owner_id integer REFERENCES people(id)
+        );
+  [end]
+
+#####
+  - the `PRIMARY KEY` constraint sets the <primary key> of these tables to the id column
+  - the `FOREIGN KEY` constraint maps the owner_id from the phones table to the primary key id of the people table.
+#####
+
+
+- a table can only have one primary key, but can have multiple foreign keys
+- both PKs (and FKs...?) can be made up of more than 1 column, in which case they are called <composite keys>
+  - # see cardinality section below...
+  - usually in M:M rels
+
+=------------=
+
+
+
+
+- *natural key*:
+  - #  an existing value in a dataset that can be used to uniquely identify each row of data in that dataaset
+
+  - there are many problems w/ natural keys b/c although many values seem like they might be a good candidate, they're actually not, depending on the circumstances
+      ex: not everyone has an SSN, phone numbers and emails can change hands, product numbers go thru revisions
+    - #  they can change due to outside forces!
+
+  ex: IMEI for phones (International Mobile Equipment Identity)
+    - this is a number that's assigned to every cell phone to uniquely identify it
+    - but this might not be a good natural key, b/c phones can change owners!
+
+
+
+
+- *surrogate key*:
+  - #  a value that is created solely for the purpose of identifying a row of data in a DB table
+    - so it avoids many of the problems that natural keys have
+
+  - the most common surrogate key in use today is an <auto-incrementing integer>
+    - this is a value that is added to each row in a table as it is created
+
+  - a surrogate key created for a table is commonly called `id` (short for identifier)
+  - we can use SK values to identify each row, regardless of the other values in the row
+  - since these values are created by this DB, there's no way they'll ever change due to outside forces
+
+  - these auto-incrementing values are determined by using a serial column
+    - serial column is a shorthand for a column definition that is much longer
+
+
+
+
+
+
+#........keys and constraints........#
+- "https://launchschool.com/books/sql/read/constraints"
+  - A database must adhere to certain properties to maintain the integrity and quality of the data that it is storing.
+  - Keys and Constraints are rules that define what data values are allowed in certain data columns.
+  - They are an important database concept and are part of a database's schema definition.
+  - Defining Keys and constraints is part of the database design process and ensures that the data within a database is reliable and maintains its integrity.
+  - Constraints can apply to a specific column, an entire table, more than one table, or an entire schema.
+  - A reliable database system ensures that constraints hold at all times.
+  - Keys are a special type of constraint used to establish relationships and uniqueness.
+#....................................#
+
+
+
+
+#........indexes........#
+
+- "https://launchschool.com/books/sql/read/indexes"
+  - <indexes> are used by PostgreSQL to retrieve your data faster by helping locate column values faster without having to search through every record in sequence.
+    - Indexing is a mechanism that SQL engines use to speed up queries by storing results in a table-like structure in ordered form.
+    - The index you're using by default is the *primary key*, which is optimized by SQL.
+
+  - UNIQUE index
+    - where we added a unique constraint to the book table on the isbn column.
+    - Now when you create a SELECT query to search a book by its isbn, it will not scan the entire table and check each row
+      - with the use of a unique index, that data can be accessed immediately, which should make the query very fast.
+
+  - use cases of indexes:
+    - Indexes are best used in cases where sequential reading is inadequate.
+        ex: fields that aid in mapping relationships and fields that are frequently displayed with ORDER BY are good candidates for indexing.
+    - Misuse of indexes can slow down your database inserts/updates as indexes need to be updated appropriately.
+      - They are best used in tables where reads are more common.
+
+#....................................#
+
+
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Create and remove CHECK constraints from a column.:
+---============================================================================
+---============================================================================
+
+[sql]
+
+  -- CREATE TABLE:
+  CREATE TABLE cats (
+    id serial PRIMARY KEY,
+    name text CHECK (length(name) > 0),
+    age integer
+  );
+
+  -- fail -> name can't be empty:
+  INSERT INTO cats (name) VALUES ('');
+
+   -- success:
+  INSERT INTO cats (name) VALUES ('F');
+
+
+
+  -- ADD CONSTRAINT:
+  ALTER TABLE cats ADD CONSTRAINT positive_age CHECK (age > 0);
+
+  -- success -> age can be NULL:
+  INSERT INTO cats (name) VALUES ('Fluffy');
+
+  -- fail -> age can't be negative:
+  INSERT INTO cats (name, age) VALUES ('Furball', -5);
+
+  -- success:
+  INSERT INTO cats (name, age) VALUES ('Furball', 5);
+
+
+
+  -- DROP CONSTRAINT:
+  ALTER TABLE cats DROP CONSTRAINT positive_age;
+
+  -- success -> no more CHECK constraint on age:
+  INSERT INTO cats VALUES ('Teddy', -3)
+
+[end]
+
+
+- check constraints can be seen using `\d`
+- check constraints are rules that must be met by the data stored in a table
+
+- the addition of a CHECK constraint is a table-level operation: we add the CHECK to the table rather than the mass column.
+
+
+#////////  add examples of what ahppens when you try to alter a table's schema and the table already has values that violate a new constraint/type/etc...
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Create and remove foreign key constraints from a column.:
+---============================================================================
+---============================================================================
+
+[sql]
+
+  CREATE TABLE cats (
+    id serial PRIMARY KEY,
+    name text
+  );
+
+  -- CREATE TABLE:
+  CREATE TABLE toys (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    cat_id integer REFERENCES cats(id)
+  );
+
+  -- or:
+  CREATE TABLE toys (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    cat_id integer,
+    FOREIGN KEY toys_cat_id_fkey REFERENCES cats(id)
+  );
+
+
+
+  -- DROP:
+  ALTER TABLE toys DROP FOREIGN KEY toys_cat_id_fkey;
+
+
+
+  -- ADD:
+  ALTER TABLE toys ADD FOREIGN KEY cat_id REFERENCES cats(id);
+
+
+
+
+  -- foreign keys maintain referential integrity:
+  INSERT INTO cats VALUES (1, 'fluffy');
+  INSERT INTO toys VALUES (1, 'mouse', 1);
+
+  INSERT INTO toys VALUES (1, 'mouse', 2);
+    -- duplicate key value violates unique constraint "toys_pkey"
+    -- DETAIL:  Key (id)=(1) already exists.
+
+  DELETE FROM cats WHERE id = 1;
+    -- update or delete on table "cats" violates foreign key constraint "toys_cat_id_fkey" on ta
+    -- DETAIL:  Key (id)=(1) is still referenced from table "toys".
+
+[end]
+
+
+
+###################
+
+  - 2 syntaxes for creating a <FK constraint>:
+
+    1. add a `REFERENCES` clause to the description of a column in a CREATE TABLE statement:
+        [sql]
+                CREATE TABLE orders (
+                  id serial PRIMARY KEY,
+                  product_id integer REFERENCES products (id),
+                  quantity integer NOT NULL
+                );
+        [end]
+
+    2. add the foreign key constraint separately, just like any other constraint:
+        [sql]
+                ALTER TABLE orders ADD CONSTRAINT orders_product_id_fkey
+                  FOREIGN KEY (product_id) REFERENCES products(id);
+        [end]
+
+###################
+
+
+
+
+
+
+
+
+
+
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+------------------ Database Diagrams ----------------------------------------
+=============================================================================
+=============================================================================
+=============================================================================
+=============================================================================
+
+- 3 levels of schema/abstraction :
+  - things shown are different, depending on level
+
+  - *conceptual schema* => a high-level design focused on identifying entities and their relationships (...and higher level attributes...)
+    - bigger objects
+    - higher level concepts and entities
+    - very abstract way of thinking about data
+      - isn;t concerend w/ how data or relationships b/w objects will be stored in DB
+
+  - *physical schema* => a low-level database-specific design focused on implementation
+    - all the diffrent attrs that an entity can hold
+    - data types of all those entities
+    - rules about how different entities and attrs relate to each other
+
+    - has column name, column type, and symbols to the right
+      - symbols: N => NOT NULL, P => primary key, F => foreign key
+      - line from PK to FK
+    - talk about tables, not entities at this level
+
+
+
+  - *logical* => combo b/w the above 2
+    - isn't specific to an actual DB
+        ex: use SQL Standard column types
+    - not commonly used
+    -
+
+
+- Entity-relationship model (ERD) (entity relationship diagram)
+  - a conceptual schema
+  - entities => higher level concepts/objects in the system you'r thinking about building
+    - represented by a rectangle
+      - name appearing inside of the entity
+        - that's # the name of that entity itself #
+            ex: call, user, order item etc
+  - ER models focus purely on the entities and how they relate
+    - so we need a way to describe rels b/w different entities
+      - 2 main ways to do: draw lines b/w entities (4:30)
+      - 2 kinds of connections:
+        - single line joining directly to entity => singular side of relationship
+        - foot of bird/rake side => many side
+          - multiple instances of that entity on that side
+  - 1:1
+  - 1:m => first side single instance, other side multiple instances (all of same type of entity)
+      ex: single contact can have many calls
+  - m:m => multiple instances of a specific kind of entity on either side of rel
+
+  - shows entities and the rels b/w them
+
+  - call boxes in ERD # entities, NOT TABLES #
+    - at conceptual level, you don't think about how data will be stored yet
+    - 5 entities doesn't always mean 5 tables
+      - usually at least 5, maybe more
+
+  - at this point think about what the data is that you're representing, and how that data is grouped into entities that represdent specific pieces of the functionality of the app
+
+  - based on the direction in the ERD, you can figure out where the ids are going to be in the physical schema
+    - on the many side, there will be a FK
+    - on the one side, there will be a PK
+
+  - when you see an ERD, think about how it will translate into an actual DB
+
+  - whenever you have a M:M rel b/w 2 entities, there will always be an extra table in the physical shceam that represents that rel
+    - so 2 entities in ERD ----> 3 tables
+    - join tables
+      - b/c they join together 2 sides of the rel
+
+    - #  the number of entities in a high level shcema won't always match the num of DB tables in a low-level schema
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Define cardinality and modality.:
+---============================================================================
+---============================================================================
+!WATCH VIDEO!: "https://launchschool.com/lessons/1b2f0fb4/assignments/f3a4f56e"
+
+
+- *cardinality* => the number of objects on each side of the relationship
+  - 3 types: one-to-one, one-to-many- many-to-many (1:1, 1:M, M:M)
+    - 1:1 are rarely used, as usually this type of relationship can be combined into one entity
+        ex: a phone has one IMEI number and an IMEI number has one phone
+
+    - 1:M are when for one entity instance of a relation, there can be multiple entity instances of the relation on the other side of the relationship
+        ex: a phone has one owner, but an owner can have many phones
+            - the FK in the phones table would reference the PK in the owners table
+
+    - M:M are when there can be multiple entity instances on either side of the relationship
+        ex: a phone can have multiple contacts on it, and the same contact can be on multiple different phones
+      - a join table is  usually created to specify this
+          ex: contacts_owners
+
+
+- *modality* => indicates whether a relationship is required (1) or not required (optional) (0)
+  - 1 is used to indicate required
+    - there must be at least one entity instance on one side of a relationship
+    ex: all phones must have an IMEI number
+
+  - 0 is used to indicate optional (or not required)
+    - there doesn't have to be any entity instances on one side of a relationship
+    ex: a phone does not need to have an owner, it could be still in the store
+    ex: an owner may not have lost his phone
+
+  - modality => lower bound on how many instances there can be in a rel
+  - notated by 1 or 0
+
+  - adding modality to ERD:
+    - more specific about the business rules that govern the way an app will operate
+      - ex: book has to have at least 1 author
+    - usually not directly reflected in physical scheam
+      - sometimes constraints are added to enforce these ruiles
+      - but this is more useful for dev to understand how system will work, and understanding rels b/w entities
+      -
+
+
+
+
+# libary example from SQL BOOK:
+  - "https://launchschool.com/books/sql/read/multi_tables"
+    - One User has MANY books that he/she may have checked out or returned.
+    - A Book is/has been checked out by MANY users.
+    - One Book has MANY reviews.
+    - One User has MANY reviews.
+    - A User has ONE address.
+
+
+  - A <one-to-one relationship> between two entities exists when a particular entity instance exists in one table, and it can have only one associated entity instance in another table.
+        ex: A user has only one address, and an address belongs to only one user.
+
+    - # implementation: the id that is the PRIMARY KEY of the users table is used as both the FOREIGN KEY and PRIMARY KEY of the addresses table.
+        ex:
+    [sql]
+          CREATE TABLE users (
+            id serial,
+            username VARCHAR(25) NOT NULL,
+            enabled boolean DEFAULT TRUE,
+            last_login timestamp NOT NULL DEFAULT NOW(),
+            PRIMARY KEY (id)
+          );
+
+          /*
+           one to one: User has one address
+          */
+
+          CREATE TABLE addresses (
+            user_id int NOT NULL,
+            street VARCHAR(30) NOT NULL,
+            city VARCHAR(30) NOT NULL,
+            state VARCHAR(30) NOT NULL,
+            PRIMARY KEY (user_id),
+            CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
+          );
+    [end]
+
+    - 1:1 rels are rare
+      - if there is one, usually it means the 2 entities should be folded into a single entity
+        - or storedi n the same table when ERD is converted to physical schema
+        - ambiguous in physical schema which side the PK id should be on to tie them together
+        - 1:1 rels look the same as 1:M rels in a physical schema
+          - ie, FK and PK
+
+
+
+
+
+
+  - A <one-to-many relationship> exists between two entities if an entity instance in one of the tables can be associated with multiple records (entity instances) in the other table. The opposite relationship does not exist; that is, each entity instance in the second table can only be associated with one entity instance in the first table.
+      ex: A book has many reviews. A review belongs to only one book.
+
+    - implementation: by ensuring that the book_id that is the PRIMARY KEY of the books table is a FOREIGN KEY of the reviews table
+
+    -
+
+
+
+  - a <many-to-many relationship> exists between two entities if for one entity instance there may be multiple records in the other table and vice versa.
+      ex: A user has many books checked out or may have checked them out in the past. A book has many users that have checked a book out.
+
+    - implementation: by introducing a third cross-reference table (JOIN table), that holds the relationship between the two entities, which is the PRIMARY KEY of the books table and the PRIMARY KEY of the user table.
+        ex: Look at the line `PRIMARY KEY (user_id, book_id)`. The primary key is not a single key, but a *composite key* based on user_id and book_id. Therefore, the pair has to be unique.
+
+
+
+
+
+
+
+
+---============================================================================
+---============================================================================
+Be able to draw database diagrams using crow's foot notation.:
+---============================================================================
+---============================================================================
+- #  SEE PICTURES!
+  - "https://launchschool.com/books/sql/read/multi_tables"
+
+- #  NO NEED FOR JOIN TABLES IN ERDs!
+  - they represent entities, not tables, so 1 less entity than table in 1:M rels
+
+//    -|-|-------O-|-
+          - one-to-one relationship
+            - left side is required to have exactly one entity instance
+              - exactly one
+            - right side is not required, and may have 0 entity instances
+              - 0 or 1
+
+//    -|-|-------O-<
+          - one-to-many relationship
+            - left side is required
+            - right is optional
+              - 0 or more
+
+//    >-|-------O-<
+          - many-to-many relationship
+            - left side is required
+              - at least 1 or more
+            - right side is optional
+
+- *ERD* => a conceptual schema
+
+- Crows foot:
+  - one of the most common ERD notatiosn
+  - easy to understand
+    - b/c it literally represents the idea its trying to represent
+      - 1/0 for modality
+      - crows foot vs. single line for cardinality
+
+
+- when you encounter a diagram:
+  - ask what level of schema it's representing (phys/concept/logic)
+  - how are certain things represented
+    - the different types of rels
+    - are the rels themselves actually shown
+    - are the attrs of the entities show, and if so, in what way?
+      - are the data types of those attrs displayed as well?
+
+
+

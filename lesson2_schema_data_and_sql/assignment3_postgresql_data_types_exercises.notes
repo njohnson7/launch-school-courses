@@ -1,0 +1,54 @@
+--- 1 ---
+Describe the difference between the varchar and text data types:
+
+  - the <varchar> data type is a part of SQL standard
+    - "varchar(n)" stores up to 255 chars as specified by "n"
+    - limit must be defined by the column
+
+  - the <text> data type is specific to certain SQL distributions, such as PostgreSQL
+    - no need to specifiy max length of chars
+    - # text columns can store an unlimited num of chars
+
+  - both store textual data
+  - both are about the same speed
+
+
+
+
+--- 2 ---
+Describe the difference between the integer, decimal, and real data types:
+
+  - <integer>:
+    - whole numbers (non-fractional)
+
+  - <decimal>:
+    - can contain non-floating-point fractional values with a limited precision
+
+  - <real>:
+    - floating-point numbers (can include fractional values)
+
+
+
+
+--- 3 ---
+What is the largest value that can be stored in an integer column?:
+
+  - 2147483647
+
+
+
+
+--- 4 ---
+Describe the difference between the timestamp and date data types:
+
+  - <timestamp> ---> includes both a date and a time
+  - <date> ---> includes only a date
+
+
+
+
+------ 5 ------
+Can a time with a time zone be stored in a column of type timestamp?:
+
+  - No.
+  - a data type of "timestamp with timezone" or "timestamptz" must be used instead
