@@ -1,0 +1,1 @@
+# inheritance benefit: keep all logic in 1 place, easier to change later, DRY
