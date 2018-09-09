@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  ul#products
+    each product in products
+      li
+        img(src='images/#{product.cover}')
+        h2= product.title
+        dl
+          dt= Console
+          dd
+            span(title='#{product.console}' class='logo #{product.console.match(/[A-Z\d]/g).join("").toLowerCase()}')= product.console
+          dt Year
+          dd= product.release_year
+          dt Genre
+          dd= product.genre
+          dt UPC
+          dd= product.upc
+        a(href='#') Add to cart

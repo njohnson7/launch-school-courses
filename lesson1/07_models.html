@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>runner</title>
+  <meta charset='utf-8'>
+  <link href='lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='lib/good_fns_lite.js'></script>
+  <script src='lib/jquery.js'></script>
+  <script src='lib/underscore.js'></script>
+  <script src='lib/backbone.js'></script>
+  <script src='lib/handlebars.js'></script>
+</head>
+<body>
+
+
+<!--====================================================================================--><script>;
+
+
+// let Car = Backbone.Model.extend({
+//   defaults: {
+//     doors:  4,
+//     wheels: 4,
+//   },
+//   setFullName() {
+//     this.set('full_name', `${this.get('make')} ${this.get('model')}`)
+//   },
+//   initialize() {
+//     this.on('change', this.setFullName)
+//   },
+// })
+
+// let Ford = Car.extend({
+//   defaults() {
+//     return _.extend({ make: 'Ford' }, Car.prototype.defaults)
+//   },
+// })
+
+// let fusion = new Ford()
+// p(fusion)
+// p(fusion.attributes)
+// p(fusion.toJSON())
+
+// fusion.set('model', 'Fusion')
+// p(fusion.attributes)
+
+// let taurus = new Ford({
+//   doors: 2,
+//   model: 'Taurus',
+// })
+
+// p(taurus.toJSON())
+
+
+
+
+//============================================================================//
+
+let Todo = Backbone.Model.extend({})
+
+let todo1 = new Todo
+pj(todo1)  // {}
+
+let todo2 = new Todo({
+  title:     'the title',
+  completed: true,
+})
+pj(todo2)
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+Todo = Backbone.Model.extend({
+  initialize() {
+    p('this model has been initalized')
+  },
+})
+let todo3 = new Todo
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+Todo = Backbone.Model.extend({
+  defaults: {
+    title:     '',
+    completed: false,
+  },
+})
+
+todo1 = new Todo
+pj(todo1)
+
+todo2 = new Todo({ title: 'twooo!' })
+pj(todo2)
+
+todo1.get('title').p
+todo2.get('title').p
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+todo2.toJSON().p
+
+
+//============================================================================//
+
+todo2.set('crazy', 'omg')
+todo2.attributes.p
+
+todo2.set({
+  a: 1,
+  b: 2,
+}).attributes.p
+
+
+todo2.get('a').p
+
+todo2.attributes.a = 42
+todo2.toJSON().p
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+let Person = new Backbone.Model
+Person.on('change:name', _ => p('name changed'))
+Person.set({ name: 'Bob' })
+Person.set({ name: 'Fred' }, { silent: true })
+Person.attributes.p
+p(Person.hasChanged('name'))
+p(Person.hasChanged(null))
+
+
+const testDefault = (foo = undefined) => p(foo)
+testDefault(null)
+testDefault(undefined)
+testDefault(42)
+p()
+p()
+
+
+//============================================================================//
+
+Todo = Backbone.Model.extend({
+  defaults: {
+    title: '',
+    completed: false,
+  },
+  initialize() {
+    p('instantiated!')
+    this.on('change', _ => 'changed!'.p)
+  },
+})
+
+let t = new Todo
+t.set('title', 'the listener is triggered whenever an attribute value changes')
+p(`title has changed ${t.get('title')}`)
+
+t.set({ title: 'ab', completed: true })
+t.attributes.p
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+p()
+p()
+
+Person = new Backbone.Model({ name: 'Fred' })
+Person.validate = function (attrs) {
+  if (!attrs.name) return 'I need yo name'.p
+}
+
+Person.set({ name: 'Sam' })
+p(Person.get('name'))
+
+Person.unset('name', { validate: true })
+Person.attributes.p
+p()
+p()
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+Todo = Backbone.Model.extend({
+  defaults: { completed: false },
+  validate(attributes) {
+    if (attributes.title === undefined) return 'Remember to set a title'
+  },
+  initialize() {
+    'initalized!'.p
+    this.on('invalid', (model, error) => p(model, error))
+  },
+})
+
+t = new Todo
+t.set('completed', true, {validate:true})
+t.get('completed').p
+p(t.validationError)
+
+t.set('title', 'omg')
+t.set('completed', true, {validate: true})
+t.attributes.p
+p(t.validationError)
+
+
+p()
+p()
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+let emptyTodo = new Todo(null, {validate: true})
+p(emptyTodo.validationError)
+
+
+
+//======================================================================================//</script>
+<!-- <script src='scratch.js'></script> -->
+</body>
+</html>

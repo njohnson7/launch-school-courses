@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>10 - Project: Multiple Models</title>
+  <meta charset='utf-8'>
+  <link href='stylesheets/page.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+  <script src='../../lib/jquery.js'></script>
+  <script src='../../lib/underscore.js'></script>
+  <script src='../../lib/backbone.js'></script>
+  <script src='../../lib/handlebars.js'></script>
+</head>
+<body>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th data-prop='name'>Name</th>
+          <th data-prop='quantity' colspan='2'>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <p><a href='#'>Delete all</a></p>
+
+    <form action='' method='post'>
+      <fieldset>
+        <dl>
+          <dt><label for='name'>Name</label></dt>
+          <dd><input type='text' name='name'></dd>
+          <dt><label for='quantity'>Quantity</label></dt>
+          <dd><input type='text' name='quantity'></dd>
+        </dl>
+        <input type='submit' value='Add Item'>
+      </fieldset>
+    </form>
+  </main>
+
+  <script id='items' type='text/x-handlebars'>
+    {{#each items}}
+      {{#with attributes}}
+        {{> item}}
+      {{/with}}
+    {{/each}}
+  </script>
+
+  <script id='item' type='text/x-handlebars'>
+    <tr>
+      <td>{{name}}</td>
+      <td>{{quantity}}</td>
+      <td><a data-id='{{id}}' href='#'>Delete</a></td>
+    </tr>
+  </script>
+
+<!--====================================================================================--><script>;
+const itemsJson = [{ name: 'Bananas', quantity: 3 }, { name: 'Apples', quantity: 4 }]
+
+
+
+const formToJson = form => (
+  [...new FormData(form)].reduce((obj, [name, val]) => ({ ...obj, [name]: val }), {})
+)
+
+Handlebars.registerPartial('item', $('#item').remove().html())
+
+const Item = Backbone.Model.extend({
+  initialize() {
+    this.set('id', this.collection.getNextId())
+    this.set('quantity', ~~this.get('quantity'))
+  },
+})
+
+const Items = Backbone.Collection.extend({
+  model:    Item,
+  template: Handlebars.compile($('#items').remove().html()),
+  lastId:   0,
+  $body:    $('tbody'),
+  render() {
+    let html = this.template({ items: this.models })
+    this.$body.html(html)
+  },
+  getNextId() {
+    return ++this.lastId;
+  },
+  sortItems(prop) {
+    this.comparator = prop
+    this.sort()
+  },
+  initialize(items) {
+    this.on('add change remove sort reset', this.render)
+    this.set(itemsJson)
+    this.sortItems('name')
+  },
+})
+
+let items = new Items()
+
+$('form').submit(ev => {
+  ev.preventDefault()
+  let form = ev.target
+  items.add(formToJson(form))
+  form.reset()
+})
+
+$(document).on('click', 'a', ev => {
+  ev.preventDefault()
+  ev.target.innerText == 'Delete all' ? items.reset() : items.remove(ev.target.dataset.id)
+})
+
+$('th').click(ev => {
+  items.sortItems(ev.target.dataset.prop)
+})
+
+
+
+
+/*======================================================================================*/;</script>
+</body>
+</html>
