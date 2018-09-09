@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>14 - views practice</title>
+  <meta charset='utf-8'>
+  <link  href='../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../lib/good_fns_lite.js'></script>
+  <script src='../lib/jquery.js'></script>
+  <script src='../lib/underscore.js'></script>
+  <script src='../lib/backbone.js'></script>
+  <script src='../lib/handlebars.js'></script>
+</head>
+<body>
+
+
+<!--====================================================================================--><script>;
+
+
+// const Fruit = Backbone.Model.extend({})
+// const Fruits = Backbone.Collection.extend({
+//   model: Fruit,
+// })
+
+// const FruitList = Backbone.View.extend({
+//   // el:         qs('main'),
+//   // attributes: { id: 'fruit' },
+//   tagName:       'main',
+//   id:            'fruit',
+//   className:     'tropical',
+//   template:      fruitTemplate,
+//   events: {
+//     'click a.add': 'addToCart',
+//   },
+//   render() {
+//     this.$el.html(this.template({ fruits: this.collection.toJSON() }))
+//   },
+//   addToCart(ev) {
+//     ev.preventDefault()
+//     p('adding to cart!')
+//   },
+//   initialize() {
+//     this.render()
+//     this.listenTo(this.collection, 'change', this.render)
+//   },
+// })
+
+// let fruits    = new Fruits()
+// let fruitView = new FruitList({ collection: fruits })
+
+// fruitView.$el.appendTo(document.body)
+// fruitView.p
+
+
+
+
+/*============================================================================*/
+
+
+const TodoView = Backbone.View.extend({
+  tagName:   'ul',
+  className: 'container',
+  id:        'todos',
+  todoTpl:   _.template('example template'),
+  events: {
+    'dblclick label': 'edit',
+    'keypress .edit': 'updateOnEnter',
+    'blur .edit':     'close',
+    click(ev) {
+      p(this)
+      p(ev)
+    },
+  },
+  initialize(options) {
+    this.options = options || {}
+  },
+  render() {
+    this.$el.html(this.todoTpl(this.model.attributes))
+    this.input = this.$('.edit')
+    return this
+  },
+  edit() {},
+  close() {},
+  updateOnEnter(ev) {},
+})
+
+let todoView = new TodoView()
+todoView.el.innerText = 4242424424
+p(todoView.el)
+document.body.appendChild(todoView.el)
+
+
+
+/*============================================================================*/
+
+
+view = new Backbone.View()
+view.setElement('<p><b>test</b></p>')
+p(view.$('b').html())
+
+
+/*============================================================================*/
+
+
+const ListView = Backbone.View.extend({
+  template: _.template('...'),
+  render() {
+    let items = this.model.get('items')
+    items.forEach(item => {
+      let itemView = new ItemView({ model: item})
+      this.$el.append(itemView.render().el)
+    })
+    this.$el.html(this.template(this.model.attributes))
+    return this
+  },
+})
+
+const ItemView = Backbone.View.extend({
+  events: {
+    render() {
+      this.$el.html(this.template(this.model.attributes))
+      return this
+    },
+  },
+})
+
+/*======================================================================================*/;</script>
+<!-- <script src='scratch.js'></script> -->
+</body>
+</html>

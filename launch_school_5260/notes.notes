@@ -1,0 +1,29 @@
+What to focus on:
+- Organizing code, deciding object responsibilities, and using the MV* pattern in the context of front-end development.
+- Minimizing object dependencies by using the Pub/Sub pattern
+  - this is part of the first point but it's worth a special mention because of its ubiquity in GUI development.
+- Unit testing with Jasmine
+- The history object, client-side routing, and the challenges it introduces.
+- Interacting with an API server from JavaScript.
+
+- Understand what problems the framework helps you solve with its core abstractions.
+- Understand how the framework makes you more productive.
+- Understand how you can map framework level concepts to low level fundamentals.
+    ex: what Backbone.Model adds to normal JS objects, and how Backbone.Sync maps to Ajax calls.
+- Be able to look up documentation on framework APIs.
+- Be fluent in building applications with the framework.
+
+- # Don't attempt to master a framework by memorizing all its APIs.
+- This course is no longer about fundamentals, but to introduce tools that'll make you productive.
+  - Don't study the tools in depth, because tools change a lot with time, but focus on the problems they can help you solve.
+
+
+Read (maybe):
+- single-page application (SPA) wiki page: "https://en.wikipedia.org/wiki/Single-page_application"
+
+
+----------------------
+Todo later:
+  - 5260:
+    - implement bonus features for music_store app
+    - lesson6 -- projects

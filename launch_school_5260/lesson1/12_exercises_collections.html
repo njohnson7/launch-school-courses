@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>12 - Exercises: Backbone Collections</title>
+  <meta charset='utf-8'>
+  <link  href='../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../lib/good_fns_lite.js'></script>
+  <script src='../lib/jquery.js'></script>
+  <script src='../lib/underscore.js'></script>
+  <script src='../lib/backbone.js'></script>
+  <script src='../lib/handlebars.js'></script>
+</head>
+<body>
+
+  <script id='users' type='text/template'>
+    {{#each users}}
+      <article id='user_{{id}}'>
+        <h1><a href='http://{{website}}'>{{name}}</a></h1>
+        <h2><a href='mailto:{{email}}'>{{email}}</a></h2>
+        <dl>
+          <dt>User name</dt>
+          <dd>{{username}}</dd>
+          <dt>Company</dt>
+          <dd>{{company.name}}</dd>
+        </dl>
+      </article>
+    {{/each}}
+  </script>
+
+<!--====================================================================================--><script>;
+
+const User = Backbone.Model.extend({
+  url: 'https://jsonplaceholder.typicode.com/users',
+})
+
+const Users = Backbone.Collection.extend({
+  url:      'https://jsonplaceholder.typicode.com/users',
+  model:    User,
+  template: Handlebars.compile(qs('#users').innerHTML),
+  render() {
+    document.body.innerHTML = this.template({ users: this.toJSON() })
+  },
+  parse(resp) {
+    resp.forEach(user => {
+      let { name: companyName, bs: companyBs, catchPhrase } = user.company
+      Object.assign(user, { companyName, companyBs, catchPhrase })
+      delete user.company
+    })
+    return resp
+  },
+  initialize() {
+    this.on('sync sort', this.render)
+  },
+})
+
+let users = new Users()
+
+users.fetch({
+  success() {
+    // users.pj
+    users.create({ name: 'Bob', email: 'bob@bob.com' }, {
+      success() {
+        // users.pj[10].pj
+        users.fetch({
+          reset: true,
+          success() {
+            // users.pj
+            users.set({ id: 1, name: 'Fred', email: 'fred@fred.com' }, { remove: false })
+            // users.pj
+            // users.first().pj
+
+            users.comparator = 'name'
+            users.sort()
+
+            // users.pluck('email').p
+          },
+        })
+      },
+    })
+  },
+})
+
+
+
+
+/*======================================================================================*/;</script>
+</body>
+</html>
