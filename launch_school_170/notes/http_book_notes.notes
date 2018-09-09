@@ -1,0 +1,764 @@
+----------------------------------------------------------------------------
+---------- HTTP Background ----------
+
+- *web browser* => interface or window thru which you interact w/ WWW
+  - most common type of *client*
+  - sends files (<hypertext documents>) to/from *server* thru HTTP
+  - <debugging tools (dev tools) (inspector)> => use to inspect HTTP activity of a page
+    - a way to view requests/responses in a browser
+
+- *HTTP* (*Hypertext Transfer Protocol*) => # an agreement in the form of formatted text that dictates how a client and server communicate
+  - *protocol* => a system (set) of rules
+  - HTTP is a <text-based> <stateless> *request response protocol* => a <client> makes a *request* to a <server>, and waits for a *response*
+
+- *server* => machine that handles inbound requests and sends response back
+  - often response contains relevant data as specified in request
+
+
+How the Internet Works:
+  - *IP Address* => unique labels assigned by an ISP to every device on Internet
+    - *port numbers* => add more detail about how to communicate
+  - *DNS* (*Domain Naming System*) => a <distributed database> that translates URLs to IP addresses, and maps the request to a remote server
+    - *DNS servers* => computers that store <DNS databases>
+      - # there is a world-wide network of hierarchically organized DNS servers
+        - # no single server contains the complete database
+          - DNS server routes unknown <domain names> to another server up the hierarchy
+
+  - <Typical interaction w/ the Internet>:
+    1. enter "google.com" (<host>) into browser
+    2. your <request> is sent to your device's <network interface>
+    3. request goes over Internet ---> search for "google.com" begins
+    4. remote server accepts and processes request ---> sends <response> over Internet to your network interface ---> then response handed to browser
+    5. browser processes and displays response in form of a web page
+    - # when your browser issues a request, it's just sending some text to an IP address
+
+
+Resources:
+  - *resources* => things you interact w/ on the Internet via a URL
+    ex: images, videos, web pages, other files, software, etc...
+
+
+Statelessness:
+  - *state* => # data that persists over time
+  - *stateless protocol* => each <request/response> pair is independent of previous one
+    - # server does not need to hang on to info (state) b/w requests
+      - (if request breaks en route to server, no part of the system has to do any cleanup)
+
+  - makes the web both:
+    - # resilient, distributed, and hard to control
+    - # difficult to secure and build on top of
+
+
+
+----------------------------------------------------------------------------
+---------- URL ----------
+
+- *URI* => Uniform Resource Identifier
+  - a # string of chars used to identify a resource
+    - a general concept that specifies how resources are located
+  - *URL* => Uniform Resource Locator
+    - a reference to a web resource that specifies its location on a computer network, and a mechanism for retrieving it
+    - <a specific type of URI>
+    - 'web address'
+
+
+URL Components:
+  ex: "http://www.example.com:88/home?item=book"
+  - *URL components*:
+    1a. "http" => *scheme* / <protocol>
+      - tells the web client how to access the resource (required...?)
+        ex: (use HTTP to make a request)
+        ex: "ftp", "mailto", "git"
+      - # the part before # "://"!
+    1b. "://"
+    2. "www.example.com" => *host*
+      - tells the client where the resource is hosted or located (required)
+      - the domain name of the server
+    3. ":88" => *port* or port number
+      - optional unless using a non-default port (80)
+      - host uses port num to listen to requests
+    4. "/home/" => *path*
+      - shows what local resource is being requested (optional part of URL)
+      - "/" => <root path>
+    5. "?item=book" => *query string*
+      - made up of *query parameters*
+      - used for sending data to the server (optional)
+
+
+Query Strings/Parameters:
+  ex: "http://www.example.com?search=ruby&results=10"
+    - "?" => delimits <path> and <start of query string> (reserved char)
+    - "search=ruby" => <parameter name/value pair>
+    - "&" => query string <separator/delimiter> (reserved char)
+      - used to combine multiple parameters
+
+  - # query strings are only used in HTTP GET requests
+    - b/c they're passed in thru the URL
+
+  - <query string limitations>:
+    - max length ---> not good for passing large amounts of data
+    - name/value pairs are visible in URL ---> so not good for sensitive info
+    - spaces and special chars must be URL encoded
+
+  - use %20 or "+" to encode a space " " in a query param
+
+
+URL Encoding:
+  - replace certain chars w/ "%" symbol followed by 2 hex digits (ASCII code)
+      ex: " " ---> %20, "!" ---> %21, "+" ---> %2B, "#" ---> %23
+
+  - <characters must be encoded if>:
+    1. they have <no corresponding ASCII char> in ASCII set
+    2. use of char is <unsafe>
+      ex: "%" => used for encoding other chars
+    3. char is <reserved for special use> w/i the *URL scheme*
+      - # reserved chars must be encoded if used for non-reserved purpose
+      ex: "/ ? : @ &"
+        ex: ":" => used to delimit host/port components and user/password
+
+
+
+----------------------------------------------------------------------------
+------------ Making Requests ---------------
+
+Request Methods:
+  - *HTTP request method* => tells server what action to perform on a resource
+    - sent to a *host* (host is not part of the request)
+    - *GET*  => # retrieves resources
+    - *POST* => # initiates action on or sends data to a server
+
+  - every <request> gets a *response* (incl. errors) (except if it times out)
+
+  - <components of http request>:
+    - # required:
+      - *method*, *path*
+    - # optional:
+      - *parameters*, *headers*, *body*
+        - # parameters are separate from path!
+    - the host (and port) components of a URL are !not! part of the request
+      - only the URL's path and params are included in the actual request
+
+  ex: request workflow:
+      - request sent to server
+      - server verifies user session, loads tasks from database, and/or renders HTML
+
+
+GET Requests:
+  - *GET requests* ---> # should only *retrieve content* from server
+    - usually <read-only> operations
+      - also appropriate in some other cases, (ex: hit counter) when the main content of a page doesn't change
+
+  ex: - entering address into <address bar> (always)
+      - clicking on a <link> (usually)
+      - <search forms> ---> they don't change any data on server, only <view> it
+
+  - response can be anything
+    - if it's # HTML that references other resources:
+      ---> browser will automatically request those resources
+       - browser usually makes multiple requests just by visiting a URL
+        - 1 separate request for every resource
+      ---> pure HTTP tool will not
+       - it returns 1 huge response chunk
+
+  - params exposed in query string of URL
+
+
+POST Requests:
+  - *POST requests* ---> involve # changing values that are stored on the server
+  ex: most HTML <forms> that <submit values> to server use POST
+      - # except for search forms
+
+  - # allow us to send larger or sensitive data to server
+        ex: images, videos, username/password
+    - data (params) sent via <body> instead of URL
+      - *HTTP body* => contains the data transmitted in an HTTP msg (optional)
+        ex: text, images, HTML, etc
+
+  - params are embedded in form via <name> attribute of <input> element
+    ex: # multiple params can be submitted via one form:
+      [html]
+        <form action='new_player' method='post'>
+          <input type='text' name='player_name'><!-- value entered by user -->
+          <input type='submit' value='Play!'>
+        </form>
+      [end]
+
+  - usually POST *redirects* to URL in <Location> response header
+    - browser automatically issues a new request to this URL
+
+
+HTTP Headers:
+  - *HTTP Headers* => allow client and server to send extra info (<meta-data>) during request/response HTTP cycle (optional)
+    - colon separated name-value pairs sent in plain text
+    - *request headers* => give more info about the client and resource to be fetched
+      ex: Host, Accept-Language, User-Agent, Connection
+
+
+
+----------------------------------------------------------------------------
+------------- Responses --------------
+
+- *response* => raw HTTP data sent back by server
+
+Status Code:
+  - *HTTP Status Code* => 3 digit num that server sends back after receiving a request to signify status of request (# required #)
+    - *status text* => description of code
+    - < 200: OK >: the request was handled # successfully
+    - < 302: Found >: the requested resource has changed temporarily (moved)
+      - usually results in a *redirect* (re-route) to another URL
+    - < 404: Not Found >: the requested resource cannot be found
+    - < 500: Internal Server Error >: the server has encountered a generic error
+      - <server-side> error
+        ex: bad server setting, syntax error in app code
+
+  - < 302 Found (Redirect) >:
+    - browser sees 302 and knows resource has been moved
+    - automatically follows the new <re-routed> URL in <Location> response header
+    ex: go to GitHub profile ---> redirect to signin page ---> redirect to profile
+      - "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fprofile"
+    - <Location> response header:
+      - Notify client of new resource location
+
+
+Response Headers:
+  - *Response headers* => extra <meta-data> about resource being sent back (optional)
+    - have subtle effects on the data being returned
+    - can also have subtle workflow consequences
+      ex: browser automatically following a Location response header
+    ex: Content-Encoding, Server, Location, Content-Type
+      - "Content-Type" is often required
+        - tells browser how to display content
+
+- *body* => contains the raw response data (optional) (ex: HTML)
+    ex: data of an audio file (to either play or download)
+
+
+
+----------------------------------------------------------------------------
+------------ Stateful Web Applications ----------------
+
+Sessions:
+  - *session* => provides a way to store data that will persist b/w requests
+  - *session identifier* => <unique token> that gets <passed back and forth> b/w server and client to identify a client to <mimic statefulness>
+    - first server sends <session id> to client
+    - then client appends id to every request
+    - # creates a sense of persistent connection b/w requests
+      - each request is technically stateless and unaware of previous/next one
+
+  - <consequences of faux statefulness>:
+    1. every request must be inspected to see if it contains a <session id>
+    2. if so, id must be checked for current <validity>
+      - server needs <rules> for how to handle <session expiration> and how to <store> its <session data>
+          ex: *cookies* => a common way to store session data
+        - *session data* is generated on server-side
+    3. server must # retrieve session data based on session id
+    4. server must <recreate application state> (ex: HTML) from session data and send it back to client as response
+
+    - # server has to work very hard to simulate a stateful experience
+    - # every request still gets its own response, even if most of that response is identical to the previous response
+
+
+Cookies:
+  - *HTTP cookie* => piece of data sent from server and stored in client during a request/response cycle
+    - small files stored in browser that contain session info
+
+  - # the session id (cookie) is stored client-side, and used as a 'key' to the session data stored server-side
+
+  - usually the <session data> is stored on the server  #(not in Sinatra!)
+    - client-side cookie is compared w/ the server-side session data on each request to identify the current session
+      - (so when you visit the same website again, your session will be recognized b/c of the stored cookie w/ its associated info)
+    - stored on server in memory or persistent storage (database or key/value store)
+
+  ex: load "https://www.google.com"
+    1. no reference for cookies in request header
+    2. <set-cookie response header> => adds cookie data to response
+      - cookie data is set on 1st visit to website
+    3. make new request
+      - now <cookie request header> is set
+        - contains cookie data sent by <set-cookie> response header
+        - sent to server each time you make request
+        - uniquely identifies your client
+        - server loads data associated w/ that id
+
+  - # Sinatra stores session data in a client-side cookie by default!
+
+  - id sent w/ a session is unique and usually expires in a short time
+    - so you have to login again after session expires
+    - session id info is gone once you logout or manually delete session id
+
+
+AJAX:
+  - *AJAX* (*Asynchronous JavaScript and XML*) => allows browsers to issue requests and process responses <asynchronously>
+    - *asynchronously* => # without a full page refresh
+
+  ex: Google search -- an AJAX request is triggered w/ every key-press
+    - the responses from these requests are processed by some callback
+      - *callback* => a piece of logic you pass on to some function to be executed after a certain event has happened
+        - usually some <client-side JS code>
+        ex: update the HTML w/ new search results
+
+  - # AJAX requests are just like normal HTTP requests:
+    - they are sent to server w/ all the normal components of a request
+    - handled by server like any other request
+    - <only difference>: # response is processed by a callback function instead of the browser refreshing and processing the response
+
+  - # AJAX allows browsers to display dynamic content in web apps
+
+
+
+----------------------------------------------------------------------------
+--------------- Security ----------------
+
+- # developing and securing a web app is fragile and problematic b/c of HTTP
+
+Secure HTTP (HTTPS):
+  - all info in request/response are sent as strings in regular HTTP
+    - so a hacker on the same network could use <packet sniffing> to read them
+      - they could copy your session id to login to your account
+  - *HTTPS* => every request/response is <encrypted> before being transported
+    - sends messages thru a <cryptographic protocol> called *TLS* (Transport Layer Security) or *SSL* (Secure Sockets Layer) (deprecated)
+      - uses <certificates> to communicate w/ remote servers and exchange security keys before data encryption happens
+  - port 443 (default)
+
+
+Same-origin policy:
+  - *same origin policy* => only resources originating from <same site> can access each other w/o restrictions
+    - prevents scripts from one site from manipulating documents from another site
+    - documents in the same *origin* must have same protocol, hostname, and port number
+      ex: "http://www.test.com/index.html" can <embed> JS file at "http//www.test.com/fancy.js" but not any JS files at "http://www.example.com"
+    - guards against <session hijacking> attacks
+
+  - *CORS* (*Cross Origin Resource Sharing*) => bypasses same-origin policy
+    - allows resources from one domain to be requested from another domain
+    - works by adding new HTTP headers
+
+
+Session Hijacking:
+  - *session hijacking* => attacker uses <session id> to access a user's session
+  - <countermeasures>:
+    - <resetting sessions> ---> w/ authentication systems, a successful login must render an old session id invalid and create a new one
+        ex: re-authenticate user when charging a credit card
+    - setting an <expiration time> on sessions ---> less time for hacker to access
+    - <HTTPS> ---> lowers chances of attacker being able to get session id
+
+
+Cross-Site Scripting (XSS):
+  - *XSS* (*Cross Site Scripting*) => attack that happens when users are allowed to input raw HTML or JS that gets displayed by the site directly
+      ex: form (ex: <textarea>) to add comments w/ raw HTML or JS that can be:
+        - displayed on site and executed by browser
+        - or # submitted to server
+
+         - # user input will be injected into page contents and browser will interpet the HTML/JS and execute it
+
+    - # bypasses same-origin policy
+    - destructive to both <server> and <visitors> of the page:
+        ex: can be used to grab session ids, etc
+    - can happen silently so victims won't even be aware
+
+  - <countermeasures>:
+    - always <sanitize user input>
+        ex:
+         - eliminate <script> tags
+         - only allow a <safer input format>, like Markdown, instead of HTML/JS
+    - <escape> all user input data when displaying it
+      - so browser won't interpret it as code
+
+
+
+----------------------------------------------------------------------------
+--------------- Server-side Development ----------------
+
+- 3 main parts of <server-side infrastructure (a 'server')>:
+  1. *web server* => a simple server that responds to static assets (ex: files, images, css, JS, etc) that don't require any data processing
+  2. *application server* => where application or business logic (<server-side code>) resides
+    - where more complicated requests are handled
+  3. persistent *data store* => often consulted by application server to retrieve, process or create data
+    ex: relational database, file, key/value store, etc.
+
+- there are many different <layers> at work for client to send request to server
+  - to send a request from computer to one of Google's servers, it takes coordination b/w many (100+) software applications and machines
+  - *OSI model* (*Open Systems Interconnection*) => specifies communication rules among systems on the internet across all layers
+    - 7 types of layers in OSI:
+      ex: (application, presentation, session, transport, network, data link, physical)
+
+  - HTTP is an <application layer protocol> => a convention or agreement (on # how to format a string request #) b/w 2 parties
+    ex: <application protocol>: sending a date/location request in specific format "MM/DD/YYYY; ZIPCODE" instead of writing out full date in words
+
+  - <TCP/IP (Transmssion Control Protocol / Internet Protocol)> => large <set of protocols> that govern how systems should communicate w/ each other over the internet
+    - collectively known as the <OSI model>
+    - represents the lower layers in the communication stack
+    - HTTP uses <TCP/IP> under the hood as the <transport/network layers>
+      - TCP/IP is responsible for ensuring request/response cycle gets completed
+
+- it is possible to interact w/ HTTP manually b/c it's a <text-based protocol>
+- by carefully crafting URLs and params, stateful interactions can be bult on top of HTTP (ex: counter.rb)
+
+
+###########################################################################
+###################   LESSON 3 VIDEO NOTES (TCP SERVER)!.....   ###########
+###################   RACK BLOG, ETC!....   ###############################
+###########################################################################
+
+
+---------------- .....(side notes from forum post):..... ----------------------
+- ("https://launchschool.com/posts/af8dd016")
+  - *Rack* => a web server interface
+    - *web application server* => the software program that's running your <server-side> code
+      ex: Webrick
+    - *web application* => the 'infrastructure that's running the server-side code'
+      - # very vague and generic term!
+    - *web framework* => collection of libraries/code that work together for a specific purporse (ex: building webb apps, writing tests, etc)
+-------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------
+------------------ Sinatra ------------------
+
+Rack:
+  - (we don't want to use our own TCP server to process requests b/c there are more common and robust web servers available (ex: <Webrick>))
+    - *Webrick* => <web server> that comes w/ Ruby
+  - *Rack* => a generic web server interface that help app devs connect to web servers
+    - makes it easier to connect and work w/ web servers such as Webrick
+    - provides a fluid API for creating web apps
+    - kind of like a protocol or specification for client and server to communicate
+
+  - we can replace our <TCP server w/ Webrick> and our <Ruby code w/ a Rack app>
+    - when working w/ Rack apps, our entire <app server> consists of the Rack app and a web server
+
+
+Sinatra:
+  - *Sinatra* is a small Rack-based <web development framework>
+    - *web development framework* => a productivity tool to speed up development by automating common tasks
+    - uses Rack to connect to a web server
+    - provides conventions for where to place your app code
+    - has built-in capabilities for routing, view templates, etc
+
+  - # Sinatra is nothing more than some Ruby code connecting to a TCP server, handling requests, and sending back responses, all in an HTTP-compliant string format
+
+  - Sinatra provides a <DSL for defining routes>
+    - HTTP <requests> are handled by # creating routes for a path or set of paths
+      - *routes* => # how a developer maps a URL pattern to some Ruby code
+        - create by using methods w/ same name as HTTP method to be handled
+        - the <return value> of a route is sent back to client
+
+
+Templates:
+  - *templates* (*view templates*) => files that contain text that is converted into HTML before being sent to a user's browser in a response
+    - provide a place to # define the HTML display of a response # outside of the route handling it
+
+  - *templating language* => provides a way to define <what HTML to generate> and how to <embed dynamic values>
+      ex: having the page's "<title>" be different on each page
+        - this would be a <dynamic value> defined in Ruby code
+        - value would be inserted into template before being sent to user
+
+  - *ERB* (*embedded Ruby*) => <templating language> that # embeds Ruby code into another file
+    - expressions in "<%= %>" tags will be replaced when template is *rendered*
+      - for <printing a dynamic value>
+          ex: "<h1><%= @title %></h1>"
+
+
+Layouts:
+  - *layouts* => view <templates> that <wrap> around other view templates
+    - # provide shared HTML that is used by all views
+    - often include links to stylesheets or JS files
+
+
+View Helpers:
+  - *helper* (*view helper*) => Ruby methods used to minimize amount of Ruby code in a view template
+    - defined w/i a *helpers block*
+    - made available in <templates> to filter/process data that is being rendered into the page
+
+
+Redirection:
+  - *redirect* method => sends user to new location in response to a request w/ *redirection*
+    - accomplished by setting the <Location header> in the response
+    - client sees URL in Location header and sends out a new GET request for the associated resource ---> navigates client to that new location
+    ex: often used after user creates/updates data, like after submitting a form
+
+    - <halts> the current route, so any code following "redirect" won't run
+
+  - <not_found> => a special route that is executed when a request has no matching routes
+
+
+Before block:
+  - *before block* => code in block gets executed before the matching route for every request
+    - for setting up globally needed data that isn't dependent on which route is being executed
+        ex: logged-in status, ivars referenced in a layout
+
+
+Parameters:
+  - <routes> can specify *route parameters* by: "/route_name/:param_name"
+    - access values passed to app thru URL via <params hash>
+        ex: "params[:param_name]"
+      - *params hash* => automatically made available in routes
+
+  - # 3 ways to get data into params hash:
+        1. extract from URL using <route parameters> (ex: "/chapters/:num")
+        2. use <query params> in URL (ex: "/?sort=desc")
+        3. <submitting a form> using a <POST> request
+
+
+How HTML Forms Work:
+  - when a *form* is submitted, browser makes <HTTP request>
+  - request is made to path or URL specified in the <action attribute> of the <form element>
+  - <method attribute> of the form determines if request made will use <GET or POST>
+  - the <value> attributes of any <input elements> in the form will be sent as <params> values
+    - the <keys> of these params are determined by the <name attribute> of the corresponding <input element>
+
+  - <GET vs. POST>:
+    - use <GET> when form submission # doesn't modify any data # (ex: <search>)
+    - use <POST> when form submission # modifies data
+
+
+Server-side code vs. Client-side code:
+- based on # where the code will be executed/evaluated
+  - *server side*:
+    - *Gemfile* => used by Bundler gem to install libraries needed to run program
+      - <Bundler> => Ruby dependency management system
+    - *ruby files* (".rb") => core of a sinatra app
+      - code runs on server while handling incoming requests
+    - *view templates* (".erb") => # b/c they must be processed by a program on server before being sent to client as a response
+      aka: <server-side templates> (vs. client-side templates (JS))
+
+  - *client side*:
+    - *stylesheets* (".css") => code is interpreted by browser (client) as instructions for how to display web page
+    - *JavaScript* (".js") => code is evaluated by JS interpreter w/i browser to <add behavior> to web page
+
+
+
+###Critique someone else's code, then compare your thoughts to the TA's
+
+# To get this to work in development you have to add this line set :show_exceptions, :after_handler. I put that line just below my require 'pry'
+
+# show_exceptions
+   # Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
+  #  Can also be set to :after_handler to trigger app-specified error handling before showing a stack trace in the browser.
+
+
+
+----------------------------------------------------------------------------
+-------------- Heroku ---------------
+
+- <Procfile> => defines what type of processes are provided by the app and how to start them
+- <config.ru> => tells web server how to start the app
+- <Puma> => a <production-ready> web server for deploying projects
+  - <threaded> web server ---> so it # can handle more than 1 request at a time # using a single process (faster performance)
+- <Webrick> => web server for development
+- specify a specific version of Ruby in <Gemfile> to make sure same version is used in both development and production
+
+
+
+----------------------------------------------------------------------------
+------------ Todos ---------------
+
+# SINATRA STORES METHODS THAT GET DELETED!!! (EX: total_todos(list))
+  # RESTART SERVER TO FIX!!
+
+###############################################################################
+############################ Session: see videos! #############################
+
+
+- don't put methods not used in view templates in <helpers> block
+
+
+Sessions:
+  - *session* => a way to store <persistent data / state>
+    - associated w/ a specific user by storing a <cookie> in their browser
+    - # in Sinatra, the session data itself is also stored in this cookie
+      - this is configureable and not always the case w/ other web freameworks
+
+  - # the session implementation used by Sinatra is supplied by Rack
+    - the session object lives in the <env hash>
+      - in tests, access by: "last_request.env"  (NOT last response)
+      - in routes, access by: "request.env" or just "env"
+    - Rack's *env hash* => large hash of data related to a req/resp pair
+      - used by frameworks to access attributes of request (ex: path, params)
+  - to access session obj: "last_request.env['rack.session']"
+    - create a helper method, "#session"
+
+
+Miscellaneous:
+  - data that is submittied to server often needs to be <validated> to ensure it meets requirements of app
+    - in Todos, we built <server-side> validation ---> we perofrmed the validation logic on the server
+
+  - *flash message* => messages that need to be displayed to user on their next request and then deleted can be <stored in the session>
+
+  - content from w/i a view template can be stored under a name and retrieved later using <#content_for> and <#yield_content>
+
+  - GET request should only request data
+    - use POST or another non-GET method for any request that modifies data
+  - web browsers only support GET and POST in HTML <forms>, so sometimes need to use POST instead of a more appropriate method
+
+  - *view helpers* => provide a way to extract code that determines what HTML markup is generated for a view
+
+  - general route organization <pattern for errors>:
+    - # render a page instead of redirect!
+      - so that we can go back and fix it and retain access to params and ivars set in current route
+
+
+
+
+----------------------------------------------------------------------------
+------------------ Securing Applications -------------------
+
+Sanitizing HTML:
+  - *escaping HTML* => # escape any HTML that comes from an untrusted source (all users)
+    - (must be done manually in Sinatra vs. automaticaly in Rails)
+  - webpages <build HTML dynamically> so there's lots of opportunity for someone to influence what code gets written into the page
+  - replace certain chars w/ HTML entities that browser won't interpret as code
+    - "Rack::Utils.escape_html" method
+      - wrap in a <view helper> to # manually escape values
+          ex: [ruby]
+                          helpers do
+                            def h(content)
+                              Rack::Utils.escape_html(content)
+                            end
+                          end
+              [/ruby]
+              [html]     <h3><%=h todo[:name] %></h3>        [/html]
+
+  - manually escaping can be a problem b/c it's easy to miss some places
+    - so many libraries automatically escape all output
+      - to enable in Sinatra:
+        [ruby]
+                      configure do
+                        set :erb, escape_html: true
+                      end
+        [/ruby]
+        [html]        <%== yield %>                   [/html]
+
+  - # general pattern for handling user-submitted data:
+    - save unmodified values whenever possible
+    - escape all user content when it is displayed
+
+
+HTTP Methods and Security:
+  - Neither POST nor GET is a secure HTTP method
+    - # Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network
+
+  - # Serving the app over HTTPS is the only way to protect a user's data
+
+
+
+----------------------------------------------------------------------------
+----------------- JavaScript -------------------
+
+- *JavaScript* ---> can do things HTML can't by itself
+    ex: drag/drop user interfaces, submitting forms w/o GET/POST, AJAX
+- *XHR* (*XmlHTTPRequest*) (*AJAX*) => requests that can be made using jQuery
+    ex: to submit a form asynchronously
+  - HTTP requests made from JS don't require special handling w/i a Sinatra app
+- client-side code can itneract w/ server-side code
+
+
+
+----------------------------------------------------------------------------
+----------------- CMS Project -------------------
+
+Approach:
+  1. *requirements*
+    - <what> does the app need to do to satisfy requirements?
+    - <how> will the app accomplish these things?
+      - <what> changes need to be made?
+  2. *implementation* ---> create your own plan from requirements
+  3. *solution*
+    - <how> is yours different?
+      - will there be any noticeable difference to a user?
+    - *tests*
+      - think about what the tests should be doing and write your own
+      - then compare your tests to example tests
+      - then write and verify the rest of the solution
+
+
+RACK INFO: http://blog.gauravchande.com/what-is-rack-in-ruby-rails
+- pretty print a "last_response" obj => " puts last_response.to_yaml "
+- # get last_response["Location"]    ===    follow_redirect!    ???
+
+
+- *markdown* => a text-to-html markup language
+
+
+Security:
+  - building a path using a request param, and then sending the file's content in the response is not secure!!
+    - user could enter a URL to access the app's source code or passwords
+
+  - guidelines for building secure web apps:
+    1. avoid using params to construct file paths
+      - if you have to:
+        - run any params that have filenames thru "File.basename"
+        - or use an alternative id (ex: index) for file, instead of filename
+    2. use <whitelisting> to explicitly define what is allowed
+    3. think like someone who's attempting to alter the behavior of your app
+      - is it possible to introduce an <unexpected value> into the system thru <expected means> such as params?
+
+
+
+Summary:
+  - Sinatra will render a layout automatically if it's located in "views/layout.erb"
+  - <Rack::Test> => library used to test Sinatra apps
+    - provides testing <helper methods>
+  - <redirect> method => <aborts> handling of current request (calls <halt>)
+  - passwords should never be stored in raw form ---> <hash> first
+  - libs/gems used: File, FileUtils, YAML (Psych), Rack::Test, Redcarpet, BCrypt
+
+
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+    SINATRA RANDOM
+-----------------------------------------------------------
+
+Accessing the Request Object:
+  - # The incoming request object can be accessed from request level (filter, routes, error handlers) through the request method:
+[ruby]
+  # app running on http://example.com/example
+  get '/foo' do
+    t = %w[text/css text/html application/javascript]
+    request.accept              # ['text/html', '*/*']
+    request.accept? 'text/xml'  # true
+    request.preferred_type(t)   # 'text/html'
+    request.body                # request body sent by the client (see below)
+    request.scheme              # "http"
+    request.script_name         # "/example"
+    request.path_info           # "/foo"
+    request.port                # 80
+    request.request_method      # "GET"
+    request.query_string        # ""
+    request.content_length      # length of request.body
+    request.media_type          # media type of request.body
+    request.host                # "example.com"
+    request.get?                # true (similar methods for other verbs)
+    request.form_data?          # false
+    request["some_param"]       # value of some_param parameter. [] is a shortcut to the params hash.
+    request.referrer            # the referrer of the client or '/'
+    request.user_agent          # user agent (used by :agent condition)
+    request.cookies             # hash of browser cookies
+    request.xhr?                # is this an ajax request?
+    request.url                 # "http://example.com/example/foo"
+    request.path                # "/example/foo"
+    request.ip                  # client IP address
+    request.secure?             # false (would be true over ssl)
+    request.forwarded?          # true (if running behind a reverse proxy)
+    request.env                 # raw env hash handed in by Rack
+  end
+[end]
+
+# OR JUST CALL env METHOD FROM INSIDE A ROUTE!
+[ruby]
+          get '/' do
+            env == request.env  # => true
+          end
+
+          # in a test:
+          last_request.env
+[end]
+
+
+
+Rack provides a hash, params, which can contain three types of parameters transmitted in an http request.
+
+    query parameters from a GET request, which come at the end of the url ?key=value
+    route parameters, which are part of the path and named in the Sinatra route implementation using a symbol. get "/lists/:key"
+    form data via POST from an html form. <input name="key" value="value">
+
+All three types are referenced the same way, with normal hash syntax. params['key'] returns the value.

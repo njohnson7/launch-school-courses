@@ -1,0 +1,26 @@
+1. What are the required components of an HTTP request? What are the additional optional components?
+  - required components:
+    - *method* (ex: GET, POST)
+    - *path* (ex: / (root))
+  - optional components:
+    - query string (made up of parameters (ex: ?search=123)),
+    - headers (contain meta-data) (ex: cookie)
+    - body (ex: images or form data in a POST request)
+
+2. What are the required components of an HTTP response? What are the additional optional components?
+  - required:
+    - status code (ex: 200)
+  - optional:
+    - headers
+    - body
+
+3. What determines whether a request should use GET or POST as its HTTP method?
+  - GET --> # should only retrieve content from server
+    - ('read-only' w/ a few exceptions)
+  - POST --> # involve changing values that are stored on server
+    ex: most HTML forms submit values using POST
+      - search forms are an exception to this rule (often use GET since they aren't changing data, only viewing it)
+
+4. Is the host component of a URL included as part of an HTTP request?
+  - the host and port are used to connect to the server, so they're required to make a request,
+    - but # only the URL's path and parameters are included in the actual request
