@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>runner</title>
+  <meta charset='utf-8'>
+  <link href='lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='lib/good_fns_lite.js'></script>
+  <script src='lib/jquery.js'></script>
+  <script src='lib/underscore.js'></script>
+  <script src='lib/backbone.js'></script>
+  <script src='lib/handlebars.js'></script>
+</head>
+<body>
+
+
+<!--====================================================================================--><script>;
+
+
+Todo = Backbone.Model.extend({
+  defaults: {
+    title: '',
+    completed: false,
+  },
+})
+
+TodosCollection = Backbone.Collection.extend({
+  model: Todo,
+})
+
+todo = new Todo({ title: 'Read book', id: 1})
+
+todos = new TodosCollection([todo])
+p(todos)
+p(todos.length)
+
+p("\n")
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+t1 = new Todo({ title: 'go here'})
+t2 = new Todo({ title: 'go there'})
+t3 = new Todo({ title: 'go everywhere'})
+
+todos = new TodosCollection([t1, t2])
+p(todos)
+
+todos.add(t3)
+p(todos)
+
+todos.remove([t1, t2])
+p(todos)
+
+todos.remove(t3)
+p(todos)
+
+p()
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+items = new Backbone.Collection
+items.add([{ id: 1, name: 'Dog', age: 1 }, { id: 2, name: 'Cat', age: 2 }])
+items.add({ id: 1, name: 'Bear' }, { merge: true })
+items.add({ id: 2, name: 'Lion'})
+pj(items)
+
+p()
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+t1 = new Todo({ title: 'todo1', id: 1 })
+todos = new TodosCollection([t1])
+t1Copy = todos.get(1)
+p(t1 == t1Copy)
+
+p()
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+t1.p
+todos.get(t1.cid).p
+todos.get('c7').p
+p(todos.get('c7') == t1Copy)
+
+p()
+//----------------------------------------------------------------------------//
+
+todos.on('add', function (todo) {
+  p(`I should ${todo.get('title')}. Have I done it before?: ${todo.get('completed')}`)
+  p(this)
+})
+
+todos.add({ title: 'go to the store', completed: true })
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.on('change:title', function (todo) {
+  p(`Changed my mind! I should ${todo.get('title')}`)
+  p(this)
+})
+
+todos.add({ title: 'go to Mexico', completed: false, id: 3})
+t = todos.get(3)
+t.set('title', 'go fishing')
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+t = new Todo
+t.set({ title: 'buy milk', completed: true })
+
+titleChanged = _ => p('title was changed!')
+stateChanged = _ => p('state was changed!')
+
+t.on({
+  'change:title':     titleChanged,
+  'change:completed': stateChanged,
+})
+
+t.set({title: 'get food'})
+t.set({completed: false})
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todoCounter = { a: 0, b: 0 }
+_.extend(todoCounter, Backbone.Events)
+todoCounter.p
+
+incrA = _ => {
+  todoCounter.a++
+  todoCounter.trigger('event')
+}
+incrB = _ => todoCounter.b++
+
+todoCounter.once('event', incrA)
+todoCounter.once('event', incrB)
+
+todoCounter.trigger('event')
+p(todoCounter)
+
+todoCounter.trigger('event')
+todoCounter.trigger('event')
+p(todoCounter)
+
+
+/*----------------------------------------------------------------------------*/p()
+todos = new Backbone.Collection()
+todos.add([
+    { id: 1, title: 'go to Jamaica.', completed: false },
+    { id: 2, title: 'go to China.', completed: false },
+    { id: 3, title: 'go to Disneyland.', completed: true },
+])
+
+todos.on('add',              model => p(`Added ${model.get('title')}`))
+todos.on('remove',           model => p(`Removed ${model.get('title')}`))
+todos.on('change:completed', model => p(`Completed ${model.get('title')}`))
+
+todos.set([
+  { id: 1, completed: true },
+  { id: 2 },
+  { id: 4, title: 'go to Meixco.', completed: true },
+])
+
+pj(todos.p)
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.on('reset', function (todos, options) {
+  p(options)
+  p(todo)
+  p(todos)
+})
+
+
+todos.reset({ title: 'omg'})
+todos.pj
+p()
+
+todos.reset()
+todos.pj
+
+
+/*============================================================================*/p()
+todos = new Backbone.Collection()
+todos.add([
+  { title: 'go to Belgium.', completed: false, id: 1},
+  { title: 'go to China.',   completed: false, id: 2},
+  { title: 'go to Austria.', completed: true,  id: 3},
+])
+
+todos.forEach(todo => p(todo.get('title')))
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+sortedByAlpha = todos.sortBy(todo => todo.get('title').toLowerCase())
+todos.p
+sortedByAlpha.p
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+count = 0
+todos.map(todo => `${count++} ${todo.get('title')}`).p
+todos.pj
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.max(todo => todo.id).p.pj.id.p
+pn
+
+todos.min(todo => todo.id).p.pj.id.p
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.pluck('title').p
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.filterById = function (ids) {
+  return this.filter(c => ids.includes(c.id))
+}
+todos.filterById([1, 2, 4]).p
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+var people = new Backbone.Collection;
+
+people.comparator = function(a, b) {
+  return a.get('name') < b.get('name') ? -1 : 1;
+};
+
+var tom = new Backbone.Model({name: 'Tom'});
+var rob = new Backbone.Model({name: 'Rob'});
+var tim = new Backbone.Model({name: 'Tim'});
+var tom2 = new Backbone.Model({name: 'Tom'});
+var tom3 = new Backbone.Model({name: 'Tom'});
+
+people.add(tom);
+people.add(rob);
+people.add(tim);
+people.add(tom2);
+people.add(tom3);
+
+console.log(people.indexOf(rob)); // true
+console.log(people.indexOf(tim)); // true
+console.log(people.indexOf(tom)); // true
+console.log(people.indexOf(tom2)); // true
+console.log(people.indexOf(tom3)); // true
+
+people.p;
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.indexOf(todos.get(1)).p
+todos.indexOf(todos.get(2)).p
+todos.indexOf(todos.get(3)).p
+todos.indexOf(todos.get(4)).p
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.any(todo => todo.id == 1).p
+todos.any(todo => todo.id == 2).p
+todos.any(todo => todo.id == 5).p
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.size().p
+todos.length.p
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.isEmpty().p
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todos.groupBy('completed').p
+todos.groupBy('id').p
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todo.pick('title').p
+todo.pick('title', 'id').p
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todo.omit('title').p
+todo.omit().p
+todo.omit('id', 'title').p
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todo.keys().p
+todo.values().p
+
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todo.pairs().pj.p
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/p()
+todo.invert().p
+
+
+/*----------------------------------------------------------------------------*/p()
+
+filtered = todos.chain()
+  .filter(todo => todo.get('id') > 1)
+  .forEach(todo => todo.p)
+  .map(todo => todo.get('title'))
+  .value()
+  .p
+
+filtered.p
+
+
+
+
+//======================================================================================//</script>
+<!-- <script src='scratch.js'></script> -->
+</body>
+</html>

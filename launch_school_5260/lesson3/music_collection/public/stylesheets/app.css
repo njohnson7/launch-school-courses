@@ -1,0 +1,101 @@
+ul,ol { list-style: none; }
+h1,h2,h3,h4,h5,h6,pre,code { font-size: 1em;}
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,dl,dt,dd, figure, figcaption { margin: 0; padding: 0; }
+a img,:link img,:visited img, fieldset { border: none; }
+address { font-style: normal; }
+header, section, article, nav, footer, hgroup, details, summary, figure, main { display: block; }
+mark { color: inherit; background: transparent; }
+abbr { border: none; }
+summary::-webkit-details-marker { display: none; }
+html,
+body {
+  background:      #000000;
+}
+body {
+  font:            normal 14px "Roboto Condensed", sans-serif;
+}
+main {
+  background:      #222;
+  margin:          0 auto;
+  max-width:       800px;
+  padding:         20px;
+}
+h1 {
+  color:           #eee;
+  font-size:       2.2em;
+  padding:         0 0 .6em 0;
+}
+h2 {
+  font-size:       1.5em;
+}
+h3 {
+  font-size:       1.2em;
+}
+#albums li {
+  box-sizing:      border-box;
+  display:         inline-block;
+  padding:         0 10px 10px 0;
+  vertical-align:  top;
+  width:           25%;
+}
+#albums img {
+  display:         block;
+  margin:          0 0 10px 0;
+  width:           100%;
+}
+#albums a {
+  color:           #33b5e5;
+  display:         block;
+  text-decoration: none;
+}
+#tracks_modal {
+  background:      #333;
+  bottom:          25px;
+  color:           #eee;
+  display:         none;
+  left:            25px;
+  padding:         25px;
+  position:        fixed;
+  right:           25px;
+  top:             25px;
+  z-index:         10;
+}
+#tracks_modal a.close {
+  color:           #33b5e5;
+  position:        absolute;
+  right:           25px;
+  top:             25px;
+  z-index:         1;
+}
+#tracks_modal img {
+  float:           left;
+  margin:          0 10px 10px 0;
+  width:           80px;
+}
+#tracks_modal h2 {
+  padding:         0 0 10px 0;
+}
+#tracks_modal h3 {
+  padding:         0 0 5px 0;
+}
+#tracks_modal ol {
+  clear:           both;
+  list-style:      decimal inside;
+}
+#tracks_modal li {
+  border-top:      1px solid #33b5e5;
+  padding:         7px 0;
+}
+#tracks_modal small {
+  float:           right;
+}
+#overlay {
+  background:      rgba(0, 0, 0, .6);
+  bottom:          0;
+  display:         none;
+  left:            0;
+  position:        fixed;
+  right:           0;
+  top:             0;
+  z-index:         9;
+}
