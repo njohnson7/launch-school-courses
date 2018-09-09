@@ -1,0 +1,61 @@
+# exercise4.txt
+
+
+
+1. '4' == 4 ? puts("TRUE") : puts("FALSE")
+
+It will print "FALSE" because '4' is not equal to 4 because one is a string and the other
+is an integer. This code uses a ternary operator, which is a form of an if/else statement.
+If the expression to the left of the ? is true, then it executes the code to the right of the
+? and if the expression is false, then it executes the code to the right of the : symbol.
+
+
+2.  x = 2
+    if ((x * 3) / 2) == (4 + 4 - x -3)
+      puts "Did you get it right?"
+    else
+      puts "Did you?"
+    end
+
+It will print "Did you get it right?" because x is 2, and 2 * 3 = 6, and 6 / 2 = 3, so
+the left side of the equality operator is 3. As for the right side, 4 = 4 = 8, and 8 - 2 = 6,
+and 6 - 3 = 3, so the right side is 3. Therefore the if statement is checking whether 3 is
+equal to 3, which it is, so it eexcutes the code underneath. Since the if statement is true,
+the else statement is skipped and not executed.
+
+
+3.  y = 9
+    x = 10
+    if (x + 1) <= (y)
+      puts "Alright."
+    elsif (x + 1) >= (y)
+      puts "Alright now!"
+    elsif (y + 1) == x
+      puts "ALRIGHT NOW!"
+    else
+      puts "Alrighty!"
+    end
+
+It will print "Alright now!" because the first if statement is false: x + 1 = 11 which is
+not less than or equal to 9. The first elsif statement is true, because 11 is greater than
+or equal to 9, so the code underneath gets executed, putting "Alright now!" The second elsif
+statement is indeed true, but since the one above it is true as well, it gets skipped, along
+with the final statement.
+
+
+
+
+# VIDEO NOTES:
+
+
+ternary operator = shortcut for an if/else statement
+  the ? and : is the ternary operator
+  left of ? is expression that evaluates to a boolean
+
+
+initialize local variable called x to the integer 2
+if first expression is true (the true condition), executes code under if statement
+
+
+only one expression under an if/else block will be executed, because they are mutually
+exclusive. the code stops right there. only one of the branching logic will be executed.

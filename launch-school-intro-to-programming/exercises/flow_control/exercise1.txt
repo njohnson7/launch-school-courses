@@ -1,0 +1,38 @@
+# exercise1.txt
+
+
+
+1. (32 * 4) >= 129
+  => false
+  because 128 is less than 129, not greater than or equal to it
+
+2. false != !true
+  => false
+  because false does not equal not true, false equals not true
+
+3. true == 4
+  => false
+  because true is not equivalant to true
+
+4. false == (847 == '847')
+  => true
+  because 847 does not equal '847', since one is an integer and the other is a string,
+  so it equals false and returns true
+
+5. (!true || (!(100 / 5) == 20) || ((328 / 4) == 82)) || false
+  => true
+  because even though not true is false, and not 20 is not equal to 20, 82 == 82, which
+  returns true and || false is skipped
+
+
+VIDEO NOTES:
+
+exercise is testing ability to parse conditional statements
+
+3. even though 4 by itself in a conditional will eval to true, and true by itself in
+   a conditional will evaluate to true, they do not equate to each other, so => false
+
+4. goes in order evaluating expressions, and stops at first true
+   any time a true is hit, whole expression will eval to true
+   !20 turns !(100 / 5) into a boolean
+      !20 == false
