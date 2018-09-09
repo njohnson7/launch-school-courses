@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>Web Store</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+  <h1>Existing Page</h1>
+  <div id='store'></div>
+
+
+<!--====================================================================================--><script>
+
+
+const BASE_URL = 'https://ls-230-web-store-demo.herokuapp.com/products/';
+const store    = document.getElementById('store');
+
+const productPage = document.createElement('div');
+productPage.style.cssText = 'background: #1d0046;'
+document.body.append(productPage);
+
+store.addEventListener('click', function (e) {
+  e.preventDefault();
+  let link = e.target;
+  if (link.tagName != 'A') return;
+
+  let route = link.href.match(/(products\/)(.*$)/)[2];
+  let url   = `${BASE_URL}${route}`;
+
+  let xhr = new XMLHttpRequest;
+  xhr.onload = function (e) {
+    productPage.innerHTML = this.response;
+    productPage.querySelector('h1').remove();
+  };
+  xhr.open('GET', url);
+  xhr.send();
+});
+
+let xhr = new XMLHttpRequest;
+xhr.onload = function (e) {
+  store.innerHTML = this.response;
+};
+xhr.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products');
+xhr.setRequestHeader('Accept', 'application/json; charset=utf-8');
+xhr.send();
+
+
+//======================================================================================//</script>
+</body>
+</html>

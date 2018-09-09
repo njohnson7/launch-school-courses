@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>5 - Multiple Choice Quiz</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <style>
+    body { margin: 40px; font-size: 19px; }
+    h1 { font-size: 1.7rem; margin-bottom: 40px; }
+    h2 { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
+    li { margin-bottom: 6px; }
+    input { margin-right: 5px; }
+    button { font-size: 1.2rem; margin: 20px 5px 0 0; border-radius: 5px; padding: 8px 10px; border: none; }
+    button:hover { cursor: pointer; }
+    button:disabled { background: #333; }
+    .result { border: 1px solid #33b5e5; padding: 5px; margin: 8px 0 30px; color: #33b5e5; padding: 7px; visibility: hidden; background: #111; height: 35px; }
+    .result.correct, .result.incorrect { visibility: visible; }
+    .result.incorrect { border-color: #b90454; color: #b90454; }
+  </style>
+</head>
+<body>
+  <h1>Multiple Choice Quiz</h1>
+  <form>
+    <ul id='questionsList'>
+    </ul>
+    <button id='submit'>Submit Quiz</button>
+    <button type='reset' id='reset' disabled>Reset</button>
+  </form>
+
+  <template id='questionTemplate'>
+    <li id='q#{id}'>
+      <h2>Q#{id}. #{description}</h2>
+      <ul class='options'>
+        #{each_S options}
+          <li><label><input type='radio' name='q#{../id}' value='#{.}'>#{.}</label></li>
+        #{each_E}
+      </ul>
+      <p class='result'></p>
+    </li>
+  </template>
+
+<!--==================================================================================--><script>
+
+const QUESTIONS = [{
+  id:          1,
+  description: "Who is the author of <cite>The Hitchhiker's Guide to the Galaxy</cite>?",
+  options:     ['Dan Simmons', 'Douglas Adams', 'Stephen Fry', 'Robert A. Heinlein'],
+}, {
+  id:          2,
+  description: 'Which of the following numbers is the answer to Life, the universe, and everything?',
+  options:     ['66', '13', '111', '42'],
+}, {
+  id:          3,
+  description: 'What is Pan Galactic Gargle Blaster?',
+  options:     ['A drink', 'A machine', 'A creature', 'None of the above'],
+}, {
+  id:          4,
+  description: 'Which star system does Ford Prefect belong to?',
+  options:     ['Aldebaran', 'Algol', 'Betelgeuse', 'Alpha Centauri'],
+}];
+const ANSWER_KEY = { 1: 'Douglas Adams', 2: '42', 3: 'A drink', 4: 'Betelgeuse' };
+
+const qs  = document.querySelector.bind(document);
+const qsa = selector => [...document.querySelectorAll(selector)];
+
+const QUESTION_TEMPLATE = qs('#questionTemplate').innerHTML.trim();
+const TOKEN             = /#\{(.+?)\}/g;
+const TOKEN_EACH        = /#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/;
+
+const simpleSub = (template, obj, parentObj) => (
+  template.replace(TOKEN, (_, prop) => (
+    prop == '.' ? obj : prop.startsWith('../') ? parentObj[prop.slice(3)] : obj[prop]
+  ))
+);
+
+const nestedSub = (template, obj) => (
+  template.replace(TOKEN_EACH, (_, prop, nestedTemplate) => (
+    obj[prop].map(item => simpleSub(nestedTemplate, item, obj)).join('')
+  ))
+);
+
+const buildHtml = (template, obj) => (
+  TOKEN_EACH.test(template) ? buildHtml(nestedSub(template, obj), obj) : simpleSub(template, obj)
+);
+
+const buildQuestion   = question => buildHtml(QUESTION_TEMPLATE, question);
+const renderQuestions = _ => (questionsList.innerHTML = QUESTIONS.map(buildQuestion).join(''));
+
+const getUserAnswer = id => form[`q${id}`].value;
+const getResult     = id => results.find(result => result.parentElement.id == `q${id}`);
+
+const markCorrect = result => {
+  result.innerText = 'Correct Answer';
+  result.classList.add('correct');
+};
+
+const markIncorrect = (result, userAnswer, answer) => {
+  let explanation  = userAnswer ? 'Wrong Answer' : 'You did not answer this question';
+  result.innerText = `${explanation}. The correct answer is: "${answer}".`;
+  result.classList.add('incorrect');
+};
+
+const showResult = ({ id }) => {
+  let userAnswer = getUserAnswer(id);
+  let result     = getResult(id);
+  let answer     = ANSWER_KEY[id];
+  userAnswer == answer ? markCorrect(result) : markIncorrect(result, userAnswer, answer);
+};
+
+const toggleDisabled = _ => {
+  form.submit.disabled = !form.submit.disabled;
+  form.reset.disabled  = !form.reset.disabled;
+};
+
+const handleSubmit = e => {
+  e.preventDefault();
+  toggleDisabled();
+  QUESTIONS.forEach(showResult);
+};
+
+const resetResult = result => ([result.className, result.innerText] = ['result', '']);
+
+const resetForm = _ => {
+  toggleDisabled();
+  results.forEach(resetResult);
+};
+
+let form          = qs('form');
+let questionsList = qs('#questionsList');
+renderQuestions();
+let results       = qsa('.result');
+
+form.onsubmit = handleSubmit;
+form.onreset  = resetForm;
+
+//=====================================================================================//</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+@import url('whitespace-reset.css');
+html {
+  background: #000;
+  color:      #eee;
+  font:       normal 20px Helvetica, Arial, sans-serif;
+}
+body {
+  background: #151515;
+  margin:     0 auto;
+  padding:    30px;
+  width:      1000px;
+}
+body:after {
+  clear:   both;
+  content: '';
+  display: block;
+}
+.games {
+  float:        right;
+  padding-left: 50px;
+  width:        80%;
+}
+h1 {
+  color:         #33b5e5;
+  font:          bold 54px Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+}
+li {
+  padding: 5px;
+}
+.games li {
+  padding: 20px;
+}
+.games li:hover {
+  background: #33b5e5;
+  color:      #000;
+}
+.games li:not([style='display: none;']) ~ li {
+  border-top: solid 1px #444;
+}
+.filter {
+  float: left;
+  width: 20%;
+}
+.filter ul {
+  padding-top: 98px;
+}
+.filter label:hover,
+.filter input:hover {
+  background: #000;
+  color:      #33b5e5;
+  cursor:     pointer;
+  padding:    10px 0;
+}
+.filter input {
+  margin-right: 5px;
+}

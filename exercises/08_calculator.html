@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>8 - Calculator</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 22px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+    body { padding: 80px 50px; }
+    #calc_E {
+      background:    #171727;
+      width:         350px;
+      padding:       10px;
+      border-radius: 5px;
+    }
+    #top_E, #bot_E {
+      text-align: right;
+      padding:    10px;
+    }
+    #top_E { height: 40px; font-size: 16px; }
+    #bot_E {
+      font-size:     40px;
+      border-bottom: 1px solid #383838;
+      margin-bottom: 10px;
+    }
+    #buttons_E { padding: 0 10px; }
+    button {
+      list-style:    none;
+      display:       inline-block;
+      width:         23%;
+      height:        50px;
+      background:    #1c1c1c;
+      margin:        1%;
+      text-align:    center;
+      padding:       15px;
+      border-radius: 5px;
+      border:        none;
+      font-size:     20px;
+      color:         #eee;
+    }
+    button:hover {
+      cursor:     pointer;
+      color:      #33b5e5;
+      background: #000;
+    }
+  </style>
+  <script src='../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <div id='calc_E'>
+    <div id='top_E'></div>
+    <div id='bot_E'>0</div>
+    <div id='buttons_E'>
+      <button id='CE_E'>CE</button><!--
+   --><button id='C_E'>C</button><!--
+   --><button id='NEG_E'>NEG</button><!--
+   --><button id='div_E' class='op'>/</button><!--
+   --><button id='b7_E' class='num'>7</button><!--
+   --><button id='b8_E' class='num'>8</button><!--
+   --><button id='b9_E' class='num'>9</button><!--
+   --><button id='mult_E' class='op'>x</button><!--
+   --><button id='b4_E' class='num'>4</button><!--
+   --><button id='b5_E' class='num'>5</button><!--
+   --><button id='b6_E' class='num'>6</button><!--
+   --><button id='sub_E' class='op'>-</button><!--
+   --><button id='b1_E' class='num'>1</button><!--
+   --><button id='b2_E' class='num'>2</button><!--
+   --><button id='b3_E' class='num'>3</button><!--
+   --><button id='add_E' class='op'>+</button><!--
+   --><button id='b0_E' class='num'>0</button><!--
+   --><button id='dot_E' class='num'>.</button><!--
+   --><button id='mod_E' class='op'>%</button><!--
+   --><button id='equal_E' class='op'>=</button>
+    </div>
+  </div>
+
+<!--==================================================================================--><script>
+
+const formatDashes = str => str.replace(/^-+(?=-)/, '');
+const formatZeros  = str => str.replace(/(^|-)0+(?!$)/, '$1');
+const formatDots   = str => {
+  let idx = str.indexOf('.');
+  return str.replace(/\./g, (_, i) => i == idx ? '.' : '');
+};
+const formatNum = num => formatDots(formatZeros(formatDashes(''+num)));
+
+const qsa = selector => [...document.querySelectorAll(selector)];
+
+const OPS = {
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+  'x': (a, b) => a * b,
+  '/': (a, b) => a / b,
+  '%': (a, b) => a % b,
+};
+
+const textGetter = elem => (_ => elem.innerText);
+const getTop     = textGetter(top_E);
+const getBot     = textGetter(bot_E);
+
+const setTop = val => top_E.innerText = val;
+const setBot = val => bot_E.innerText = formatNum(val);
+
+const prependBot = val => setBot(`${val}${getBot()}`);
+const negate     = _ => prependBot('-');
+
+const appendTop = val => setTop(`${getTop()}${val}`);
+const appendBot = val => setBot(`${getBot()}${val}`);
+
+const clearTop = _ => setTop('');
+const clearBot = _ => setBot(0);
+const clearAll = _ => {
+  clearTop();
+  clearBot();
+  result = 0;
+};
+
+const getLastOp = _ => OPS[getTop().slice(-1)];
+
+const calculate = op_E => {
+  let lastOp    = getLastOp();
+  let currentOp = op_E.innerText;
+  let botNum    = +getBot();
+
+  result = lastOp ? lastOp(result, botNum) : botNum;
+  currentOp == '=' ? clearTop() : appendTop(` ${botNum} ${op_E.innerText}`);
+  setBot(result);
+  botIsResult = true;
+};
+
+C_E.onclick   = clearBot;
+CE_E.onclick  = clearAll;
+NEG_E.onclick = negate;
+
+qsa('.num').forEach(num_E => {
+  num_E.onclick = _ => {
+    let num = num_E.innerText;
+    botIsResult ? setBot(num) : appendBot(num);
+    botIsResult = false;
+  };
+});
+
+qsa('.op').forEach(op_E => {
+  op_E.onclick = _ => calculate(op_E);
+});
+
+let result = 0;
+let botIsResult;
+
+//=====================================================================================//</script>
+</body>
+</html>

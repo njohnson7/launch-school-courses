@@ -1,0 +1,103 @@
+body {
+  background: #000;
+  font:       normal 14px Helvetica, Arial, sans-serif;
+}
+a {
+  color: #16997c;
+  text-decoration: none;
+}
+a:hover {
+  color: #2f7;
+  text-decoration: underline;
+}
+main,
+header {
+  background: #036;
+  margin:     0 auto;
+  padding:    25px;
+  width:      600px;
+}
+header {
+  margin-bottom: 25px;
+}
+header ul {
+  list-style: none;
+  padding:    0;
+}
+header li {
+  position: relative;
+}
+header ul ul {
+  background: #448;
+  left:       0;
+  position:   absolute;
+  top:        100%;
+  z-index:    1;
+}
+header li li {
+  padding: 5px;
+}
+header a {
+  text-decoration: none;
+}
+fieldset {
+  border:  none;
+  margin:  0;
+  padding: 0;
+}
+dt {
+  font-weight: bold;
+  padding:     0 0 5px 0;
+}
+dd {
+  margin: 0;
+}
+input[type='text'] {
+  background: #000;
+  border:     none;
+  color:      #33b5e5;
+  font:       normal 14px/100% sans-serif;
+  height:     20px;
+  padding:    5px 0 5px 5px;
+}
+input[type='submit'], .button {
+  border: none;
+}
+input[type='submit']:hover,
+.button:hover {
+  background: #33b5e5;
+  color:      #000;
+}
+.accordion {
+  display: none;
+}
+.opened {
+  display: block;
+}
+.clicked {
+  background: #181818;
+  color:      #33b5e5;
+  padding:    3px;
+}
+.clicked:hover {
+  background: #000;
+  color:      #fff;
+}
+nav ul ul {
+  display: none;
+}
+form p {
+  display: none;
+  font:    bold 13px Helvetica, Arial, sans-serif;
+  padding: 15px 0;
+}
+form p.success {
+  color: #393;
+}
+form p.error {
+  color: #b00b00;
+}
+#birthstone {
+  color: #fff;
+  font:  italic bold 16px Georgia, serif;
+}

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>1 - Form Validation, Part 1</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+    main { margin: 50px; }
+    h1 { font-size: 24px; }
+    form { background: #151515; padding: 5px 20px 20px 20px; width: 800px; }
+    #formError { visibility: hidden; color: #933636; }
+    #formError.active { visibility: visible; }
+    dt, dd { margin: 0; }
+    dt { font-size: 18px; margin-bottom: 5px; }
+    dd { margin-bottom: 20px; }
+    input, button, form { border-radius: 5px; }
+    input { height: 35px; width: 250px; font-size: 18px; }
+    input.invalid { border-color: #933636; }
+    .error { display: inline-block; margin-left: 35px; visibility: hidden; }
+    .error.active { color: #933636; visibility: visible; }
+    button { font-size: 16px; font-weight: bold; padding: 3px 10px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Signup Form</h1>
+    <form id='form' novalidate>
+      <p id='formError'>Form cannot be submitted until errors are corrected.</p>
+      <dl>
+        <dt><label for='firstname'>First Name</label></dt>
+        <dd>
+          <input id='firstname' name='firstname' required>
+          <p class='error'></p>
+        </dd>
+        <dt><label for='lastname'>Last Name</label></dt>
+        <dd>
+          <input id='lastname' name='lastname' required>
+          <p class='error'></p>
+        </dd>
+        <dt><label for='email'>Email</label></dt>
+        <dd>
+          <input id='email' name='email' pattern='.+@.+' required>
+          <p class='error'></p>
+        </dd>
+        <dt><label for='password'>Password</label></dt>
+        <dd>
+          <input id='password' name='password' type='password' minlength='10' required>
+          <p class='error'></p>
+        </dd>
+        <dt><label for='phone'>Phone Number</label></dt>
+        <dd>
+          <input id='phone' name='phone' pattern='(\d{3}-){2}\d{4}' placeholder='111-222-3333'>
+          <p class='error'></p>
+        </dd>
+      </dl>
+      <button>Sign Up</button>
+    </form>
+  </main>
+
+<!--==================================================================================--><script>
+
+const setInvalid = field => {
+  field.classList.add('invalid');
+  let error = field.nextElementSibling;
+  error.classList.add('active');
+
+  let fieldName = field.labels[0].innerText;
+
+  if (field.validity.valueMissing) {
+    error.innerText = `${fieldName} is a required field.`;
+  } else if (field.validity.patternMismatch) {
+    error.innerText = `Please enter a valid ${fieldName}.`;
+  } else if (field.validity.tooShort) {
+    error.innerText = `${fieldName} must be at least ${field.minLength} characters long.`;
+  }
+};
+
+const validate = field => {
+  let fieldIsValid = field.validity.valid;
+  if (fieldIsValid) {
+    if (form.checkValidity()) formError.classList.remove('active');
+    return;
+  }
+
+  setInvalid(field);
+};
+
+const clearInvalid = field => {
+  field.classList.remove('invalid');
+  let error = field.nextElementSibling;
+  error.classList.remove('active');
+  error.innerText = '';
+};
+
+const handleField = (e, fn) => {
+  let field = e.target;
+  if (!fields.includes(field)) return;
+  fn(field);
+};
+
+const handleSubmit = e => {
+  if (!form.checkValidity()) {
+    e.preventDefault();
+    formError.classList.add('active');
+    fields.forEach(validate);
+  }
+};
+
+form.addEventListener('focusin',  e => handleField(e, clearInvalid));
+form.addEventListener('focusout', e => handleField(e, validate));
+form.onsubmit = handleSubmit;
+
+let fields = [...form.querySelectorAll('input')];
+
+//=====================================================================================//</script>
+</body>
+</html>

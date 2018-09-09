@@ -1,0 +1,256 @@
+Study more (and make flash cards):
+- lesson 1 summary
+- lesson 2:
+  - 1: "Asynchronous Execution with setTimeout"
+  - capturing/bubbling: "https://launchschool.com/lessons/8c4d93c8/assignments/7dccdc90"
+    - check for updates
+  - event loop video:   "https://www.youtube.com/watch?time_continue=3&v=8aGhZQkoFbQ"
+- DOM:
+  - `e.target` vs. `e.currentTarget `
+
+------
+maybe:
+- APIs book -- REST and CRUD chapter: "https://launchschool.com/books/working_with_apis/read/rest_and_crud"
+- APIs book -- HTTP Response Headers chapter: "https://launchschool.com/books/working_with_apis/read/http_response_headers#accesscontrolalloworigin"
+
+
+Read maybe:
+- capturing/bubbling:
+  - DOM Level 3 Events: "https://www.w3.org/TR/DOM-Level-3-Events/#event-flow"
+  - JS Event order:     "https://www.quirksmode.org/js/events_order.html#link4"
+- all of jQuery learning site
+- Mozilla ajax: "https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"
+- # Eloquent JS: # "https://eloquentjavascript.net/3rd_edition/"
+- REST dissertation: "https://www.ics.uci.edu/%7Efielding/pubs/dissertation/rest_arch_style.htm"
+- OAuth Bible: "https://github.com/Kong/mashape-oauth/blob/master/FLOWS.md"
+- HTTP Authentication: "https://devdocs.io/http/authentication"
+- Fetch:
+  - "https://devdocs.io/dom/fetch_api/using_fetch"
+  - "https://developers.google.com/web/updates/2015/03/introduction-to-fetch"
+- security (ex: cross-domain requests, XSS, CSRF)
+- ECMAScript terms: "https://www.ecma-international.org/ecma-262/7.0/#sec-terms-and-definitions"
+- Promises
+
+
+
+Questions:
+- `form.addEventListener('submit', function(event) {` vs. adding directly to button (guessing game assignment)
+- what are the default `$` and `$$` functions in firefox/chrome console?
+  - "https://support.mozilla.org/en-US/questions/1051637"
+- API book: "HTML forms must be loaded before they can be submitted. APIs don't have forms, so this initial GET request is unnecessary. "
+
+
+
+Todo:
+- refactor photo gallery (lesson3)
+- refactor photo gallery v2 (lesson5)
+- lesson 6: refactor Autocomplete (add promises...?)
+
+
+
+
+================================================================================
+---------------------------- FLASH CARDS ---------------------------------------
+================================================================================
+
+//============================================================================//
+
+- Q: what are some methods to retrieve multiple elements or nodes?
+
+- A:
+Nodes:
+- returns a static (non-live) `NodeList`:    [js]
+    document  .querySelectorAll
+    Element   .querySelectorAll
+    ParentNode.querySelectorAll              [end]
+
+Elements:
+- returns a live `HTMLCollection`:           [js]
+    document.getElementsByTagName
+    Element .getElementsByTagName
+    document.getElementsByClassName
+    Element .getElementsByClassName          [end]
+
+- returns a live `NodeList`:                 [js]
+    document.getElementsByName               [end]
+
+//============================================================================//
+
+[js]
+document.querySelector('.time').textContent            = '7:45';
+document.querySelector('.time').innerText              = '7:45';
+document.querySelector('.time').innerHTML              = '7:45';
+
+document.querySelector('.time').firstChild.textContent = '7:45';
+document.querySelector('.time').firstChild.nodeValue   = '7:45';
+document.querySelector('.time').firstChild.data        = '7:45';
+[end]
+
+//============================================================================//
+
+[js]
+ i % 2 == 0 && doSomething()
+
+ i % 2 || doSomething()
+
+// changes every other link starting at 0 index:
+links.forEach((a, i) => i % 2      || (a.style.color = 'green'));
+
+// instead of:
+links.forEach((a, i) => !(i % 2)   && (a.style.color = 'green'));
+// or:
+links.forEach((a, i) => i % 2 == 0 && (a.style.color = 'green'));
+
+
+p(document.querySelectorAll('.toclevel-1 a').forEach((a, i) => i % 2 || (a.style.color = 'green')));
+[end]
+
+//============================================================================//
+
+1. identify the event you need to handle.
+  - user actions, the page lifecycle, and more can fire events.
+2. identify the element that will receive the event.
+  - depending on the event, the object could be a button, an input field, or any other element on the page.
+3. define a function to call when this event occurs.
+  - the function will receive a single argument, an Event object.
+4. register the function as an event listener.
+  - this step brings the first three together into a working system.
+
+//============================================================================//
+
+- Q:
+`addEventListener` takes an optional third boolean argument, _____, that controls whether the listener should handle bubbling or capturing events.
+- when `true`, it will listen for an event in the capturing phase.
+- it defaults to `false`.
+
+- A:
+`useCapture`
+
+ex:
+[js]
+document.addEventListener('click', function (event) {
+  // executed during the target and bubbling phases
+});
+
+document.addEventListener('click', function (event) {
+  // executed during the target and capturing phases
+}, true);
+[end]
+
+(events in the target phase will trigger all listeners on an element in the order they were registered, regardless of the `useCapture` parameter.)
+
+//============================================================================//
+
+- Q:
+BP: you should define event listeners for the _____ phase of events.
+- it doesn't require the `useCapture` argument since this argument defaults to `false`.
+- most code you write will work in this way.
+- event dispatch involves both the capturing and bubbling phases, but the capturing phase isn't often used.
+
+- A:
+bubbling
+
+//============================================================================//
+
+- Q: how to send `FormData` with an XHR?
+- A: [js]
+document.querySelector('form').onsubmit = function (e) {
+  e.preventDefault();
+  let req = new XMLHttpRequest;
+  req.open('POST', 'http://bookz.herokuapp.com/books');
+  req.send(new FormData(this));
+};
+[end]
+
+//============================================================================//
+[js]
+
+Object.defineProperty(Object.prototype, 'p', {
+  get() {
+    console.log(this.valueOf());
+    return this.valueOf();
+  },
+});
+
+[1, 2, 3].p                          // [1, 2, 3]
+  .map(x => x * 2).p                 // [2, 4, 6]
+  .filter(x => x > 2).p              // [4, 6]
+  .reduce((sum, n) => sum + n, 0).p  // 10
+
+'abc'.p                   // abc
+  .toUpperCase().p        // ABC
+  .replace(/C/, '123').p  // AB123
+
+[end]
+//============================================================================//
+================================== tap: #===================================#[js]
+
+Object.prototype.tap = function tap(fn = p) {
+  fn(this);
+  return this;
+};
+
+[1, 2, 3].tap(p)               // [1, 2, 3]
+  .map(n => n * 3).tap(p)      // [3, 6, 9]
+  .filter(x => x > 3).tap(p);  // [6, 9]
+
+//------------------------//
+
+const pReq = e => (e.target
+  .tap(req => ppLine('request', req))
+  .tap(req => ppLine('status', `${req.status} -- ${req.statusText}`))
+  .tap(req => ppLine('response', req.response))
+);
+req.onloadend = pReq;
+
+
+/*=======================================================*/[end]
+//============================================================================//
+========================== custom `makeRequest` function #==================#[js]
+
+const makeRequest = function ({
+  url,
+  method   = 'GET',
+  headers  = {},
+  data     = null,
+  handlers = { loadend: pReq },
+} = {}) {
+  if (url == null) return 'must include url'.p;
+  let xhr = new XMLHttpRequest;
+  xhr.open(method, url);
+  Object.entries(handlers).forEach(([event, fn]) => xhr.addEventListener(event, fn));
+  Object.entries(headers).forEach(header => xhr.setRequestHeader(...header));
+  xhr.send(data);
+  return xhr;
+};
+
+// ex:
+makeRequest({
+  url:      'http://ls-230-web-store-demo.herokuapp.com/v1/products',
+  method:   'POST',
+  headers:  {
+    'Content-Type':  'json',
+    'Authorization': 'token AUTH_TOKEN',
+  },
+  data:     jstr({ name: 'coolest pen', sku: 'coolpen245', price: 9000 }),
+  handlers: {
+    loadend:          pReq,
+    load:             e => e.target.responseURL.p,
+    readystatechange: e => e.p,
+  },
+});
+
+// ex2:
+makeRequest({ url: 'https://ls-230-web-store-demo.herokuapp.com/products' });
+
+// ex3:
+let req = makeRequest({
+  url:     'http://ls-230-book-catalog.herokuapp.com/books',
+  method:  'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  data:    'title=Programming%20Ruby&author=Dave%20Thomas',
+});
+
+/*=======================================================*/[end]
+//============================================================================//
+

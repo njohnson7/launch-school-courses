@@ -1,0 +1,38 @@
+*,
+html {
+  box-sizing:    border-box;
+}
+body {
+  background:    #000;
+  color:         #33b5e5;
+  font:          16px Helvetica, sans;
+}
+input {
+  background:    #222;
+  border:        #555 solid 1px;
+  caret-color:   #15f4ee;
+  color:         #33b5e5;
+}
+button,
+select {
+  background:    #33b5e5;
+  border:        #178ab4 solid 1px;
+  color:         #000;
+}
+ol {
+  list-style:    none;
+  margin:        0;
+  padding:       0;
+}
+li {
+  margin-bottom: 2px;
+  padding:       7px 12px;
+}
+li.pass {
+  border:        1px solid #33b5e5;
+  color:         #33b5e5;
+}
+li.fail {
+  border:        1px solid #e94e60;
+  color:         #e94e60;
+}

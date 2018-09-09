@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>9 - Events Tracker</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <script src='../../lib/good_fns_lite.js'></script>
+  <style>
+    #red, #blue, #green, #orange {
+      color:      white
+      cursor:     pointer
+      margin:     10px
+      padding:    10px
+    }
+    #red {
+      background: red
+      height:     400px
+      width:      400px
+    }
+    #blue {
+      background: blue
+      height:     200px
+      width:      200px
+    }
+    #orange {
+      background: orange
+      height:     100px
+      width:      100px
+    }
+    #green {
+      background: green
+      height:     50px
+      width:      50px
+    }
+  </style>
+</head>
+<body>
+  <div id='red'>Red
+    <div id='blue'>Blue</div>
+    <div id='orange'>Orange
+      <div id='green'>Green</div>
+    </div>
+  </div>
+
+<!--==================================================================================--><script>;
+
+// let tracker = (_ => {
+//   let events = new Set
+
+//   return {
+//     list() {
+//       return [...events]
+//     },
+//     add(ev) {
+//       events.add(ev)
+//     },
+//     elements() {
+//       return [...events].map(ev => ev.target)
+//     },
+//     clear() {
+//       return ~~events.clear()
+//     },
+//   }
+// })()
+
+// const track = function (fn) {
+//   return function (ev) {
+//     tracker.add(ev)
+//     fn(ev)
+//   }
+// }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+// const track = fn => (
+//   ev => {
+//     tracker.add(ev)
+//     fn(ev)
+//   }
+// )
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+let tracker = ((events = new Set) => ({
+  list:     _  => [...events],
+  elements: _  => [...events].map(ev => ev.target),
+  clear:    _  => ~~events.clear(),
+  add:      ev => events.add(ev),
+}))()
+
+const track = fn => (ev => (tracker.add(ev), fn(ev)))
+
+
+
+//===================================== Tests ======================================//
+
+const [divRed, divBlue, divOrange, divGreen] = document.querySelectorAll('div')
+
+divRed.addEventListener('click', track(_ => {
+  document.body.style.background = 'red'
+}))
+divBlue.addEventListener('click', track(_ => {
+  event.stopPropagation()
+  document.body.style.background = 'blue'
+}))
+divOrange.addEventListener('click', track(_ => {
+  document.body.style.background = 'orange'
+}))
+divGreen.addEventListener('click', track(_ => {
+  document.body.style.background = 'green'
+}))
+
+const createClickEv   = _ => new MouseEvent('click', { view: window, bubbles: true, cancelable: true })
+const dispatchClickEv = elem => elem.dispatchEvent(createClickEv())
+;[divBlue, divRed, divOrange, divGreen].forEach(dispatchClickEv)
+
+p(tracker.list())               // [MouseEvent, MouseEvent, MouseEvent, MouseEvent]
+p(tracker.list().length)        // 4
+p(tracker.elements())           // [div#blue, div#red, div#orange, div#green]
+p(tracker.elements()[0] == document.querySelector('#blue'))     // true
+p(tracker.elements()[3] == document.querySelector('#green'))    // true
+p(tracker.clear())              // 0
+p(tracker.list())               // []
+
+p(tracker.list()[0] = 'abc')    // 'abc'
+p(tracker.list().length)        // 0
+
+
+//=====================================================================================//</script>
+</body>
+</html>

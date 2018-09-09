@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>8 - Array to Nodes</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <script src='../../lib/good_functions.js'></script>
+</head>
+
+<body>
+
+<!--==================================================================================--><script>
+
+const _1_createElem = document.createElement.bind(document);
+const _1_arrayToNodes = ([tag, children], parent = createElem('div')) => {
+  let elem = createElem(tag);
+  parent.appendChild(elem);
+  children.forEach(child => arrayToNodes(child, elem));
+  return parent.firstChild;
+};
+
+//=================================================//
+
+const _2_arrayToNodes = ([tag, children]) => {
+  let parent = document.createElement(tag);
+  children.forEach(child => parent.appendChild(arrayToNodes(child)));
+  return parent;
+};
+
+//=================================================//
+
+const arrayToNodes = ([tag, children]) => {
+  let parent = document.createElement(tag);
+  children.map(arrayToNodes).forEach(parent.appendChild, parent);
+  return parent;
+};
+
+//======================== ex1 =========================//
+
+let nodes1 = ["BODY",[["HEADER",[]],["MAIN",[]],["FOOTER",[]]]];
+// ["BODY", [
+//   ["HEADER", []],
+//   ["MAIN",   []],
+//   ["FOOTER", []],
+// ]],
+
+p(arrayToNodes(nodes1));
+
+// example1-output
+// <body>
+//   <header></header>
+//   <main></main>
+//   <footer></footer>
+// </body>
+
+//======================== ex2 =========================//
+
+let nodes2 = ["BODY",[["DIV",[["DIV",[]],["DIV",[["DIV",[]]]]]],["DIV",[]],["DIV",[["DIV",[]],["DIV",[]],["DIV",[]]]]]];
+// ["BODY", [
+//   ["DIV", [
+//     ["DIV", []],
+//     ["DIV", [
+//       ["DIV",[]]]]]],
+//   ["DIV", []],
+//   ["DIV", [
+//     ["DIV", []],
+//     ["DIV", []],
+//     ["DIV", []]]]]]
+
+p(arrayToNodes(nodes2));
+
+// <body>
+//   <div>
+//     <div></div>
+//     <div>
+//       <div></div>
+//     </div>
+//   </div>
+//   <div></div>
+//   <div>
+//     <div></div>
+//     <div></div>
+//     <div></div>
+//   </div>
+// </body>
+
+
+//======================================================================================//</script>
+</body>
+</html>

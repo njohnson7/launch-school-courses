@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>runner</title>
+  <meta charset='utf-8'>
+  <style>
+    body           { background: #000;    color: #eee; }
+    input          { background: #222;    color: #33b5e5; border: #555 solid 1px; }
+    button, select { background: #33b5e5; color: #000;    border: #555 solid 1px; }
+  </style>
+  <script src='../good_functions.js'></script>
+  <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+  this.querySelector('form').onsubmit = function (e) {
+    e.preventDefault();
+    let [num1, num2] = [...this.querySelectorAll('input')].map(num => ~~num.value);
+    let op           = this.querySelector('select').value;
+    let result       = {
+      '+': (a, b) => a + b,
+      '-': (a, b) => a - b,
+      '*': (a, b) => a * b,
+      '/': (a, b) => a / b,
+    }[op](num1, num2);
+
+    document.querySelector('h1').innerText = result;
+  };
+});
+
+  </script>
+</head>
+<body>
+  <h1 id='result'>0</h1>
+
+  <form action='#' method='get'>
+    <input id='num1' type='number' value='0'>
+    <select id='op'>
+      <option>+</option>
+      <option>-</option>
+      <option>*</option>
+      <option>/</option>
+    </select>
+    <input id='num2' type='number' value='0'>
+    <button type='submit'>=</button>
+  </form>
+</body>
+</html>

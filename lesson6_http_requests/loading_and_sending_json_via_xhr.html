@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>loading sending json via XHR</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html        { box-sizing: border-box; }
+    body           { background: #000;    color: #eee; font: 18px Helvetica, Arial, sans; }
+    input          { background: #222;    color: #eee; border: #555 solid 1px; caret-color: #15f4ee; }
+    button, select { background: #33b5e5; color: #000; border: #178ab4 solid 1px; }
+    a              { color: #33b5e5; text-decoration: none; }
+    a:hover        { text-decoration: underline; }
+  </style>
+  <!-- <script src='lib/jquery.js'></script> -->
+  <!-- <script src='lib/handlebars.js'></script> -->
+  <script src='../lib/good_functions.js'></script>
+</head>
+<body>
+
+
+<!--====================================================================================--><script>
+
+//======================== Loading JSON via XHR =========================//
+
+// let req = new XMLHttpRequest;
+// req.open('GET', 'https://api.github.com/repos/rails/rails');
+// req.responseType = 'json';
+// req.onload       = e => e.target.response.p;
+// req.send();
+
+
+//----------------------------------------------------------------------------//
+
+
+// let req = new XMLHttpRequest;
+// req.open('GET', 'https://api.github.com/repos/rails/rails');
+// req.open('GET', 'a');
+// req.responseType = 'json';
+// req.onload = function (e) {
+//   this.status.p;
+//   this.response.open_issues.p;
+// };
+// req.onerror = _ => 'The request could not be completed!'.p;
+// req.send();
+
+
+
+//============================================================================//
+//======================== Sending JSON via XHR =========================//
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+// req.onloadend = e => e.target.tap().tap(t => t.status.p).tap(t => t.statusText.p);
+// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+// let data = 'title=Programming%20Ruby&author=Dave%20Thomas';
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-book-catalog.herokuapp.com/books');
+// req.setRequestHeader('Content-Type', 'application/json');
+// req.onloadend = pInfo;
+// let data = jstr({ title: 'cool book', author: 'bob' });
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+/*
+POST /books HTTP/1.1
+Host: ls-230-book-catalog.herokuapp.com
+Content-Type: application/json
+Content-Length: 36
+
+{"title":"cool book","author":"bob"}
+*/
+
+//----------------------------------------------------------------------------//
+
+// let req = new XMLHttpRequest;
+// req.open('POST', 'http://ls-230-web-store-demo.herokuapp.com/v1/products');
+// req.setRequestHeader('Content-Type',  'json');
+// req.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+// req.onloadend = pInfo;
+// let data = jstr({ name: 'coolest pen', sku: 'coolpen242', price: 9000 });
+// req.send(data);
+
+//----------------------------------------------------------------------------//
+
+makeRequest({
+  url:     'http://ls-230-web-store-demo.herokuapp.com/v1/products',
+  method:  'POST',
+  headers: {
+    'Content-Type':  'json',
+    'Authorization': 'token AUTH_TOKEN',
+  },
+  data: jstr({ name: 'coolest pen', sku: 'coolpen247', price: 9000 }),
+});
+
+//======================================================================================//</script>
+</body>
+</html>

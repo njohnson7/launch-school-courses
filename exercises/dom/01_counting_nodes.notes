@@ -1,0 +1,25 @@
+html
+  head
+  body
+    div
+      empty
+      p
+        text
+        em
+          text
+        text
+      empty
+
+== 11
+
+html
+  head
+  body
+    div
+      p
+        text
+          em
+            text
+        text
+
+== 9

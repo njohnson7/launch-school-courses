@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>5 - Multiple Choice Quiz</title>
+  <meta charset='utf-8'>
+  <link href='../../lib/whitespace_reset.css' rel='stylesheet'>
+  <style>
+    body { margin: 40px; font-size: 19px; }
+    h1 { font-size: 1.7rem; margin-bottom: 40px; }
+    h2 { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
+    li { margin-bottom: 6px; }
+    input { margin-right: 5px; }
+    button { font-size: 1.2rem; margin: 20px 5px 0 0; border-radius: 5px; padding: 8px 10px; border: none; }
+    button:hover { cursor: pointer; }
+    button:disabled { background: #333; }
+    .resultMsg { border: 1px solid #33b5e5; padding: 5px; margin: 8px 0 35px; color: #33b5e5; padding: 7px; visibility: hidden; background: #111; height: 35px; }
+    .resultMsg.correct, .resultMsg.incorrect { visibility: visible; }
+    .resultMsg.incorrect { border-color: #b90454; color: #b90454; }
+  </style>
+  <script src='../../lib/good_fns_lite.js'></script>
+</head>
+<body>
+  <h1>Multiple Choice Quiz</h1>
+  <form>
+    <ul id='questionsList'>
+    </ul>
+    <button id='submit'>Submit Quiz</button>
+    <button type='reset' id='reset' disabled>Reset</button>
+  </form>
+
+  <template id='questionTemplate'>
+    <li id='q#{id}'>
+      <h2>Q#{id}. #{description}</h2>
+      <ul class='options'>
+        #{each_S options}
+          <li><label><input type='radio' name='q#{../id}' value='#{.}'>#{.}</label></li>
+        #{each_E}
+      </ul>
+      <p class='resultMsg' id='q#{id}_resultMsg'></p>
+    </li>
+  </template>
+
+<!--==================================================================================--><script>
+
+const qs  = document.querySelector.bind(document);
+const qsa = selector => [...document.querySelectorAll(selector)];
+
+const QUESTIONS = [{
+  id:          1,
+  description: "Who is the author of <cite>The Hitchhiker's Guide to the Galaxy</cite>?",
+  options:     ['Dan Simmons', 'Douglas Adams', 'Stephen Fry', 'Robert A. Heinlein'],
+}, {
+  id:          2,
+  description: 'Which of the following numbers is the answer to Life, the universe, and everything?',
+  options:     ['66', '13', '111', '42'],
+}, {
+  id:          3,
+  description: 'What is Pan Galactic Gargle Blaster?',
+  options:     ['A drink', 'A machine', 'A creature', 'None of the above'],
+}, {
+  id:          4,
+  description: 'Which star system does Ford Prefect belong to?',
+  options:     ['Aldebaran', 'Algol', 'Betelgeuse', 'Alpha Centauri'],
+}];
+const ANSWER_KEY        = { 1: 'Douglas Adams', 2: '42', 3: 'A drink', 4: 'Betelgeuse' };
+const QUESTION_TEMPLATE = qs('#questionTemplate').innerHTML.trim();
+const TOKEN             = /#\{(.+?)\}/;
+const TOKEN_EACH        = /#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/;
+
+
+const replaceT = (template, obj, parent) => {
+  return template.replace(/#\{(.+?)\}/g, (_, prop) => {
+    if (prop == '.') return obj;
+    if (prop.startsWith('../')) return parent[prop.slice(3)];
+    return obj[prop];
+  });
+};
+
+// const renderTemplate = (template, obj) => {
+//   while (template.includes('#{each_S')) {
+//     template = template.replace(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/, (m, prop, temp) => {
+//       return obj[prop].map(x => replaceT(temp, x, obj)).join('');
+//     });
+//   }
+
+//   return replaceT(template, obj);
+// };
+
+const renderTemplate = (template, obj) => {
+  if (!template.includes('#{each_S')) return replaceT(template, obj);
+
+  let temp2 = template.replace(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/, (m, prop, temp) => {
+    return obj[prop].map(x => replaceT(temp, x, obj)).join('');
+  });
+
+  return renderTemplate(temp2, obj);
+};
+
+
+// const renderTemplate = (template, obj) => {
+//   if (!template.includes('#{each_S')) {
+//     return template.replace(/#\{(.+?)\}/g, (_, prop1) => obj[prop1]);
+//   }
+
+//   return template.replace(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/, (m, prop, temp) => {
+//     return renderTemplate(temp, prop);
+//   });
+
+    // let [m, prop, temp] = template.match(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/);
+  // debugger;
+
+
+  // // return template.replace(/#\{each_S [\s\S]+?#\{each_E\}|#\{(.+?)\}/g, (m, p1) => {
+  // return template.replace(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}|#\{(.+?)\}/g, (m, p1, p2) => {
+  //   if (typeof p2 == 'number') return obj[p1];
+  //   debugger;
+  //   // obj[p1].forEach(x => renderTemplate(p2, x));
+
+  //   // let subObj = m.match(/#\{each_S (.+?)\}/);
+  //   // let subObj = m.match(/#\{each_S (.+?)\}([\s\S]+?)#\{each_E\}/);
+  //   // p(subObj);
+
+
+
+  //   // debugger;
+  //   // if (!p1.startsWith('>each')) return obj[p1];
+  // });
+// };
+
+// const renderTemplate = (template, obj) => {
+//   return template.replace(TOKEN, (_, prop1, __, prop2) => (
+//     prop2 ? obj[prop1][prop2] : obj[prop1]
+//   ));
+// };
+
+const renderQuestions = _ => {
+  let questions = QUESTIONS.map(question => renderTemplate(QUESTION_TEMPLATE, question));
+  questionsList.innerHTML = questions.join('');
+};
+
+const toggleDisabled = _ => {
+  form.submit.disabled = !form.submit.disabled;
+  form.reset.disabled  = !form.reset.disabled;
+};
+
+let form          = qs('form');
+let questionsList = qs('#questionsList');
+renderQuestions();
+let resultMsgs = qsa('.resultMsg');
+
+form.onsubmit = e => {
+  e.preventDefault();
+  toggleDisabled();
+
+  QUESTIONS.forEach(({ id }) => {
+    let userAnswer = form[`q${id}`].value;
+    let resultMsg  = qs(`#q${id}_resultMsg`); // fix!
+    let answer     = ANSWER_KEY[id];
+
+    if (userAnswer == answer) {
+      resultMsg.innerText = 'Correct Answer';
+      resultMsg.classList.add('correct');
+    } else {
+      let explanation = userAnswer ? 'Wrong Answer' : 'You did not answer this question';
+      resultMsg.innerText = `${explanation}. The correct answer is: "${answer}".`;
+      resultMsg.classList.add('incorrect');
+    }
+  });
+};
+
+form.onreset = _ => {
+  toggleDisabled();
+  resultMsgs.forEach(resMsg => resMsg.classList.remove('correct', 'incorrect'));
+};
+
+//=====================================================================================//</script>
+</body>
+</html>
+
+<!-- <li><label><input type='radio' name='q#{id}' value='#{options[0]}'>#{options[0]}</label></li>
+        <li><label><input type='radio' name='q#{id}' value='#{options[1]}'>#{options[1]}</label></li>
+        <li><label><input type='radio' name='q#{id}' value='#{options[2]}'>#{options[2]}</label></li>
+        <li><label><input type='radio' name='q#{id}' value='#{options[3]}'>#{options[3]}</label></li> -->

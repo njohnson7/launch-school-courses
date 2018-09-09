@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <title>runner</title>
+  <meta charset='utf-8'>
+  <style>
+    *, html           { box-sizing: border-box; }
+    body              { background: #000;    color: #33b5e5; font: 16px Helvetica, sans; }
+    input             { background: #222;    color: #33b5e5; border: #555 solid 1px; }
+    button, select    { background: #33b5e5; color: #000;    border: #178ab4 solid 1px; }
+    li                { display: inline-block; }
+    article ~ article { display: none; }
+  </style>
+  <script src='jquery-3.2.1.js'></script>
+  <script src='good_functions.js'></script>
+  <script>
+$(function () {
+  $('a').click(function (e) {
+    e.preventDefault();
+    let block = $(this).data('block');
+    $('article').hide().filter(`[data-block=${block}]`).show();
+  });
+});
+  </script>
+</head>
+<body>
+  <ul>
+    <li><a href='#' data-block='gold'>Gold Sponsors</a></li>
+    <li><a href='#' data-block='silver'>Silver Sponsors</a></li>
+    <li><a href='#' data-block='bronze'>Bronze Sponsors</a></li>
+  </ul>
+
+  <article data-block='gold'>
+    <h1>Gold Sponsors</h1>
+  </article>
+
+  <article data-block='silver'>
+    <h1>Silver Sponsors</h1>
+  </article>
+
+  <article data-block='bronze'>
+    <h1>Bronze Sponsors</h1>
+  </article>
+</body>
+</html>

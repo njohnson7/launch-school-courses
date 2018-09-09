@@ -1,0 +1,21 @@
+module.exports = {
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jquery": true
+    },
+    "extends": "airbnb",
+    "rules": {
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "func-style": "off",
+        "func-names": "off",
+        "no-plusplus": "off",
+        "eqeqeq": "off",
+        "prefer-arrow-callback": "off",
+        "prefer-const": "off",
+        "no-multi-spaces": "off",
+    }
+};
