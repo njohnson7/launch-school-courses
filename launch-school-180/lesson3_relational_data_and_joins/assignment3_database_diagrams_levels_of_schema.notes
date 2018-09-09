@@ -1,0 +1,34 @@
+--------- 1 ---------
+What are the three levels of schema?:
+
+  1. conceptual
+  2. logical
+  3. physical
+
+
+
+
+--------- 2 ---------
+What is a conceptual schema?:
+
+  - a high level design focusing on identifying entities and their relationships
+
+
+
+
+
+--------- 3 ---------
+What is a physical schema?:
+
+  - a low-level DB-specific design focused on implementation
+
+
+
+
+
+--------- 4 ---------
+What are the three types of relationships that can be shown in a database diagram?:
+
+  1. one-to-one
+  2. one-to-many
+  3. many-to-many

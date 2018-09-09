@@ -1,0 +1,459 @@
+=============================================================================
+----------------- TO STUDY -------------------
+=============================================================================
+
+
+  - #  review all 'what to focus on' and 'summaries'
+
+  - #  answer all study guide questions throroughly and write out examples when possible
+
+  - #  add examples of what ahppens when you try to alter a table's schema and the table already has values that violate a new constraint/type/etc...
+
+
+SQL:
+  - DDL, DML, DCL
+  - INNER/LEFT/RIGHT JOIN
+  - INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN
+  - GROUP BY, ORDER BY, WHERE, HAVING
+
+PostgreSQL:
+  - sequence
+  - auto-incrementing column
+  - DEFAULT value
+  - keys:  primary, foreign, natural, surrogate
+  - CHECK constraints
+  - foreign key constraints
+
+DB Diagrams:
+  - cardinality, modality
+  - crow's foot notation
+
+
+
+========
+
+- table and column aliases video...?
+  - "https://launchschool.com/lessons/d8c90dd4/assignments/1a303905"
+
+
+
+=============================================================================
+=============================================================================
+
+
+Docs video:
+  - description of syntax box:
+    - anything inside square brackets "[ ]" ---> optional
+      - everything else is required
+    - "{ }" ---> choose one
+        ex: "{ UNION | INTERSECT | EXCEPT }"
+    - <bold/italic terms>: more info about term is somewhere in page later
+
+
+PSQL CLI interface video:
+  - <modifiers column>: meta-data about the column that DB uses when you're inserting values or modifying already existing values
+  - <indexes and constraints>: things that DB uses to enforce rules about what data can be stored in the table, as well as the relationships b/w values in diff. places and diff. tables
+
+
+# remember!
+[sql]
+      SELECT year / 10 * 10 AS decade, genre, string_agg(title, ', ') AS films
+        FROM films GROUP BY decade, genre ORDER BY decade, genre;
+[/sql]
+
+
+
+
+
+
+
+==============================================================================
+              #     How PostgreSQL Executes a SELECT Query     #
+==============================================================================
+
+1. <rows> are <collected> into a <virtual derived table>
+  - a new temporary table is created using the data from all tables in the `FROM` and `JOIN` clauses
+
+2. <rows> are <filtered> using `WHERE` <conditions>
+  - all the conditions in the WHERE clause are evaluated for each row
+      ---> rows that don't meet these requirements are removed
+
+3. <rows> are <divided> into <groups> specified by `GROUP BY` clause
+  - both GROUP BY and aggregate functions perform grouping
+
+4. <groups> are <filtered> using `HAVING` conditions
+  - HAVING conditions are similar to WHERE conditions
+    - except they are applied to the values that are used to create groups, instead of individual rows
+    - so a column appearing in a HAVING clause should almost always appear in the GROUP BY clause and/or aggregate function
+
+5. <compute values to return> using <select list>
+  - each element in the select list is evaluated, including any functions
+  - the resulting values are associated with either:
+    a. name of the column they are from
+    b. name of the last function evaluated
+    c. name specified by `AS`
+
+6. <sort> results
+  - result set is sorted as specified in an `ORDER BY` clause
+    - w/o this clause, the order is based on the result of how the DB executed the query and the rows' order in the original tables
+    - it's best to always specify an explicit order if your app relies on rows being returned in a specific order
+
+7. <limit> results
+  - if `LIMIT` or `OFFSET` clauses are included in the query, these are used to adjust which rows in the result set are returned
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================================================
+
+
+--------- Lessos 2 Assignment 11 VIDEO - Table and COlumn Aliases-------------
+
+- alias: using the AS keyword in SQL to rename s/t that exists in database or schema
+  - when you alias a table, that becomes the name you # have to use # for the rest of the query (# you can't use original name!)
+  - we can replace original name w/ alias to make query shorter and easier to understand
+  - usually alias using the first letter of the table
+
+  - generally it's good not to alias table names unless you absolutely have to
+
+  - always good to alias functions like count, so that column name makes more sense
+
+- no need to specify table when SELECTing a column and JOINing 2 tables if column name is unique to both tables
+
+
+
+
+--------- Lesson 3 Database Diagrams: Levels of Schema VIDEO -------------
+####################### WATCH AGAIN AND TAKE MORE NOTES! ######################
+
+- *conceptual schema* => high-level design focused on identifying entities and their relationships
+  - *entity relationship model* (*ERD*) (*entity relationship diagram*) => a conceptual schema  !!! FLASH CARD...? !!!
+    - deals w/ <entities>
+
+- *physical schema* => low-level DB-specific design focused on implementation
+
+
+
+
+
+--------- Lesson 3 Database Diagrams: Cardinality and Modality VIDEO ---------
+####################### WATCH AGAIN AND TAKE MORE NOTES! ######################
+
+- *cardinality* => the number of objects on each side of the relationship (1:1, 1:M, M:M)
+
+- *modality* => if the relationship is required (1) or optional (0)
+  - required (1) => has to be at least one instance of that entity
+  - not requried (optional) (0) => don't need to be any instances at all
+  - the lower bound on how many instances there can be in a relationship
+
+- <one-to-one relationships> are rare in databases
+  - two entitities w/ a one-to-one relationship can often be combined into 1 entity and/or stored in the same table
+  - the physical schema you create for a one-to-one rel is the same as a one-to-many rel
+  - which primary key should be used as the foreign key is ambiguous
+
+- *crows foot notation* => a database diagram notation that literally represents rels
+
+- important things to consider when looking at diagrams
+  - what level of schema is it representing?
+  - how are the different kinds of rels represented?
+  - are the attributes and entities shown, and if so how?
+
+
+
+
+--------- Lesson 3 JOINs VIDEO ---------
+!!!!!!!! FLASH CARDS!!!!!!!
+- INNER JOIN tells DB that it needs to find a matching row in both tables in order to return a row for either one
+  - so INNER JOIN is good when you know there will always be a mtaching value in both tables
+
+- LEFT OUTER JOIN => always get all rows from left table, but only matching rows from right table
+
+- LEFT OUTER JOIN is more commonly used
+
+- usually JOIN is equivalent to INNER JOIN
+- usually LEFT JOIN is equivalent to LEFT OUTER JOIN
+  - but it's best to use most explicit name for understandiblity
+
+- CROSS JOIN => not common; generates every combo of 2 tables
+
+- alternative ways to write JOINS:
+  - CROSS JOIN
+      ex: SELECT * FROM users, comments;
+  - INNER JOIN
+      ex: SELECT * FROM users, comments WHERE comments.user_id = users.id
+  - # best to use explict JOIN format!
+
+
+[sql]
+  SELECT customers.id, customers.email, COUNT(DISTINCT tickets.event_id)
+    FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id
+    GROUP BY customers.id
+    HAVING COUNT(DISTINCT tickets.event_id) = 3;
+[/sql]
+
+
+
+
+----------------------- DDL EXERCISES ----------------------------------------
+#################### possible notes/flashcards.... ###########################
+    - data types (numeric, real, etc)
+    - IN operator
+    - how altering table's schema affects data in rows (type, constraints, etc)
+
+
+
+
+
+--------------------- LESSON 4 - Interacting w/ a DB in code  -----------------
+
+A-3 VIDEO - Excuting SQL statements from Ruby:
+
+- pg gem: default Postgres adapter gem for Ruby
+
+- tuple => a Ruby hash (in pg gem) (different meaning in DB terminology)
+- semicolons are optional when using pg gem (it adds it for you automatically)
+- always have a separate exec call for every statment
+
+#### flashcards/notes -----> pg methods
+
+
+
+A-4 Video - Demo:
+  # .... #
+
+A-10... Notes:
+  # take notes! #
+
+A-11: Video - Code Structure (diagram):
+  # take notes! #
+
+A-12 Notes:
+  - ILIKE => case insenstivie version of LIKE operator
+
+A-13.... etc:
+  # review? #
+
+
+
+
+--------------------- LESSON 5 - Database-backed Web Apps  -----------------
+
+What schema does an application require?:
+  - # Being able to map the data used by a project to a database schema is an important skill.
+
+A-3 Project Overview Video:
+  # watch again and take notes! #
+
+A-4... etc...:
+  # take notes... #
+
+Load_todos video:
+  - by default, everything we send to or get back from PG gem that gets turned into a query or gets sent back as result is a <string>
+
+- sinatra reloader can load more files:
+  - "http://www.sinatrarb.com/contrib/reloader"
+
+SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+LEFT OUTER JOIN
+  (SELECT list_id, count(*) AS incomplete FROM todos
+   WHERE completed = false
+   GROUP BY list_id)
+ AS sub ON sub.list_id = lists.id
+GROUP BY lists.id, sub.incomplete;
+
+
+
+--------------------- LESSON 6 - Optimizing SQL Queries  -----------------
+KEY POINTS:
+  - #  what are N + 1 queries
+    - #  how can they be addressed?
+  - #  what is a subquery?
+    - #  how to use it?
+
+A-1 video:
+  - < N + 1 query > => #  total num of queries == num of elems on screen + 1 for original query
+          !!!! FLASH CARD !!!!!
+    - ex: loading todo lists on "/lists"
+
+  -basic web dev pattern:
+    - get things to work using basic methods
+    - after, go and optimize things to improve performance
+
+  - minimzing amount of SQL queries needed to display a page is an important way to optimize
+    - allows us to sustain a larger num of users, and also make better use of resources on host
+
+
+
+- many queries can be accomplished by using either JOINs or subqueries
+
+
+A-3 video - optimizing n+1 queries:
+  # TAKE NOTES FROM VIDEO AT 18:20-end!!!
+
+  - only optimize like this when really necessary
+    - like after you notice performance issues
+      - then you can create special case queries liek this
+  - more generalized queries makes developing app much simpler and convenient
+
+
+
+A-3 video - pushing down operations to the DB:
+  # maybe take more notes...?
+
+  - it's more efficent to get DB to count things than Ruby
+    - especially w/ large amounts of data!
+
+# what we did in video:
+  1. we moved some business logic from the app into the DB (ie, count)
+    - allows us to perform same functionality in more efficient way
+
+  2. we standardized how hashes are used in the app, and made sure that they always have the same keys in them
+    - makes app simpler
+    - lets us rely on fact that certain keys will always be there
+
+  3. we changed way we load data for a list page
+    - load list hash into ivar
+    - load todos into separate ivar
+
+
+
+
+
+--------------- MEDIUM SUBQUERIES EXERCISES ---------------------------
+  - #  any/all: take notes.......?
+
+  - #  other stuff: take notes.......?
+
+  - #  row comparison.......?
+
+  - #  EXPLAIN and ANALYZE.......?
+
+
+
+
+
+
+
+
+
+
+
+---------- questions ------------
+
+- difference b/w entity and entity instance?
+- "Relational databases are called relational because they persist data in a set of relations"
+  - # lookup # ---> "persist data in a set of relations"...
+
+- # heroku todos internal server error??
+
+
+
+
+
+
+
+---------------------------------------------------
+[sql]
+
+
+
+INSERT INTO lists (name) VALUES
+  ('Groceries'),
+  ('Homework'),
+  ('Chores'),
+  ('Work'),
+  ('Trips'),
+  ('Calls'),
+  ('Errands');
+
+INSERT INTO todos (name, completed, list_id) VALUES
+  ('Science', false, 1),
+  ('Math', false, 1),
+  ('Lettuce', false, 2),
+  ('Cheese', false, 2),
+  ('Onion', true, 2),
+  ('Dust bookshelves', false, 4),
+  ('Grocery store', false, 8),
+  ('Cleaners', false, 8),
+  ('Bank', true, 8),
+  ('Library', false, 8);
+
+
+SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+LEFT OUTER JOIN
+  (SELECT list_id, count(*) AS incomplete FROM todos
+   WHERE completed = false
+   GROUP BY list_id)
+ AS sub ON sub.list_id = lists.id
+GROUP BY lists.id, sub.incomplete;
+
+
+
+SELECT lists.*,
+       count(todos.id) AS todos_count,
+       count(nullif(todos.completed, true)) AS todos_remaining
+  FROM lists
+    LEFT JOIN todos ON todos.list_id = lists.id
+  GROUP BY lists.id;
+
+
+[end]
+
+
+
+
+
+----------- backup from DB_persistence.rb -------------------------
+[ruby]
+
+def all_lists
+  sql = <<~SQL
+    SELECT lists.id, lists.name, sub.incomplete, count(todos.list_id) AS total
+    FROM lists LEFT OUTER JOIN todos ON todos.list_id = lists.id
+    LEFT OUTER JOIN
+      (SELECT list_id, count(*) AS incomplete FROM todos
+       WHERE completed = false
+       GROUP BY list_id)
+     AS sub ON sub.list_id = lists.id
+    GROUP BY lists.id, sub.incomplete;
+  SQL
+  result = query(sql)
+
+  result.map do |tuple|
+    list_id = tuple['id'].to_i
+
+    { id:    list_id,
+      name:  tuple['name'],
+      todos: create_empty_todos(tuple['incomplete'], tuple['total']) }
+  end
+end
+
+def create_empty_todos(incomplete, total)
+  num_complete = total.to_i - incomplete.to_i
+  num_incomplete = incomplete.to_i
+
+  [ *(1..num_complete).map { |n| { id: 0, name: '', completed: true } },
+    *(1..num_incomplete).map { |n| { id: 0, name: '', completed: false } } ]
+end
+
+
+### IMPLEMENT...?
+  # def error=(msg)
+  #   session[:error] = msg
+  # end
+
+  # def success=(msg)
+  #   session[:success] = msg
+  # end
+
+[end]

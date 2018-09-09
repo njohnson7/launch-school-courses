@@ -1,0 +1,60 @@
+------ 1. -------
+
+  -- SQL is a special purpose language, or DSL, used for interacting w/ relational databases.
+
+
+
+
+------ 2. --------
+
+  -- 3 sublanguages of SQL:
+
+    -- Data Definition Language (DDL)
+      -- for creating/manipulating databases and their schema/structure
+
+    -- Data Manipulation Language (DML)
+      -- for creating/modifying data w/i a database
+
+    -- Data Control Language (DCL)
+      -- for access control
+
+
+
+
+------ 3. -------
+  -- 'canoe'
+  -- 'a long road'
+  -- 'weren''t'
+  -- '"No way!"'
+
+
+
+
+------ 4 ------
+
+  -- the || operator is used to concatenate strings
+
+
+
+
+------ 5 ------
+
+  -- the lower() function returns lowercase version of a string
+
+
+
+
+------ 6 -------
+
+  -- psql console displayes boolean values as: t / f
+
+
+
+
+------ 7 -------
+
+  [sql]
+
+    SELECT trunc(4 * pi() * 26.3 ^ 2);
+
+  [/sql]
